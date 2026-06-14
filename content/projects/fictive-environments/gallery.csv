@@ -1,0 +1,11 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,fictive-environments-studio-identity.webp,,Establishing System,hero,The Studio as Interface,"A studio positioned between physical space, code, narrative, and civic infrastructure.","Shows Fictive Environments as an operating layer, not a brand wrapper.",primary
+2,text,,,Thesis,thesis,Reality Is a Design Problem,Fictive Environments uses fiction to design systems that reality has not yet learned how to hold.,Defines fiction as engineering method.,secondary
+3,image,fictive-environments-generated-v1.webp,,Mechanism,system,The Meaning Stack Enters the City,"Space, code, sound, and narrative become interchangeable deployment layers.",Establishes the studio’s technical and spatial logic.,secondary
+4,text,,,Conflict,evidence,Between Panic Feed and Dead Institution,Digital systems accelerate faster than human bodies and civic structures can process.,Names the gap the studio occupies.,secondary
+5,image,fictive-geographies.JPG,,Process,process,Structural Fiction,"The studio writes the future object first, then reverse-engineers the conditions required to make it real.",Shows fiction functioning as infrastructure design.,secondary
+6,text,,,Public Consequence,evidence,Architectures of Belonging,Belonging is not treated as sentiment. It becomes a designed environment.,Connects studio identity to deployed project types.,secondary
+7,text,,,Mechanism,system,Governance Triad in Practice,"Every intervention needs a stabilizer, a boundary, and a consent point.",Makes the studio’s design ethics operational.,secondary
+8,text,,,Public Consequence,evidence,Para-Institutional Posture,"The studio behaves like a para-institution: flexible, rigorous, and deliberately hard to reduce to one genre.",Establishes institutional legibility.,secondary
+9,text,,,Hidden Labor,process,Deployment Gap,The missing layer is not ideas. It is deployment protocol.,Identifies what must be built for external adoption.,secondary
+10,text,,,Coda,coda,A Fiction That Became Load-Bearing,The future becomes real when the structure can carry weight.,"Ends with infrastructure, not branding.",quiet

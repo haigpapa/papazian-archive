@@ -1,0 +1,9 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,13_maqamai.png,,Establishing Artifact,hero,Interval Made Visible,The invisible interval becomes inspectable.,Establishes learning surface.,primary
+2,text,,,Thesis,thesis,You Cannot Engineer What You Cannot Hear,Technical competence begins with perceptual competence.,Reframes listening as infrastructure.,secondary
+3,image,maqamai-arabic-music-theory-synthesizer.jpeg,,System,system,Lesson Flow,MaqamAI teaches the ear before it evaluates the model.,Shows pedagogical sequence.,secondary
+4,image,maqamai-maqam-ai-interface.png,,Evidence,evidence,Reference / Flattened Output,The ear learns the difference between structure and imitation.,Makes failure audible.,secondary
+5,image,maqamai-radial-tuning-sequences.png,,Technical Proof,system,Microtonal Error Card,Western pitch grids cannot fully contain maqam behavior.,Explains why failure occurs.,secondary
+6,image,maqamai-sound-visualization.png,,Public Consequence,evidence,Engineer Mode,The tool translates cultural listening into development practice.,Bridges pedagogy and technical standards.,secondary
+7,text,,,Relation,context,Relation to Localization Gap / HAH-WAS,The audit identifies the gap; MaqamAI trains the perception needed to close it.,Shows role inside Sonic Intelligence.,secondary
+8,text,,,Coda,coda,The Trained Ear,The system ends with a listener still learning.,Ends with human capacity.,quiet

@@ -1,0 +1,17 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,09_sometimes_i_wake_up_elsewhere.png,,Establishing Artifact,hero,Manuscript on Desk,"The system begins as writing, not interface theater.",Grounds the work in literary labor.,primary
+2,text,,,Thesis,thesis,Exile as Interface,The work does not describe exile. It makes exile navigable.,Reframes manuscript as architecture.,secondary
+3,text,,,System,system,Nine Houses,The manuscript is distributed across houses rather than chapters.,Establishes architectural structure.,secondary
+4,image,siwue-manuscript-fragment.webp,,Literary Evidence,evidence,Entry Fragment,The emotional stakes arrive through voice before mechanics.,Lets language carry the argument.,secondary
+5,text,,,Technical Proof,system,Temporal Debt Ledger,Movement through the text has metabolic cost.,Makes reading behavior measurable.,secondary
+6,image,siwue-mobius-structure.png,,Mechanism,system,Möbius Engine,Returning to the same place does not guarantee the same reality.,Shows non-linear narrative logic.,secondary
+7,image,siwue-observed-reality-mobius.png,,Conflict,evidence,Face A / Face B,The stable surface flips into its underside.,Defines the state-change mechanism.,secondary
+8,image,sometimes-i-wake-up-elsewhere-generated-v1.webp,,Technical Proof,evidence,Typographic Shatter,Accumulated debt physically damages the reading surface.,Shows trauma as interface behavior.,secondary
+9,image,siwue-algorithmic-displacement-audit.jpeg,,Administrative Fiction,evidence,Form 404,The system files what it cannot retrieve.,Connects SIWUE to Cartography.,secondary
+10,image,siwue-observed-reality-visualization.jpg,,Surveillance,context,SparrowOS Marker,Surveillance enters the narrative as a bureaucratic animal.,Shows mythic operating system layer.,secondary
+11,text,,,Live Proof,evidence,Interface Walkthrough,The literary system runs.,Proves executable architecture.,secondary
+12,text,,,System,process,Reader Journey Map,The reader’s movement becomes part of the manuscript.,Shows participatory structure.,secondary
+13,image,siwue-hallway-cat.png,,Atmospheric Silence,evidence,Ordinary Presence,"Life interrupts the machinery. Thankfully, because otherwise we are just designing trauma spreadsheets.",Preserves tenderness inside the system.,secondary
+14,text,,,Authorship,process,What Haig Built,"Authorship spans prose, system logic, interface behavior, and memory architecture.",Clarifies contribution.,secondary
+15,text,,,Relation,context,Relation to Cartography / DERIVE / MEKENA,"Literary exile becomes administrative fiction, memory retrieval, and physical shelter.",Places the work in the archive’s larger arc.,secondary
+16,image,siwue-still-room.png,,Coda,coda,Animal / Room / Light,"The system stops in ordinary life, not resolution.",Ends with presence.,quiet

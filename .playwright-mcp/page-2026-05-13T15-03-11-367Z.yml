@@ -1,0 +1,64 @@
+- main [ref=e3]:
+  - generic:
+    - paragraph: Drawing Archive Field 51%
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e7]
+    - generic [ref=e8]:
+      - button "Close detail view" [ref=e9]:
+        - img [ref=e11]
+      - generic [ref=e14]:
+        - heading "MEKENA NYC" [level=2] [ref=e15]
+        - generic [ref=e16]:
+          - generic [ref=e17]: lead
+          - generic [ref=e19]: 2025–26
+        - generic [ref=e20]:
+          - generic [ref=e21]: lead
+          - generic [ref=e22]: space
+          - generic [ref=e23]: systems
+        - generic [ref=e24]:
+          - paragraph [ref=e25]: "MEKENA makes the spatial argument explicit: the same systems thinking driving the software and performance work can operate at the scale of an actual building."
+          - paragraph [ref=e26]: "Lead work Domains: space, systems. Connected to fictive-environments."
+        - generic [ref=e27]:
+          - button "OPEN PROJECT RAIL" [ref=e28]:
+            - text: OPEN PROJECT RAIL
+            - img [ref=e29]
+          - button "COPY DIRECT LINK" [ref=e32]:
+            - img [ref=e33]
+            - text: COPY DIRECT LINK
+    - generic [ref=e38]:
+      - button "Open information" [ref=e39]:
+        - img [ref=e40]
+      - button "Index / All images MEKENA NYC lead / space + systems 004 / 119" [ref=e42]:
+        - generic [ref=e43]:
+          - generic [ref=e44]: Index / All images
+          - generic [ref=e45]: MEKENA NYC
+          - generic [ref=e46]: lead / space + systems
+        - generic [ref=e47]:
+          - generic [ref=e48]: "004"
+          - generic [ref=e49]: / 119
+      - generic [ref=e50]:
+        - 'button "Works: Project spine" [ref=e51]':
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - generic [ref=e55]: Works
+            - generic [ref=e56]: Project spine
+        - 'button "Project: Image rail" [ref=e57]':
+          - generic [ref=e58]:
+            - img [ref=e59]
+            - generic [ref=e61]: Project
+            - generic [ref=e62]: Image rail
+        - 'button "Index: All images" [ref=e63]':
+          - generic [ref=e64]:
+            - img [ref=e65]
+            - generic [ref=e70]: Index
+            - generic [ref=e71]: All images
+        - 'button "Atlas: Relations" [ref=e72]':
+          - generic [ref=e73]:
+            - img [ref=e74]
+            - generic [ref=e76]: Atlas
+            - generic [ref=e77]: Relations
+        - 'button "Orbit: Cinematic loop" [ref=e78]':
+          - generic [ref=e79]:
+            - img [ref=e80]
+            - generic [ref=e83]: Orbit
+            - generic [ref=e84]: Cinematic loop

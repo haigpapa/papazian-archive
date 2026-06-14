@@ -1,0 +1,122 @@
+[
+  {
+    "index": "01",
+    "title": "Architecture in Low Res",
+    "filename": "01_architecture_in_low_res.png",
+    "era": "ERA_01 / FOUNDATION_WORLD",
+    "tags": "SPATIAL  DIGITAL",
+    "status": "ASSETS: COMPLETE"
+  },
+  {
+    "index": "02",
+    "title": "The Cartography of Absence",
+    "filename": "02_cartography_of_absence.png",
+    "era": "ERA_01 / FOUNDATION_WORLD",
+    "tags": "MAPPING  VOID",
+    "status": "RAIL_DATA: VERIFIED"
+  },
+  {
+    "index": "03",
+    "title": "Mashrou' Leila",
+    "filename": "03_mashrou_leila.png",
+    "era": "ERA_02 / PUBLIC_CULTURE_WORLD",
+    "tags": "PERFORMANCE  CIVIC",
+    "status": "NARRATIVE: COMPLETE"
+  },
+  {
+    "index": "04",
+    "title": "Why We're Like This",
+    "filename": "04_why_were_like_this.png",
+    "era": "ERA_02 / PUBLIC_CULTURE_WORLD",
+    "tags": "IDENTITY  DISCOURSE",
+    "status": "ASSET_LIBRARY: COMPLETE"
+  },
+  {
+    "index": "05",
+    "title": "Space Time Tuning Machine",
+    "filename": "05_space_time_tuning_machine.png",
+    "era": "ERA_03 / EXILE_MACHINES_WORLD",
+    "tags": "SONIC  TEMPORAL",
+    "status": "RAIL_DATA: INTEGRATED"
+  },
+  {
+    "index": "06",
+    "title": "TEBR",
+    "filename": "06_tebr.png",
+    "era": "ERA_03 / EXILE_MACHINES_WORLD",
+    "tags": "DUST  MATERIAL",
+    "status": "EVIDENCE: LOGGED"
+  },
+  {
+    "index": "07",
+    "title": "Chronocumulator",
+    "filename": "07_chronocumulator.png",
+    "era": "ERA_03 / EXILE_MACHINES_WORLD",
+    "tags": "PHYSICS  SOUND",
+    "status": "NARRATIVE: SYNCHRONIZED"
+  },
+  {
+    "index": "08",
+    "title": "The Weather Rehearsal",
+    "filename": "08_weather_rehearsal.png",
+    "era": "ERA_03 / EXILE_MACHINES_WORLD",
+    "tags": "SIMULATION  RISK",
+    "status": "ASSETS: COMPLETE"
+  },
+  {
+    "index": "09",
+    "title": "Sometimes I Wake Up Elsewhere",
+    "filename": "09_sometimes_i_wake_up_elsewhere.png",
+    "era": "ERA_04 / MEMORY_INTERFACES_WORLD",
+    "tags": "TEXT  DISPLACEMENT",
+    "status": "NARRATIVE: COMPLETE"
+  },
+  {
+    "index": "10",
+    "title": "DERIVE",
+    "filename": "10_derive.png",
+    "era": "ERA_04 / MEMORY_INTERFACES_WORLD",
+    "tags": "NAVIGATION  URBAN",
+    "status": "RAIL_DATA: VERIFIED"
+  },
+  {
+    "index": "11",
+    "title": "STORYLINES",
+    "filename": "11_storylines.png",
+    "era": "ERA_04 / MEMORY_INTERFACES_WORLD",
+    "tags": "NARRATIVE  ARCHIVE",
+    "status": "PROCEDURAL_ASSETS: COMPLETE"
+  },
+  {
+    "index": "12",
+    "title": "HAH-WAS / Localization Gap",
+    "filename": "12_hah_was_localization_gap.png",
+    "era": "ERA_05 / SONIC_INTELLIGENCE_WORLD",
+    "tags": "AI  PHONETICS",
+    "status": "ASSETS: COMPLETE"
+  },
+  {
+    "index": "13",
+    "title": "MaqamAI",
+    "filename": "13_maqamai.png",
+    "era": "ERA_05 / SONIC_INTELLIGENCE_WORLD",
+    "tags": "MACHINE_LEARNING  SONIC",
+    "status": "MODEL_DATA: SYNCED"
+  },
+  {
+    "index": "14",
+    "title": "MEKENA NYC",
+    "filename": "14_mekena_nyc.png",
+    "era": "ERA_06 / SPATIAL_FUTURES_WORLD",
+    "tags": "CIVIC  INFRASTRUCTURE",
+    "status": "RAIL_DATA: INTEGRATED"
+  },
+  {
+    "index": "15",
+    "title": "Codeverse Explorer",
+    "filename": "15_codeverse_explorer.png",
+    "era": "ERA_06 / SPATIAL_FUTURES_WORLD",
+    "tags": "TECHNICAL  FUTURE",
+    "status": "ASSET_LIBRARY: COMPLETE"
+  }
+]

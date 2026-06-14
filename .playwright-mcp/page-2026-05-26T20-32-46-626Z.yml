@@ -1,0 +1,92 @@
+- main [ref=e3]:
+  - generic:
+    - paragraph: Drawing Archive Field 12%
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e6]
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - paragraph [ref=e10]: Systems Choreography
+        - paragraph [ref=e11]: Home / Orbit Intro
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - heading "Systems of Meaning" [level=2] [ref=e14]:
+            - text: Systems
+            - text: of Meaning
+          - paragraph [ref=e15]: I build systems for memory, performance, and cultural translation.
+          - paragraph [ref=e16]: Sound / Space / Code / Text / Image / Systems
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - paragraph [ref=e19]: Selected Works
+            - paragraph [ref=e20]: "20"
+          - generic [ref=e21]:
+            - paragraph [ref=e22]: Modes
+            - paragraph [ref=e23]: Works / Index / Atlas / Essays
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - paragraph [ref=e26]: About / Bio
+            - paragraph [ref=e27]: Born in Beirut and based in New York, Haig Papazian works across sound, architecture, film, AI, narrative, and cultural infrastructure. The work treats culture as an interface and technology as material, method, and critique.
+          - generic [ref=e28]:
+            - paragraph [ref=e29]: Editorial Case Studies
+            - generic [ref=e30]:
+              - article [ref=e31]:
+                - generic [ref=e32]:
+                  - paragraph [ref=e33]: Mashrou' Leila
+                  - generic [ref=e34]: "01"
+                - paragraph [ref=e35]: Cultural architecture / performance system
+                - paragraph [ref=e36]: A counter-public built through sound, image, language, identity, and collective risk.
+              - article [ref=e37]:
+                - generic [ref=e38]:
+                  - paragraph [ref=e39]: MEKENA NYC
+                  - generic [ref=e40]: "02"
+                - paragraph [ref=e41]: Space / residency / radical hospitality
+                - paragraph [ref=e42]: A physical operating system for artists, gathering, adaptive reuse, and diasporic belonging.
+              - article [ref=e43]:
+                - generic [ref=e44]:
+                  - paragraph [ref=e45]: Space Time Tuning Machine
+                  - generic [ref=e46]: "03"
+                - paragraph [ref=e47]: AI / sound / live instrument
+                - paragraph [ref=e48]: A speculative performance engine for memory, displacement, and machine listening.
+        - generic [ref=e49]:
+          - link "CV" [ref=e50] [cursor=pointer]:
+            - /url: /cv.pdf
+          - button "Explore the Work" [ref=e51]:
+            - text: Explore the Work
+            - img [ref=e52]
+        - paragraph [ref=e56]: "Twenty works orbit a single spine: memory as architecture, performance as infrastructure, translation as a moving system."
+    - generic [ref=e59]:
+      - button "Open information" [ref=e60]:
+        - img [ref=e61]
+      - button "Home / Orbit intro Archive field 20 works / 218 images FIELD / 020" [ref=e63]:
+        - generic [ref=e64]:
+          - generic [ref=e65]: Home / Orbit intro
+          - generic [ref=e66]: Archive field
+          - generic [ref=e67]: 20 works / 218 images
+        - generic [ref=e68]:
+          - generic [ref=e69]: FIELD
+          - generic [ref=e70]: / 020
+      - generic [ref=e71]:
+        - 'button "Home: Orbit intro" [ref=e72]':
+          - generic [ref=e73]:
+            - img [ref=e74]
+            - generic [ref=e77]: Home
+            - generic [ref=e78]: Orbit intro
+        - 'button "Works: 20-project spine" [ref=e79]':
+          - generic [ref=e80]:
+            - img [ref=e81]
+            - generic [ref=e83]: Works
+            - generic [ref=e84]: 20-project spine
+        - 'button "Index: Unwrapped grid" [ref=e85]':
+          - generic [ref=e86]:
+            - img [ref=e87]
+            - generic [ref=e92]: Index
+            - generic [ref=e93]: Unwrapped grid
+        - 'button "Atlas: Relations" [ref=e94]':
+          - generic [ref=e95]:
+            - img [ref=e96]
+            - generic [ref=e98]: Atlas
+            - generic [ref=e99]: Relations
+        - 'button "Essays: Writing panel" [ref=e100]':
+          - generic [ref=e101]:
+            - img [ref=e102]
+            - generic [ref=e104]: Essays
+            - generic [ref=e105]: Writing panel

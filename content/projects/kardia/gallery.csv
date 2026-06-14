@@ -1,0 +1,4 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,001-body-signal.webp,,Biofeedback,hero,Body Signal,The body is heard as texture and density instead of watched as a number.,,primary
+2,image,002-topographic-mesh.webp,,Signal Terrain,system,Topographic Mesh,Physiological state becomes terrain: something the user can move through and calm.,,secondary
+3,image,003-maintenance-log.webp,,Body Archive,context,Maintenance Log,"The body appears as document, ritual, repair log, and recurring instrument.",,secondary

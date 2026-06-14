@@ -1,0 +1,11 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,07_chronocumulator.png,,Establishing System,hero,Circular Score Field,Sound accumulates in loops rather than moving toward resolution.,Establishes circular sonic logic.,primary
+2,text,,,Thesis,thesis,Time Does Not Progress Cleanly,The sonic event returns changed each time it circles.,Reframes time as accumulation.,secondary
+3,image,02_chronocumulator_sequencer_ui.png,,Context,evidence,Microtonal Circle,"Circularity changes how pitch, memory, and expectation behave.",Grounds the project in acoustic specificity.,secondary
+4,image,chronocumulator-feedback-loop.png,,System,system,Event Accumulation Engine,Each event leaves residue that alters the next pass.,Shows process.,secondary
+5,text,,,Evidence,system,Loop Trace I,The first loop establishes the field.,Shows baseline.,secondary
+6,text,,,Evidence,system,Loop Trace II,Repetition changes the signal.,Shows accumulation.,secondary
+7,image,chronocumulator-circular-vs-linear.png,,Conflict,evidence,Against Western Resolution,The system refuses the clean arrival point imposed by standard harmonic logic.,Names the structural conflict.,secondary
+8,text,,,Relation,context,Relation to Localization Gap,"To audit cultural erasure, the archive first has to describe what the machine cannot measure.",Positions Chronocumulator as sonic theory engine.,secondary
+9,text,,,Process,evidence,Prototype Interface,"The loop becomes playable, visible, and testable.",Gives the system an implementation surface.,secondary
+10,text,,,Coda,coda,The Loop Remains Open,"The event returns, but never as the same sound.","Ends with recurrence, not resolution.",quiet

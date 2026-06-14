@@ -1,0 +1,16 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,06_tebr.png,,Establishing Artifact,hero,Cassette Evidence,The archive begins in physical memory.,Grounds the AI work in material inheritance.,primary
+2,text,,,Thesis,thesis,Failure as Folklore,Machine failure is not decoration. It is evidence of what the system cannot hear.,Reframes glitch as forensic record.,secondary
+3,image,tebr-ghost-figure-scan.png,,Origin,evidence,Ancestral Source Tokens,Human memory enters before machine generation.,Defines source material and provenance.,secondary
+4,image,tebr-maqam-standing-wave.png,,Context,evidence,Maqam Is Structure,The model fails because it treats structure as style.,Explains the cultural-technical failure.,secondary
+5,image,tebr-diasporic-futurism-visual.png,,Process,process,Adversarial Prompt Log,The model is pressured until its assumptions become visible.,Shows method.,secondary
+6,image,tebr-resonance-rings.png,,System,system,Traceability Pipeline,Every output must remain tied to the source it distorted.,Makes the system accountable.,secondary
+7,image,tebr-violin-bridge-icon.png,,Technical Proof,process,TRUNCATE_BEFORE_RESOLUTION,The system prevents Western harmonic closure from cleaning the wound.,Shows built-in resistance.,secondary
+8,image,tebr-violin-waveform.webp,,Evidence,evidence,Model Output Grid,Repetition turns error into pattern.,Proves the failure is systemic.,secondary
+9,image,tebr-generated-v1.webp,,Forensic Proof,evidence,Spectrogram Drift,Microtonal collapse becomes visible.,Makes cultural flattening inspectable.,secondary
+10,text,,,Dossier,system,Failure Taxonomy,Hallucination becomes categorized evidence.,Turns anecdote into research structure.,secondary
+11,text,,,Audio Proof,evidence,Listening Comparison,The visitor hears what the model erases.,Provides sensory proof.,secondary
+12,text,,,World-Building,evidence,Future Folklore Artifact,Failure is harvested without pretending it is preservation.,Shows the aesthetic afterlife of evidence.,secondary
+13,text,,,Authorship,process,What Haig Built,"The authorship is in the system of constraints, not only the final sound.",Clarifies contribution.,secondary
+14,text,,,Relation,context,Relation to STTM / 427 Archive / Localization Gap,"Body-machine signal, dataset evidence, and forensic audit converge.",Places TEBR in Sonic Intelligence.,secondary
+15,text,,,Coda,coda,Unresolved Signal,The signal remains broken and therefore truthful.,Ends without repair fantasy.,quiet

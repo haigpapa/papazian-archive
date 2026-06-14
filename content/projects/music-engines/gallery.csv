@@ -1,0 +1,4 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,001-music-engines.webp,,Listening Kernel,hero,Research Engine,"A backend listening system where audio becomes features, traces, and cultural evidence.",,primary
+2,image,002-maqam-spectrogram.webp,,Feature Space,evidence,Maqam Spectrogram,Frequency evidence gives the research a measurable surface without flattening its cultural stakes.,,secondary
+3,image,003-batch-processing.webp,,Pipeline,system,Batch Processing,The quiet labor of analysis: hundreds of outputs turned into searchable infrastructure.,,secondary

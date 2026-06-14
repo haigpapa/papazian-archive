@@ -1,0 +1,5 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,001-webgl-instrument.webp,,Spatial Rhythm,hero,WebGL Instrument,"Rhythm becomes an object in space: playable, visible, and physically arranged.",,primary
+2,image,002-frequency-wireframe.webp,,Signal Form,system,Frequency Wireframe,Amplitude and frequency are drawn as architecture rather than hidden behind controls.,,secondary
+3,image,003-itp-prototype.webp,,Prototype,context,ITP Prototype,"The technical experiment stays tactile: a room, a body, a browser, and a sound field.",,secondary
+4,image,004-tuning-fork-study.webp,,Instrument Kinship,coda,Tuning Fork Study,"Signal, decay, and interface become a playable object in the same instrument family.",,quiet

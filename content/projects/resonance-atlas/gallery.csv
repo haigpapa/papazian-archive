@@ -1,0 +1,4 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,001-spatial-sound-map.webp,,Sound Territory,hero,Spatial Sound Map,"Sonic knowledge becomes territory: gaps, defaults, and surviving specificity.",,primary
+2,image,002-427-track-metadata.webp,,Dataset,evidence,427 Track Metadata,Generated tracks are annotated into research infrastructure.,,secondary
+3,image,003-evaluation-protocol.webp,,Protocol Link,context,Evaluation Protocol,The atlas gives HAH-WAS a larger cultural map to test against.,,secondary

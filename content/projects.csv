@@ -1,0 +1,28 @@
+slug,title,year,tier,domains,stack,connections,status,showInWorks,hasProjectPage,evidenceStatus
+systems-choreography,SYSTEMS CHOREOGRAPHY,2024–26,lead,code|systems,Code · Space · Choreography,fictive-environments|mekena-nyc|tebr,public,true,true,Verified Rail
+fictive-environments,FICTIVE ENVIRONMENTS,2025–26,lead,space|code|text,Studio OS · Architecture,mekena-nyc|lede-nyc|sometimes-i-wake-up-elsewhere,public,true,true,Verified Rail
+meaning-stack,THE MEANING STACK,2025,lead,code|systems,Technical Architecture · Federated,systems-choreography|hah-was|derive,public,true,true,Verified Rail
+99-nodes,99 NODES,2025,lead,code|text,Meta-Archive · Graph,storylines|codeverse-explorer,public,true,true,Verified Rail
+architecture-in-low-res,Architecture in Low Res,2015,secondary,space|image|text,Spatial · Image · Breakdown,sophies-world,public,true,true,Published Thesis
+cartography-of-absence,The Cartography of Absence,2024,lead,text|systems,Mapping · Void,walaw-manifesto,public,true,true,Published
+mashrou-leila,Mashrou' Leila,2008–22,lead,sound|space|systems,Stage · Audience · Risk,space-time-tuning-machine|1000-strings-at-rest|tebr,public,true,true,Archive Complete
+why-were-like-this,Why We're Like This,2020,lead,text|image|systems,Identity · Discourse,sometimes-i-wake-up-elsewhere|cartography-of-absence|derive,public,true,true,Scripts Complete
+space-time-tuning-machine,SPACE TIME TUNING MACHINE,2021,lead,sound|space|systems,Sound · Performance · AI · Exile,tebr|derive,public,true,true,Live / SXSW
+tebr,TEBR,2024–26,lead,sound|systems|code,Dust · Material,fictive-environments|space-time-tuning-machine,public,true,true,In Progress
+chronocumulator,Chronocumulator,2025,lead,sound|systems,Physics · Sound,hah-was|maqamai|tebr,public,true,true,Prototype
+the-weather-rehearsal,The Weather Rehearsal,2026,lead,space|systems,Simulation · Risk,mekena-nyc|derive|space-time-tuning-machine,public,true,true,Installation
+sometimes-i-wake-up-elsewhere,SOMETIMES I WAKE UP ELSEWHERE,2025–26,lead,text|code|systems,Text · Displacement,cartography-of-absence,public,true,true,Active Manuscript
+derive,DERIVE,2024,lead,code|space|systems,Navigation · Urban,meaning-stack|1000-strings-at-rest|99-nodes,public,true,true,Active Software
+storylines,STORYLINES,2024,lead,code|text|image,Narrative · Archive,the-labyrinth,public,true,true,Live Interface
+hah-was,HAH-WAS / Localization Gap,2026,lead,code|systems|text,AI · Phonetics,localization-gap,public,true,true,Audit Protocol
+localization-gap,LOCALIZATION GAP,2024,lead,code|sound|systems,AI Auditing · Spectrograms,hah-was|tebr,public,true,true,Audit Complete
+maqamai,MaqamAI,2025,lead,code|sound|text,Machine Learning · Sonic,hah-was|resonance-atlas|tebr,public,true,true,Beta Tool
+mekena-nyc,MEKENA NYC,2025–26,lead,space|systems,Civic · Infrastructure,fictive-environments,public,true,true,Active Residency
+codeverse-explorer,Codeverse Explorer,2025,lead,code|systems|space,Technical · Future,telescode,public,true,true,Repository Map
+3d-beat-synth,3D Beat Synth,2025,secondary,code|sound|image,code|sound|image,itp-camp-prototypes,public,false,true,Interactive Tool
+resonance-atlas,Resonance Atlas,2024,secondary,systems|sound|text,systems|sound|text,hah-was|maqamai|tebr|arabic-pop-1925-2025,public,false,true,Published Atlas
+autopsy-beirut-phantom,The Autopsy / Beirut Phantom,2024,secondary,space|image|systems,space|image|systems,the-labyrinth,public,false,true,Interactive Simulation
+photon-plus,Photon+,2025,secondary,code|sound|image,code|sound|image,space-time-tuning-machine|3d-beat-synth|meaning-stack,public,false,true,Beta Software
+kardia,Kardia,2021,secondary,code|sound|systems,code|sound|systems,body-maintenance-log,public,false,true,Mobile PWA
+music-engines,Music Engines,2024,secondary,sound|code|systems,,hah-was|derive|tebr|resonance-atlas,public,false,true,Library
+1000-strings-at-rest,1000 Strings at Rest,2022,archive,sound|space|image,sound|space|image,mashrou-leila|space-time-tuning-machine|derive,public,false,true,Installation

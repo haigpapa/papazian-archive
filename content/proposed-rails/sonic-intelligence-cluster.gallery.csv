@@ -1,0 +1,14 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,001-research-hero.webp,,Research,hero,Research Hero,Sifting algorithmic noise: a forensic audit of cultural representation within machine learning frameworks.,,primary
+2,image,002-thesis.webp,,Thesis,evidence,Thesis,A model that cannot hear cultural specificity cannot preserve or translate it.,The Localization Gap begins at the failure to represent non-Western tuning systems.,secondary
+3,image,003-427-tracks.webp,,Audits,evidence,427 AI Tracks,Generative audio evidentiary record mapping failure taxonomies of commercial AI music models.,,secondary
+4,image,004-maqam-12tet-conflict.webp,,Audits,evidence,Maqam / 12-TET Conflict,Diagram mapping the mathematical friction between microtonal maqam intervals and standard 12-TET tuning.,,secondary
+5,image,005-spectrogram-comparison.webp,,Audits,evidence,Spectrogram Comparison,Visual proof of quarter-tone erasure: how models flatten modal grammar into equal temperament.,,secondary
+6,image,006-failure-taxonomy.webp,,Analysis,evidence,Failure Taxonomy,Systematic classification of model output errors across dialects and modes.,,secondary
+7,image,007-prompt-output-audit.webp,,Analysis,evidence,Prompt/Output Audit,Forensic logging of generated tracks against cultural annotations.,,secondary
+8,image,008-adversarial-test.webp,,Analysis,evidence,HAH-WAS Adversarial Test,Interactive protocol testing model veracity under cultural edge cases.,,secondary
+9,image,009-ear-training-response.webp,,Response,evidence,MaqamAI Response,An ear-training tool built to preserve the microtonal modes that models erase.,,secondary
+10,image,010-resonance-atlas.webp,,Response,evidence,Resonance Atlas,Research map visualizing the geographical and sonic blind spots of current networks.,,secondary
+11,image,011-method-listening.webp,,Method,evidence,Listening Method,Collaborative pipeline combining human ear annotation with digital audio feature extraction.,,secondary
+12,image,012-model-drift.webp,,Method,evidence,Model Drift,Constraint: tracking how fine-tuning alters model memory over successive epochs.,,secondary
+13,image,013-coda.webp,,Coda,coda,Coda,You cannot engineer what you cannot hear.,The audit of AI bias remains an ongoing defense of cultural specificity.,quiet

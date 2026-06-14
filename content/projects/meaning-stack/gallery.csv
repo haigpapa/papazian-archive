@@ -1,0 +1,13 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,meaning-stack-github-constellation.webp,,Establishing System,hero,Stack Cutaway,A federated architecture for turning signal into protected meaning.,Establishes the system as layered infrastructure.,primary
+2,text,,,Thesis,thesis,Culture Is Not Metadata,Culture is not decoration around data. It changes the behavior of the system.,Sets the philosophical and technical rule.,secondary
+3,image,meaning-stack-diagram-01.png,,Input,evidence,Sensorium Layer,"Meaning enters through body, voice, sound, and movement.","Shows embodied input as primary, not peripheral.",secondary
+4,image,meaning-stack-diagram-02.png,,Processing,system,Latent Space,"Fragments are organized by felt proximity, not file order.",Establishes memory as computational geography.,secondary
+5,image,meaning-stack-network-nodes.png,,Processing,system,Conductor Layer,The system uses rules to prevent machine over-smoothing.,Shows designed resistance inside the pipeline.,secondary
+6,text,,,Output,evidence,Stage Layer,Processed meaning becomes something you can move through.,Connects computation to embodied navigation.,secondary
+7,text,,,Audit,system,Veracity Shield,Outputs must be audited before they are allowed to become claims.,"Makes trust a system feature, not a vibes-based séance.",secondary
+8,image,meaning-stack-processing-cultural-friction.png,,Relation,context,Four Deployments,"The stack is shared infrastructure across sonic, memory, epistemic, and spatial projects.",Shows repeatability across project worlds.,secondary
+9,image,meaning_stack.png,,Conflict,evidence,Biological Mismatch,Human bodies are forced to parse systems built for extraction and acceleration.,Names the human stakes of the architecture.,secondary
+10,text,,,Public Consequence,evidence,Sovereign Infrastructure,The stack points toward cultural systems that can be governed without erasing difference.,Establishes strategic application.,secondary
+11,text,,,Hidden Labor,process,Architecture Paper Needed,The stack needs a public architecture paper to become legible outside the Archive.,Names the missing artifact.,secondary
+12,text,,,Coda,coda,No Output Without Friction,The system’s ethics appear in what it refuses to complete.,Ends with refusal as proof.,quiet

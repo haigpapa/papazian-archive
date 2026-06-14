@@ -1,0 +1,9 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,15_codeverse_explorer.png,,Establishing System,hero,Repository Galaxy,The codebase appears as a spatial structure.,Establishes visual premise.,primary
+2,text,,,Thesis,thesis,Software Is Invisible Architecture,Technical debt has spatial weight.,Reframes code as architecture.,secondary
+3,image,codeverse-explorer-3d-codebase.png,,Technical Proof,evidence,AST Intake,Flat code enters as parseable structure.,Shows source processing.,secondary
+4,image,codeverse-explorer-avatar-bounding-box.png,,System,system,Dependency Gravity Map,Relationships pull modules into spatial neighborhoods.,Makes system behavior visible.,secondary
+5,image,codeverse-explorer-wireframe-city.png,,Evidence,evidence,Before / After,The same code becomes readable through space.,Demonstrates value.,secondary
+6,text,,,Process,evidence,Narrative Layer,The system must translate structure into plain-language architectural explanation.,Names the interpretive layer.,secondary
+7,text,,,Relation,context,Relation to STORYLINES / 99 Nodes,Literary graph logic transfers to codebases and the archive itself.,Shows method transfer.,secondary
+8,text,,,Coda,coda,Unopened Module,Every system contains a room no one has inspected yet.,"Ends with technical mystery, but the useful kind, not the “we forgot documentation” kind.",quiet

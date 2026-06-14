@@ -1,0 +1,4 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,001-beirut-phantom.webp,,Phantom City,hero,Beirut Phantom,"The city becomes a navigable afterimage: ruin, evidence, dream, and reconstruction at once.",,primary
+2,image,002-sonic-map.webp,,Sonic Layer,context,Sonic Map,"The city is also heard: a cartography of residue, pressure, and atmosphere.",,secondary
+3,image,003-low-res-lineage.webp,,Research Lineage,coda,Low-Res Lineage,Earlier architectural research becomes the method for building spatial memory.,,secondary

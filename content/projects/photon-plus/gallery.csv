@@ -1,0 +1,4 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,001-optical-sequencer.webp,,Digital Twin,hero,Optical Sequencer,The live tuning machine becomes a playable browser object.,,primary
+2,image,002-source-instrument.webp,,Source,context,Source Instrument,The browser version keeps the subtractive logic of the live performance.,,secondary
+3,image,003-instrument-family.webp,,Browser Instruments,coda,Instrument Family,A family of browser instruments treats interaction as composition.,,quiet

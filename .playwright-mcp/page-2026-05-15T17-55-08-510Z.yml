@@ -1,0 +1,46 @@
+- main [ref=e3]:
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e6]
+    - article [ref=e187]:
+      - generic [ref=e188]:
+        - button "Return" [ref=e189]
+        - button "Previous" [ref=e190]
+        - button "Next" [ref=e191]
+      - generic [ref=e192]:
+        - generic [ref=e193]:
+          - paragraph [ref=e194]: Statement / 2026 / 4 min
+          - heading "Systems of Meaning" [level=3] [ref=e195]
+          - paragraph [ref=e196]: "A short operating statement for the archive: memory, performance, and cultural translation as systems rather than isolated works."
+        - generic [ref=e197]:
+          - paragraph [ref=e198]: "I build systems for memory, performance, and cultural translation. The work moves across sound, space, code, text, image, and systems because the subject keeps changing scale: a song becomes a public architecture, a building becomes a social protocol, a manuscript becomes a software engine, and a data set becomes a record of cultural pressure."
+          - paragraph [ref=e199]: Systems Choreography names the method behind that movement. It treats space, time, code, narrative, and performance as related structures that can be rehearsed, tuned, and reassembled. The archive is not a neutral container for finished objects. It is a way of showing how the objects think together.
+          - paragraph [ref=e200]: "The point is not to make technology look magical. It is to make cultural structure visible: who gets translated, what gets flattened, where memory is stored, and how people build forms of belonging under pressure."
+    - generic [ref=e56]:
+      - button "Open information" [ref=e57]:
+        - img [ref=e58]
+      - button "Essays / Writing panel Archive field 20 works / 216 images" [ref=e201]:
+        - generic [ref=e61]:
+          - generic [ref=e62]: Essays / Writing panel
+          - generic [ref=e63]: Archive field
+          - generic [ref=e64]: 20 works / 216 images
+      - generic [ref=e68]:
+        - 'button "Home: Orbit intro" [ref=e69]':
+          - generic [ref=e70]:
+            - img [ref=e71]
+            - generic [ref=e74]: Home
+        - 'button "Works: 20-project spine" [ref=e76]':
+          - generic [ref=e77]:
+            - img [ref=e78]
+            - generic [ref=e80]: Works
+        - 'button "Index: Unwrapped grid" [ref=e82]':
+          - generic [ref=e83]:
+            - img [ref=e84]
+            - generic [ref=e89]: Index
+        - 'button "Atlas: Relations" [ref=e91]':
+          - generic [ref=e92]:
+            - img [ref=e93]
+            - generic [ref=e95]: Atlas
+        - 'button "Essays: Writing panel" [ref=e97]':
+          - generic [ref=e98]:
+            - img [ref=e99]
+            - generic [ref=e101]: Essays

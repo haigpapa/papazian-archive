@@ -1,0 +1,16 @@
+order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
+1,image,05_space_time_tuning_machine.png,,Establishing Artifact,hero,Machine in Darkness,The instrument appears before it is explained.,Establishes physical reality.,primary
+2,text,,,Thesis,thesis,Relic of a Future,This is a future instrument built from the wreckage of failed return.,Frames the instrument as diegetic prototype.,secondary
+3,text,,,Origin,evidence,Broken Instrument Myth,Exile appears as a machine that cannot begin from silence.,Grounds the technical system in narrative and displacement.,secondary
+4,image,sttm2.JPG,,Material Proof,process,Anatomy Table,The system is assembled from physical friction.,Shows material bricolage.,secondary
+5,image,sttm3.JPG,,System,system,Physical-to-Digital Translation,Kinetic action becomes computational parameter.,Shows how the body enters the machine.,secondary
+6,image,sttm4.JPG,,Technical Proof,system,Signal Flow,"The instrument listens, processes, and answers.",Makes the pipeline inspectable.,secondary
+7,image,sttm5.JPG,,Live Proof,evidence,How It Is Played,"The performer conducts a live system, not a backing track.",Proves embodied control.,secondary
+8,image,sttm6.JPG,,Technical Proof,evidence,Patch Reactivity,The patch changes because the body changes the signal.,Shows live computational behavior.,secondary
+9,image,sttm7.JPG,,Evidence,evidence,Bricolage as Friction,Scrap electronics resist clean abstraction.,Shows rough material truth.,secondary
+10,image,sttm8.JPG,,Conflict,evidence,What Broke,The instrument’s failures are part of its evidence.,Increases trust through visible constraint.,secondary
+11,image,sttm9.PNG,,Live Proof,evidence,Performance Clip,"Noise, body, room, and machine tune each other in real time.",Shows the full system operating.,secondary
+12,image,sttm-resonance2.PNG,,Consequence,evidence,Public / Institutional Proof,The instrument enters public performance contexts.,Grounds the project beyond prototype mythology.,secondary
+13,text,,,Relation,context,Predecessor to DERIVE,The physical instrument becomes software memory architecture.,Shows lineage.,secondary
+14,text,,,Relation,context,Input Valve to TEBR,Somatic signal becomes material for AI folklore.,Connects performance machine to sonic intelligence.,secondary
+15,text,,,Coda,coda,Wire After Sound,The body leaves. The machine keeps the trace.,Ends with residue.,quiet
