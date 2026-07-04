@@ -215,6 +215,7 @@ interface OverlayProps {
   focusedMapNode?: any;
   onOpenProjectRail?: (node: any) => void;
   onFocusNodeBySlug?: (slug: string) => void;
+  onEssayChange?: (slug: string) => void;
 }
 
 export default function Overlay({ 
@@ -249,6 +250,7 @@ export default function Overlay({
   focusedMapNode,
   onOpenProjectRail,
   onFocusNodeBySlug,
+  onEssayChange,
 }: OverlayProps) {
   const [showAbout, setShowAbout] = React.useState(false);
   const [activeInfoTab, setActiveInfoTab] = React.useState<SiteInfoTabId>('about');
@@ -258,6 +260,7 @@ export default function Overlay({
   const [isMobileViewport, setIsMobileViewport] = React.useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
   const [hoveredChapterIndex, setHoveredChapterIndex] = React.useState<number | null>(null);
+  const [showTextList, setShowTextList] = React.useState(false);
 
   React.useEffect(() => {
     if (currentMode === 'horizontal') {
@@ -266,6 +269,12 @@ export default function Overlay({
       setIsSidebarCollapsed(false);
     }
   }, [currentMode, activeNode?.slug]);
+
+  React.useEffect(() => {
+    if (currentMode !== 'grid') {
+      setShowTextList(false);
+    }
+  }, [currentMode]);
 
 
   
@@ -530,7 +539,7 @@ export default function Overlay({
 
       {/* Center Display / Active Node Panel */}
       <AnimatePresence>
-        {activeDetailNode && currentMode !== 'map' && (() => {
+        {activeDetailNode && (() => {
           const activeNode = activeDetailNode;
           return (
             <>
@@ -970,14 +979,14 @@ export default function Overlay({
       {/* Essays / Writings Reading Panel */}
       <AnimatePresence>
         {currentMode === 'essays' && !activeNode && (
-          <EssaysPanel isMobileViewport={isMobileViewport} />
+          <EssaysPanel isMobileViewport={isMobileViewport} onEssayChange={onEssayChange} />
         )}
       </AnimatePresence>
 
 
-      {/* List View Mode */}
+      {/* Works List Index Panel */}
       <AnimatePresence>
-        {currentMode === 'list' && !activeNode && (
+        {currentMode === 'grid' && showTextList && !activeNode && (
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1270,6 +1279,35 @@ export default function Overlay({
                         </button>
                       </div>
                     </motion.div>
+                  ) : currentMode === 'grid' && !activeDetailNode ? (
+                    <motion.div
+                      key="grid-meta-hud"
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      className="flex items-center justify-between w-full h-full min-h-[64px] pr-8"
+                    >
+                      <button 
+                        onClick={() => setIsSearchActive(true)}
+                        className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-white/5 transition-colors rounded-none justify-center h-full min-h-[64px] flex-1 cursor-pointer"
+                      >
+                        <span className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                          {line1Text}
+                        </span>
+                        <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
+                          {bottomTitle}
+                        </span>
+                        <span className="font-mono text-[9px] text-text-muted/40 group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                          {line3Text}
+                        </span>
+                      </button>
+                      <button
+                        onClick={() => setShowTextList(!showTextList)}
+                        className="bg-white/5 hover:bg-white/10 text-white font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2.5 border border-white/10 transition-all cursor-pointer rounded-none shrink-0 pointer-events-auto"
+                      >
+                        {showTextList ? '[ SHOW 3D GRID ]' : '[ SHOW TEXT LIST ]'}
+                      </button>
+                    </motion.div>
                   ) : (
                     <motion.button 
                       key="display-meta"
@@ -1457,20 +1495,32 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
   );
 }
 
-function EssaysPanel({ isMobileViewport }: { isMobileViewport: boolean }) {
+interface EssaysPanelProps {
+  isMobileViewport: boolean;
+  onEssayChange?: (slug: string) => void;
+}
+
+function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
   const [activeEssaySlug, setActiveEssaySlug] = React.useState(ESSAY_RECORDS[0].slug);
   const [mobileEssayView, setMobileEssayView] = React.useState<'index' | 'reader'>('index');
   const readerScrollRef = React.useRef<HTMLElement>(null);
   const activeEssay = ESSAY_RECORDS.find((essay) => essay.slug === activeEssaySlug) || ESSAY_RECORDS[0];
   const activeIndex = ESSAY_RECORDS.findIndex((essay) => essay.slug === activeEssay.slug);
+  
+  React.useEffect(() => {
+    onEssayChange?.(ESSAY_RECORDS[0].slug);
+  }, []);
+
   const selectEssay = (slug: string) => {
     setActiveEssaySlug(slug);
     if (isMobileViewport) setMobileEssayView('reader');
+    onEssayChange?.(slug);
   };
   const stepEssay = (direction: -1 | 1) => {
     const nextEssay = ESSAY_RECORDS[(activeIndex + direction + ESSAY_RECORDS.length) % ESSAY_RECORDS.length];
     setActiveEssaySlug(nextEssay.slug);
     setMobileEssayView('reader');
+    onEssayChange?.(nextEssay.slug);
   };
 
   React.useEffect(() => {

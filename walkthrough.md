@@ -1,30 +1,47 @@
-# Handoff Walkthrough — Bottom Navigation Bar Refinements
+# Handoff Walkthrough — Index, Map, and Essay Mode UI/UX Elevations
 
 ## Session Summary (latest session — 2026-07-04)
 
-In this session, we restored the 64x64px square-button design for the bottom navigation bar at the user's request.
+In this session, we elevated the design, UI, and UX of the **Index (Grid)**, **Map**, and **Essay** modes to resolve their incomplete status. We integrated 2D layout overlays with the 3D WebGL engine, restored the hidden textual works list, and enabled seamless relational navigation.
 
-**Key Changes:**
-1. **Restored Square ModeButtons**:
-   - Re-implemented the `ModeButton` component in [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx#L1610) as a 64px x 64px square button.
-   - It displays only the Icon and hides the text labels inside the bar itself. Upon hovering on desktop, it displays a neat floating tooltip containing the mode's title.
-2. **Reverted Other Visual Refinements**:
-   - Reverted detail sidebar CTA buttons, spotlight mouse-tracking panels, and keyboard keycap legend helpers to their original states.
+### Key Changes:
+
+1. **Restored & Integrated Works List (Index Mode)**:
+   - Added a `showTextList` toggle state to [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx).
+   - Added a HUD toggle button in the footer: `[ VIEW AS TEXT LIST ]` / `[ VIEW AS 3D GRID ]` when browsing the Index.
+   - Refactored the works list index panel to show when in `grid` mode with `showTextList` enabled, allowing users to search, filter, and sort projects textually.
+   - Included cleanups to reset list toggles when leaving Grid mode.
+
+2. **In-Context Exploration & Sidebar details (Map Mode)**:
+   - Removed the `currentMode !== 'map'` check in [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx#L533) that suppressed the right-side details panel.
+   - Now, selecting a node in Map mode opens the full details sidebar (summary, description, tags, highlights, and connections).
+   - Clicking on a relation button in the sidebar focuses the 3D scene camera onto the target project node and updates the details sidebar dynamically, allowing the user to navigate the map without leaving Map mode.
+
+3. **Dynamic 3D Syncing (Essay Mode)**:
+   - Added an `onEssayChange` callback to the `EssaysPanel` in [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx#L1460).
+   - Connected `onEssayChange` to the parent component in [App.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/App.tsx#L630).
+   - Slugs of selected essays are mapped to their corresponding archive project node (e.g. `cost-of-being-queer-and-arab` ➔ `mashrou-leila`).
+   - The 3D cylinder spiral background is automatically scrolled and rotated to center/focus on the corresponding card in real-time.
 
 ---
 
 ## Completed This Session
-- **R1** [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx): Restored 64x64px square mode buttons layout.
+
+- **R1** [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx): Restored textual list index, added HUD toggle buttons, removed map detail sidebar suppression, and wired essay selection callback.
+- **R2** [App.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/App.tsx): Implemented essay-to-project slug mapping and scrolled the WebGL camera to focus on matching cards when reading essays.
 
 ---
 
 ## State
+
 - **Build Status**: ✅ Passing (`npm run build` succeeds).
 - **Typecheck Status**: ✅ Passing (`npm run lint` compiles cleanly with zero warnings/errors).
 
 ---
 
 ## Prior Sessions (Historical)
-- **2026-07-04**: Map relation lines fix, transparency decay, and psychogeographic drift.
+
+- **2026-07-04**: bottom navigation bar square mode restorations.
+- **2026-07-04**: Map relation lines, transparency decay, and psychogeographic drift.
 - **2026-07-03**: Applied CSS scrim overlay, elevated CTA button, and progressive disclosure toggle.
 - **2026-07-02**: Restored layout, essays panels, and chapter scrubber.

@@ -630,6 +630,18 @@ export default function App() {
           }
         }}
         onFocusNodeBySlug={(slug) => sceneRef.current?.focusNodeBySlug(slug)}
+        onEssayChange={(slug) => {
+          const getEssayRelatedSlug = (essaySlug: string): string => {
+            if (essaySlug === 'systems-of-meaning') return 'systems-choreography';
+            if (essaySlug === 'cost-of-being-queer-and-arab') return 'mashrou-leila';
+            return essaySlug;
+          };
+          const relatedSlug = getEssayRelatedSlug(slug);
+          const nodeIndex = nodes.findIndex(n => n.slug === relatedSlug);
+          if (nodeIndex >= 0) {
+            sceneRef.current?.setFocusedNode(nodeIndex);
+          }
+        }}
       />
 
       <VideoLightbox 
