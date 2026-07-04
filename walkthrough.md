@@ -29,6 +29,12 @@ In this session, we elevated the design, UI, and UX of the **Index (Grid)**, **M
    - **Core Associations** (mutual links) are visually highlighted with an accent border, semi-transparent background (`bg-accent/10 border-accent/40`), and a lightning bolt indicator (`⚡`), while **Contextual Connections** (one-way links) are rendered as secondary links.
    - Rebuilt content via `npm run content:build` to compile these links into the 3D engine constellation generator.
 
+5. **Visual Typed Relation Claims Ledger & Visual Accents**:
+   - Resolved all 49 disconnected nodes in `public/images/atlas/atlas.csv` (e.g., Yo-Yo Ma collaboration, Narcy, Roman video, exit festival, npr tiny desk, etc.) by connecting them to their parent flagships or primary projects, ensuring **zero projects have zero relations**.
+   - Created the [relations.ts](file:///Users/vhnmns/Documents/projects/papazian-archive/src/data/relations.ts) ledger, mapping precise relation claims to the six typed taxonomy relationships: **Lineage**, **Method Transfer**, **Material Continuity**, **Thematic Resonance**, **Technical Infrastructure**, and **Structural Tension**.
+   - Visualized these claims as structured cards inside the details sidebar, showing both the typed taxonomy badge and the explicit semantic claim.
+   - Standardized premium domain-specific accents in the 3D relation lines: Sound is Crimson (`#e11d48`), Space is Amethyst (`#a855f7`), Code is Emerald (`#10b981`), and Text is Sapphire (`#3b82f6`).
+
 ---
 
 ## Completed This Session
@@ -36,6 +42,8 @@ In this session, we elevated the design, UI, and UX of the **Index (Grid)**, **M
 - **R1** [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx): Restored textual list index, added HUD toggle buttons, removed map detail sidebar suppression, and wired essay selection callback. Distinguished visually between Core Associations and Contextual Connections.
 - **R2** [App.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/App.tsx): Implemented essay-to-project slug mapping and scrolled the WebGL camera to focus on matching cards when reading essays.
 - **R3** [projects.csv](file:///Users/vhnmns/Documents/projects/papazian-archive/content/projects.csv): Designed and authored a dense bi-directional project connection matrix.
+- **R4** [relations.ts](file:///Users/vhnmns/Documents/projects/papazian-archive/src/data/relations.ts): Authored semantic relation claim engine.
+- **R5** [atlas.csv](file:///Users/vhnmns/Documents/projects/papazian-archive/public/images/atlas/atlas.csv): Connected all 49 previously disconnected nodes to parent projects.
 
 ---
 

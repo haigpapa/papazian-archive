@@ -65,12 +65,12 @@ const TIER_ACCENTS: Record<ProjectTier, string> = {
 };
 
 const DOMAIN_ACCENTS: Record<string, string> = {
-  code: '#7aa6ff',
-  image: '#d7e7ef',
-  sound: '#9fd6bf',
-  space: '#c7b28a',
-  systems: '#8fa8c2',
-  text: '#d5a2a2',
+  sound: '#e11d48',    // Crimson
+  space: '#a855f7',    // Amethyst
+  code: '#10b981',     // Emerald
+  text: '#3b82f6',     // Sapphire
+  systems: '#f59e0b',  // Amber
+  image: '#ec4899',    // Pink
 };
 
 const GENERATED_PROJECT_BY_SLUG = new Map(

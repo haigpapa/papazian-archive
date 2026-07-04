@@ -2,6 +2,7 @@ import * as React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { LayoutGrid, Rows3, Globe, X, ArrowUpRight, Plus, Link, Search, Map, ArrowLeft, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Play, Volume2, VolumeX, BookOpen } from 'lucide-react';
 import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
+import { getRelationDetail } from '../data/relations';
 import { SITE_INFO_TABS, type SiteInfoTabId } from '../data/siteInfo';
 import { getYouTubeEmbedUrl } from '../utils/youtube';
 
@@ -818,25 +819,40 @@ export default function Overlay({
 
               {currentMode !== 'horizontal' && relatedSlugs.length > 0 && (
                 <div className="mt-8 border-t border-white/10 pt-5">
-                  <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.22em] text-accent">Relations</p>
-                  <div className="flex flex-wrap gap-2">
+                  <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.22em] text-accent">Relations</p>
+                  <div className="space-y-3">
                     {relatedSlugs.map((slug: string) => {
                       const targetNode = nodeBySlug.get(slug);
                       const isMutual = targetNode?.connections?.includes(activeNode.slug) && activeNode.connections?.includes(slug);
+                      const relDetail = getRelationDetail(activeNode.slug, slug);
                       return (
-                        <button
+                        <div
                           key={slug}
-                          onClick={() => onSelectSlug(slug)}
-                          className={`px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] transition-all cursor-pointer rounded-none border ${
+                          className={`p-3 border transition-all ${
                             isMutual
-                              ? 'bg-accent/10 border-accent/40 text-white hover:bg-accent/25 hover:border-accent'
-                              : 'bg-transparent border-white/10 text-text-muted hover:border-white/30 hover:text-white'
+                              ? 'bg-accent/[0.02] border-accent/20 hover:border-accent/40'
+                              : 'bg-transparent border-white/5 hover:border-white/10'
                           }`}
-                          title={isMutual ? 'Mutual Core Association' : 'Contextual Connection'}
                         >
-                          {slug.replace(/-/g, ' ')}
-                          {isMutual && <span className="ml-1 text-[7px] text-accent">⚡</span>}
-                        </button>
+                          <div className="flex items-center justify-between gap-2 mb-1.5">
+                            <button
+                              onClick={() => onSelectSlug(slug)}
+                              className="font-display text-[10px] md:text-xs font-bold text-white tracking-wider uppercase hover:text-accent transition-colors cursor-pointer text-left"
+                            >
+                              {targetNode?.title || slug.replace(/-/g, ' ')}
+                            </button>
+                            <span className={`px-1.5 py-0.5 font-mono text-[7px] tracking-wider uppercase border shrink-0 ${
+                              isMutual
+                                ? 'bg-accent/15 border-accent/30 text-accent'
+                                : 'bg-white/5 border-white/10 text-text-muted'
+                            }`}>
+                              {relDetail.typeName} {isMutual ? '⚡' : ''}
+                            </span>
+                          </div>
+                          <p className="font-mono text-[9px] leading-relaxed text-text-muted/70 text-pretty">
+                            {relDetail.claim}
+                          </p>
+                        </div>
                       );
                     })}
                   </div>

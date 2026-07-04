@@ -40,14 +40,14 @@ order,id,title,year,tier,domains,stack,connections,image,hasProjectPage,summary
 39,hah-was,HAH-WAS,2026,secondary,code|systems|text,Code|Systems|Text,localization-gap,/images/atlas/hah-was-hallucination-detection-ui.webp,yes,HAH-WAS is one of the clearest statements in the portfolio that cultural erasure in AI is not accidental noise but a measurable consequence of training assumptions.
 40,plot-1063-tower,Plot #1063 Tower,2010,secondary,space,Space,plot-house,/images/atlas/plot-1063-tower-beirut.webp,no,Architectural high-rise in Beirut (DW5).
 41,2006-reconstruction,2006 Reconstruction,2006,secondary,space|systems,Space|Systems,aub-architecture-b-arch,/images/atlas/2006-reconstruction-south-lebanon.webp,no,Post-conflict urban mapping/planning projects.
-42,new-york-voices,New York Voices,2023,secondary,sound|image,Sound|Image,,/images/atlas/new-york-voices-joes-pub.webp,no,Commissioned performance at Joe's Pub.
+42,new-york-voices,New York Voices,2023,secondary,sound|image,Sound|Image,fictive-environments,/images/atlas/new-york-voices-joes-pub.webp,no,Commissioned performance at Joe's Pub.
 43,people-like-us-podcast,People Like Us Podcast,2021,secondary,sound|image,Sound|Image,mekena-nyc|new-york-voices|nyu-kevorkian-residency,/images/atlas/people-like-us-podcast-visual-identity.webp,no,Original score and visual identity for series.
 44,museum-of-architecture,Museum of Architecture,2009,secondary,space,Space,fawzi-azar-award,/images/atlas/museum-of-architecture-aub-design.webp,no,Award-winning AUB design project.
 45,arabic-pop-1925-2025,Arabic Pop 1925–2025,2025,secondary,sound|code,Sound|Code,tebr,/images/atlas/arabic-pop-1925-2025-archive-map.webp,no,Interactive mapping of musical evolution.
 46,stage-architecture,Stage Architecture,2015–22,secondary,space|image,Space|Image,mashrou-leila,/images/atlas/stage-architecture-mashrou-tour.webp,no,Narrative scenography for global tours.
 47,nowhere-elsewhere,NOWHERE/ELSEWHERE,2022,secondary,image|text,Image|Text,crane-song,/images/atlas/nowhere-elsewhere-transit-visual.webp,no,Visual media study on transit states.
 48,kardia,KARDIA,2021,secondary,code|sound|systems,Code|Sound|Systems,body-maintenance-log,/images/atlas/kardia-body-signal-interface.webp,yes,Kardia extends the practice’s body-as-signal logic into wellness and therapeutic territory without losing its formal seriousness.
-49,loop-corridor,Loop Corridor,2025,secondary,space|sound,Space|Sound,,/images/atlas/loop-corridor-feedback-system.webp,no,Virtual architectural space for sound.
+49,loop-corridor,Loop Corridor,2025,secondary,space|sound,Space|Sound,mekena-nyc,/images/atlas/loop-corridor-feedback-system.webp,no,Virtual architectural space for sound.
 50,3d-beat-synth,3D-BEAT-SYNTH,2025,secondary,code|sound|image,Code|Sound|Image,itp-camp-prototypes,/images/atlas/3d-beat-synth-webgl-interface.webp,yes,This is one of the most immediately legible proofs in the portfolio that technical experimentation can stay conceptually clean and experientially immediate.
 51,storylines,STORYLINES,2024,secondary,code|text|image,Code|Text|Image,the-labyrinth,/images/atlas/storylines-graph-interface.webp,yes,"STORYLINES shows how abstract ideas can be translated into a working relational interface that remains legible, surprising, and technically credible."
 52,architectures-of-belonging,Architectures of Belonging,2021,secondary,space|text,Space|Text,nyu-kevorkian-residency,/images/atlas/architectures-of-belonging-cohesion-model.webp,no,Research on spatial agency and identity.
@@ -71,50 +71,50 @@ order,id,title,year,tier,domains,stack,connections,image,hasProjectPage,summary
 70,lilly-doesnt-care-anymore,Lilly doesn’t care anymore,2008,secondary,image,Image,kaboos-kaleidoscope,/images/atlas/lilly-doesnt-care-2d-animation.webp,no,Early 2D stop-motion experiment.
 71,material-for-a-novel-research-piece,Material for a Novel (Research Piece),2014,secondary,image|text,Image|Text,sophies-world,/images/atlas/material-for-a-novel-research-still.webp,no,Video essay/Research piece.
 72,post-conflict-urbanism,Post-Conflict Urbanism,2006,secondary,space|systems,Space|Systems,aub-architecture-b-arch,/images/atlas/post-conflict-urbanism-south-lebanon.webp,no,Research and mapping in South Lebanon.
-73,fasateen-mv,Fasateen (MV),2010,archive,image|sound,Image|Sound,,/images/atlas/fasateen-music-video-still.webp,no,Breakthrough music video.
-74,raksit-leila-mv,Raksit Leila (MV),2010,archive,image|sound,Image|Sound,,/images/atlas/raksit-leila-video-still.webp,no,Iconic music video/performance.
-75,exit-festival,Exit Festival,2011,archive,sound,Sound,,/images/atlas/exit-festival-serbia-2011.webp,no,Performance in Serbia.
-76,npr-tiny-desk,NPR Tiny Desk,2016,archive,sound|systems,Sound|Systems,,/images/atlas/npr-tiny-desk-mashrou-leila.webp,no,Global breakout performance.
-77,roman-video,ROMAN,2017,archive,image|sound,Image|Sound,,/images/atlas/roman-music-video-still.webp,no,"Roman became the anchor image for the band's late visual era, and serves here as the doorway into the broader music video archive."
-78,greenpeace-campaign,Greenpeace Campaign,2014,archive,systems,Systems,,/images/atlas/greenpeace-campaign-renewable-energy.webp,no,Renewable energy awareness.
-79,body-maintenance-log,Body Maintenance Log,2021,archive,text|systems,Text|Systems,,/images/atlas/body-maintenance-log-document-art.webp,no,Document art on visa/health.
-80,project-zero,Project Zero,2026,archive,systems|code,Systems|Code,,/images/atlas/project-zero-civic-protocol.webp,no,Civic protocol concept for stillness.
-81,the-mirage-room,The Mirage Room,2012,archive,space|image,Space|Image,,/images/atlas/the-mirage-room-optical-installation.webp,no,Optical illusion installation.
-82,bourj-hammoud-thesis,Bourj Hammoud Thesis,2009,archive,space|text,Space|Text,,/images/atlas/bourj-hammoud-urban-thesis.webp,no,Urban research/Architectural thesis.
-83,map-of-the-wound,Map of the Wound,2024,archive,text|image,Text|Image,,/images/atlas/map-of-the-wound-literary-visual.webp,no,Composite literary/visual work.
-84,ants-design-store,Ants Design Store,2011,archive,space,Space,,/images/atlas/ants-design-store-interior.webp,no,Commercial interior in Beirut/Yerevan.
-85,hercules-and-love-affair,Hercules & Love Affair,2017,archive,sound,Sound,,/images/atlas/hercules-love-affair-are-you-still-certain.webp,no,"Collaboration: ""Are You Still Certain?""."
-86,roisin-murphy,Roisin Murphy,2018,archive,sound,Sound,,/images/atlas/roisin-murphy-salam-banksy.webp,no,"Collaboration: ""Salam""."
-87,lost-souls-of-saturn,Lost Souls of Saturn,2019,archive,sound,Sound,,/images/atlas/lost-souls-saturn-bint-el-khandaq.webp,no,"Collaboration: ""Bint el Khandaq""."
-88,mika-collaboration,Mika Collaboration,2020,archive,sound,Sound,,/images/atlas/mika-promiseland-sursock-palace.webp,no,"Collaboration: ""Promiseland""."
-89,the-narcycist,The Narcycist,2018,archive,sound,Sound,,/images/atlas/narcycist-time-collaboration.webp,no,"Collaboration: ""Time""."
-90,cavalry-mv,Cavalry (MV),2019,archive,image|systems,Image|Systems,,/images/atlas/cavalry-music-video-militarized.webp,no,Music video on militarized space.
-91,radio-romance-mv,Radio Romance (MV),2019,archive,image,Image,,/images/atlas/radio-romance-narrative-video.webp,no,Narrative music video.
-92,aoede-mv,Aoede (MV),2016,archive,image,Image,,/images/atlas/aoede-experimental-video.webp,no,Experimental visual video.
-93,3-minutes-mv,3 Minutes (MV),2015,archive,image,Image,,/images/atlas/3-minutes-fan-collaborated-video.webp,no,Fan-collaborated video.
-94,lil-watan-mv,Lil Watan (MV),2013,archive,image|systems,Image|Systems,,/images/atlas/lil-watan-political-satire-video.webp,no,Political satire music video.
-95,the-waiting-room,The Waiting Room,2010,archive,space,Space,,/images/atlas/the-waiting-room-installation.webp,no,Early architectural installation.
-96,1000-strings-at-rest,1000 STRINGS AT REST,2022,archive,sound|space|image,Sound|Space|Image,,/images/atlas/1000-strings-at-rest-installation.webp,yes,"Even as an archive entry, this work carries a lot of emotional and methodological weight because it bridges Mashrou’ Leila, STTM, and DERIVE so clearly."
-97,galaxy-birds,Galaxy Birds,2024,archive,code|image,Code|Image,,/images/atlas/galaxy-birds-generative-art.webp,no,Digital/Generative art piece.
-98,photon-plus,PHOTON+,2025,archive,code|sound|image,Code|Sound|Image,,/images/atlas/photon-plus-optical-sequencer.webp,yes,photon+ is one of the most elegant examples in the portfolio of architectural logic being directly translated into an instrument.
-99,derive,DERIVE,2024,archive,code|systems|sound,Code|Systems|Sound,,/images/atlas/derive-memory-navigation-system.webp,yes,"DERIVE models memory as emotional adjacency instead of chronology, turning fragmented archives into a navigable, performable system."
-100,mobius-engine,Möbius Engine,2025,archive,code,Code,,/images/atlas/mobius-engine-binary-data-topology.webp,no,Logic/Code prototype.
-101,resonance-atlas,RESONANCE ATLAS,2024,archive,systems|sound|text,Systems|Sound|Text,,/images/atlas/resonance-atlas-spatial-sound-map.webp,yes,"Resonance Atlas names the broader field that several projects are already operating within, which gives the research a cumulative rather than scattered presence."
-102,ghost-city,Ghost City,2020,archive,image|code,Image|Code,,/images/atlas/cartography-of-absence-data-void-absence-index.webp,no,Data-driven visual piece.
-103,nebucat,Nebucat,2020,archive,text,Text,,/images/atlas/sparrowos-pixel-eye-icon.webp,no,Conceptual avatar/character.
-104,non-linear-time,Non-Linear Time,2025,archive,code|image,Code|Image,,/images/atlas/navigating-latency-temporal-routing.webp,no,Visual/Logic experiment.
-105,the-archive,The Archive,2025,archive,text|code,Text|Code,,/images/atlas/derive-entropy-reducing-structure-emerging.webp,no,Meta-project on documentation.
-106,architecting-the-liminal,Architecting the Liminal,2025,archive,space|text,Space|Text,,/images/atlas/derive-boids-vector-flow-field.webp,no,Spatial research paper.
-107,401-songs-database,401 Songs Database,2025,archive,code|sound,Code|Sound,,/images/atlas/localization-gap-batch-processing-yield-terminal.webp,no,Technical music archive.
-108,louvre-abu-dhabi,Louvre Abu Dhabi,2008,archive,space,Space,,/images/atlas/louvre-abu-dhabi-jean-nouvel-internship.webp,no,Internship and architectural research.
-109,colors-baby,Colors Baby,2024,archive,image|code,Image|Code,,/images/atlas/colors-baby-ai-music-video.webp,no,AI visual study.
-110,maqamai,MAQAMAI,2025,archive,code|sound|text,Code|Sound|Text,,/images/atlas/maqamai-maqam-ai-interface.webp,yes,MaqamAI fills the human infrastructure gap between recognizing model failure and being able to hear what is missing in the first place.
-111,house-ii-skin,House II: Skin,2009,archive,space,Space,,/images/atlas/house-ii-skin-architectural-model.webp,no,Architectural installation/model.
-112,the-forgery,The Forgery,2024,archive,text|code,Text|Code,,/images/atlas/mobius-engine-system-flowchart.webp,no,Narrative/Code concept.
-113,projectarium-ai,Projectarium AI,2025,archive,code,Code,,/images/atlas/projectarium-ai-speculative-forms-grid.webp,no,AI tool for project management.
-114,beirut-river-project,Beirut River Project,2009,archive,space,Space,,/images/atlas/beirut-river-project-map.webp,no,Urban revitalization design.
-115,opera-house-design,Opera House Design,2008,archive,space,Space,,/images/atlas/opera-house-design-aub-project.webp,no,Large scale architectural design.
-116,barbican-release,Barbican Release,2015,archive,sound,Sound,,/images/atlas/barbican-release-london-performance.webp,no,Major performance event London.
-117,shim-el-yasmeen,Shim El Yasmeen,2009,archive,sound,Sound,,/images/atlas/shim-el-yasmeen-foundation-song.webp,no,Foundation song/Project.
-118,walaw-manifesto,Walaw Manifesto,2021,archive,text,Text,,/images/atlas/walaw-manifesto-origin-text.webp,no,The origin text of Walaw Studio.
-119,the-beirut-school-album,The Beirut School (Album),2019,archive,sound,Sound,,/images/atlas/the-beirut-school-album-cover.webp,no,Final anthology album.
+73,fasateen-mv,Fasateen (MV),2010,archive,image|sound,Image|Sound,mashrou-leila,/images/atlas/fasateen-music-video-still.webp,no,Breakthrough music video.
+74,raksit-leila-mv,Raksit Leila (MV),2010,archive,image|sound,Image|Sound,mashrou-leila,/images/atlas/raksit-leila-video-still.webp,no,Iconic music video/performance.
+75,exit-festival,Exit Festival,2011,archive,sound,Sound,mashrou-leila,/images/atlas/exit-festival-serbia-2011.webp,no,Performance in Serbia.
+76,npr-tiny-desk,NPR Tiny Desk,2016,archive,sound|systems,Sound|Systems,mashrou-leila,/images/atlas/npr-tiny-desk-mashrou-leila.webp,no,Global breakout performance.
+77,roman-video,ROMAN,2017,archive,image|sound,Image|Sound,mashrou-leila,/images/atlas/roman-music-video-still.webp,no,"Roman became the anchor image for the band's late visual era, and serves here as the doorway into the broader music video archive."
+78,greenpeace-campaign,Greenpeace Campaign,2014,archive,systems,Systems,mashrou-leila,/images/atlas/greenpeace-campaign-renewable-energy.webp,no,Renewable energy awareness.
+79,body-maintenance-log,Body Maintenance Log,2021,archive,text|systems,Text|Systems,kardia,/images/atlas/body-maintenance-log-document-art.webp,no,Document art on visa/health.
+80,project-zero,Project Zero,2026,archive,systems|code,Systems|Code,meaning-stack,/images/atlas/project-zero-civic-protocol.webp,no,Civic protocol concept for stillness.
+81,the-mirage-room,The Mirage Room,2012,archive,space|image,Space|Image,sometimes-i-wake-up-elsewhere,/images/atlas/the-mirage-room-optical-installation.webp,no,Optical illusion installation.
+82,bourj-hammoud-thesis,Bourj Hammoud Thesis,2009,archive,space|text,Space|Text,architecture-in-low-res,/images/atlas/bourj-hammoud-urban-thesis.webp,no,Urban research/Architectural thesis.
+83,map-of-the-wound,Map of the Wound,2024,archive,text|image,Text|Image,cartography-of-absence,/images/atlas/map-of-the-wound-literary-visual.webp,no,Composite literary/visual work.
+84,ants-design-store,Ants Design Store,2011,archive,space,Space,mekena-nyc,/images/atlas/ants-design-store-interior.webp,no,Commercial interior in Beirut/Yerevan.
+85,hercules-and-love-affair,Hercules & Love Affair,2017,archive,sound,Sound,mashrou-leila,/images/atlas/hercules-love-affair-are-you-still-certain.webp,no,"Collaboration: ""Are You Still Certain?""."
+86,roisin-murphy,Roisin Murphy,2018,archive,sound,Sound,mashrou-leila,/images/atlas/roisin-murphy-salam-banksy.webp,no,"Collaboration: ""Salam""."
+87,lost-souls-of-saturn,Lost Souls of Saturn,2019,archive,sound,Sound,mashrou-leila,/images/atlas/lost-souls-saturn-bint-el-khandaq.webp,no,"Collaboration: ""Bint el Khandaq""."
+88,mika-collaboration,Mika Collaboration,2020,archive,sound,Sound,mashrou-leila,/images/atlas/mika-promiseland-sursock-palace.webp,no,"Collaboration: ""Promiseland""."
+89,the-narcycist,The Narcycist,2018,archive,sound,Sound,mashrou-leila,/images/atlas/narcycist-time-collaboration.webp,no,"Collaboration: ""Time""."
+90,cavalry-mv,Cavalry (MV),2019,archive,image|systems,Image|Systems,mashrou-leila,/images/atlas/cavalry-music-video-militarized.webp,no,Music video on militarized space.
+91,radio-romance-mv,Radio Romance (MV),2019,archive,image,Image,mashrou-leila,/images/atlas/radio-romance-narrative-video.webp,no,Narrative music video.
+92,aoede-mv,Aoede (MV),2016,archive,image,Image,mashrou-leila,/images/atlas/aoede-experimental-video.webp,no,Experimental visual video.
+93,3-minutes-mv,3 Minutes (MV),2015,archive,image,Image,mashrou-leila,/images/atlas/3-minutes-fan-collaborated-video.webp,no,Fan-collaborated video.
+94,lil-watan-mv,Lil Watan (MV),2013,archive,image|systems,Image|Systems,mashrou-leila,/images/atlas/lil-watan-political-satire-video.webp,no,Political satire music video.
+95,the-waiting-room,The Waiting Room,2010,archive,space,Space,sometimes-i-wake-up-elsewhere,/images/atlas/the-waiting-room-installation.webp,no,Early architectural installation.
+96,1000-strings-at-rest,1000 STRINGS AT REST,2022,archive,sound|space|image,Sound|Space|Image,mashrou-leila,/images/atlas/1000-strings-at-rest-installation.webp,yes,"Even as an archive entry, this work carries a lot of emotional and methodological weight because it bridges Mashrou’ Leila, STTM, and DERIVE so clearly."
+97,galaxy-birds,Galaxy Birds,2024,archive,code|image,Code|Image,crane-song,/images/atlas/galaxy-birds-generative-art.webp,no,Digital/Generative art piece.
+98,photon-plus,PHOTON+,2025,archive,code|sound|image,Code|Sound|Image,space-time-tuning-machine,/images/atlas/photon-plus-optical-sequencer.webp,yes,photon+ is one of the most elegant examples in the portfolio of architectural logic being directly translated into an instrument.
+99,derive,DERIVE,2024,archive,code|systems|sound,Code|Systems|Sound,meaning-stack,/images/atlas/derive-memory-navigation-system.webp,yes,"DERIVE models memory as emotional adjacency instead of chronology, turning fragmented archives into a navigable, performable system."
+100,mobius-engine,Möbius Engine,2025,archive,code,Code,fictive-environments,/images/atlas/mobius-engine-binary-data-topology.webp,no,Logic/Code prototype.
+101,resonance-atlas,RESONANCE ATLAS,2024,archive,systems|sound|text,Systems|Sound|Text,hah-was,/images/atlas/resonance-atlas-spatial-sound-map.webp,yes,"Resonance Atlas names the broader field that several projects are already operating within, which gives the research a cumulative rather than scattered presence."
+102,ghost-city,Ghost City,2020,archive,image|code,Image|Code,cartography-of-absence,/images/atlas/cartography-of-absence-data-void-absence-index.webp,no,Data-driven visual piece.
+103,nebucat,Nebucat,2020,archive,text,Text,sometimes-i-wake-up-elsewhere,/images/atlas/sparrowos-pixel-eye-icon.webp,no,Conceptual avatar/character.
+104,non-linear-time,Non-Linear Time,2025,archive,code|image,Code|Image,chronocumulator,/images/atlas/navigating-latency-temporal-routing.webp,no,Visual/Logic experiment.
+105,the-archive,The Archive,2025,archive,text|code,Text|Code,99-nodes,/images/atlas/derive-entropy-reducing-structure-emerging.webp,no,Meta-project on documentation.
+106,architecting-the-liminal,Architecting the Liminal,2025,archive,space|text,Space|Text,architecture-in-low-res,/images/atlas/derive-boids-vector-flow-field.webp,no,Spatial research paper.
+107,401-songs-database,401 Songs Database,2025,archive,code|sound,Code|Sound,mashrou-leila,/images/atlas/localization-gap-batch-processing-yield-terminal.webp,no,Technical music archive.
+108,louvre-abu-dhabi,Louvre Abu Dhabi,2008,archive,space,Space,mekena-nyc,/images/atlas/louvre-abu-dhabi-jean-nouvel-internship.webp,no,Internship and architectural research.
+109,colors-baby,Colors Baby,2024,archive,image|code,Image|Code,mashrou-leila,/images/atlas/colors-baby-ai-music-video.webp,no,AI visual study.
+110,maqamai,MAQAMAI,2025,archive,code|sound|text,Code|Sound|Text,hah-was,/images/atlas/maqamai-maqam-ai-interface.webp,yes,MaqamAI fills the human infrastructure gap between recognizing model failure and being able to hear what is missing in the first place.
+111,house-ii-skin,House II: Skin,2009,archive,space,Space,architecture-in-low-res,/images/atlas/house-ii-skin-architectural-model.webp,no,Architectural installation/model.
+112,the-forgery,The Forgery,2024,archive,text|code,Text|Code,sometimes-i-wake-up-elsewhere,/images/atlas/mobius-engine-system-flowchart.webp,no,Narrative/Code concept.
+113,projectarium-ai,Projectarium AI,2025,archive,code,Code,meaning-stack,/images/atlas/projectarium-ai-speculative-forms-grid.webp,no,AI tool for project management.
+114,beirut-river-project,Beirut River Project,2009,archive,space,Space,mekena-nyc,/images/atlas/beirut-river-project-map.webp,no,Urban revitalization design.
+115,opera-house-design,Opera House Design,2008,archive,space,Space,architecture-in-low-res,/images/atlas/opera-house-design-aub-project.webp,no,Large scale architectural design.
+116,barbican-release,Barbican Release,2015,archive,sound,Sound,mashrou-leila,/images/atlas/barbican-release-london-performance.webp,no,Major performance event London.
+117,shim-el-yasmeen,Shim El Yasmeen,2009,archive,sound,Sound,mashrou-leila,/images/atlas/shim-el-yasmeen-foundation-song.webp,no,Foundation song/Project.
+118,walaw-manifesto,Walaw Manifesto,2021,archive,text,Text,cartography-of-absence,/images/atlas/walaw-manifesto-origin-text.webp,no,The origin text of Walaw Studio.
+119,the-beirut-school-album,The Beirut School (Album),2019,archive,sound,Sound,mashrou-leila,/images/atlas/the-beirut-school-album-cover.webp,no,Final anthology album.
