@@ -820,15 +820,25 @@ export default function Overlay({
                 <div className="mt-8 border-t border-white/10 pt-5">
                   <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.22em] text-accent">Relations</p>
                   <div className="flex flex-wrap gap-2">
-                    {relatedSlugs.map((slug: string) => (
-                      <button
-                        key={slug}
-                        onClick={() => onSelectSlug(slug)}
-                        className="border border-white/10 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted transition-colors hover:border-accent/60 hover:text-white"
-                      >
-                        {slug.replace(/-/g, ' ')}
-                      </button>
-                    ))}
+                    {relatedSlugs.map((slug: string) => {
+                      const targetNode = nodeBySlug.get(slug);
+                      const isMutual = targetNode?.connections?.includes(activeNode.slug) && activeNode.connections?.includes(slug);
+                      return (
+                        <button
+                          key={slug}
+                          onClick={() => onSelectSlug(slug)}
+                          className={`px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] transition-all cursor-pointer rounded-none border ${
+                            isMutual
+                              ? 'bg-accent/10 border-accent/40 text-white hover:bg-accent/25 hover:border-accent'
+                              : 'bg-transparent border-white/10 text-text-muted hover:border-white/30 hover:text-white'
+                          }`}
+                          title={isMutual ? 'Mutual Core Association' : 'Contextual Connection'}
+                        >
+                          {slug.replace(/-/g, ' ')}
+                          {isMutual && <span className="ml-1 text-[7px] text-accent">⚡</span>}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}

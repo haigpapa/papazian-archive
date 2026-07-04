@@ -14,8 +14,12 @@ export const GENERATED_PROJECT_RECORDS = [
     ],
     "connections": [
       "fictive-environments",
+      "meaning-stack",
       "mekena-nyc",
-      "tebr"
+      "tebr",
+      "derive",
+      "hah-was",
+      "the-weather-rehearsal"
     ],
     "status": "public",
     "showInWorks": true,
@@ -36,9 +40,12 @@ export const GENERATED_PROJECT_RECORDS = [
       "Studio OS · Architecture"
     ],
     "connections": [
+      "systems-choreography",
       "mekena-nyc",
-      "lede-nyc",
-      "sometimes-i-wake-up-elsewhere"
+      "sometimes-i-wake-up-elsewhere",
+      "storylines",
+      "architecture-in-low-res",
+      "lede-nyc"
     ],
     "status": "public",
     "showInWorks": true,
@@ -60,7 +67,9 @@ export const GENERATED_PROJECT_RECORDS = [
     "connections": [
       "systems-choreography",
       "hah-was",
-      "derive"
+      "derive",
+      "99-nodes",
+      "localization-gap"
     ],
     "status": "public",
     "showInWorks": true,
@@ -80,8 +89,11 @@ export const GENERATED_PROJECT_RECORDS = [
       "Meta-Archive · Graph"
     ],
     "connections": [
+      "meaning-stack",
       "storylines",
-      "codeverse-explorer"
+      "codeverse-explorer",
+      "derive",
+      "systems-choreography"
     ],
     "status": "public",
     "showInWorks": true,
@@ -102,6 +114,9 @@ export const GENERATED_PROJECT_RECORDS = [
       "Spatial · Image · Breakdown"
     ],
     "connections": [
+      "cartography-of-absence",
+      "sometimes-i-wake-up-elsewhere",
+      "mekena-nyc",
       "sophies-world"
     ],
     "status": "public",
@@ -122,6 +137,10 @@ export const GENERATED_PROJECT_RECORDS = [
       "Mapping · Void"
     ],
     "connections": [
+      "architecture-in-low-res",
+      "sometimes-i-wake-up-elsewhere",
+      "why-were-like-this",
+      "hah-was",
       "walaw-manifesto"
     ],
     "status": "public",
@@ -143,9 +162,12 @@ export const GENERATED_PROJECT_RECORDS = [
       "Stage · Audience · Risk"
     ],
     "connections": [
+      "why-were-like-this",
       "space-time-tuning-machine",
-      "1000-strings-at-rest",
-      "tebr"
+      "tebr",
+      "sometimes-i-wake-up-elsewhere",
+      "chronocumulator",
+      "1000-strings-at-rest"
     ],
     "status": "public",
     "showInWorks": true,
@@ -166,8 +188,10 @@ export const GENERATED_PROJECT_RECORDS = [
       "Identity · Discourse"
     ],
     "connections": [
-      "sometimes-i-wake-up-elsewhere",
+      "mashrou-leila",
       "cartography-of-absence",
+      "sometimes-i-wake-up-elsewhere",
+      "storylines",
       "derive"
     ],
     "status": "public",
@@ -190,7 +214,11 @@ export const GENERATED_PROJECT_RECORDS = [
     ],
     "connections": [
       "tebr",
-      "derive"
+      "mashrou-leila",
+      "chronocumulator",
+      "the-weather-rehearsal",
+      "derive",
+      "maqamai"
     ],
     "status": "public",
     "showInWorks": true,
@@ -211,8 +239,12 @@ export const GENERATED_PROJECT_RECORDS = [
       "Dust · Material"
     ],
     "connections": [
-      "fictive-environments",
-      "space-time-tuning-machine"
+      "space-time-tuning-machine",
+      "mashrou-leila",
+      "chronocumulator",
+      "systems-choreography",
+      "localization-gap",
+      "fictive-environments"
     ],
     "status": "public",
     "showInWorks": true,
@@ -232,9 +264,12 @@ export const GENERATED_PROJECT_RECORDS = [
       "Physics · Sound"
     ],
     "connections": [
-      "hah-was",
+      "space-time-tuning-machine",
+      "tebr",
       "maqamai",
-      "tebr"
+      "the-weather-rehearsal",
+      "derive",
+      "hah-was"
     ],
     "status": "public",
     "showInWorks": true,
@@ -254,9 +289,11 @@ export const GENERATED_PROJECT_RECORDS = [
       "Simulation · Risk"
     ],
     "connections": [
+      "space-time-tuning-machine",
+      "chronocumulator",
       "mekena-nyc",
-      "derive",
-      "space-time-tuning-machine"
+      "systems-choreography",
+      "derive"
     ],
     "status": "public",
     "showInWorks": true,
@@ -277,7 +314,13 @@ export const GENERATED_PROJECT_RECORDS = [
       "Text · Displacement"
     ],
     "connections": [
-      "cartography-of-absence"
+      "fictive-environments",
+      "cartography-of-absence",
+      "mashrou-leila",
+      "why-were-like-this",
+      "derive",
+      "storylines",
+      "architecture-in-low-res"
     ],
     "status": "public",
     "showInWorks": true,
@@ -298,9 +341,13 @@ export const GENERATED_PROJECT_RECORDS = [
       "Navigation · Urban"
     ],
     "connections": [
+      "systems-choreography",
       "meaning-stack",
-      "1000-strings-at-rest",
-      "99-nodes"
+      "99-nodes",
+      "sometimes-i-wake-up-elsewhere",
+      "codeverse-explorer",
+      "the-weather-rehearsal",
+      "1000-strings-at-rest"
     ],
     "status": "public",
     "showInWorks": true,
@@ -321,6 +368,10 @@ export const GENERATED_PROJECT_RECORDS = [
       "Narrative · Archive"
     ],
     "connections": [
+      "fictive-environments",
+      "99-nodes",
+      "sometimes-i-wake-up-elsewhere",
+      "why-were-like-this",
       "the-labyrinth"
     ],
     "status": "public",
@@ -342,7 +393,10 @@ export const GENERATED_PROJECT_RECORDS = [
       "AI · Phonetics"
     ],
     "connections": [
-      "localization-gap"
+      "meaning-stack",
+      "localization-gap",
+      "maqamai",
+      "chronocumulator"
     ],
     "status": "public",
     "showInWorks": true,
@@ -364,6 +418,8 @@ export const GENERATED_PROJECT_RECORDS = [
     ],
     "connections": [
       "hah-was",
+      "maqamai",
+      "space-time-tuning-machine",
       "tebr"
     ],
     "status": "public",
@@ -386,6 +442,9 @@ export const GENERATED_PROJECT_RECORDS = [
     ],
     "connections": [
       "hah-was",
+      "localization-gap",
+      "chronocumulator",
+      "space-time-tuning-machine",
       "resonance-atlas",
       "tebr"
     ],
@@ -407,7 +466,10 @@ export const GENERATED_PROJECT_RECORDS = [
       "Civic · Infrastructure"
     ],
     "connections": [
-      "fictive-environments"
+      "systems-choreography",
+      "fictive-environments",
+      "the-weather-rehearsal",
+      "architecture-in-low-res"
     ],
     "status": "public",
     "showInWorks": true,
@@ -428,6 +490,9 @@ export const GENERATED_PROJECT_RECORDS = [
       "Technical · Future"
     ],
     "connections": [
+      "99-nodes",
+      "derive",
+      "meaning-stack",
       "telescode"
     ],
     "status": "public",

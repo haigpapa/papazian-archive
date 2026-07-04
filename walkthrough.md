@@ -2,7 +2,7 @@
 
 ## Session Summary (latest session — 2026-07-04)
 
-In this session, we elevated the design, UI, and UX of the **Index (Grid)**, **Map**, and **Essay** modes to resolve their incomplete status. We integrated 2D layout overlays with the 3D WebGL engine, restored the hidden textual works list, and enabled seamless relational navigation.
+In this session, we elevated the design, UI, and UX of the **Index (Grid)**, **Map**, and **Essay** modes to resolve their incomplete status. We integrated 2D layout overlays with the 3D WebGL engine, restored the hidden textual works list, and enabled seamless relational navigation. We also curated and visualized the project connection matrix.
 
 ### Key Changes:
 
@@ -23,12 +23,19 @@ In this session, we elevated the design, UI, and UX of the **Index (Grid)**, **M
    - Slugs of selected essays are mapped to their corresponding archive project node (e.g. `cost-of-being-queer-and-arab` ➔ `mashrou-leila`).
    - The 3D cylinder spiral background is automatically scrolled and rotated to center/focus on the corresponding card in real-time.
 
+4. **Curated & Visualized Relationship Density**:
+   - Updated [projects.csv](file:///Users/vhnmns/Documents/projects/papazian-archive/content/projects.csv) to map a dense, bi-directional relationship matrix for all 20 canonical projects.
+   - Enhanced the details sidebar in [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx#L819) to programmatically check if each related project connection is **mutual** (both projects point to each other).
+   - **Core Associations** (mutual links) are visually highlighted with an accent border, semi-transparent background (`bg-accent/10 border-accent/40`), and a lightning bolt indicator (`⚡`), while **Contextual Connections** (one-way links) are rendered as secondary links.
+   - Rebuilt content via `npm run content:build` to compile these links into the 3D engine constellation generator.
+
 ---
 
 ## Completed This Session
 
-- **R1** [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx): Restored textual list index, added HUD toggle buttons, removed map detail sidebar suppression, and wired essay selection callback.
+- **R1** [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx): Restored textual list index, added HUD toggle buttons, removed map detail sidebar suppression, and wired essay selection callback. Distinguished visually between Core Associations and Contextual Connections.
 - **R2** [App.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/App.tsx): Implemented essay-to-project slug mapping and scrolled the WebGL camera to focus on matching cards when reading essays.
+- **R3** [projects.csv](file:///Users/vhnmns/Documents/projects/papazian-archive/content/projects.csv): Designed and authored a dense bi-directional project connection matrix.
 
 ---
 
