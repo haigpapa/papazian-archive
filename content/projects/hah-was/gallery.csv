@@ -1,11 +1,11 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,12_hah_was_localization_gap.png,,Establishing System,hero,Mobile Truth Interface,"The test appears as a game, but the stakes are epistemic.",Establishes playable verification.,primary
-2,text,,,Thesis,thesis,Reverse Turing Test,The question is not whether machines can fool humans. It is whether humans can still detect machine cultural error.,Reframes interaction.,secondary
-3,image,hah-was-hallucination-detection-ui.jpeg,,Evidence,evidence,AI Claim Card,The model presents a plausible claim that may be culturally false.,Shows the unit of inspection.,secondary
-4,image,hah-was-server-stack-schematic.png,,System,system,Adversarial Game Loop,The user trains against hallucination.,Shows interaction structure.,secondary
-5,image,hah-was-binary-channel-barcode-waveform.jpeg,,Technical Proof,evidence,Grounding Pass,Cultural claims must pass through evidence before becoming trusted.,Establishes veracity system.,secondary
-6,text,,,Technical Proof,evidence,Spectral Input,Sonic failures can become part of the hallucination test.,Links HAH-WAS to music-engine analysis.,secondary
-7,text,,,Evidence,evidence,Hallucination Score,Cultural error becomes measurable without pretending measurement is neutral.,Creates an audit surface.,secondary
-8,text,,,Dossier,system,Failure Taxonomy,The system classifies the ways machines lie politely.,Turns hallucination into a research object.,secondary
-9,text,,,Relation,context,Relation to Localization Gap / Meaning Stack,The audit becomes a defensive interface.,Positions HAH-WAS inside the larger architecture.,secondary
-10,text,,,Coda,coda,The Human Auditor,The final checkpoint is still human discernment.,Ends with responsibility.,quiet
+1,image,cover.webp,,Establishing System,hero,Mobile Truth Interface,"The test appears as a game, but the stakes are epistemic.",Establishes playable verification.,primary
+2,image,hah-was-01.jpeg,,Thesis,thesis,Reverse Turing Test,The question is not whether machines can fool humans. It is whether humans can still detect machine cultural error.,Reframes interaction.,secondary
+3,image,hah-was-02.jpeg,,Evidence,evidence,AI Claim Card,The model presents a plausible claim that may be culturally false.,Shows the unit of inspection.,secondary
+4,image,hah-was-03.jpeg,,System,system,Adversarial Game Loop,The user trains against hallucination.,Shows interaction structure.,secondary
+5,image,hah-was-04.jpeg,,Technical Proof,evidence,Grounding Pass,Cultural claims must pass through evidence before becoming trusted.,Establishes veracity system.,secondary
+6,image,hah-was-05.jpeg,,Technical Proof,evidence,Spectral Input,Sonic failures can become part of the hallucination test.,Links HAH-WAS to music-engine analysis.,secondary
+7,image,hah-was-06.jpeg,,Evidence,evidence,Hallucination Score,Cultural error becomes measurable without pretending measurement is neutral.,Creates an audit surface.,secondary
+8,image,hah-was-07.jpeg,,Dossier,system,Failure Taxonomy,The system classifies the ways machines lie politely.,Turns hallucination into a research object.,secondary
+9,image,hah-was-08.jpeg,,Relation,context,Relation to Localization Gap / Meaning Stack,The audit becomes a defensive interface.,Positions HAH-WAS inside the larger architecture.,secondary
+10,image,hah-was-09.jpeg,,Coda,coda,The Human Auditor,The final checkpoint is still human discernment.,Ends with responsibility.,quiet

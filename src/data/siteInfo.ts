@@ -37,11 +37,10 @@ export const SITE_INFO_TABS: SiteInfoTab[] = [
     title: 'Contact / Collaboration',
     body: [
       'For commissions, residencies, collaborations, talks, and research conversations, use the primary email below.',
-      'Selected links are placeholders for now and can be finalized during the public launch pass.',
     ],
     links: [
       { label: 'Email', href: 'mailto:studio@haigpapazian.com', note: 'studio@haigpapazian.com' },
-      { label: 'Instagram', href: 'https://instagram.com/', note: 'final handle pending' },
+      { label: 'Instagram', href: 'https://instagram.com/haigpapazian', note: '@haigpapazian' },
       { label: 'MEKENA NYC', href: 'https://mekena.nyc/', note: 'space / residency / infrastructure' },
     ],
   },
@@ -56,8 +55,8 @@ export const SITE_INFO_TABS: SiteInfoTab[] = [
     entries: [
       {
         date: '2026',
-        title: 'Archive rebuild in progress',
-        text: 'The portfolio is being rebuilt as a spatial archive with project rails, atlas views, and a curated works spine.',
+        title: 'Spatial Archive launched',
+        text: 'The portfolio is live as a navigable spatial archive with project rails, atlas views, cinematic essays, and a curated works spine.',
       },
       {
         date: '2026',
@@ -79,7 +78,7 @@ export const SITE_INFO_TABS: SiteInfoTab[] = [
     body: [
       'Built as a React, Vite, and Three.js spatial interface.',
       'Project writing lives in repo-local markdown and CSV files. Images are organized by project folder and prepared as WebP where possible.',
-      'This version is an active working archive. Some rails use starter images and temporary copy while final documentation is assembled.',
+      'Typography set in General Sans and EB Garamond. Spatial engine renders 119 works across five navigable modes.',
     ],
   },
 ];

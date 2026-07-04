@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { LayoutGrid, Rows3, Globe, X, ArrowUpRight, Plus, Link, Search, Map, ArrowLeft, ChevronLeft, ChevronRight, Play, Volume2, BookOpen } from 'lucide-react';
+import { LayoutGrid, Rows3, Globe, X, ArrowUpRight, Plus, Link, Search, Map, ArrowLeft, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Play, Volume2, VolumeX, BookOpen } from 'lucide-react';
 import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
 import { SITE_INFO_TABS, type SiteInfoTabId } from '../data/siteInfo';
 import { getYouTubeEmbedUrl } from '../utils/youtube';
@@ -25,8 +25,8 @@ const MODE_OPTIONS = [
     icon: LayoutGrid,
   },
   {
-    id: 'atlas',
-    label: 'Atlas',
+    id: 'map',
+    label: 'Map',
     description: 'Relations',
     icon: Map,
   },
@@ -37,6 +37,14 @@ const MODE_OPTIONS = [
     icon: BookOpen,
   },
 ];
+
+const handleSpotlightMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  e.currentTarget.style.setProperty('--x', `${x}px`);
+  e.currentTarget.style.setProperty('--y', `${y}px`);
+};
 
 const ESSAY_RECORDS = [
   {
@@ -176,6 +184,7 @@ export const getProjectWorld = (slug: string) => {
 };
 
 interface OverlayProps {
+  inert?: boolean;
   nodes: any[];
   activeNode: any;
   centeredNode?: any;
@@ -196,9 +205,20 @@ interface OverlayProps {
   onBackToWorks: () => void;
   onOpenMedia: (media: any) => void;
   onGoToRailSlide?: (index: number) => void;
+  audioReady?: boolean;
+  isMuted?: boolean;
+  onToggleAudio?: () => void;
+  domainFilter?: string;
+  onDomainFilterChange?: (domain: string) => void;
+  typeFilter?: string;
+  onTypeFilterChange?: (type: string) => void;
+  focusedMapNode?: any;
+  onOpenProjectRail?: (node: any) => void;
+  onFocusNodeBySlug?: (slug: string) => void;
 }
 
 export default function Overlay({ 
+  inert,
   nodes, 
   activeNode, 
   centeredNode,
@@ -219,6 +239,16 @@ export default function Overlay({
   onBackToWorks,
   onOpenMedia,
   onGoToRailSlide,
+  audioReady,
+  isMuted,
+  onToggleAudio,
+  domainFilter,
+  onDomainFilterChange,
+  typeFilter,
+  onTypeFilterChange,
+  focusedMapNode,
+  onOpenProjectRail,
+  onFocusNodeBySlug,
 }: OverlayProps) {
   const [showAbout, setShowAbout] = React.useState(false);
   const [activeInfoTab, setActiveInfoTab] = React.useState<SiteInfoTabId>('about');
@@ -226,6 +256,18 @@ export default function Overlay({
   const [isSearchActive, setIsSearchActive] = React.useState(false);
   const [mobileSheetState, setMobileSheetState] = React.useState<'peek' | 'full'>('peek');
   const [isMobileViewport, setIsMobileViewport] = React.useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
+  const [hoveredChapterIndex, setHoveredChapterIndex] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    if (currentMode === 'horizontal') {
+      setIsSidebarCollapsed(true);
+    } else {
+      setIsSidebarCollapsed(false);
+    }
+  }, [currentMode, activeNode?.slug]);
+
+
   
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const detailScrollRef = React.useRef<HTMLDivElement>(null);
@@ -302,12 +344,46 @@ export default function Overlay({
   const mobileTagsClass = mobileSheetState === 'full' ? 'flex' : 'hidden md:flex';
   const mobilePeekTitle = displayRailImage?.label || activeNode?.title;
   const mobilePeekDescription = railBeat || displayRailImage?.caption || activeNode?.shortDescription;
-  const activeFocusNode = activeNode || hoveredNode || (currentMode === 'vertical' ? centeredNode : null);
+  const activeDetailNode = activeNode || (currentMode === 'map' ? focusedMapNode : null);
+  const activeFocusNode = activeDetailNode || hoveredNode || (currentMode === 'vertical' ? centeredNode : null);
   const bottomTitle = currentMode === 'horizontal' && activeNode
     ? displayRailImage?.label || activeNode.title
     : activeFocusNode
     ? activeFocusNode.title
     : 'Archive field';
+
+  const projectCode = activeFocusNode?.slug ? activeFocusNode.slug.toUpperCase() : 'SYSTEM';
+  const year = activeFocusNode?.year || '2026';
+  const currentIndex = currentMode === 'horizontal' && activeNode
+    ? String(railIndex + 1).padStart(3, '0')
+    : focusIndex >= 0
+    ? String(focusIndex + 1).padStart(3, '0')
+    : '000';
+  const totalIndex = currentMode === 'horizontal' && activeNode
+    ? String(railTotal).padStart(3, '0')
+    : String(workCount).padStart(3, '0');
+  const chapterName = (currentMode === 'horizontal' && activeNode
+    ? railChapter || 'EVIDENCE'
+    : activeFocusNode
+    ? activeFocusNode.category || 'RECORD'
+    : 'ARCHIVE').toUpperCase();
+
+  let line1Text = `WORKS / ${projectCode.padEnd(12, ' ')} / ${year}`;
+  let line3Text = `${currentIndex.padStart(5, ' ')} / ${totalIndex.padEnd(12, ' ')} / ${chapterName}`;
+
+  if (activeFocusNode?.isNoDataZone) {
+    const code = String(activeFocusNode.zoneId || 'ZONE_01').toUpperCase().padEnd(12, ' ');
+    line1Text = `ZONE  / ${code} / ${activeFocusNode.year || '2026'}`;
+    
+    const lat = String(activeFocusNode.lat || '33.8938° N').padEnd(12, ' ');
+    const lon = String(activeFocusNode.lon || '35.5018° E');
+    line3Text = ` LAT  / ${lat} / LON: ${lon}`;
+  } else if (currentMode === 'map' && activeFocusNode) {
+    const related = activeFocusNode.connections || activeFocusNode.relatedSlugs || [];
+    if (related.length > 0) {
+      line3Text = `RELATIONS: ${related.map((s: string) => s.toUpperCase()).join(' + ')}`;
+    }
+  }
 
   React.useEffect(() => {
     if (isSearchActive && searchInputRef.current) {
@@ -326,13 +402,13 @@ export default function Overlay({
   }, []);
 
   React.useEffect(() => {
-    if (!activeNode) return;
-    setMobileSheetState(currentMode === 'horizontal' ? 'peek' : 'full');
-  }, [activeNode?.slug, currentMode, activeNode]);
+    if (!activeDetailNode) return;
+    setMobileSheetState((currentMode === 'horizontal' || currentMode === 'map') ? 'peek' : 'full');
+  }, [activeDetailNode?.slug, currentMode, activeDetailNode]);
 
   React.useEffect(() => {
     detailScrollRef.current?.scrollTo({ top: 0 });
-  }, [activeNode?.slug, currentMode, railIndex]);
+  }, [activeDetailNode?.slug, currentMode, railIndex]);
 
   React.useEffect(() => {
     if (!showAbout) return;
@@ -404,16 +480,23 @@ export default function Overlay({
     : `${workCount} works / ${imageCount} images`;
 
   return (
-    <div data-ui-layer="true" className="fixed inset-0 pointer-events-none z-10 flex flex-col p-5">
+    <div data-ui-layer="true" className="fixed inset-0 pointer-events-none z-10 flex flex-col p-5" inert={inert ? true : undefined}>
       
       {/* Top Header - Always visible, minimalist */}
       <header className="fixed top-5 left-5 right-5 flex justify-center items-start pointer-events-none z-[101]">
         <div className="w-full flex justify-start pointer-events-auto">
-          <h1 className="font-display text-2xl font-bold tracking-tighter text-white leading-tight">
+          <h1 
+            onClick={() => {
+              onCloseNode();
+              onModeChange('cylinder');
+            }}
+            className="font-display text-2xl font-bold tracking-tighter text-white leading-tight cursor-pointer select-none"
+          >
             PAPAZIAN
           </h1>
         </div>
       </header>
+
 
       {/* Left-side dynamic Project World typographic overlay */}
       <AnimatePresence mode="wait">
@@ -433,7 +516,7 @@ export default function Overlay({
                 <div className="text-[10px] text-accent tracking-[0.3em] uppercase font-bold">
                   {world.roman} / {world.name}
                 </div>
-                <h2 className="mt-2 text-[11px] font-mono font-normal text-white/90 tracking-[0.2em] uppercase leading-tight">
+                <h2 className="mt-2 text-[11px] font-mono font-normal text-white/90 tracking-[0.2em] uppercase leading-tight text-balance">
                   {(world as any).systems}
                 </h2>
                 <p className="mt-3 text-[10px] leading-relaxed text-text-muted">
@@ -447,8 +530,10 @@ export default function Overlay({
 
       {/* Center Display / Active Node Panel */}
       <AnimatePresence>
-        {activeNode && (
-          <>
+        {activeDetailNode && currentMode !== 'map' && (() => {
+          const activeNode = activeDetailNode;
+          return (
+            <>
           {isMobileViewport && mobileSheetState === 'full' && (
             <button
               type="button"
@@ -459,10 +544,15 @@ export default function Overlay({
           )}
           <motion.div 
             initial={isMobileViewport ? { y: '100%', opacity: 0 } : { x: '100%', opacity: 0 }}
-            animate={isMobileViewport ? { y: 0, opacity: 1 } : { x: 0, opacity: 1 }}
+            animate={
+              isMobileViewport
+                ? { y: 0, opacity: 1 }
+                : { x: isSidebarCollapsed ? '100%' : 0, opacity: isSidebarCollapsed ? 0 : 1 }
+            }
             exit={isMobileViewport ? { y: '100%', opacity: 0 } : { x: '100%', opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className={`fixed bottom-0 left-0 right-0 z-[140] ${mobileSheetFrameClass} rounded-none border-t border-border bg-[#050505]/96 p-4 pb-4 shadow-2xl backdrop-blur-xl md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[clamp(420px,30vw,480px)] md:border-t-0 md:border-y-0 md:border-r-0 md:border-l md:bg-surface/95 md:p-10 md:pt-20 md:pb-28 flex flex-col pointer-events-auto md:z-[102]`}
+            className={`fixed bottom-0 left-0 right-0 z-[140] ${mobileSheetFrameClass} rounded-none border-t border-border bg-[#050505]/96 p-4 pb-4 shadow-2xl backdrop-blur-xl md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[clamp(420px,30vw,480px)] md:border-t-0 md:border-y-0 md:border-r-0 md:border-l md:bg-surface/95 md:p-10 md:pt-20 md:pb-28 flex flex-col pointer-events-auto md:z-[102] ${(!isMobileViewport && isSidebarCollapsed) ? 'pointer-events-none' : ''}`}
+            aria-hidden={!isMobileViewport && isSidebarCollapsed}
           >
             <div className="mb-3 flex items-center justify-between gap-2 md:hidden">
               {currentMode === 'horizontal' ? (
@@ -577,10 +667,24 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onRailStep(1);
                     }}
-                    className="flex h-10 items-center justify-center px-3 text-text-muted transition-colors hover:text-white"
+                    className="flex h-10 items-center justify-center border-r border-white/10 px-3 text-text-muted transition-colors hover:text-white"
                     aria-label="Next slide"
                   >
                     <ChevronRight size={15} />
+                  </button>
+                  <button
+                    type="button"
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={(event) => {
+                      event.currentTarget.blur();
+                      setIsSidebarCollapsed(true);
+                    }}
+                    className="flex h-10 items-center justify-center gap-2 px-3 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted transition-colors hover:text-white"
+                    title="Collapse sidebar panel"
+                    aria-label="Collapse sidebar panel"
+                  >
+                    <ChevronsRight size={13} />
+                    Hide Info
                   </button>
                 </div>
               )}
@@ -636,7 +740,7 @@ export default function Overlay({
                   </p>
                 </div>
               ) : (
-                <h2 className="font-display pr-0 text-xl font-bold uppercase text-white md:pr-24 md:text-4xl mb-2">
+                <h2 className="font-display pr-0 text-xl font-bold uppercase text-white md:pr-24 md:text-4xl mb-2 text-balance">
                   {activeNode.title}
                 </h2>
               )}
@@ -676,15 +780,15 @@ export default function Overlay({
 
               <div className={`${mobileIntroClass} prose prose-invert max-w-none`}>
                 {activeNode.thesis && (
-                  <p className="font-display text-lg leading-snug text-white">
+                  <p className="font-display text-lg leading-snug text-white text-pretty">
                     {activeNode.thesis}
                   </p>
                 )}
-                <p className="text-text leading-relaxed text-sm">
+                <p className="text-text leading-relaxed text-sm text-pretty">
                   {activeNode.shortDescription}
                 </p>
                 {activeNode.fullDescription && currentMode !== 'horizontal' && (
-                  <p className="text-text-muted mt-4 leading-relaxed text-sm">
+                  <p className="text-text-muted mt-4 leading-relaxed text-sm text-pretty">
                     {activeNode.fullDescription}
                   </p>
                 )}
@@ -695,7 +799,7 @@ export default function Overlay({
                   <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.22em] text-accent">Signals</p>
                   <div className="space-y-3">
                     {activeNode.highlights.slice(0, currentMode === 'horizontal' ? 2 : 3).map((highlight: string) => (
-                      <p key={highlight} className="border-l border-white/12 pl-3 text-xs leading-relaxed text-text-muted">
+                      <p key={highlight} className="border-l border-white/12 pl-3 text-xs leading-relaxed text-text-muted text-pretty">
                         {highlight}
                       </p>
                     ))}
@@ -731,11 +835,51 @@ export default function Overlay({
                   <p className="mt-3 font-display text-lg uppercase leading-tight text-white md:text-xl">
                     {displayRailImage?.label || activeNode.title}
                   </p>
-                  {railBeat && (
-                    <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-text-muted md:line-clamp-none">
-                      {railBeat}
-                    </p>
+                  {String(railChapter).toUpperCase() === 'AUTHORSHIP' ? (
+                    <div className="mt-4 space-y-4">
+                      {railBeat && (
+                        <p className="text-xs leading-relaxed text-text-muted">
+                          {railBeat}
+                        </p>
+                      )}
+                      {displayRailImage?.body && (
+                        <div className="mt-4 border-t border-white/10 pt-4">
+                          <p className="mb-2.5 font-mono text-[9px] uppercase tracking-[0.2em] text-accent">Role Deliverables</p>
+                          <div className="grid grid-cols-2 gap-2">
+                            {(Array.isArray(displayRailImage.body) ? displayRailImage.body : [displayRailImage.body]).map((item: string, idx: number) => (
+                              <div key={item} className="flex items-start gap-2 border border-white/5 bg-white/3 p-2 font-mono text-[9px] uppercase tracking-wider">
+                                <span className="text-accent font-bold">0{idx + 1}</span>
+                                <span className="text-text-muted leading-tight">{item}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <>
+                      {railBeat && (
+                        <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-text-muted md:line-clamp-none">
+                          {railBeat}
+                        </p>
+                      )}
+                    </>
                   )}
+                  {currentMode === 'horizontal' && (() => {
+                    const titleStr = String(displayRailImage?.label || activeNode?.title || 'NODE').toUpperCase();
+                    const codeStr = String(displayRailImage?.id || activeNode?.slug || '0000').toUpperCase().slice(-9);
+                    const charSum = (str: string) => str.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+                    const latency = (charSum(codeStr) % 100) * 0.0004 + 0.012;
+                    const entropy = (charSum(titleStr) % 100) * 0.005 + 0.085;
+                    const faultRate = (charSum(titleStr) % 10 === 0) ? '0.04%' : '0.00%';
+                    return (
+                      <div className="mt-4 border-t border-white/10 pt-4 flex items-center justify-between font-mono text-[8px] uppercase tracking-[0.16em] text-text-muted/64">
+                        <span>LATENCY: {latency.toFixed(4)} MS</span>
+                        <span>ENTROPY: {entropy.toFixed(3)} BITS</span>
+                        <span>FAULT RATE: {faultRate}</span>
+                      </div>
+                    );
+                  })()}
                   {(railType === 'video' || railType === 'audio') && (
                     <button
                       type="button"
@@ -766,21 +910,50 @@ export default function Overlay({
                 </div>
               )}
 
-              <div className={`${currentMode === 'horizontal' ? 'mt-6' : 'mt-12'} space-y-4`}>
-                {currentMode === 'horizontal' ? (
-                  null
-                ) : activeNode.hasProjectPage ? (
+              <div className="mt-auto pt-6">
+                {activeNode.hasProjectPage ? (
                   null
                 ) : (
                   <div className="w-full py-4 border border-white/10 text-text-muted font-mono text-[10px] tracking-widest flex items-center justify-center">
                     {activeNode.tier === 'archive' ? 'ARCHIVE NODE' : 'SPATIAL RECORD'}
                   </div>
                 )}
-
               </div>
             </div>
           </motion.div>
+
+          {/* Hidden container for screen readers (DOM Mirroring for a11y) */}
+          {currentMode === 'horizontal' && activeNode && (
+            <div className="sr-only" aria-live="polite" id="accessible-dossier-mirror">
+              <h3>Active Slide: {displayRailImage?.label || activeNode.title}</h3>
+              <p>Chapter: {railChapter}</p>
+              <p>Category: {railType} / Role: {railRole}</p>
+              <p>Narrative Caption: {railBeat}</p>
+            </div>
+          )}
           </>
+          );
+        })()}
+      </AnimatePresence>
+
+      {/* Floating Expand Sidebar Button when in horizontal mode and collapsed */}
+      <AnimatePresence>
+        {currentMode === 'horizontal' && activeNode && isSidebarCollapsed && (
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            type="button"
+            onClick={() => setIsSidebarCollapsed(false)}
+            className="fixed right-0 top-1/2 -translate-y-1/2 z-[141] bg-surface/95 border-l border-y border-border px-3 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:text-white hover:bg-white/5 transition-all cursor-pointer flex flex-col items-center gap-2 pointer-events-auto shadow-xl"
+            aria-label="Show project information"
+          >
+            <ChevronsLeft size={13} className="text-accent animate-pulse" />
+            <span>I</span>
+            <span>N</span>
+            <span>F</span>
+            <span>O</span>
+          </motion.button>
         )}
       </AnimatePresence>
 
@@ -800,6 +973,7 @@ export default function Overlay({
           <EssaysPanel isMobileViewport={isMobileViewport} />
         )}
       </AnimatePresence>
+
 
       {/* List View Mode */}
       <AnimatePresence>
@@ -914,7 +1088,6 @@ export default function Overlay({
           </motion.div>
         )}
       </AnimatePresence>
-      
       <ArchiveInfoConsole
         open={showAbout}
         activeTab={activeInfoTab}
@@ -922,25 +1095,42 @@ export default function Overlay({
         ref={infoConsoleRef}
       />
 
-      {/* Bottom Archive Instrument */}
+
       <footer className="fixed bottom-5 left-5 right-5 flex justify-center items-center pointer-events-none z-[130]">
         <div className="w-full pointer-events-auto">
-          <div className="relative overflow-hidden bg-surface/82 backdrop-blur-xl border border-white/18 shadow-2xl rounded-none w-full">
+          <div className="relative bg-surface/82 backdrop-blur-xl border border-white/18 shadow-2xl rounded-none w-full">
             <motion.div
               className="absolute left-0 top-0 h-[1px] origin-left bg-accent"
               style={{ scaleX: progress }}
             />
 
             <div className="grid grid-cols-[auto_1fr] lg:grid-cols-[auto_minmax(0,1fr)_auto]">
-              <button 
-                ref={infoButtonRef}
-                onClick={() => setShowAbout(!showAbout)}
-                className={`min-h-[64px] w-[64px] border-r border-white/10 flex items-center justify-center transition-colors rounded-none shrink-0 ${showAbout ? 'bg-accent text-white' : 'text-text-muted hover:text-white hover:bg-white/5'}`}
-                title="INFORMATION"
-                aria-label="Open information"
-              >
-                {showAbout ? <X size={20} /> : <Plus size={20} />}
-              </button>
+              {/* Left Actions Group */}
+              <div className="flex border-r border-white/10 shrink-0">
+                <button 
+                  ref={infoButtonRef}
+                  onClick={() => setShowAbout(!showAbout)}
+                  className={`min-h-[64px] w-[64px] border-r border-white/10 flex items-center justify-center transition-colors rounded-none shrink-0 ${showAbout ? 'bg-accent text-white' : 'text-text-muted hover:text-white hover:bg-white/5'}`}
+                  title="INFORMATION"
+                  aria-label="Open information"
+                >
+                  {showAbout ? <X size={20} /> : <Plus size={20} />}
+                </button>
+
+                {/* Audio Toggle */}
+                <button
+                  onClick={onToggleAudio}
+                  className={`min-h-[64px] w-[64px] flex items-center justify-center transition-colors rounded-none shrink-0 ${
+                    audioReady && !isMuted
+                      ? 'text-accent'
+                      : 'text-text-muted hover:text-white hover:bg-white/5'
+                  }`}
+                  title={isMuted ? 'Mute sound' : 'Unmute sound'}
+                  aria-label={isMuted ? 'Mute sound' : 'Unmute sound'}
+                >
+                  {isMuted || !audioReady ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                </button>
+              </div>
 
               <div className="min-w-0">
                 <AnimatePresence mode="wait">
@@ -950,17 +1140,22 @@ export default function Overlay({
                       initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -10 }}
-                      className="flex min-h-[64px] items-center w-full px-5"
+                      className="flex min-h-[64px] items-center w-full px-8"
                     >
                       <Search size={14} className="text-accent shrink-0" />
                       <input 
                         ref={searchInputRef}
-                        type="text"
+                        type="search"
                         placeholder="SEARCH BY TITLE, DOMAIN, TIER, CONNECTION..."
                         value={searchQuery}
                         onChange={(e) => onSearchChange(e.target.value)}
                         onBlur={() => !searchQuery && setIsSearchActive(false)}
                         className="bg-transparent border-none outline-none font-mono text-[10px] text-white placeholder:text-text-muted w-full ml-3"
+                        aria-label="Search archive"
+                        autoComplete="off"
+                        autoCorrect="off"
+                        autoCapitalize="off"
+                        spellCheck="false"
                       />
                       {searchQuery && (
                         <button onClick={() => onSearchChange('')} className="p-1 text-text-muted hover:text-white" aria-label="Clear search">
@@ -979,64 +1174,100 @@ export default function Overlay({
                       {/* Left: Clickable Metadata Block (triggers search) */}
                       <button 
                         onClick={() => setIsSearchActive(true)}
-                        className="flex flex-col gap-0.5 px-5 group text-left overflow-hidden hover:bg-white/5 transition-colors rounded-none justify-center h-full min-h-[48px] md:min-h-[64px] shrink-0 w-full md:w-[240px] lg:w-[280px] cursor-pointer"
+                        className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-white/5 transition-colors rounded-none justify-center h-full min-h-[48px] md:min-h-[64px] shrink-0 w-full md:w-[240px] lg:w-[280px] cursor-pointer"
                       >
-                        <span className="font-mono text-[8px] text-accent tracking-[0.24em] uppercase truncate block w-full">
-                          {activeMode.label} / {activeMode.description}
+                        <span className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                          {line1Text}
                         </span>
                         <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
                           {bottomTitle}
                         </span>
-                        <span className="font-mono text-[9px] text-text-muted tracking-[0.16em] uppercase truncate block w-full">
-                          {bottomMeta}
+                        <span className="font-mono text-[9px] text-text-muted/40 group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                          {line3Text}
                         </span>
                       </button>
 
                       {/* Vertical divider on desktop */}
                       <div className="hidden md:block w-[1px] h-[36px] bg-white/10 self-center shrink-0" />
 
-                      {/* Right: Chapter Map Scrubber */}
-                      <div className="flex-1 min-w-0 px-5 flex flex-col justify-center gap-1.5 h-full min-h-[48px] md:min-h-[64px] py-1.5 md:py-0 select-none">
-                        <div className="flex items-center justify-between w-full">
-                          <span className="font-mono text-[8px] uppercase tracking-[0.22em] text-text-muted">
-                            Cinematic Rail / Chapter Map
-                          </span>
-                          <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-accent font-bold">
-                            {String(railIndex + 1).padStart(2, '0')} / {String(railTotal).padStart(2, '0')}
-                          </span>
-                        </div>
-
+                      {/* Right: Chapter Map Scrubber Progress Meter */}
+                      <div className="flex-1 min-w-0 px-8 flex flex-col justify-center gap-1 h-full min-h-[48px] md:min-h-[64px] py-1.5 md:py-0 select-none">
                         <div className="flex gap-2 w-full">
-                          {chapters.map((chapter) => (
-                            <div key={chapter.name} style={{ flex: chapter.count }} className="flex flex-col gap-1 min-w-0">
-                              <span className="hidden sm:inline font-mono text-[7px] md:text-[8px] uppercase tracking-[0.2em] text-white/50 truncate max-w-full">
-                                {chapter.name}
-                              </span>
-                              <div className="flex gap-1 w-full">
-                                {chapter.slides.map((slide) => {
-                                  const isActive = railIndex === slide.globalIndex;
-                                  const isVisited = railIndex > slide.globalIndex;
-                                  return (
-                                    <button
-                                      key={slide.globalIndex}
-                                      type="button"
-                                      onClick={() => onGoToRailSlide?.(slide.globalIndex)}
-                                      className={`h-1 flex-1 transition-all rounded-full cursor-pointer hover:h-1.5 ${
-                                        isActive
-                                          ? 'bg-accent shadow-[0_0_8px_rgba(74,127,168,0.7)]'
-                                          : isVisited
-                                          ? 'bg-white/40'
-                                          : 'bg-white/10 hover:bg-white/20'
-                                      }`}
-                                      title={`${chapter.name}: ${slide.label}`}
-                                      aria-label={`Go to slide ${slide.globalIndex + 1}`}
-                                    />
-                                  );
-                                })}
+                          {chapters.map((chapter, idx) => {
+                            const isChapterActive = railIndex >= chapter.startIndex && railIndex < chapter.startIndex + chapter.count;
+                            return (
+                              <div 
+                                key={chapter.name} 
+                                style={{ flex: chapter.count }} 
+                                className="flex flex-col gap-1 min-w-0"
+                              >
+                                <span className={`hidden sm:inline font-mono text-[7px] md:text-[8px] uppercase tracking-[0.2em] transition-all duration-300 ${
+                                  isChapterActive 
+                                    ? 'text-white font-bold opacity-100' 
+                                    : 'text-white/10'
+                                }`}>
+                                  {String(idx + 1).padStart(2, '0')}
+                                </span>
+                                <div className="flex gap-1 w-full">
+                                  {chapter.slides.map((slide) => {
+                                    const isActive = railIndex === slide.globalIndex;
+                                    return (
+                                      <button
+                                        key={slide.globalIndex}
+                                        type="button"
+                                        onClick={() => onGoToRailSlide?.(slide.globalIndex)}
+                                        className={`h-1 flex-1 transition-all rounded-full cursor-pointer hover:h-1.5 ${
+                                          isActive
+                                            ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.7)]'
+                                            : 'bg-white/10'
+                                        }`}
+                                        title={`${chapter.name}: ${slide.label}`}
+                                        aria-label={`Go to slide ${slide.globalIndex + 1}`}
+                                      />
+                                    );
+                                  })}
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
+                      </div>
+                    </motion.div>
+                  ) : (currentMode === 'map' || currentMode === 'grid') && activeDetailNode ? (
+                    <motion.div
+                      key="map-focused-hud"
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      className="flex flex-col md:flex-row md:items-center w-full min-h-[64px] py-3 md:py-0 px-8"
+                    >
+                      <div className="flex-1 min-w-0 flex flex-col justify-center">
+                        <span className="font-mono text-[9px] text-accent/80 tracking-[0.16em] uppercase truncate">
+                          {line1Text}
+                        </span>
+                        <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate my-0.5">
+                          {bottomTitle}
+                        </span>
+                        <span className="font-mono text-[9px] text-text-muted/80 tracking-[0.16em] uppercase truncate">
+                          {line3Text}
+                        </span>
+                      </div>
+                      
+                      <div className="flex gap-3 mt-3 md:mt-0 shrink-0 select-none">
+                        {activeDetailNode.hasProjectPage === 'yes' && (
+                          <button
+                            onClick={() => onOpenProjectRail?.(activeDetailNode)}
+                            className="bg-accent hover:bg-accent/80 text-white font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2 border border-accent/20 transition-all cursor-pointer rounded-none"
+                          >
+                            [ OPEN DETAILS ]
+                          </button>
+                        )}
+                        <button
+                          onClick={() => onCloseNode()}
+                          className="bg-white/5 hover:bg-white/10 text-white font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2 border border-white/10 transition-all cursor-pointer rounded-none"
+                        >
+                          [ CLOSE ]
+                        </button>
                       </div>
                     </motion.div>
                   ) : (
@@ -1046,28 +1277,17 @@ export default function Overlay({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
                       onClick={() => setIsSearchActive(true)}
-                      className="grid min-h-[64px] w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 group text-left overflow-hidden hover:bg-white/5 transition-colors rounded-none"
+                      className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-white/5 transition-colors rounded-none justify-center h-full min-h-[64px] w-full cursor-pointer"
                     >
-                      <div className="flex min-w-0 flex-col gap-1 overflow-hidden">
-                        <span className="font-mono text-[8px] text-accent tracking-[0.24em] uppercase truncate">
-                          {activeMode.label} / {activeMode.description}
-                        </span>
-                        <span className="font-display text-sm md:text-base font-bold text-white tracking-wider uppercase truncate">
-                          {bottomTitle}
-                        </span>
-                        <span className="font-mono text-[9px] text-text-muted tracking-[0.16em] uppercase truncate">
-                          {bottomMeta}
-                        </span>
-                      </div>
-
-                      <div className="hidden sm:flex flex-col items-end gap-1 font-mono uppercase">
-                        <span className="text-[9px] tracking-[0.18em] text-white">
-                          {focusIndex >= 0 ? String(focusIndex + 1).padStart(3, '0') : 'FIELD'}
-                        </span>
-                        <span className="text-[8px] tracking-[0.18em] text-text-muted">
-                          / {String(workCount).padStart(3, '0')}
-                        </span>
-                      </div>
+                      <span className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                        {line1Text}
+                      </span>
+                      <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
+                        {bottomTitle}
+                      </span>
+                      <span className="font-mono text-[9px] text-text-muted/40 group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                        {line3Text}
+                      </span>
                     </motion.button>
                   )}
                 </AnimatePresence>
@@ -1094,6 +1314,7 @@ export default function Overlay({
 }
 
 function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExploreWork: () => void }) {
+  const [showBio, setShowBio] = React.useState(false);
   const caseStudies = [
     {
       label: "Mashrou' Leila",
@@ -1118,107 +1339,119 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.99 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-auto fixed bottom-0 left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-t border-white/16 bg-black/82 shadow-2xl backdrop-blur-xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] md:border md:border-white/16"
+      className="pointer-events-auto fixed bottom-0 left-0 right-0 top-[64px] z-[140] flex overflow-hidden shadow-2xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] central-panel"
     >
       <div className="flex min-h-0 w-full flex-col">
-        <div className="shrink-0 border-b border-white/12 bg-black/78 px-5 py-4 backdrop-blur-xl md:px-7">
-          <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.28em] text-accent">
-            Systems Choreography
-          </p>
-          <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-white/32">
-            Home / Orbit Intro
-          </p>
-        </div>
-
-        <div className="min-h-0 flex-1 overflow-y-auto custom-scrollbar">
-        <div className="border-b border-white/12 p-5 md:p-7">
-          <h2 className="font-display text-5xl font-bold leading-[0.86] tracking-tight text-white md:text-7xl">
-            Systems<br />of Meaning
-          </h2>
-          <p className="mt-5 max-w-[22rem] text-base leading-snug text-white/82 md:text-lg">
-            I build systems for memory, performance, and cultural translation.
-          </p>
-          <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted">
-            Sound / Space / Code / Text / Image / Systems
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 border-b border-white/12">
-          <div className="border-r border-white/12 p-4">
-            <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-text-muted">Selected Works</p>
-            <p className="mt-2 font-display text-3xl font-bold text-white">{workCount || 20}</p>
-          </div>
-          <div className="p-4">
-            <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-text-muted">Modes</p>
-            <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/78">
-              Works / Index / Atlas / Essays
+        <div className="min-h-0 flex-1 overflow-y-auto custom-scrollbar py-4">
+          <div className="border-b border-white/12 p-5 md:p-7">
+            <h2 className="font-display text-5xl font-bold leading-[0.86] tracking-tight text-white md:text-7xl text-balance">
+              Systems<br />of Meaning
+            </h2>
+            <p className="mt-5 max-w-[22rem] text-base leading-snug text-white/82 md:text-lg text-pretty">
+              I build systems for memory, performance, and cultural translation.
             </p>
-          </div>
-        </div>
-
-        <div className="space-y-5 border-b border-white/12 p-5 md:p-7">
-          <div>
-            <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
-              About / Bio
-            </p>
-            <p className="text-sm leading-relaxed text-text">
-              Born in Beirut and based in New York, Haig Papazian works across sound,
-              architecture, film, AI, narrative, and cultural infrastructure. The work
-              treats culture as an interface and technology as material, method, and critique.
+            <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted">
+              Sound / Space / Code / Text / Image / Systems
             </p>
           </div>
 
-          <div>
-            <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
-              Editorial Case Studies
-            </p>
-            <div className="space-y-3">
-              {caseStudies.map((study, index) => (
-                <article key={study.label} className="border border-white/10 bg-white/[0.025] p-3">
-                  <div className="flex items-start justify-between gap-4">
-                    <p className="font-display text-lg font-bold uppercase leading-none text-white">
-                      {study.label}
-                    </p>
-                    <span className="font-mono text-[8px] text-text-muted">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                  </div>
-                  <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.16em] text-accent/80">
-                    {study.meta}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-text-muted">
-                    {study.body}
-                  </p>
-                </article>
-              ))}
+          <div className="grid grid-cols-2 border-b border-white/12">
+            <div className="border-r border-white/12 p-4">
+              <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-text-muted">Selected Works</p>
+              <p className="mt-2 font-display text-3xl font-bold text-white">{workCount || 20}</p>
+            </div>
+            <div className="p-4">
+              <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-text-muted">Modes</p>
+              <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/78">
+                Works / Index / Map / Essays
+              </p>
             </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-[1fr_auto] items-stretch border-b border-white/12">
-          <a
-            href="/cv.pdf"
-            className="flex items-center border-r border-white/12 px-5 py-4 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
-          >
-            CV
-          </a>
-          <button
-            type="button"
-            onClick={onExploreWork}
-            className="flex items-center gap-2 bg-[#131518]/80 border border-white/10 text-white hover:bg-white/5 hover:border-white/20 px-5 py-4 font-mono text-[9px] uppercase tracking-[0.2em] transition-all"
-          >
-            Explore the Work
-            <ArrowUpRight size={13} />
-          </button>
-        </div>
+          {showBio ? (
+            <div className="space-y-5 border-b border-white/12 p-5 md:p-7">
+              <div>
+                <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
+                  About / Bio
+                </p>
+                <p className="text-sm leading-relaxed text-text text-pretty">
+                  Born in Beirut and based in New York, Haig Papazian works across sound,
+                  architecture, film, AI, narrative, and cultural infrastructure. The work
+                  treats culture as an interface and technology as material, method, and critique.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowBio(false)}
+                className="w-full border border-white/10 p-3 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:bg-white/5 hover:text-white transition-colors"
+              >
+                ← Back to Index
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="space-y-5 border-b border-white/12 p-5 md:p-7">
+                <div>
+                  <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
+                    Editorial Case Studies
+                  </p>
+                  <div className="space-y-3">
+                    {caseStudies.map((study, index) => (
+                      <article key={study.label} className="border border-white/10 bg-white/[0.025] p-3">
+                        <div className="flex items-start justify-between gap-4">
+                          <p className="font-display text-lg font-bold uppercase leading-none text-white">
+                            {study.label}
+                          </p>
+                          <span className="font-mono text-[8px] text-text-muted">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
+                        </div>
+                        <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.16em] text-accent/80">
+                          {study.meta}
+                        </p>
+                        <p className="mt-2 text-xs leading-relaxed text-text-muted">
+                          {study.body}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                </div>
 
-        <div className="p-5 md:p-7">
-          <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted">
-            Twenty works orbit a single spine: memory as architecture, performance as
-            infrastructure, translation as a moving system.
-          </p>
+                <button
+                  type="button"
+                  onClick={() => setShowBio(true)}
+                  className="w-full border border-white/10 p-3 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:bg-white/5 hover:text-white transition-colors"
+                >
+                  View Studio Profile →
+                </button>
+              </div>
+
+              <div className="grid grid-cols-[1fr_auto] items-stretch border-b border-white/12">
+                <a
+                  href="/cv.pdf"
+                  className="flex items-center border-r border-white/12 px-5 py-4 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+                >
+                  CV
+                </a>
+                <button
+                  type="button"
+                  onClick={onExploreWork}
+                  className="cta-explore flex items-center gap-2 px-5 py-4 font-mono text-[9px] uppercase tracking-[0.2em]"
+                >
+                  Explore the Work
+                  <ArrowUpRight size={13} />
+                </button>
+              </div>
+            </>
+          )}
+
+          <div className="p-5 md:p-7">
+            <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted">
+              Twenty works orbit a single spine: memory as architecture, performance as
+              infrastructure, translation as a moving system.
+            </p>
+          </div>
         </div>
-      </div>
       </div>
     </motion.section>
   );
@@ -1256,7 +1489,7 @@ function EssaysPanel({ isMobileViewport }: { isMobileViewport: boolean }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.99 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-auto fixed bottom-0 left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-t border-white/16 bg-black/86 shadow-2xl backdrop-blur-xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(720px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] md:border md:border-white/16"
+      className="pointer-events-auto fixed bottom-0 left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-t border-white/16 bg-black/86 shadow-2xl backdrop-blur-xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(900px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] md:border md:border-white/16"
     >
       <div className="grid h-full w-full grid-rows-1 md:grid-cols-[240px_1fr]">
         <aside className={`${isMobileViewport && mobileEssayView === 'reader' ? 'hidden' : 'flex'} min-h-0 flex-col border-white/12 md:flex md:border-r`}>
@@ -1381,19 +1614,23 @@ function ModeButton({ active, disabled, onClick, icon: Icon, label, description 
       title={`${label}: ${description}`}
       aria-label={`${label}: ${description}`}
       className={`
-        group min-h-[48px] min-w-0 border-r border-white/10 px-2 py-2 transition-colors last:border-r-0 lg:min-h-[64px] lg:w-[92px]
-        ${disabled ? 'cursor-not-allowed text-white/18' : active ? 'bg-white/[0.04] text-white shadow-[inset_0_-2px_0_0_var(--color-accent)]' : 'text-text-muted hover:bg-white/5 hover:text-white'}
+        group relative h-[64px] w-[64px] flex items-center justify-center shrink-0 rounded-none
+        transition-all duration-0
+        ${disabled 
+          ? 'cursor-not-allowed text-white/18 border-r border-white/10' 
+          : active 
+          ? 'bg-white/12 text-white border-r border-transparent' 
+          : 'text-text-muted hover:bg-white/5 hover:text-white border-r border-white/10'}
+        last:border-r-0
       `}
     >
-      <span className="flex h-full flex-col items-center justify-center gap-1">
-        <Icon size={15} />
-        <span className="font-mono text-[8px] uppercase tracking-[0.16em] leading-none">
+      <Icon size={16} />
+      {!disabled && (
+        <div className="absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 hidden group-hover:flex w-[64px] h-[32px] bg-[#111316]/90 backdrop-blur-md border border-white/10 text-white font-mono text-[8px] uppercase tracking-[0.16em] shadow-2xl pointer-events-none z-[200] items-center justify-center text-center">
           {label}
-        </span>
-        <span className={`hidden max-w-full truncate font-mono text-[7px] uppercase tracking-[0.12em] leading-none lg:block ${active ? 'text-accent-2 font-medium' : 'text-white/32 group-hover:text-white/50'}`}>
-          {description}
-        </span>
-      </span>
+          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-[4px] border-x-transparent border-t-[4px] border-t-[#111316]/90" />
+        </div>
+      )}
     </button>
   );
 }

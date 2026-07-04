@@ -9,20 +9,23 @@ import Scene from './core/Scene';
 import Overlay from './components/Overlay';
 import VideoLightbox from './components/VideoLightbox';
 import { AtlasNode, fetchAtlasNodes } from './data/atlas';
+import { useAudioEngine } from './audio/useAudioEngine';
+import { PROJECT_GALLERIES } from './data/projectGalleries';
 
-type SceneMode = 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'atlas';
+type SceneMode = 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map';
 type AppMode = SceneMode | 'essays';
-type PublicMode = 'cylinder' | 'grid' | 'vertical' | 'atlas' | 'essays';
-type ProjectEntryMode = 'grid' | 'vertical' | 'atlas';
+type PublicMode = 'cylinder' | 'grid' | 'vertical' | 'map' | 'essays';
+type ProjectEntryMode = 'grid' | 'vertical' | 'map';
 
-const PUBLIC_MODES: PublicMode[] = ['cylinder', 'vertical', 'grid', 'atlas', 'essays'];
-const PROJECT_ENTRY_MODES: ProjectEntryMode[] = ['vertical', 'grid', 'atlas'];
+const PUBLIC_MODES: PublicMode[] = ['cylinder', 'vertical', 'grid', 'map', 'essays'];
+const PROJECT_ENTRY_MODES: ProjectEntryMode[] = ['vertical', 'grid', 'map'];
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<Scene | null>(null);
   const currentModeRef = useRef<AppMode>('cylinder');
   const returnModeRef = useRef<PublicMode>('cylinder');
+  const { engine: audioEngine, isInitialized: audioReady, isMuted, toggleAudio } = useAudioEngine();
   const [activeNode, setActiveNode] = useState<any>(null);
   const [currentMode, setCurrentMode] = useState<AppMode>('cylinder');
   const [nodes, setNodes] = useState<AtlasNode[]>([]);
@@ -42,6 +45,116 @@ export default function App() {
   const [railState, setRailState] = useState<any>(null);
   const [activeMedia, setActiveMedia] = useState<any>(null);
   const [returnMode, setReturnMode] = useState<PublicMode>('cylinder');
+  const [domainFilter, setDomainFilter] = useState('all');
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [focusedMapNode, setFocusedMapNode] = useState<any>(null);
+
+  React.useEffect(() => {
+    if (activeMedia) {
+      const slug = activeMedia.projectId || activeMedia.slug;
+      if (slug && sceneRef.current) {
+        (sceneRef.current as any).nodeManager?.loadProjectTextures(slug);
+      }
+    }
+  }, [activeMedia]);
+
+  const getFlatAssets = () => {
+    const flat: any[] = [];
+    nodes.forEach((node) => {
+      const gallery = PROJECT_GALLERIES[node.slug] || [];
+      if (gallery.length === 0) {
+        flat.push({
+          type: 'image',
+          src: node.thumbnail || node.image,
+          label: node.title,
+          caption: node.summary || node.shortDescription || '',
+          role: 'hero',
+          layout: 'hero',
+          projectId: node.slug,
+          projectTitle: node.title,
+          assetIndex: 0,
+        });
+      } else {
+        gallery.forEach((slide, idx) => {
+          flat.push({
+            ...slide,
+            assetIndex: idx,
+            projectId: node.slug,
+            projectTitle: node.title,
+          });
+        });
+      }
+    });
+    return flat;
+  };
+
+  const handlePrevMedia = () => {
+    if (!activeMedia) return;
+    const flat = getFlatAssets();
+    if (flat.length === 0) return;
+    
+    const activeProjSlug = activeMedia.projectId || activeMedia.slug;
+    const activeAssetIndex = activeMedia.assetIndex ?? 0;
+    
+    const currentIdx = flat.findIndex(
+      (item) => (item.projectId === activeProjSlug && item.assetIndex === activeAssetIndex) ||
+                (item.src === activeMedia.src)
+    );
+    
+    const prevIdx = currentIdx === -1 ? 0 : (currentIdx - 1 + flat.length) % flat.length;
+    const prevAsset = flat[prevIdx];
+    
+    setActiveMedia({
+      ...activeMedia,
+      assetIndex: prevAsset.assetIndex,
+      type: prevAsset.type || 'image',
+      label: prevAsset.label || prevAsset.projectTitle,
+      caption: prevAsset.caption || '',
+      chapter: prevAsset.chapter || 'Archive',
+      role: prevAsset.role || 'evidence',
+      src: prevAsset.src || prevAsset.poster || '',
+      poster: prevAsset.poster,
+      youtubeId: prevAsset.youtubeId,
+      embedUrl: prevAsset.embedUrl,
+      externalUrl: prevAsset.externalUrl,
+      body: prevAsset.body,
+      projectId: prevAsset.projectId,
+    });
+  };
+
+  const handleNextMedia = () => {
+    if (!activeMedia) return;
+    const flat = getFlatAssets();
+    if (flat.length === 0) return;
+    
+    const activeProjSlug = activeMedia.projectId || activeMedia.slug;
+    const activeAssetIndex = activeMedia.assetIndex ?? 0;
+    
+    const currentIdx = flat.findIndex(
+      (item) => (item.projectId === activeProjSlug && item.assetIndex === activeAssetIndex) ||
+                (item.src === activeMedia.src)
+    );
+    
+    const nextIdx = currentIdx === -1 ? 0 : (currentIdx + 1) % flat.length;
+    const nextAsset = flat[nextIdx];
+    
+    setActiveMedia({
+      ...activeMedia,
+      assetIndex: nextAsset.assetIndex,
+      type: nextAsset.type || 'image',
+      label: nextAsset.label || nextAsset.projectTitle,
+      caption: nextAsset.caption || '',
+      chapter: nextAsset.chapter || 'Archive',
+      role: nextAsset.role || 'evidence',
+      src: nextAsset.src || nextAsset.poster || '',
+      poster: nextAsset.poster,
+      youtubeId: nextAsset.youtubeId,
+      embedUrl: nextAsset.embedUrl,
+      externalUrl: nextAsset.externalUrl,
+      body: nextAsset.body,
+      projectId: nextAsset.projectId,
+    });
+  };
 
   const canOpenProjectFromMode = (mode: AppMode): mode is ProjectEntryMode => {
     return PROJECT_ENTRY_MODES.includes(mode as ProjectEntryMode);
@@ -52,6 +165,12 @@ export default function App() {
   };
 
   const openProjectRail = (node: any, sourceMode = currentModeRef.current) => {
+    if (sourceMode === 'map') {
+      setFocusedMapNode(node);
+      sceneRef.current?.focusNode(node);
+      audioEngine.onNodeClick(node);
+      return;
+    }
     const modeBeforeProject = sourceMode === 'horizontal' ? returnModeRef.current : sourceMode;
     if (!canOpenProjectFromMode(modeBeforeProject)) return;
 
@@ -64,6 +183,9 @@ export default function App() {
     setCurrentMode('horizontal');
     sceneRef.current?.switchMode('horizontal');
     sceneRef.current?.focusNode(node);
+    audioEngine.setMode('horizontal');
+    audioEngine.onNodeClick(node);
+    audioEngine.onProjectEnter(node.slug);
   };
 
   const retargetProjectRail = (node: any) => {
@@ -86,6 +208,12 @@ export default function App() {
 
   useEffect(() => {
     let isMounted = true;
+
+    // Register project audio stems
+    audioEngine.registerProjectStem('tebr', '/audio/stems/tebr.mp3');
+    audioEngine.registerProjectStem('space-time-tuning-machine', '/audio/stems/space-time-tuning-machine.mp3');
+    audioEngine.registerProjectStem('sometimes-i-wake-up-elsewhere', '/audio/stems/sometimes-i-wake-up-elsewhere.mp3');
+    audioEngine.registerProjectStem('fictive-environments', '/audio/stems/fictive-environments.mp3');
 
     fetchAtlasNodes()
       .then((atlasNodes) => {
@@ -119,7 +247,43 @@ export default function App() {
       if (nodes.length === 0) return;
 
       if (activeMedia) {
-        if (e.key === 'Escape') setActiveMedia(null);
+        if (e.key === 'Escape') {
+          setActiveMedia(null);
+          sceneRef.current?.resetScroll();
+        }
+        return;
+      }
+
+      if (currentMode === 'map' && focusedMapNode) {
+        // Arrow key navigation between connected nodes
+        const connections = focusedMapNode.connections || [];
+        if (connections.length > 0) {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            const currentSlug = focusedMapNode.slug;
+            const currIdx = connections.indexOf(currentSlug);
+            const nextIdx = (currIdx + 1) % connections.length;
+            const targetSlug = connections[nextIdx];
+            const targetNode = nodes.find(n => n.slug === targetSlug);
+            if (targetNode) {
+              setFocusedMapNode(targetNode);
+              sceneRef.current?.focusNode(targetNode);
+            }
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            const currentSlug = focusedMapNode.slug;
+            const currIdx = connections.indexOf(currentSlug);
+            const nextIdx = (currIdx - 1 + connections.length) % connections.length;
+            const targetSlug = connections[nextIdx];
+            const targetNode = nodes.find(n => n.slug === targetSlug);
+            if (targetNode) {
+              setFocusedMapNode(targetNode);
+              sceneRef.current?.focusNode(targetNode);
+            }
+          }
+        }
+        if (e.key === 'Escape') {
+          handleCloseNode();
+          sceneRef.current?.resetScroll();
+        }
         return;
       }
 
@@ -142,12 +306,13 @@ export default function App() {
         }
       } else if (e.key === 'Escape') {
         handleCloseNode();
+        sceneRef.current?.resetScroll();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeMedia, focusedIndex, nodes]);
+  }, [activeMedia, focusedIndex, nodes, currentMode, focusedMapNode]);
 
   // Initial deep link handling
   useEffect(() => {
@@ -173,6 +338,8 @@ export default function App() {
           setCurrentMode('horizontal');
           sceneRef.current?.switchMode('horizontal');
           sceneRef.current?.focusNode(node);
+          audioEngine.setMode('horizontal');
+          audioEngine.onProjectEnter(node.slug);
         }
         return;
       }
@@ -181,6 +348,7 @@ export default function App() {
         currentModeRef.current = mode;
         setCurrentMode(mode);
         sceneRef.current?.switchMode(mode === 'essays' ? 'cylinder' : mode);
+        audioEngine.setMode(mode);
       }
     };
 
@@ -238,6 +406,7 @@ export default function App() {
         onNodeHover: (node, pos) => {
           setHoveredNode(node);
           setMousePosition(pos);
+          audioEngine.onNodeHover(node ? { slug: node.slug, domains: node.domains || [], tier: node.tier, isNoDataZone: node.isNoDataZone } : null);
           if (node) {
             const idx = nodes.findIndex(n => n.id === node.id);
             if (idx !== -1) setFocusedIndex(idx);
@@ -253,12 +422,21 @@ export default function App() {
           console.log('App: onLoadComplete triggered');
           setIsLoading(false);
           setIsReady(true);
+          if (sceneRef.current) {
+            const spatialInfo = sceneRef.current.getAtlasNodesSpatialInfo();
+            audioEngine.setAtlasNodes(spatialInfo);
+          }
         },
         onCenteredNodeChange: (node) => setCenteredNode(node),
+        onAudioUpdate: (velocity, cameraPos) => {
+          audioEngine.setScrollVelocity(velocity);
+          audioEngine.setCameraPosition(cameraPos.x, cameraPos.y, cameraPos.z);
+        },
       });
       sceneRef.current = scene;
     } catch (e) {
       console.error('Failed to initialize Scene:', e);
+      setLoadError('Unable to initialize the spatial engine. Your browser may not support WebGL.');
       setIsLoading(false);
       setIsReady(false);
     }
@@ -281,6 +459,7 @@ export default function App() {
     if (mode !== 'horizontal') {
       setRailState(null);
       setActiveMedia(null);
+      setFocusedMapNode(null);
       returnModeRef.current = mode;
       setReturnMode(mode);
       setCenteredNode(null);
@@ -293,30 +472,40 @@ export default function App() {
     currentModeRef.current = mode;
     setCurrentMode(mode);
     sceneRef.current?.switchMode(mode === 'essays' ? 'cylinder' : mode);
+    audioEngine.setMode(mode);
+    if (mode === 'map' && sceneRef.current) {
+      audioEngine.setAtlasNodes(sceneRef.current.getAtlasNodesSpatialInfo());
+    }
   };
 
   const handleCloseNode = () => {
     setActiveMedia(null);
     setActiveNode(null);
     setRailState(null);
+    setFocusedMapNode(null);
     if (currentMode === 'horizontal') {
       currentModeRef.current = returnMode;
       setCurrentMode(returnMode);
       sceneRef.current?.switchMode(returnMode);
+      audioEngine.setMode(returnMode);
     }
     sceneRef.current?.resetFocus();
+    audioEngine.onProjectExit();
   };
 
   const handleBackToWorks = () => {
     setActiveMedia(null);
     setActiveNode(null);
     setRailState(null);
+    setFocusedMapNode(null);
     returnModeRef.current = 'vertical';
     setReturnMode('vertical');
     currentModeRef.current = 'vertical';
     setCurrentMode('vertical');
     sceneRef.current?.switchMode('vertical');
     sceneRef.current?.resetFocus();
+    audioEngine.setMode('vertical');
+    audioEngine.onProjectExit();
   };
 
   const handleRailStep = (direction: -1 | 1) => {
@@ -349,6 +538,10 @@ export default function App() {
     sceneRef.current?.setSearchQuery(searchQuery);
   }, [searchQuery]);
 
+  useEffect(() => {
+    sceneRef.current?.setFilters(domainFilter, typeFilter);
+  }, [domainFilter, typeFilter]);
+
   return (
     <main className="relative w-full h-full overflow-hidden bg-black selection:bg-accent selection:text-white font-body text-text">
       <AnimatePresence>
@@ -358,6 +551,11 @@ export default function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 1, ease: 'easeInOut' }}
             className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center pointer-events-none"
+            role="progressbar"
+            aria-valuenow={Math.round(loadProgress * 100)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Loading archive"
           >
             <div className="w-64 h-[1px] bg-white/10 relative overflow-hidden mb-4">
               <motion.div 
@@ -377,11 +575,17 @@ export default function App() {
       <div 
         ref={containerRef} 
         id="canvas-container" 
-        className="fixed inset-0 w-full h-full touch-none"
+        className={`fixed inset-0 w-full h-full touch-none transition-[background] duration-500 ${
+          currentMode === 'map' ? 'map-backdrop-active' : ''
+        }`}
+        role="application"
+        aria-label="3D spatial archive"
+        inert={activeMedia ? true : undefined}
       />
 
       {/* UI Overlay Layer */}
       <Overlay 
+        inert={activeMedia ? true : undefined}
         nodes={nodes}
         activeNode={activeNode}
         centeredNode={centeredNode}
@@ -402,8 +606,44 @@ export default function App() {
         onBackToWorks={handleBackToWorks}
         onOpenMedia={setActiveMedia}
         onGoToRailSlide={(idx) => sceneRef.current?.goToRailSlide(idx)}
+        audioReady={audioReady}
+        isMuted={isMuted}
+        onToggleAudio={toggleAudio}
+        domainFilter={domainFilter}
+        onDomainFilterChange={setDomainFilter}
+        typeFilter={typeFilter}
+        onTypeFilterChange={setTypeFilter}
+        focusedMapNode={focusedMapNode}
+        onOpenProjectRail={(node) => {
+          if (currentModeRef.current === 'map') {
+            currentModeRef.current = 'vertical';
+            setCurrentMode('vertical');
+            sceneRef.current?.switchMode('vertical');
+            sceneRef.current?.focusNode(node);
+            audioEngine.setMode('vertical');
+            setFocusedMapNode(null);
+            setTimeout(() => {
+              openProjectRail(node, 'vertical');
+            }, 1500);
+          } else {
+            openProjectRail(node, 'vertical');
+          }
+        }}
+        onFocusNodeBySlug={(slug) => sceneRef.current?.focusNodeBySlug(slug)}
       />
-      <VideoLightbox media={activeMedia} onClose={() => setActiveMedia(null)} />
+
+      <VideoLightbox 
+        media={activeMedia} 
+        onClose={() => setActiveMedia(null)} 
+        onPrev={handlePrevMedia}
+        onNext={handleNextMedia}
+        onEnterProject={(slug) => {
+          const node = nodes.find(n => n.slug === slug);
+          if (node) {
+            openProjectRail(node, returnMode);
+          }
+        }}
+      />
     </main>
   );
 }

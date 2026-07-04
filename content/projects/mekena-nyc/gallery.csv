@@ -1,17 +1,17 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,14_mekena_nyc.png,,Establishing Site,hero,The Door on Austell Place,The project begins as a real threshold in Queens.,Grounds the work in physical space.,primary
-2,text,,,Thesis,thesis,Building as Operating System,"MEKENA treats a building as infrastructure for shelter, rehearsal, gathering, work, and return.",Reframes architecture as care system.,secondary
-3,text,,,Context,evidence,Condition of Vashad,Permanent impermanence requires more than visibility. It requires infrastructure.,Establishes social condition.,secondary
-4,image,mekena-modular-block-assembly.png,,Evidence,evidence,Site / Block / Queens,The sanctuary is geographically and politically specific.,Places the project.,secondary
-5,image,mekena-nyc-adaptive-reuse-exterior.png,,Physical Proof,evidence,Before / After,Transformation is visible in material time.,Proves architectural change.,secondary
-6,image,mekena-nyc-building-schematic-queens.jpeg,,Architectural Proof,evidence,Plan / Section / Elevation,The building’s care logic must be inspectable.,Shows spatial rigor.,secondary
-7,image,mekena-nyc-exterior-new.png,,System,system,Sanctuary / Forge / Plaza,"Private refuge, production space, and public gathering form a gradient of care.",Defines the building’s operating structure.,secondary
-8,image,mekena-nyc-garden-overview-enhanced-v1.webp,,System,evidence,Resident Journey Map,"Residency is a sequence, not a nice room with a press release.",Shows operational logic.,secondary
-9,image,mekena-nyc-queens-exterior.webp,,Spatial Proof,evidence,Threshold Walkthrough,The building is experienced as a choreography of thresholds.,Makes spatial sequence visible.,secondary
-10,image,mekena-nyc-visual.png,,Technical Proof,system,IoT / Sensor Layer,Care includes the invisible conditions of the room.,Adds infrastructural depth.,secondary
-11,text,,,Hidden Labor,evidence,Radical Hospitality Protocol,"Hospitality becomes procedure, not sentiment.",Shows care as a designed system.,secondary
-12,text,,,Public Proof,evidence,Program Calendar,The building produces cultural time.,Shows use and continuity.,secondary
-13,text,,,Metrics,evidence,Sustainability / Retrofit Claim,Use hard readings where available; label projections honestly.,Prevents aspirational architecture fog.,secondary
-14,text,,,Authorship,process,What Haig Built,"Haig’s role sits across founding, spatial brief, operating model, and cultural infrastructure.",Clarifies authorship.,secondary
-15,text,,,Relation,context,From Stage to Shelter,The stage exposed vulnerability. The building answers with protection.,Establishes historical arc.,secondary
-16,text,,,Coda,coda,Quiet Room,The work ends in ordinary shelter.,"Ends with use, not monumentality.",quiet
+1,image,cover.webp,,Establishing Site,hero,The Door on Austell Place,The project begins as a real threshold in Queens.,Grounds the work in physical space.,primary
+2,image,mekena-nyc-01.jpeg,,Thesis,thesis,Building as Operating System,"MEKENA treats a building as infrastructure for shelter, rehearsal, gathering, work, and return.",Reframes architecture as care system.,secondary
+3,image,mekena-nyc-02.jpeg,,Context,evidence,Condition of Vashad,Permanent impermanence requires more than visibility. It requires infrastructure.,Establishes social condition.,secondary
+4,image,mekena-nyc-03.jpeg,,Evidence,evidence,Site / Block / Queens,The sanctuary is geographically and politically specific.,Places the project.,secondary
+5,image,mekena-nyc-04.jpeg,,Physical Proof,evidence,Before / After,Transformation is visible in material time.,Proves architectural change.,secondary
+6,image,mekena-nyc-05.jpeg,,Architectural Proof,evidence,Plan / Section / Elevation,The building’s care logic must be inspectable.,Shows spatial rigor.,secondary
+7,image,mekena-nyc-06.jpeg,,System,system,Sanctuary / Forge / Plaza,"Private refuge, production space, and public gathering form a gradient of care.",Defines the building’s operating structure.,secondary
+8,image,mekena-nyc-07.png,,System,evidence,Resident Journey Map,"Residency is a sequence, not a nice room with a press release.",Shows operational logic.,secondary
+9,image,mekena-nyc-08.jpeg,,Spatial Proof,evidence,Threshold Walkthrough,The building is experienced as a choreography of thresholds.,Makes spatial sequence visible.,secondary
+10,image,mekena-nyc-09.jpeg,,Technical Proof,system,IoT / Sensor Layer,Care includes the invisible conditions of the room.,Adds infrastructural depth.,secondary
+11,image,mekena-nyc-10.jpeg,,Hidden Labor,evidence,Radical Hospitality Protocol,"Hospitality becomes procedure, not sentiment.",Shows care as a designed system.,secondary
+12,image,mekena-nyc-11.jpeg,,Public Proof,evidence,Program Calendar,The building produces cultural time.,Shows use and continuity.,secondary
+13,image,mekena-nyc-12.jpeg,,Metrics,evidence,Sustainability / Retrofit Claim,Use hard readings where available; label projections honestly.,Prevents aspirational architecture fog.,secondary
+14,image,mekena-nyc-13.jpeg,,Authorship,role,OPERATIONAL & SPATIAL DESIGN,"Role encompasses project founding, spatial brief design, and operational residency models.",Project founding | Spatial systems design | Residency infrastructure | Operating model,secondary
+15,image,mekena-nyc-14.png,,Relation,context,From Stage to Shelter,The stage exposed vulnerability. The building answers with protection.,Establishes historical arc.,secondary
+16,image,mekena-nyc-15.png,,Coda,coda,Quiet Room,The work ends in ordinary shelter.,"Ends with use, not monumentality.",quiet

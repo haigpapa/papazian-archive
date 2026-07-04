@@ -54,7 +54,7 @@ export interface AtlasImage {
   isPrimary: boolean;
 }
 
-const ATLAS_CSV_URL = '/images/atlas/atlas-node-update-FINAL.updated.csv';
+const ATLAS_CSV_URL = '/images/atlas/atlas.csv';
 
 const ATLAS_IMAGES = ATLAS_IMAGE_FILENAMES.map((filename) => ({ filename }));
 

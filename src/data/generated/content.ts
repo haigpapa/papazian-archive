@@ -1115,7 +1115,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "99-nodes": [
     {
       "type": "image",
-      "src": "/images/projects/99-nodes/99-nodes-project-grid-overview-all.webp",
+      "src": "/images/projects/99-nodes/cover.webp",
       "label": "The Black Field",
       "caption": "The archive appears as a world, not a menu.",
       "body": "Establishes spatial interface as the archive’s native form.",
@@ -1126,8 +1126,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-01.png",
       "label": "Editorial Gravity",
       "caption": "Projects do not sit in a list. They exert gravity according to evidence, relation, and consequence.",
       "body": "Defines the logic of the spatial portfolio.",
@@ -1139,7 +1139,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/99-nodes/99-nodes-constellation-globe.png",
+      "src": "/images/projects/99-nodes/99-nodes-02.png",
       "label": "The 99-Node Constraint",
       "caption": "Constraint prevents the archive from becoming a landfill with better typography.",
       "body": "Shows discipline against taxonomy drift.",
@@ -1150,8 +1150,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-03.png",
       "label": "Input Corpus",
       "caption": "The field is built from authored records, not ornamental thumbnails.",
       "body": "Establishes archive provenance.",
@@ -1163,7 +1163,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/99-nodes/99-nodes-maximalist-website-concept.png",
+      "src": "/images/projects/99-nodes/99-nodes-04.png",
       "label": "Works Spine",
       "caption": "Works provides sequence, hierarchy, and controlled entry.",
       "body": "Shows the main public path.",
@@ -1174,8 +1174,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-05.png",
       "label": "Atlas Relations",
       "caption": "Lines must explain relation or disappear. No network spaghetti. Humanity has suffered enough.",
       "body": "Turns the graph from aesthetic into intelligence.",
@@ -1186,8 +1186,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-06.png",
       "label": "Index Flattening",
       "caption": "The same body of work can become lookup, comparison, and retrieval.",
       "body": "Shows mode transformation.",
@@ -1198,8 +1198,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-07.png",
       "label": "Project Rail Interior",
       "caption": "Entering a project should feel like entering a dossier room.",
       "body": "Connects spatial field to evidence sequence.",
@@ -1210,8 +1210,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-08.png",
       "label": "Public / Private Layers",
       "caption": "Not every artifact belongs in the same layer.",
       "body": "Protects hierarchy and privacy.",
@@ -1222,8 +1222,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-09.png",
       "label": "Duplicate Node Warning",
       "caption": "If every concept becomes a node, the map eats itself.",
       "body": "Names taxonomy drift as an operational risk.",
@@ -1234,8 +1234,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-10.png",
       "label": "Institutional View",
       "caption": "Different visitors need different routes through the same evidence.",
       "body": "Shows archive flexibility without flattening content.",
@@ -1246,8 +1246,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/99-nodes/99-nodes-11.png",
       "label": "The Field Returns",
       "caption": "The archive returns to terrain after the case closes.",
       "body": "Ends by restoring orientation.",
@@ -1261,7 +1261,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "architecture-in-low-res": [
     {
       "type": "image",
-      "src": "/images/projects/architecture-in-low-res/01_architecture_in_low_res.png",
+      "src": "/images/projects/architecture-in-low-res/cover.webp",
       "label": "Broken Render",
       "caption": "The damaged image tells the truth that the polished render hides.",
       "body": "Establishes resolution loss as architectural evidence.",
@@ -1272,8 +1272,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-01.png",
       "label": "Low Resolution Is Evidence",
       "caption": "Low resolution is not a flaw. It is a condition of mediated memory.",
       "body": "Reframes technical degradation as spatial truth.",
@@ -1285,7 +1285,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/architecture-in-low-res/architecture-low-res-acetate-layers.png",
+      "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-02.png",
       "label": "Thesis Page",
       "caption": "The later archive inherits its visual ethics from this early architectural research.",
       "body": "Establishes origin and intellectual provenance.",
@@ -1297,7 +1297,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/architecture-in-low-res/architecture-low-res-city-grid.png",
+      "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-03.png",
       "label": "Digital Proxy",
       "caption": "Digital proxies simplify, corrupt, and distance the built environment.",
       "body": "Shows how mediation changes spatial knowledge.",
@@ -1309,7 +1309,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/architecture-in-low-res/architecture-low-res-wireframe-object.png",
+      "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-04.png",
       "label": "Resolution Loss Diagram",
       "caption": "Memory and image degrade through the same structural pressures.",
       "body": "Makes the degradation logic inspectable.",
@@ -1321,7 +1321,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/architecture-in-low-res/architecture-low-res-thesis-render.jpg",
+      "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-05.png",
       "label": "Against the Polished Render",
       "caption": "Smooth representation can become a lie when the subject is damaged space.",
       "body": "Names visual polish as a form of false certainty.",
@@ -1333,7 +1333,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/architecture-in-low-res/architecture-low-res-thesis-visualization.jpg",
+      "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-06.png",
       "label": "Seed Crystal",
       "caption": "Later projects inherit the logic of degraded evidence.",
       "body": "Places the work as a foundational node.",
@@ -1344,8 +1344,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-07.png",
       "label": "Pixel as Ruin",
       "caption": "The ruin survives as an image that cannot fully resolve.",
       "body": "Ends with damaged visibility, not restoration.",
@@ -1540,7 +1540,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "chronocumulator": [
     {
       "type": "image",
-      "src": "/images/projects/chronocumulator/07_chronocumulator.png",
+      "src": "/images/projects/chronocumulator/cover.png",
       "label": "Circular Score Field",
       "caption": "Sound accumulates in loops rather than moving toward resolution.",
       "body": "Establishes circular sonic logic.",
@@ -1551,8 +1551,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/chronocumulator/chronocumulator-01.jpeg",
       "label": "Time Does Not Progress Cleanly",
       "caption": "The sonic event returns changed each time it circles.",
       "body": "Reframes time as accumulation.",
@@ -1564,7 +1564,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/chronocumulator/02_chronocumulator_sequencer_ui.png",
+      "src": "/images/projects/chronocumulator/chronocumulator-02.png",
       "label": "Microtonal Circle",
       "caption": "Circularity changes how pitch, memory, and expectation behave.",
       "body": "Grounds the project in acoustic specificity.",
@@ -1576,7 +1576,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/chronocumulator/chronocumulator-feedback-loop.png",
+      "src": "/images/projects/chronocumulator/chronocumulator-03.png",
       "label": "Event Accumulation Engine",
       "caption": "Each event leaves residue that alters the next pass.",
       "body": "Shows process.",
@@ -1587,8 +1587,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/chronocumulator/chronocumulator-04.png",
       "label": "Loop Trace I",
       "caption": "The first loop establishes the field.",
       "body": "Shows baseline.",
@@ -1599,8 +1599,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/chronocumulator/chronocumulator-05.png",
       "label": "Loop Trace II",
       "caption": "Repetition changes the signal.",
       "body": "Shows accumulation.",
@@ -1612,7 +1612,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/chronocumulator/chronocumulator-circular-vs-linear.png",
+      "src": "/images/projects/chronocumulator/chronocumulator-06.png",
       "label": "Against Western Resolution",
       "caption": "The system refuses the clean arrival point imposed by standard harmonic logic.",
       "body": "Names the structural conflict.",
@@ -1623,8 +1623,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/chronocumulator/chronocumulator-07.png",
       "label": "Relation to Localization Gap",
       "caption": "To audit cultural erasure, the archive first has to describe what the machine cannot measure.",
       "body": "Positions Chronocumulator as sonic theory engine.",
@@ -1635,8 +1635,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/chronocumulator/chronocumulator-08.png",
       "label": "Prototype Interface",
       "caption": "The loop becomes playable, visible, and testable.",
       "body": "Gives the system an implementation surface.",
@@ -1647,8 +1647,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/chronocumulator/chronocumulator-09.png",
       "label": "The Loop Remains Open",
       "caption": "The event returns, but never as the same sound.",
       "body": "Ends with recurrence, not resolution.",
@@ -1662,7 +1662,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "codeverse-explorer": [
     {
       "type": "image",
-      "src": "/images/projects/codeverse-explorer/15_codeverse_explorer.png",
+      "src": "/images/projects/codeverse-explorer/cover.webp",
       "label": "Repository Galaxy",
       "caption": "The codebase appears as a spatial structure.",
       "body": "Establishes visual premise.",
@@ -1673,8 +1673,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/codeverse-explorer/codeverse-explorer-01.jpeg",
       "label": "Software Is Invisible Architecture",
       "caption": "Technical debt has spatial weight.",
       "body": "Reframes code as architecture.",
@@ -1686,7 +1686,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/codeverse-explorer/codeverse-explorer-3d-codebase.png",
+      "src": "/images/projects/codeverse-explorer/codeverse-explorer-02.jpeg",
       "label": "AST Intake",
       "caption": "Flat code enters as parseable structure.",
       "body": "Shows source processing.",
@@ -1698,7 +1698,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/codeverse-explorer/codeverse-explorer-avatar-bounding-box.png",
+      "src": "/images/projects/codeverse-explorer/codeverse-explorer-03.png",
       "label": "Dependency Gravity Map",
       "caption": "Relationships pull modules into spatial neighborhoods.",
       "body": "Makes system behavior visible.",
@@ -1710,7 +1710,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/codeverse-explorer/codeverse-explorer-wireframe-city.png",
+      "src": "/images/projects/codeverse-explorer/codeverse-explorer-04.jpeg",
       "label": "Before / After",
       "caption": "The same code becomes readable through space.",
       "body": "Demonstrates value.",
@@ -1721,8 +1721,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/codeverse-explorer/codeverse-explorer-05.png",
       "label": "Narrative Layer",
       "caption": "The system must translate structure into plain-language architectural explanation.",
       "body": "Names the interpretive layer.",
@@ -1733,8 +1733,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/codeverse-explorer/codeverse-explorer-06.jpeg",
       "label": "Relation to STORYLINES / 99 Nodes",
       "caption": "Literary graph logic transfers to codebases and the archive itself.",
       "body": "Shows method transfer.",
@@ -1745,8 +1745,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/codeverse-explorer/codeverse-explorer-07.png",
       "label": "Unopened Module",
       "caption": "Every system contains a room no one has inspected yet.",
       "body": "Ends with technical mystery, but the useful kind, not the “we forgot documentation” kind.",
@@ -1760,7 +1760,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "derive": [
     {
       "type": "image",
-      "src": "/images/projects/derive/10_derive.png",
+      "src": "/images/projects/derive/cover.webp",
       "label": "Latent Memory Field",
       "caption": "Memory appears as a navigable field, not a timeline.",
       "body": "Establishes the spatial model.",
@@ -1771,8 +1771,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/derive/derive-01.jpeg",
       "label": "Proximity Is Relevance",
       "caption": "Memory is retrieved by emotional adjacency, not chronological order.",
       "body": "Defines the retrieval logic.",
@@ -1784,7 +1784,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-boids-vector-flow-field.jpeg",
+      "src": "/images/projects/derive/derive-02.jpeg",
       "label": "Displaced Source Corpus",
       "caption": "The system begins with fragments that resist clean filing.",
       "body": "Grounds the database.",
@@ -1796,7 +1796,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-entropy-reducing-structure-emerging.jpeg",
+      "src": "/images/projects/derive/derive-03.jpeg",
       "label": "Whisper Breath Chunks",
       "caption": "Audio is divided by embodied rhythm.",
       "body": "Shows body-informed processing.",
@@ -1808,7 +1808,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-field-flow-arrows.png",
+      "src": "/images/projects/derive/derive-04.jpeg",
       "label": "ChromaDB Vector Map",
       "caption": "Felt proximity becomes database structure.",
       "body": "Makes emotional adjacency technical.",
@@ -1820,7 +1820,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-semantic-cluster-graph.png",
+      "src": "/images/projects/derive/derive-05.jpeg",
       "label": "Drift Algorithm",
       "caption": "The system wanders without losing relation.",
       "body": "Shows controlled instability.",
@@ -1832,7 +1832,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-maqam-navigation.png",
+      "src": "/images/projects/derive/derive-06.jpeg",
       "label": "Tuning Rules",
       "caption": "The system prevents AI from making the memory too smooth.",
       "body": "Shows ethical constraint.",
@@ -1844,7 +1844,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-memory-navigation-system.jpeg",
+      "src": "/images/projects/derive/derive-07.jpeg",
       "label": "Source to Output",
       "caption": "The memory field produces a traceable response.",
       "body": "Proves output provenance.",
@@ -1856,7 +1856,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-memory-system.png",
+      "src": "/images/projects/derive/derive-08.jpeg",
       "label": "Against Fake Coherence",
       "caption": "The enemy is not silence. The enemy is false coherence.",
       "body": "Defines what the system resists.",
@@ -1868,7 +1868,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-negentropic-machine-noise-order.jpeg",
+      "src": "/images/projects/derive/derive-09.png",
       "label": "OSC / MIDI Signal",
       "caption": "Memory retrieval can drive sonic space.",
       "body": "Connects memory engine to performance machine.",
@@ -1880,7 +1880,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-negentropic-sorted-blocks-grid.jpeg",
+      "src": "/images/projects/derive/derive-10.jpeg",
       "label": "Relation to SIWUE / TEBR / STTM",
       "caption": "DERIVE connects manuscript, sonic folklore, and embodied instrument.",
       "body": "Shows cross-world function.",
@@ -1892,7 +1892,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/derive/derive-botanical-particle.png",
+      "src": "/images/projects/derive/derive-11.png",
       "label": "Unresolved Fragment",
       "caption": "The system preserves rupture instead of repairing it.",
       "body": "Ends with jagged memory.",
@@ -1906,7 +1906,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "fictive-environments": [
     {
       "type": "image",
-      "src": "/images/projects/fictive-environments/fictive-environments-studio-identity.webp",
+      "src": "/images/projects/fictive-environments/cover.webp",
       "label": "The Studio as Interface",
       "caption": "A studio positioned between physical space, code, narrative, and civic infrastructure.",
       "body": "Shows Fictive Environments as an operating layer, not a brand wrapper.",
@@ -1917,8 +1917,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/fictive-environments/fictive-environments-01.png",
       "label": "Reality Is a Design Problem",
       "caption": "Fictive Environments uses fiction to design systems that reality has not yet learned how to hold.",
       "body": "Defines fiction as engineering method.",
@@ -1930,7 +1930,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/fictive-environments/fictive-environments-generated-v1.webp",
+      "src": "/images/projects/fictive-environments/fictive-environments-02.png",
       "label": "The Meaning Stack Enters the City",
       "caption": "Space, code, sound, and narrative become interchangeable deployment layers.",
       "body": "Establishes the studio’s technical and spatial logic.",
@@ -1941,8 +1941,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/fictive-environments/fictive-environments-03.png",
       "label": "Between Panic Feed and Dead Institution",
       "caption": "Digital systems accelerate faster than human bodies and civic structures can process.",
       "body": "Names the gap the studio occupies.",
@@ -1954,7 +1954,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/fictive-environments/fictive-geographies.JPG",
+      "src": "/images/projects/fictive-environments/fictive-environments-04.png",
       "label": "Structural Fiction",
       "caption": "The studio writes the future object first, then reverse-engineers the conditions required to make it real.",
       "body": "Shows fiction functioning as infrastructure design.",
@@ -1965,8 +1965,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/fictive-environments/fictive-environments-05.png",
       "label": "Architectures of Belonging",
       "caption": "Belonging is not treated as sentiment. It becomes a designed environment.",
       "body": "Connects studio identity to deployed project types.",
@@ -1977,8 +1977,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/fictive-environments/fictive-environments-06.png",
       "label": "Governance Triad in Practice",
       "caption": "Every intervention needs a stabilizer, a boundary, and a consent point.",
       "body": "Makes the studio’s design ethics operational.",
@@ -1989,8 +1989,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/fictive-environments/fictive-environments-07.png",
       "label": "Para-Institutional Posture",
       "caption": "The studio behaves like a para-institution: flexible, rigorous, and deliberately hard to reduce to one genre.",
       "body": "Establishes institutional legibility.",
@@ -2001,8 +2001,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/fictive-environments/fictive-environments-08.png",
       "label": "Deployment Gap",
       "caption": "The missing layer is not ideas. It is deployment protocol.",
       "body": "Identifies what must be built for external adoption.",
@@ -2013,8 +2013,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/fictive-environments/fictive-environments-09.png",
       "label": "A Fiction That Became Load-Bearing",
       "caption": "The future becomes real when the structure can carry weight.",
       "body": "Ends with infrastructure, not branding.",
@@ -2028,7 +2028,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "hah-was": [
     {
       "type": "image",
-      "src": "/images/projects/hah-was/12_hah_was_localization_gap.png",
+      "src": "/images/projects/hah-was/cover.webp",
       "label": "Mobile Truth Interface",
       "caption": "The test appears as a game, but the stakes are epistemic.",
       "body": "Establishes playable verification.",
@@ -2039,8 +2039,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/hah-was/hah-was-01.jpeg",
       "label": "Reverse Turing Test",
       "caption": "The question is not whether machines can fool humans. It is whether humans can still detect machine cultural error.",
       "body": "Reframes interaction.",
@@ -2052,7 +2052,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/hah-was/hah-was-hallucination-detection-ui.jpeg",
+      "src": "/images/projects/hah-was/hah-was-02.jpeg",
       "label": "AI Claim Card",
       "caption": "The model presents a plausible claim that may be culturally false.",
       "body": "Shows the unit of inspection.",
@@ -2064,7 +2064,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/hah-was/hah-was-server-stack-schematic.png",
+      "src": "/images/projects/hah-was/hah-was-03.jpeg",
       "label": "Adversarial Game Loop",
       "caption": "The user trains against hallucination.",
       "body": "Shows interaction structure.",
@@ -2076,7 +2076,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/hah-was/hah-was-binary-channel-barcode-waveform.jpeg",
+      "src": "/images/projects/hah-was/hah-was-04.jpeg",
       "label": "Grounding Pass",
       "caption": "Cultural claims must pass through evidence before becoming trusted.",
       "body": "Establishes veracity system.",
@@ -2087,8 +2087,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/hah-was/hah-was-05.jpeg",
       "label": "Spectral Input",
       "caption": "Sonic failures can become part of the hallucination test.",
       "body": "Links HAH-WAS to music-engine analysis.",
@@ -2099,8 +2099,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/hah-was/hah-was-06.jpeg",
       "label": "Hallucination Score",
       "caption": "Cultural error becomes measurable without pretending measurement is neutral.",
       "body": "Creates an audit surface.",
@@ -2111,8 +2111,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/hah-was/hah-was-07.jpeg",
       "label": "Failure Taxonomy",
       "caption": "The system classifies the ways machines lie politely.",
       "body": "Turns hallucination into a research object.",
@@ -2123,8 +2123,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/hah-was/hah-was-08.jpeg",
       "label": "Relation to Localization Gap / Meaning Stack",
       "caption": "The audit becomes a defensive interface.",
       "body": "Positions HAH-WAS inside the larger architecture.",
@@ -2135,8 +2135,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/hah-was/hah-was-09.jpeg",
       "label": "The Human Auditor",
       "caption": "The final checkpoint is still human discernment.",
       "body": "Ends with responsibility.",
@@ -2185,7 +2185,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "localization-gap": [
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/12_hah_was_localization_gap.png",
+      "src": "/images/projects/localization-gap/cover.webp",
       "label": "The Audit Table",
       "caption": "The argument begins as a corpus.",
       "body": "Opens with scale and evidence.",
@@ -2196,8 +2196,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/localization-gap/localization-gap-01.png",
       "label": "What AI Cannot Hear",
       "caption": "The model imitates the surface and erases the structure.",
       "body": "Defines the research claim.",
@@ -2209,7 +2209,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-maqam-spectrogram.webp",
+      "src": "/images/projects/localization-gap/localization-gap-02.png",
       "label": "Maqam Reference Card",
       "caption": "You cannot audit erasure until you define what is being erased.",
       "body": "Establishes cultural structure.",
@@ -2221,7 +2221,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-427-tracks-archive-metadata.jpeg",
+      "src": "/images/projects/localization-gap/localization-gap-03.png",
       "label": "Dataset Card",
       "caption": "The dataset is bounded, documented, and inspectable.",
       "body": "Builds trust.",
@@ -2233,7 +2233,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-ai-track-rejection-log.jpeg",
+      "src": "/images/projects/localization-gap/localization-gap-04.png",
       "label": "Prompt Method",
       "caption": "The audit pressures models through repeated structured asks.",
       "body": "Shows methodology.",
@@ -2245,7 +2245,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-batch-processing-yield-terminal.jpeg",
+      "src": "/images/projects/localization-gap/localization-gap-05.png",
       "label": "Python / Librosa Analysis",
       "caption": "The system red-teams audio through measurable signal analysis.",
       "body": "Shows computational method.",
@@ -2257,7 +2257,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-code-to-culture.png",
+      "src": "/images/projects/localization-gap/localization-gap-06.png",
       "label": "Spectrogram I",
       "caption": "The reference holds microtonal behavior the generated track flattens.",
       "body": "First visible proof.",
@@ -2269,7 +2269,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-frequency-spectrum.png",
+      "src": "/images/projects/localization-gap/localization-gap-07.png",
       "label": "Spectrogram II",
       "caption": "The collapse repeats across outputs.",
       "body": "Establishes pattern.",
@@ -2281,7 +2281,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-glitch-waveform.png",
+      "src": "/images/projects/localization-gap/localization-gap-08.png",
       "label": "Model Comparison Matrix",
       "caption": "The failure is systemic, not a single bad track.",
       "body": "Broadens the claim.",
@@ -2293,7 +2293,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-research-diagram.png",
+      "src": "/images/projects/localization-gap/localization-gap-09.png",
       "label": "Failure Taxonomy",
       "caption": "The gap becomes a named structure.",
       "body": "Creates conceptual and research legibility.",
@@ -2305,7 +2305,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-research-visualization.jpg",
+      "src": "/images/projects/localization-gap/localization-gap-10.png",
       "label": "A/B Listening Demo",
       "caption": "The visitor hears the gap before reading about it.",
       "body": "Provides sensory verification.",
@@ -2317,7 +2317,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-soundwave-suno.png",
+      "src": "/images/projects/localization-gap/localization-gap-11.png",
       "label": "HAH-WAS Truth Map",
       "caption": "Research becomes a training interface.",
       "body": "Shows downstream use.",
@@ -2329,7 +2329,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-maqam-multi-spectrum.png",
+      "src": "/images/projects/localization-gap/localization-gap-12.png",
       "label": "MaqamAI Ear Training",
       "caption": "The archive does not only criticize machine listening. It trains human listening.",
       "body": "Shows constructive response.",
@@ -2341,7 +2341,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-maqam-vector-diagram.png",
+      "src": "/images/projects/localization-gap/localization-gap-13.png",
       "label": "Model Drift Log",
       "caption": "Commercial models change, so evidence must be timestamped and preserved.",
       "body": "Names audit decay.",
@@ -2353,19 +2353,24 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/localization-gap/localization-gap-generated-v1.webp",
-      "label": "What Haig Audited",
-      "caption": "The authorship is in the audit architecture and cultural interpretation.",
-      "body": "Clarifies contribution.",
-      "role": "process",
+      "src": "/images/projects/localization-gap/localization-gap-14.png",
+      "label": "FORENSIC AUDIT METHODOLOGY",
+      "caption": "Contribution establishes the audit framework, dataset compilation, and cultural interpretation.",
+      "body": [
+        "Research framework",
+        "Audit methodology",
+        "Dataset taxonomy",
+        "Cultural analysis"
+      ],
+      "role": "role",
       "layout": "wide",
       "chapter": "Authorship",
-      "beat": "The authorship is in the audit architecture and cultural interpretation.",
+      "beat": "Contribution establishes the audit framework, dataset compilation, and cultural interpretation.",
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/localization-gap/localization-gap-15.png",
       "label": "The Unheard Interval",
       "caption": "The system ends at the structure the model still cannot hold.",
       "body": "Ends with the gap itself.",
@@ -2379,7 +2384,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "maqamai": [
     {
       "type": "image",
-      "src": "/images/projects/maqamai/13_maqamai.png",
+      "src": "/images/projects/maqamai/cover.webp",
       "label": "Interval Made Visible",
       "caption": "The invisible interval becomes inspectable.",
       "body": "Establishes learning surface.",
@@ -2390,8 +2395,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/maqamai/maqamai-01.png",
       "label": "You Cannot Engineer What You Cannot Hear",
       "caption": "Technical competence begins with perceptual competence.",
       "body": "Reframes listening as infrastructure.",
@@ -2403,7 +2408,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/maqamai/maqamai-arabic-music-theory-synthesizer.jpeg",
+      "src": "/images/projects/maqamai/maqamai-02.png",
       "label": "Lesson Flow",
       "caption": "MaqamAI teaches the ear before it evaluates the model.",
       "body": "Shows pedagogical sequence.",
@@ -2415,7 +2420,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/maqamai/maqamai-maqam-ai-interface.png",
+      "src": "/images/projects/maqamai/maqamai-03.png",
       "label": "Reference / Flattened Output",
       "caption": "The ear learns the difference between structure and imitation.",
       "body": "Makes failure audible.",
@@ -2427,7 +2432,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/maqamai/maqamai-radial-tuning-sequences.png",
+      "src": "/images/projects/maqamai/maqamai-04.png",
       "label": "Microtonal Error Card",
       "caption": "Western pitch grids cannot fully contain maqam behavior.",
       "body": "Explains why failure occurs.",
@@ -2439,7 +2444,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/maqamai/maqamai-sound-visualization.png",
+      "src": "/images/projects/maqamai/maqamai-05.png",
       "label": "Engineer Mode",
       "caption": "The tool translates cultural listening into development practice.",
       "body": "Bridges pedagogy and technical standards.",
@@ -2450,8 +2455,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/maqamai/maqamai-06.png",
       "label": "Relation to Localization Gap / HAH-WAS",
       "caption": "The audit identifies the gap; MaqamAI trains the perception needed to close it.",
       "body": "Shows role inside Sonic Intelligence.",
@@ -2462,8 +2467,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/maqamai/maqamai-07.png",
       "label": "The Trained Ear",
       "caption": "The system ends with a listener still learning.",
       "body": "Ends with human capacity.",
@@ -2477,7 +2482,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "mashrou-leila": [
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/03_mashrou_leila.png",
+      "src": "/images/projects/mashrou-leila/cover.webp",
       "label": "Baalbeck",
       "caption": "The band at architectural scale: ruin, crowd, myth, and political consequence in one image.",
       "body": "Opens with public scale before explanation.",
@@ -2488,8 +2493,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-01.png",
       "label": "Not a Band",
       "caption": "Mashrou’ Leila was a public system disguised as a band.",
       "body": "Reframes music as cultural infrastructure.",
@@ -2501,7 +2506,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrou-leila-baalbeck-roman-ruins.jpg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-02.png",
       "label": "Origin Surface",
       "caption": "The origin surface before the project became institution, mythology, and pressure system.",
       "body": "Establishes where the public language began.",
@@ -2513,7 +2518,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrou-leila-self-titled-ep-cover.jpeg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-03.png",
       "label": "Counter-Public Infrastructure",
       "caption": "The visible band sat on top of a larger operating system.",
       "body": "Shows how music, image, publicness, and risk moved together.",
@@ -2525,7 +2530,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/npr-tiny-desk-mashrou-leila.jpg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-04.png",
       "label": "Direct-to-Fan Public",
       "caption": "The audience became infrastructure before institutions knew what to do with the project.",
       "body": "Proves independent public formation.",
@@ -2537,7 +2542,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/lebanon-mashrou-leila-band.jpg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-05.png",
       "label": "Scale Ledger",
       "caption": "Specificity traveled at institution scale without institutional safety.",
       "body": "Converts scale into evidence, not bragging.",
@@ -2549,7 +2554,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrou-leila-debut-ep-cover.jpeg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-06.png",
       "label": "The Design Problem",
       "caption": "How do you make a fragile public visible without making it easy to destroy?",
       "body": "Names the central design pressure.",
@@ -2561,7 +2566,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrou-leila-demo-visual.jpg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-07.png",
       "label": "Ibn El Leil",
       "caption": "The night becomes architecture: mourning, celebration, surveillance, and public desire.",
       "body": "Shows the band as a world-building system.",
@@ -2573,7 +2578,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrou-leila-exit.jpg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-08.png",
       "label": "Roman",
       "caption": "The music video becomes a visual argument about gender, power, and representation.",
       "body": "Shows image-making as political structure.",
@@ -2585,7 +2590,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrou-leila-system-diagram.png",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-09.png",
       "label": "Tiny Desk",
       "caption": "The system survives stripped of spectacle: voice, body, arrangement, and room.",
       "body": "Proves the project’s architecture works at intimate scale.",
@@ -2597,7 +2602,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrouleila-beirut-dreams-in-color.jpg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-10.png",
       "label": "Stage Architecture",
       "caption": "Touring becomes spatial practice: light, bodies, narrative, and recognition moving city to city.",
       "body": "Shows performance as portable architecture.",
@@ -2609,7 +2614,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrouleila-greenpeace-bahr-360video.jpg",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-11.png",
       "label": "Rolling Stone",
       "caption": "Visibility becomes a public event and an international image system.",
       "body": "Proves media consequence.",
@@ -2621,7 +2626,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrouleila-logo-ibnelleil.webp",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-12.png",
       "label": "Crisis Operations",
       "caption": "Safety, censorship, market access, press escalation, and audience trust were part of the instrument.",
       "body": "Reveals operational pressure behind the public image.",
@@ -2633,19 +2638,24 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrouleila-logo2.webp",
-      "label": "What Haig Directed",
-      "caption": "Co-founder and creative director: shaping visual identity, stage language, public image, and system coherence.",
-      "body": "Clarifies authorship.",
-      "role": "process",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-13.png",
+      "label": "CREATIVE & VISUAL DIRECTION",
+      "caption": "Creative direction covering band visual identity, stage scenography, and public media systems.",
+      "body": [
+        "Co-founder & creative director",
+        "Visual identity",
+        "Stage scenography",
+        "Brand infrastructure"
+      ],
+      "role": "role",
       "layout": "wide",
       "chapter": "Authorship",
-      "beat": "Co-founder and creative director: shaping visual identity, stage language, public image, and system coherence.",
+      "beat": "Creative direction covering band visual identity, stage scenography, and public media systems.",
       "emphasis": "secondary"
     },
     {
       "type": "image",
-      "src": "/images/projects/mashrou-leila/mashrouleila-logo3.png",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-14.png",
       "label": "Visibility Without Shelter",
       "caption": "The stage exposed vulnerability. The later work builds shelter.",
       "body": "Establishes the historical arc from publicness to protection.",
@@ -2656,8 +2666,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mashrou-leila/mashrou-leila-15.png",
       "label": "Empty Stage",
       "caption": "The public gathered. The structure could not fully protect it.",
       "body": "Ends unresolved, as it should. Conclusions are where tension goes to be embalmed.",
@@ -2817,7 +2827,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "mekena-nyc": [
     {
       "type": "image",
-      "src": "/images/projects/mekena-nyc/14_mekena_nyc.png",
+      "src": "/images/projects/mekena-nyc/cover.webp",
       "label": "The Door on Austell Place",
       "caption": "The project begins as a real threshold in Queens.",
       "body": "Grounds the work in physical space.",
@@ -2828,8 +2838,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-01.jpeg",
       "label": "Building as Operating System",
       "caption": "MEKENA treats a building as infrastructure for shelter, rehearsal, gathering, work, and return.",
       "body": "Reframes architecture as care system.",
@@ -2840,8 +2850,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-02.jpeg",
       "label": "Condition of Vashad",
       "caption": "Permanent impermanence requires more than visibility. It requires infrastructure.",
       "body": "Establishes social condition.",
@@ -2853,7 +2863,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mekena-nyc/mekena-modular-block-assembly.png",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-03.jpeg",
       "label": "Site / Block / Queens",
       "caption": "The sanctuary is geographically and politically specific.",
       "body": "Places the project.",
@@ -2865,7 +2875,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mekena-nyc/mekena-nyc-adaptive-reuse-exterior.png",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-04.jpeg",
       "label": "Before / After",
       "caption": "Transformation is visible in material time.",
       "body": "Proves architectural change.",
@@ -2877,7 +2887,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mekena-nyc/mekena-nyc-building-schematic-queens.jpeg",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-05.jpeg",
       "label": "Plan / Section / Elevation",
       "caption": "The building’s care logic must be inspectable.",
       "body": "Shows spatial rigor.",
@@ -2889,7 +2899,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mekena-nyc/mekena-nyc-exterior-new.png",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-06.jpeg",
       "label": "Sanctuary / Forge / Plaza",
       "caption": "Private refuge, production space, and public gathering form a gradient of care.",
       "body": "Defines the building’s operating structure.",
@@ -2901,7 +2911,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mekena-nyc/mekena-nyc-garden-overview-enhanced-v1.webp",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-07.png",
       "label": "Resident Journey Map",
       "caption": "Residency is a sequence, not a nice room with a press release.",
       "body": "Shows operational logic.",
@@ -2913,7 +2923,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mekena-nyc/mekena-nyc-queens-exterior.webp",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-08.jpeg",
       "label": "Threshold Walkthrough",
       "caption": "The building is experienced as a choreography of thresholds.",
       "body": "Makes spatial sequence visible.",
@@ -2925,7 +2935,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/mekena-nyc/mekena-nyc-visual.png",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-09.jpeg",
       "label": "IoT / Sensor Layer",
       "caption": "Care includes the invisible conditions of the room.",
       "body": "Adds infrastructural depth.",
@@ -2936,8 +2946,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-10.jpeg",
       "label": "Radical Hospitality Protocol",
       "caption": "Hospitality becomes procedure, not sentiment.",
       "body": "Shows care as a designed system.",
@@ -2948,8 +2958,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-11.jpeg",
       "label": "Program Calendar",
       "caption": "The building produces cultural time.",
       "body": "Shows use and continuity.",
@@ -2960,8 +2970,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-12.jpeg",
       "label": "Sustainability / Retrofit Claim",
       "caption": "Use hard readings where available; label projections honestly.",
       "body": "Prevents aspirational architecture fog.",
@@ -2972,20 +2982,25 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
-      "label": "What Haig Built",
-      "caption": "Haig’s role sits across founding, spatial brief, operating model, and cultural infrastructure.",
-      "body": "Clarifies authorship.",
-      "role": "process",
+      "type": "image",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-13.jpeg",
+      "label": "OPERATIONAL & SPATIAL DESIGN",
+      "caption": "Role encompasses project founding, spatial brief design, and operational residency models.",
+      "body": [
+        "Project founding",
+        "Spatial systems design",
+        "Residency infrastructure",
+        "Operating model"
+      ],
+      "role": "role",
       "layout": "wide",
       "chapter": "Authorship",
-      "beat": "Haig’s role sits across founding, spatial brief, operating model, and cultural infrastructure.",
+      "beat": "Role encompasses project founding, spatial brief design, and operational residency models.",
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-14.png",
       "label": "From Stage to Shelter",
       "caption": "The stage exposed vulnerability. The building answers with protection.",
       "body": "Establishes historical arc.",
@@ -2996,8 +3011,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/mekena-nyc/mekena-nyc-15.png",
       "label": "Quiet Room",
       "caption": "The work ends in ordinary shelter.",
       "body": "Ends with use, not monumentality.",
@@ -3116,7 +3131,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "sometimes-i-wake-up-elsewhere": [
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/09_sometimes_i_wake_up_elsewhere.png",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/cover.png",
       "label": "Manuscript on Desk",
       "caption": "The system begins as writing, not interface theater.",
       "body": "Grounds the work in literary labor.",
@@ -3127,8 +3142,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-01.jpeg",
       "label": "Exile as Interface",
       "caption": "The work does not describe exile. It makes exile navigable.",
       "body": "Reframes manuscript as architecture.",
@@ -3139,8 +3154,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-02.jpeg",
       "label": "Nine Houses",
       "caption": "The manuscript is distributed across houses rather than chapters.",
       "body": "Establishes architectural structure.",
@@ -3152,7 +3167,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/siwue-manuscript-fragment.webp",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-03.jpeg",
       "label": "Entry Fragment",
       "caption": "The emotional stakes arrive through voice before mechanics.",
       "body": "Lets language carry the argument.",
@@ -3163,8 +3178,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-04.jpeg",
       "label": "Temporal Debt Ledger",
       "caption": "Movement through the text has metabolic cost.",
       "body": "Makes reading behavior measurable.",
@@ -3176,7 +3191,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/siwue-mobius-structure.png",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-05.jpeg",
       "label": "Möbius Engine",
       "caption": "Returning to the same place does not guarantee the same reality.",
       "body": "Shows non-linear narrative logic.",
@@ -3188,7 +3203,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/siwue-observed-reality-mobius.png",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-06.png",
       "label": "Face A / Face B",
       "caption": "The stable surface flips into its underside.",
       "body": "Defines the state-change mechanism.",
@@ -3200,7 +3215,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-generated-v1.webp",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-07.jpeg",
       "label": "Typographic Shatter",
       "caption": "Accumulated debt physically damages the reading surface.",
       "body": "Shows trauma as interface behavior.",
@@ -3212,7 +3227,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/siwue-algorithmic-displacement-audit.jpeg",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-08.jpeg",
       "label": "Form 404",
       "caption": "The system files what it cannot retrieve.",
       "body": "Connects SIWUE to Cartography.",
@@ -3224,7 +3239,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/siwue-observed-reality-visualization.jpg",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-09.jpeg",
       "label": "SparrowOS Marker",
       "caption": "Surveillance enters the narrative as a bureaucratic animal.",
       "body": "Shows mythic operating system layer.",
@@ -3235,8 +3250,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-10.jpeg",
       "label": "Interface Walkthrough",
       "caption": "The literary system runs.",
       "body": "Proves executable architecture.",
@@ -3247,8 +3262,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-11.jpeg",
       "label": "Reader Journey Map",
       "caption": "The reader’s movement becomes part of the manuscript.",
       "body": "Shows participatory structure.",
@@ -3260,7 +3275,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/siwue-hallway-cat.png",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-12.jpeg",
       "label": "Ordinary Presence",
       "caption": "Life interrupts the machinery. Thankfully, because otherwise we are just designing trauma spreadsheets.",
       "body": "Preserves tenderness inside the system.",
@@ -3271,20 +3286,25 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
-      "label": "What Haig Built",
-      "caption": "Authorship spans prose, system logic, interface behavior, and memory architecture.",
-      "body": "Clarifies contribution.",
-      "role": "process",
+      "type": "image",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-13.jpeg",
+      "label": "NARRATIVE ARCHITECTURE",
+      "caption": "Contribution spans narrative prose, hypertext logic, and interface memory systems.",
+      "body": [
+        "Manuscript development",
+        "Narrative system",
+        "Hypertext architecture",
+        "Interaction logic"
+      ],
+      "role": "role",
       "layout": "wide",
       "chapter": "Authorship",
-      "beat": "Authorship spans prose, system logic, interface behavior, and memory architecture.",
+      "beat": "Contribution spans narrative prose, hypertext logic, and interface memory systems.",
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-14.jpeg",
       "label": "Relation to Cartography / DERIVE / MEKENA",
       "caption": "Literary exile becomes administrative fiction, memory retrieval, and physical shelter.",
       "body": "Places the work in the archive’s larger arc.",
@@ -3296,7 +3316,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/sometimes-i-wake-up-elsewhere/siwue-still-room.png",
+      "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-15.jpeg",
       "label": "Animal / Room / Light",
       "caption": "The system stops in ordinary life, not resolution.",
       "body": "Ends with presence.",
@@ -3310,7 +3330,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "space-time-tuning-machine": [
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/05_space_time_tuning_machine.png",
+      "src": "/images/projects/space-time-tuning-machine/cover.webp",
       "label": "Machine in Darkness",
       "caption": "The instrument appears before it is explained.",
       "body": "Establishes physical reality.",
@@ -3321,8 +3341,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-01.png",
       "label": "Relic of a Future",
       "caption": "This is a future instrument built from the wreckage of failed return.",
       "body": "Frames the instrument as diegetic prototype.",
@@ -3333,8 +3353,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-02.png",
       "label": "Broken Instrument Myth",
       "caption": "Exile appears as a machine that cannot begin from silence.",
       "body": "Grounds the technical system in narrative and displacement.",
@@ -3346,7 +3366,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm2.JPG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-03.png",
       "label": "Anatomy Table",
       "caption": "The system is assembled from physical friction.",
       "body": "Shows material bricolage.",
@@ -3358,7 +3378,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm3.JPG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-04.png",
       "label": "Physical-to-Digital Translation",
       "caption": "Kinetic action becomes computational parameter.",
       "body": "Shows how the body enters the machine.",
@@ -3370,7 +3390,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm4.JPG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-05.png",
       "label": "Signal Flow",
       "caption": "The instrument listens, processes, and answers.",
       "body": "Makes the pipeline inspectable.",
@@ -3382,7 +3402,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm5.JPG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-06.png",
       "label": "How It Is Played",
       "caption": "The performer conducts a live system, not a backing track.",
       "body": "Proves embodied control.",
@@ -3394,7 +3414,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm6.JPG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-07.png",
       "label": "Patch Reactivity",
       "caption": "The patch changes because the body changes the signal.",
       "body": "Shows live computational behavior.",
@@ -3406,7 +3426,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm7.JPG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-08.png",
       "label": "Bricolage as Friction",
       "caption": "Scrap electronics resist clean abstraction.",
       "body": "Shows rough material truth.",
@@ -3418,7 +3438,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm8.JPG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-09.png",
       "label": "What Broke",
       "caption": "The instrument’s failures are part of its evidence.",
       "body": "Increases trust through visible constraint.",
@@ -3430,7 +3450,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm9.PNG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-10.png",
       "label": "Performance Clip",
       "caption": "Noise, body, room, and machine tune each other in real time.",
       "body": "Shows the full system operating.",
@@ -3442,7 +3462,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/space-time-tuning-machine/sttm-resonance2.PNG",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-11.png",
       "label": "Public / Institutional Proof",
       "caption": "The instrument enters public performance contexts.",
       "body": "Grounds the project beyond prototype mythology.",
@@ -3453,8 +3473,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-12.png",
       "label": "Predecessor to DERIVE",
       "caption": "The physical instrument becomes software memory architecture.",
       "body": "Shows lineage.",
@@ -3465,8 +3485,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-13.png",
       "label": "Input Valve to TEBR",
       "caption": "Somatic signal becomes material for AI folklore.",
       "body": "Connects performance machine to sonic intelligence.",
@@ -3477,8 +3497,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-14.png",
       "label": "Wire After Sound",
       "caption": "The body leaves. The machine keeps the trace.",
       "body": "Ends with residue.",
@@ -3492,7 +3512,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "storylines": [
     {
       "type": "image",
-      "src": "/images/projects/storylines/11_storylines.png",
+      "src": "/images/projects/storylines/cover.webp",
       "label": "Constellation of Texts",
       "caption": "Literature becomes navigable space.",
       "body": "Establishes spatial knowledge.",
@@ -3503,8 +3523,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/storylines/storylines-01.jpeg",
       "label": "Knowledge Is Topography",
       "caption": "Meaning gathers through gravity, not hierarchy.",
       "body": "Reframes knowledge organization.",
@@ -3516,7 +3536,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/storylines/storylines-graph-interface.jpeg",
+      "src": "/images/projects/storylines/storylines-02.png",
       "label": "Source Corpus",
       "caption": "The constellation is built from actual textual relations.",
       "body": "Grounds the graph.",
@@ -3528,7 +3548,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/storylines/storylines-knowledge-graph-network-dense.jpeg",
+      "src": "/images/projects/storylines/storylines-03.jpeg",
       "label": "Force-Directed Simulation",
       "caption": "Relationship strength changes spatial position.",
       "body": "Shows the computational mechanism.",
@@ -3540,7 +3560,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/storylines/storylines-constellation-graph.png",
+      "src": "/images/projects/storylines/storylines-04.jpeg",
       "label": "Node Inspection",
       "caption": "A graph only matters if one relation can be read clearly.",
       "body": "Prevents network wallpaper. At last, a small mercy.",
@@ -3552,7 +3572,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/storylines/storylines-graph-visual.png",
+      "src": "/images/projects/storylines/storylines-05.jpeg",
       "label": "GPU / Mobile Constraint",
       "caption": "Dense knowledge fields need legibility and performance discipline.",
       "body": "Names implementation pressure.",
@@ -3564,7 +3584,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/storylines/storylines-sparrow-logo.png",
+      "src": "/images/projects/storylines/storylines-06.jpeg",
       "label": "Relation to SIWUE / Codeverse / Atlas",
       "caption": "The same spatial logic can organize text, code, and archive.",
       "body": "Shows method transfer.",
@@ -3575,8 +3595,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/storylines/storylines-07.png",
       "label": "The Unread Path",
       "caption": "Knowledge remains navigable but never exhausted.",
       "body": "Ends with open traversal.",
@@ -3590,7 +3610,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "systems-choreography": [
     {
       "type": "image",
-      "src": "/images/projects/systems-choreography/systems-choreography-diagram.webp",
+      "src": "/images/projects/systems-choreography/cover.webp",
       "label": "The Rehearsal Field",
       "caption": "A practice made from tension, flow, relation, and timed intervention.",
       "body": "Systems Choreography is not a metaphor. It is the shared grammar behind the work.",
@@ -3601,8 +3621,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/systems-choreography/systems-choreography-01.png",
       "label": "Systems Are Rehearsed",
       "caption": "Complex systems are not merely constructed. They are rehearsed until they become navigable.",
       "body": "Defines rehearsal as the archive’s core method.",
@@ -3614,7 +3634,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/systems-choreography/systems-choreography-01.png",
+      "src": "/images/projects/systems-choreography/systems-choreography-02.png",
       "label": "From Object to Operating System",
       "caption": "The practice moves from making discrete works to designing conditions that generate works.",
       "body": "Shows the shift from output to infrastructure.",
@@ -3626,7 +3646,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/systems-choreography/systems-choreography-flow-diagram.png",
+      "src": "/images/projects/systems-choreography/systems-choreography-03.png",
       "label": "The Pilot Protocol",
       "caption": "The designer does not prompt and wait. The designer pilots, interrupts, redirects, and rehearses.",
       "body": "Establishes agency inside computational and institutional systems.",
@@ -3638,7 +3658,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/systems-choreography/systems-choreography-triangle-diagram.png",
+      "src": "/images/projects/systems-choreography/systems-choreography-04.png",
       "label": "Governance Triad",
       "caption": "Anchors stabilize. Handrails constrain. Thresholds demand human consent.",
       "body": "Turns the method into an inspectable governance structure.",
@@ -3650,7 +3670,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/systems-choreography/systems-choreography-core-diagram.png",
+      "src": "/images/projects/systems-choreography/systems-choreography-05.png",
       "label": "Raw Material / Friction / Artifact",
       "caption": "Lived pressure enters the system, passes through designed friction, and exits as a rehearsed artifact.",
       "body": "Converts abstract method into an operational workflow.",
@@ -3662,7 +3682,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/systems-choreography/systems-choreography-governing-emergence.png",
+      "src": "/images/projects/systems-choreography/systems-choreography-06.png",
       "label": "Refusal of Resolution",
       "caption": "The system refuses false closure when closure would erase damage.",
       "body": "Defines non-resolution as an ethical and formal rule.",
@@ -3674,7 +3694,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/systems-choreography/systems-choreography-orbital-diagram.png",
+      "src": "/images/projects/systems-choreography/systems-choreography-07.png",
       "label": "Applied Across Worlds",
       "caption": "The method travels across building, instrument, interface, archive, and public system.",
       "body": "Proves the framework is not ornamental theory mulch.",
@@ -3685,8 +3705,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/systems-choreography/systems-choreography-08.png",
       "label": "Documentation Gap",
       "caption": "The next task is to standardize the method without flattening it.",
       "body": "Names the missing institutional bridge.",
@@ -3697,8 +3717,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/systems-choreography/systems-choreography-09.png",
       "label": "The Trace of Choice",
       "caption": "Only systemic choices leave visible traces.",
       "body": "Ends with method as residue, not declaration.",
@@ -3712,7 +3732,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "tebr": [
     {
       "type": "image",
-      "src": "/images/projects/tebr/06_tebr.png",
+      "src": "/images/projects/tebr/cover.webp",
       "label": "Cassette Evidence",
       "caption": "The archive begins in physical memory.",
       "body": "Grounds the AI work in material inheritance.",
@@ -3723,8 +3743,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/tebr/tebr-01.jpeg",
       "label": "Failure as Folklore",
       "caption": "Machine failure is not decoration. It is evidence of what the system cannot hear.",
       "body": "Reframes glitch as forensic record.",
@@ -3736,7 +3756,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/tebr/tebr-ghost-figure-scan.png",
+      "src": "/images/projects/tebr/tebr-02.jpeg",
       "label": "Ancestral Source Tokens",
       "caption": "Human memory enters before machine generation.",
       "body": "Defines source material and provenance.",
@@ -3748,7 +3768,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/tebr/tebr-maqam-standing-wave.png",
+      "src": "/images/projects/tebr/tebr-03.jpeg",
       "label": "Maqam Is Structure",
       "caption": "The model fails because it treats structure as style.",
       "body": "Explains the cultural-technical failure.",
@@ -3760,7 +3780,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/tebr/tebr-diasporic-futurism-visual.png",
+      "src": "/images/projects/tebr/tebr-04.jpeg",
       "label": "Adversarial Prompt Log",
       "caption": "The model is pressured until its assumptions become visible.",
       "body": "Shows method.",
@@ -3772,7 +3792,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/tebr/tebr-resonance-rings.png",
+      "src": "/images/projects/tebr/tebr-05.jpeg",
       "label": "Traceability Pipeline",
       "caption": "Every output must remain tied to the source it distorted.",
       "body": "Makes the system accountable.",
@@ -3784,7 +3804,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/tebr/tebr-violin-bridge-icon.png",
+      "src": "/images/projects/tebr/tebr-06.jpeg",
       "label": "TRUNCATE_BEFORE_RESOLUTION",
       "caption": "The system prevents Western harmonic closure from cleaning the wound.",
       "body": "Shows built-in resistance.",
@@ -3796,7 +3816,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/tebr/tebr-violin-waveform.webp",
+      "src": "/images/projects/tebr/tebr-07.png",
       "label": "Model Output Grid",
       "caption": "Repetition turns error into pattern.",
       "body": "Proves the failure is systemic.",
@@ -3808,7 +3828,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/tebr/tebr-generated-v1.webp",
+      "src": "/images/projects/tebr/tebr-08.jpeg",
       "label": "Spectrogram Drift",
       "caption": "Microtonal collapse becomes visible.",
       "body": "Makes cultural flattening inspectable.",
@@ -3819,8 +3839,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/tebr/tebr-09.jpeg",
       "label": "Failure Taxonomy",
       "caption": "Hallucination becomes categorized evidence.",
       "body": "Turns anecdote into research structure.",
@@ -3831,8 +3851,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/tebr/tebr-10.jpeg",
       "label": "Listening Comparison",
       "caption": "The visitor hears what the model erases.",
       "body": "Provides sensory proof.",
@@ -3843,8 +3863,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/tebr/tebr-11.jpeg",
       "label": "Future Folklore Artifact",
       "caption": "Failure is harvested without pretending it is preservation.",
       "body": "Shows the aesthetic afterlife of evidence.",
@@ -3855,20 +3875,25 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
-      "label": "What Haig Built",
-      "caption": "The authorship is in the system of constraints, not only the final sound.",
-      "body": "Clarifies contribution.",
-      "role": "process",
+      "type": "image",
+      "src": "/images/projects/tebr/tebr-12.jpeg",
+      "label": "SYSTEM AUTHORSHIP",
+      "caption": "Authorship operates through the system of generative audio constraints.",
+      "body": [
+        "Sonic universe",
+        "Traceability logic",
+        "Adversarial method",
+        "Taxonomy"
+      ],
+      "role": "role",
       "layout": "wide",
       "chapter": "Authorship",
-      "beat": "The authorship is in the system of constraints, not only the final sound.",
+      "beat": "Authorship operates through the system of generative audio constraints.",
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/tebr/tebr-13.png",
       "label": "Relation to STTM / 427 Archive / Localization Gap",
       "caption": "Body-machine signal, dataset evidence, and forensic audit converge.",
       "body": "Places TEBR in Sonic Intelligence.",
@@ -3879,8 +3904,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/tebr/tebr-14.png",
       "label": "Unresolved Signal",
       "caption": "The signal remains broken and therefore truthful.",
       "body": "Ends without repair fantasy.",
@@ -3894,7 +3919,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "the-weather-rehearsal": [
     {
       "type": "image",
-      "src": "/images/projects/the-weather-rehearsal/08_weather_rehearsal.png",
+      "src": "/images/projects/the-weather-rehearsal/cover.webp",
       "label": "Weather Console",
       "caption": "The atmosphere enters the room as live signal.",
       "body": "Establishes climate as active input.",
@@ -3905,8 +3930,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-01.png",
       "label": "The Climate Dictates the Score",
       "caption": "The environment becomes composer.",
       "body": "Reframes weather as score.",
@@ -3918,7 +3943,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/the-weather-rehearsal/sunburn-weather-sonification.webp",
+      "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-02.png",
       "label": "Urban Weather Feed",
       "caption": "The score begins in real atmospheric data.",
       "body": "Grounds the installation.",
@@ -3930,7 +3955,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/the-weather-rehearsal/sunburn-weather-rehearsal-climate-synthesis.jpeg",
+      "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-03.png",
       "label": "AI Conductor",
       "caption": "The system translates atmospheric volatility into musical instruction.",
       "body": "Shows the computation chain.",
@@ -3942,7 +3967,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/the-weather-rehearsal/sunburn-wave-terrain.png",
+      "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-04.jpeg",
       "label": "Data-to-Audio Map",
       "caption": "Weather variables become sonic parameters.",
       "body": "Makes sonification legible.",
@@ -3954,7 +3979,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/the-weather-rehearsal/sunburn-green-particle-wave.png",
+      "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-05.jpeg",
       "label": "Violin Under Atmosphere",
       "caption": "The body rehearses climate pressure in sound.",
       "body": "Shows embodied performance.",
@@ -3966,7 +3991,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/the-weather-rehearsal/sunburn.jpg",
+      "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-06.png",
       "label": "API Latency / Sensor Gap",
       "caption": "Live weather must become legible music, not random meteorological noise.",
       "body": "Names the hard problem.",
@@ -3977,8 +4002,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-07.png",
       "label": "Heat After Tone",
       "caption": "The score ends, but the atmosphere remains.",
       "body": "Ends with climate as residue.",
@@ -3992,7 +4017,7 @@ export const GENERATED_PROJECT_GALLERIES = {
   "why-were-like-this": [
     {
       "type": "image",
-      "src": "/images/projects/why-were-like-this/04_why_were_like_this.png",
+      "src": "/images/projects/why-were-like-this/cover.webp",
       "label": "Cold Open Still",
       "caption": "The series begins with a mood before it becomes an argument.",
       "body": "Establishes emotional climate.",
@@ -4003,8 +4028,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "primary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/why-were-like-this/why-were-like-this-01.png",
       "label": "Not Individual Dysfunction",
       "caption": "The subject is not personal failure. It is the systems that make dysfunction feel personal.",
       "body": "Reframes neurosis as structural weather.",
@@ -4016,7 +4041,7 @@ export const GENERATED_PROJECT_GALLERIES = {
     },
     {
       "type": "image",
-      "src": "/images/projects/why-were-like-this/why-were-like-this.jpg",
+      "src": "/images/projects/why-were-like-this/why-were-like-this-02.png",
       "label": "Script as Instrument",
       "caption": "The essay is built through voice, pacing, image, and diagnostic rhythm.",
       "body": "Shows editorial construction.",
@@ -4027,8 +4052,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/why-were-like-this/why-were-like-this-03.png",
       "label": "Cultural Weather Map",
       "caption": "Psychological weather forms where social systems meet mediated life.",
       "body": "Turns mood into analyzable structure.",
@@ -4039,8 +4064,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/why-were-like-this/why-were-like-this-04.png",
       "label": "Edit Timeline",
       "caption": "Diagnosis becomes audiovisual sequencing.",
       "body": "Shows the piece as made, not merely written.",
@@ -4051,8 +4076,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/why-were-like-this/why-were-like-this-05.png",
       "label": "Data / Image / Voice",
       "caption": "The work thinks by cutting between evidence and feeling.",
       "body": "Proves the method in motion.",
@@ -4063,8 +4088,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/why-were-like-this/why-were-like-this-06.png",
       "label": "Public Bridge",
       "caption": "The series is the accessible bridge between dense systems thought and emotional legibility.",
       "body": "Positions it in the archive.",
@@ -4075,8 +4100,8 @@ export const GENERATED_PROJECT_GALLERIES = {
       "emphasis": "secondary"
     },
     {
-      "type": "text",
-      "src": "",
+      "type": "image",
+      "src": "/images/projects/why-were-like-this/why-were-like-this-07.png",
       "label": "The Feeling Remains",
       "caption": "Diagnosis clarifies the weather. It does not make the weather disappear.",
       "body": "Ends without therapy-commercial nonsense.",

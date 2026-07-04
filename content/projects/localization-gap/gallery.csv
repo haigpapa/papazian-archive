@@ -1,17 +1,17 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,12_hah_was_localization_gap.png,,Establishing Evidence,hero,The Audit Table,The argument begins as a corpus.,Opens with scale and evidence.,primary
-2,text,,,Thesis,thesis,What AI Cannot Hear,The model imitates the surface and erases the structure.,Defines the research claim.,secondary
-3,image,localization-gap-maqam-spectrogram.webp,,Context,evidence,Maqam Reference Card,You cannot audit erasure until you define what is being erased.,Establishes cultural structure.,secondary
-4,image,localization-gap-427-tracks-archive-metadata.jpeg,,Evidence,evidence,Dataset Card,"The dataset is bounded, documented, and inspectable.",Builds trust.,secondary
-5,image,localization-gap-ai-track-rejection-log.jpeg,,Process,process,Prompt Method,The audit pressures models through repeated structured asks.,Shows methodology.,secondary
-6,image,localization-gap-batch-processing-yield-terminal.jpeg,,Technical Proof,evidence,Python / Librosa Analysis,The system red-teams audio through measurable signal analysis.,Shows computational method.,secondary
-7,image,localization-gap-code-to-culture.png,,Forensic Evidence,evidence,Spectrogram I,The reference holds microtonal behavior the generated track flattens.,First visible proof.,secondary
-8,image,localization-gap-frequency-spectrum.png,,Forensic Evidence,evidence,Spectrogram II,The collapse repeats across outputs.,Establishes pattern.,secondary
-9,image,localization-gap-glitch-waveform.png,,Dossier,evidence,Model Comparison Matrix,"The failure is systemic, not a single bad track.",Broadens the claim.,secondary
-10,image,localization-gap-research-diagram.png,,System,system,Failure Taxonomy,The gap becomes a named structure.,Creates conceptual and research legibility.,secondary
-11,image,localization-gap-research-visualization.jpg,,Audio Proof,evidence,A/B Listening Demo,The visitor hears the gap before reading about it.,Provides sensory verification.,secondary
-12,image,localization-gap-soundwave-suno.png,,Relation,context,HAH-WAS Truth Map,Research becomes a training interface.,Shows downstream use.,secondary
-13,image,localization-gap-maqam-multi-spectrum.png,,Relation,evidence,MaqamAI Ear Training,The archive does not only criticize machine listening. It trains human listening.,Shows constructive response.,secondary
-14,image,localization-gap-maqam-vector-diagram.png,,Conflict,evidence,Model Drift Log,"Commercial models change, so evidence must be timestamped and preserved.",Names audit decay.,secondary
-15,image,localization-gap-generated-v1.webp,,Authorship,process,What Haig Audited,The authorship is in the audit architecture and cultural interpretation.,Clarifies contribution.,secondary
-16,text,,,Coda,coda,The Unheard Interval,The system ends at the structure the model still cannot hold.,Ends with the gap itself.,quiet
+1,image,cover.webp,,Establishing Evidence,hero,The Audit Table,The argument begins as a corpus.,Opens with scale and evidence.,primary
+2,image,localization-gap-01.png,,Thesis,thesis,What AI Cannot Hear,The model imitates the surface and erases the structure.,Defines the research claim.,secondary
+3,image,localization-gap-02.png,,Context,evidence,Maqam Reference Card,You cannot audit erasure until you define what is being erased.,Establishes cultural structure.,secondary
+4,image,localization-gap-03.png,,Evidence,evidence,Dataset Card,"The dataset is bounded, documented, and inspectable.",Builds trust.,secondary
+5,image,localization-gap-04.png,,Process,process,Prompt Method,The audit pressures models through repeated structured asks.,Shows methodology.,secondary
+6,image,localization-gap-05.png,,Technical Proof,evidence,Python / Librosa Analysis,The system red-teams audio through measurable signal analysis.,Shows computational method.,secondary
+7,image,localization-gap-06.png,,Forensic Evidence,evidence,Spectrogram I,The reference holds microtonal behavior the generated track flattens.,First visible proof.,secondary
+8,image,localization-gap-07.png,,Forensic Evidence,evidence,Spectrogram II,The collapse repeats across outputs.,Establishes pattern.,secondary
+9,image,localization-gap-08.png,,Dossier,evidence,Model Comparison Matrix,"The failure is systemic, not a single bad track.",Broadens the claim.,secondary
+10,image,localization-gap-09.png,,System,system,Failure Taxonomy,The gap becomes a named structure.,Creates conceptual and research legibility.,secondary
+11,image,localization-gap-10.png,,Audio Proof,evidence,A/B Listening Demo,The visitor hears the gap before reading about it.,Provides sensory verification.,secondary
+12,image,localization-gap-11.png,,Relation,context,HAH-WAS Truth Map,Research becomes a training interface.,Shows downstream use.,secondary
+13,image,localization-gap-12.png,,Relation,evidence,MaqamAI Ear Training,The archive does not only criticize machine listening. It trains human listening.,Shows constructive response.,secondary
+14,image,localization-gap-13.png,,Conflict,evidence,Model Drift Log,"Commercial models change, so evidence must be timestamped and preserved.",Names audit decay.,secondary
+15,image,localization-gap-14.png,,Authorship,role,FORENSIC AUDIT METHODOLOGY,"Contribution establishes the audit framework, dataset compilation, and cultural interpretation.",Research framework | Audit methodology | Dataset taxonomy | Cultural analysis,secondary
+16,image,localization-gap-15.png,,Coda,coda,The Unheard Interval,The system ends at the structure the model still cannot hold.,Ends with the gap itself.,quiet

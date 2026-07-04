@@ -17,6 +17,7 @@ export interface SceneOptions {
   onLoadProgress?: (progress: number) => void;
   onLoadComplete?: () => void;
   onCenteredNodeChange?: (node: any | null) => void;
+  onAudioUpdate?: (velocity: number, cameraPos: { x: number; y: number; z: number }) => void;
 }
 
 export default class Scene {
@@ -38,6 +39,12 @@ export default class Scene {
     this.options = options;
 
     // 1. Renderer Setup
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+    if (!gl) {
+      throw new Error('WebGL is not supported by this browser.');
+    }
+
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
@@ -70,8 +77,8 @@ export default class Scene {
     this.nodeManager = new NodeManager(this.scene, this.camera, this.nodes, this.options);
 
     // 5. Scroll Engine
-    this.scrollEngine = new ScrollEngine((scrollX, scrollY) => {
-      this.nodeManager.update(scrollX, scrollY);
+    this.scrollEngine = new ScrollEngine((scrollX, scrollY, zoom) => {
+      this.nodeManager.update(scrollX, scrollY, zoom);
       
       const period = this.nodeManager.getLoopPeriod();
       const normalizedProgress = ((scrollY / period % 1) + 1) % 1;
@@ -96,18 +103,31 @@ export default class Scene {
     this.camera.updateProjectionMatrix();
   };
 
-  private hasLoggedStart = false;
   private animate = () => {
-    if (!this.hasLoggedStart) {
-      console.log('Scene: Animation loop started');
-      this.hasLoggedStart = true;
-    }
     try {
       const time = (performance.now() - this.startedAt) / 1000;
       
+      // Idle Magnetic Snap scroll in horizontal mode
+      if (
+        this.nodeManager.getActiveMode() === 'horizontal' &&
+        this.scrollEngine.idleFor(600) &&
+        this.scrollEngine.velocity < 0.002
+      ) {
+        const closestSlide = this.nodeManager.getClosestRailSlideIndex();
+        const currentTarget = this.scrollEngine.targetScrollY;
+        const snapTarget = this.nodeManager.getScrollForRailSlide(closestSlide, currentTarget);
+        
+        if (Math.abs(currentTarget - snapTarget) > 0.005) {
+          this.scrollEngine.targetScrollY += (snapTarget - currentTarget) * 0.08;
+        }
+      }
+
       // Update Engines
       this.scrollEngine.update(time);
       this.nodeManager.renderUpdate(time, this.scrollEngine.velocity);
+
+      // Feed audio engine with scroll velocity and camera position
+      this.options.onAudioUpdate?.(this.scrollEngine.velocity, this.camera.position);
 
       // Render Scene
       this.renderer.render(this.scene, this.camera);
@@ -118,8 +138,9 @@ export default class Scene {
     this.frameId = requestAnimationFrame(this.animate);
   };
 
-  public switchMode(mode: 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'atlas') {
+  public switchMode(mode: 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map') {
     this.scrollEngine.reset();
+    this.scrollEngine.mode = mode;
     this.nodeManager.setLayoutMode(mode);
   }
 
@@ -155,8 +176,24 @@ export default class Scene {
     this.nodeManager.setSearchQuery(query);
   }
 
+  public setFilters(domain: string, type: string) {
+    this.nodeManager.setFilters(domain, type);
+  }
+
   public resetFocus() {
     this.nodeManager.resetFocus();
+  }
+
+  public resetScroll() {
+    this.scrollEngine.reset();
+  }
+
+  public focusNodeBySlug(slug: string) {
+    this.nodeManager.focusNodeBySlug(slug);
+  }
+
+  public getAtlasNodesSpatialInfo() {
+    return this.nodeManager.getAtlasNodesSpatialInfo();
   }
 
   public dispose() {

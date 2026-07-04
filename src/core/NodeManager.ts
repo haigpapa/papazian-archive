@@ -2,16 +2,35 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
 
+const MAP_NODE_POSITIONS: Record<string, { x: number; y: number }> = {
+  "systems-choreography": { x: -2.0, y: 3.5 },
+  "fictive-environments": { x: -4.5, y: 2.0 },
+  "meaning-stack": { x: 0.5, y: 3.0 },
+  "99-nodes": { x: 3.5, y: 1.0 },
+  "architecture-in-low-res": { x: -6.0, y: -2.5 },
+  "cartography-of-absence": { x: -3.5, y: -4.0 },
+  "mashrou-leila": { x: -1.0, y: -1.5 },
+  "why-were-like-this": { x: -2.0, y: -3.0 },
+  "space-time-tuning-machine": { x: 2.0, y: -2.0 },
+  "tebr": { x: 0.0, y: -4.0 },
+  "chronocumulator": { x: 4.5, y: -3.5 },
+  "the-weather-rehearsal": { x: 3.5, y: -1.5 },
+  "sometimes-i-wake-up-elsewhere": { x: -6.5, y: 0.0 },
+  "derive": { x: -1.0, y: 1.0 },
+  "storylines": { x: 1.5, y: 2.0 },
+  "hah-was": { x: 2.0, y: 4.0 },
+  "localization-gap": { x: 4.0, y: 3.5 },
+  "maqamai": { x: 5.5, y: 1.5 },
+  "mekena-nyc": { x: -3.0, y: 0.0 },
+  "codeverse-explorer": { x: 5.5, y: -1.0 },
+};
+
 const VERTEX_SHADER = `
-  uniform float uTime;
-  uniform float uVelocity;
   varying vec2 vUv;
 
   void main() {
     vUv = uv;
-    vec3 pos = position;
-
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
 `;
 
@@ -25,11 +44,13 @@ const FRAGMENT_SHADER = `
   uniform float uSlideKind;
   uniform float uAspect;
   uniform vec3 uColor;
+  uniform float uIsHorizontalMode;
   varying vec2 vUv;
 
   void main() {
     float shift = uVelocity * 0.002;
     vec2 sampleUv = gl_FrontFacing ? vUv : vec2(1.0 - vUv.x, vUv.y);
+
     vec4 texR = texture2D(uMap, sampleUv + vec2(shift, 0.0));
     vec4 texG = texture2D(uMap, sampleUv);
     vec4 texB = texture2D(uMap, sampleUv - vec2(shift, 0.0));
@@ -37,11 +58,22 @@ const FRAGMENT_SHADER = `
     vec3 color = vec3(texR.r, texG.g, texB.b);
     float alpha = texG.a;
 
+    // Apply grayscale Xerox filter ONLY in horizontal cinematic rail mode
+    if (uIsHorizontalMode > 0.5) {
+      float luma = dot(color, vec3(0.299, 0.587, 0.114));
+      // Softer contrast luma to preserve details in dark/shadow regions
+      float softContrastLuma = clamp((luma - 0.5) * 0.8 + 0.5, 0.0, 1.0);
+      vec3 baseGrayscale = vec3(softContrastLuma);
+      // Mix 20% of original color and apply a 1.25x brightness boost to keep it visible
+      vec3 preHoverColor = clamp((mix(baseGrayscale, color, 0.20) * 1.25), 0.0, 1.0);
+      color = mix(preHoverColor, color, uHover);
+    }
+
     float pulse = 1.0 + 0.04 * sin(uTime * 3.0);
     color += uHover * 0.04 * vec3(1.0) * pulse; 
 
-    // Search fade
-    color *= (0.3 + uSearchHighlight * 0.7);
+    // Search fade: dimming is lighter so cards remain visible
+    color *= (0.55 + uSearchHighlight * 0.45);
     alpha *= uModeVisibility;
     if (uModeVisibility < 0.01 || alpha < 0.01) discard;
 
@@ -91,10 +123,18 @@ export default class NodeManager {
   private hoveredMesh: THREE.Mesh | null = null;
   private relayoutTimer: number | null = null;
   private focusedNodeId: string | null = null;
+  // Per-mode cache for getVisibleMeshes(); cleared whenever mode, focus, or filters change.
+  private visibleMeshCache = new Map<string, THREE.Mesh[]>();
+  // Primary mesh per project slug; meshes are static after construction.
+  private primaryMeshBySlug = new Map<string, THREE.Mesh>();
   private relationLines: THREE.Line[] = [];
   private cylinderGuideLines: THREE.LineLoop[] = [];
   private lastRailStateKey = '';
   private lastCenteredNodeId: any = null;
+  private zoneMeshes: THREE.Mesh[] = [];
+  private searchQueryString = '';
+  private constellationPositions = new Map<string, { x: number; y: number; z: number }>();
+  private placeholderTexture: THREE.Texture | null = null;
 
   constructor(scene: THREE.Scene, camera: THREE.PerspectiveCamera, nodesData: any[], options: any) {
     this.scene = scene;
@@ -121,9 +161,88 @@ export default class NodeManager {
     this.mouse = new THREE.Vector2();
 
     this.createNodes();
+    this.createNoDataZones();
     
     window.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('click', this.onClick);
+  }
+
+  private createNoDataZones() {
+    const zones = [
+      {
+        id: 'ZONE_01',
+        slug: 'ZONE-01',
+        zoneId: 'ZONE_01',
+        title: 'EMPTY SECTOR // BEIRUT PORT',
+        year: '2026',
+        lat: '33.8938° N',
+        lon: '35.5018° E',
+        isNoDataZone: true,
+        domains: [],
+        x: -12,
+        y: 11,
+        sides: 3,
+        radius: 3,
+      },
+      {
+        id: 'ZONE_02',
+        slug: 'ZONE-02',
+        zoneId: 'ZONE_02',
+        title: 'ABSENT SECTOR // NILE DELTA',
+        year: '2026',
+        lat: '30.0444° N',
+        lon: '31.2357° E',
+        isNoDataZone: true,
+        domains: [],
+        x: 14,
+        y: -9,
+        sides: 4,
+        radius: 4,
+      },
+      {
+        id: 'ZONE_03',
+        slug: 'ZONE-03',
+        zoneId: 'ZONE_03',
+        title: 'EXILE VECTOR // SEINE VALLEY',
+        year: '2026',
+        lat: '48.8566° N',
+        lon: '2.3522° E',
+        isNoDataZone: true,
+        domains: [],
+        x: -8,
+        y: -13,
+        sides: 6,
+        radius: 3.5,
+      }
+    ];
+
+    zones.forEach((zone) => {
+      const geometry = new THREE.CircleGeometry(zone.radius, zone.sides);
+      geometry.rotateZ(Math.PI / (zone.sides * 2));
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xab4e30,
+        transparent: true,
+        opacity: 0.06,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(zone.x, zone.y, 0.1);
+      mesh.visible = false;
+
+      const edgeGeom = new THREE.EdgesGeometry(geometry);
+      const edgeMat = new THREE.LineBasicMaterial({
+        color: 0xab4e30,
+        transparent: true,
+        opacity: 0.32,
+      });
+      const edges = new THREE.LineSegments(edgeGeom, edgeMat);
+      mesh.add(edges);
+
+      mesh.userData = { ...zone };
+      this.zoneMeshes.push(mesh);
+      this.group.add(mesh);
+    });
   }
 
   private createNodes() {
@@ -142,15 +261,57 @@ export default class NodeManager {
       gallery.forEach((asset: any, assetIndex: number) => {
         const slideType = asset.type || 'image';
         const isGeneratedCard = slideType === 'text' || ((!asset.src && !asset.poster) && (slideType === 'video' || slideType === 'audio'));
-        const texture = isGeneratedCard
-          ? this.createCardTexture(asset, data, slideType)
-          : loader.load(asset.poster || asset.src || data.thumbnail, (loadedTexture) => {
-              const image = loadedTexture.image;
-              mesh.userData.imageAspect = image?.width && image?.height ? image.width / image.height : planeAspect;
-              (mesh.material as THREE.ShaderMaterial).uniforms.uAspect.value = mesh.userData.imageAspect || planeAspect;
+        
+        let customAspect = planeAspect;
+        const role = asset.role || '';
+        const chapter = asset.chapter || '';
+        const layout = asset.layout || '';
+        
+        if (layout === 'hero' || role === 'hero' || assetIndex === 0) {
+          customAspect = 1.333; // Widescreen cover
+        } else if (String(chapter).toLowerCase() === 'authorship' || role === 'role') {
+          customAspect = 1.35; // Dossier
+        } else if (role === 'thesis' || role === 'coda' || role === 'context') {
+          customAspect = 0.70; // Ledger (Tight)
+        } else if (role === 'system' || role === 'process') {
+          customAspect = 1.75; // Diagram (Wide)
+        } else {
+          customAspect = 0.75; // Standard portrait (3:4)
+        }
+
+        // Initialize placeholder texture once if not already created
+        if (!this.placeholderTexture) {
+          const canvas = document.createElement('canvas');
+          canvas.width = 2;
+          canvas.height = 2;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.fillStyle = 'rgba(0,0,0,0.1)';
+            ctx.fillRect(0, 0, 2, 2);
+          }
+          this.placeholderTexture = new THREE.CanvasTexture(canvas);
+        }
+
+        let texture;
+        let textureLoaded = false;
+        
+        if (isGeneratedCard) {
+          texture = this.createCardTexture(asset, data, slideType, customAspect);
+          textureLoaded = true;
+        } else if (assetIndex === 0) {
+          texture = loader.load(asset.poster || asset.src || data.thumbnail, (loadedTexture) => {
+            const image = loadedTexture.image;
+            if (image?.width && image?.height && mesh) {
+              mesh.userData.imageAspect = image.width / image.height;
+              (mesh.material as THREE.ShaderMaterial).uniforms.uAspect.value = mesh.userData.imageAspect;
               this.scheduleRelayout();
-            });
-        texture.colorSpace = THREE.SRGBColorSpace;
+            }
+          });
+          texture.colorSpace = THREE.SRGBColorSpace;
+          textureLoaded = true;
+        } else {
+          texture = this.placeholderTexture;
+        }
         
         const material = new THREE.ShaderMaterial({
           uniforms: {
@@ -162,7 +323,16 @@ export default class NodeManager {
             uSlideKind: { value: this.getSlideKindValue(slideType) },
             uAspect: { value: planeAspect },
             uMap: { value: texture },
-            uColor: { value: new THREE.Color(data.accentColor || '#4a7fa8') }
+            uColor: { value: new THREE.Color(data.accentColor || '#4a7fa8') },
+            uGlitchIntensity: {
+              value: (
+                String(asset.chapter || '').toLowerCase().includes('conflict') ||
+                String(asset.chapter || '').toLowerCase().includes('proof') ||
+                String(asset.chapter || '').toLowerCase().includes('dossier') ||
+                String(asset.title || '').toLowerCase().includes('shatter')
+              ) ? 1.0 : 0.0
+            },
+            uIsHorizontalMode: { value: (this.activeMode === 'horizontal') ? 1.0 : 0.0 }
           },
           vertexShader: VERTEX_SHADER,
           fragmentShader: FRAGMENT_SHADER,
@@ -193,17 +363,20 @@ export default class NodeManager {
           isPrimary: assetIndex === 0 || asset.isPrimary,
           projectId: data.slug,
           projectOrder: i,
-          imageAspect: isGeneratedCard ? planeAspect : planeAspect,
+          imageAspect: customAspect,
           showInWorks: CANONICAL_PROJECT_SET.has(data.slug),
           canonicalOrder: CANONICAL_PROJECT_SLUGS.indexOf(data.slug),
+          textureLoaded,
+          textureUrl: asset.poster || asset.src || data.thumbnail,
         };
-        material.uniforms.uAspect.value = mesh.userData.imageAspect || planeAspect;
-        mesh.frustumCulled = false; 
+        material.uniforms.uAspect.value = customAspect;
         this.meshes.push(mesh);
         this.group.add(mesh);
       });
     });
 
+    this.computeSpatialConstellation();
+    this.invalidateVisibleMeshCache();
     this.createRelationLines();
     this.createCylinderGuideLines();
 
@@ -218,10 +391,215 @@ export default class NodeManager {
     return 1;
   }
 
-  private createCardTexture(asset: any, data: any, slideType: string) {
+  private computeSpatialConstellation() {
+    const nodes = this.nodesData.map((node, i) => {
+      const slug = node.slug;
+      
+      // 1. Geography Axis (X) target mapping
+      // Beirut (0.0), Europe/MENA (0.5), LA/Transit (0.8), New York (1.0)
+      let geoX = 0.5; // Default Europe/MENA/Transit
+      const slugLower = slug.toLowerCase();
+      const titleLower = (node.title || '').toLowerCase();
+      const summaryLower = (node.summary || '').toLowerCase();
+      
+      if (
+        slugLower.includes('nyc') || 
+        slugLower.includes('new-york') || 
+        titleLower.includes('nyc') || 
+        titleLower.includes('new york') ||
+        summaryLower.includes('queens') ||
+        summaryLower.includes('brooklyn') ||
+        summaryLower.includes('manhattan') ||
+        slugLower === 'fictive-environments' ||
+        slugLower === 'lede-nyc' ||
+        slugLower === 'lede.nyc' ||
+        slugLower === 'localization-gap' ||
+        slugLower === 'hah-was' ||
+        slugLower === 'frank' ||
+        slugLower === 'meaning-stack' ||
+        slugLower === 'telescode' ||
+        slugLower === 'codex' ||
+        slugLower === 'autopsy' ||
+        slugLower === 'erasure' ||
+        slugLower === 'turn' ||
+        slugLower === 'tuning-fork' ||
+        slugLower === 'local' ||
+        slugLower === 'nyu' ||
+        slugLower === 'columbia' ||
+        slugLower === 'public-theater' ||
+        slugLower === 'joe-s-pub'
+      ) {
+        geoX = 1.0;
+      } else if (
+        slugLower.includes('transit') || 
+        slugLower.includes('elsewhere') || 
+        slugLower.includes('crane') || 
+        slugLower.includes('mirage') || 
+        titleLower.includes('crane') || 
+        titleLower.includes('transit') || 
+        titleLower.includes('elsewhere') ||
+        slugLower === 'nowhere-elsewhere'
+      ) {
+        geoX = 0.8;
+      } else if (
+        slugLower.includes('bartlett') || 
+        slugLower.includes('london') || 
+        slugLower.includes('sophie') || 
+        slugLower.includes('exit') || 
+        slugLower.includes('serbia') ||
+        titleLower.includes('bartlett') || 
+        titleLower.includes('london') || 
+        titleLower.includes('sophie')
+      ) {
+        geoX = 0.6;
+      } else if (
+        slugLower.includes('beirut') || 
+        slugLower.includes('aub') || 
+        slugLower.includes('b018') || 
+        slugLower.includes('byblos') || 
+        slugLower.includes('lebanon') || 
+        slugLower.includes('port') || 
+        slugLower.includes('plot') || 
+        slugLower.includes('dw5') ||
+        titleLower.includes('beirut') || 
+        titleLower.includes('aub') || 
+        titleLower.includes('byblos') ||
+        summaryLower.includes('beirut') ||
+        summaryLower.includes('lebanon')
+      ) {
+        geoX = 0.0;
+      } else {
+        // Year-based heuristic fallback if text indicators are not matched
+        const yearMatch = (node.year || '').match(/\d{4}/);
+        if (yearMatch) {
+          const yearVal = parseInt(yearMatch[0], 10);
+          if (yearVal < 2013) geoX = 0.0;
+          else if (yearVal < 2020) geoX = 0.5;
+          else geoX = 1.0;
+        }
+      }
+
+      // 2. Chronological Axis (Y) target mapping
+      // Maps year continuously between 2004 (bottom, -13) and 2026 (top, +13)
+      const yearMatch = (node.year || '').match(/\d{4}/);
+      const yearVal = yearMatch ? parseInt(yearMatch[0], 10) : 2020;
+      const clampedYear = Math.max(2004, Math.min(2026, yearVal));
+      const timePct = (clampedYear - 2004) / (2026 - 2004);
+
+      // 3. Impact & Gravity Axis (Z) target mapping
+      // Tier 1 (lead) is Z=4 (close foreground), Tier 2 (secondary) is Z=-2, Tier 3 (archive) is Z=-8
+      let baseDepth = -8.0;
+      if (node.tier === 'lead') baseDepth = 4.0;
+      else if (node.tier === 'secondary') baseDepth = -2.0;
+
+      const seed = Math.sin(i * 12.9898) * 43758.5453;
+      const rSeed = seed - Math.floor(seed);
+      const zJitter = (rSeed - 0.5) * 1.5;
+
+      const targetX = (geoX - 0.5) * 28;
+      const targetY = (timePct - 0.5) * 26;
+      const targetZ = baseDepth + zJitter;
+
+      return {
+        slug,
+        x: targetX + (rSeed - 0.5) * 4, // Initial layout dispersion
+        y: targetY + (rSeed - 0.5) * 4,
+        z: targetZ,
+        targetX,
+        targetY,
+        targetZ,
+        vx: 0,
+        vy: 0,
+        vz: 0,
+        tier: node.tier || 'archive',
+        connections: node.relatedSlugs || node.connections || []
+      };
+    });
+
+    const nodeBySlug = new Map(nodes.map(n => [n.slug, n]));
+
+    for (let iter = 0; iter < 120; iter++) {
+      // 1. Repulsion (charge) between all nodes
+      for (let i = 0; i < nodes.length; i++) {
+        const na = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const nb = nodes[j];
+          const dx = nb.x - na.x;
+          const dy = nb.y - na.y;
+          const dz = nb.z - na.z;
+          const distSq = dx * dx + dy * dy + dz * dz + 0.1;
+          const dist = Math.sqrt(distSq);
+          
+          const force = 0.85 / distSq;
+          const fx = (dx / dist) * force;
+          const fy = (dy / dist) * force;
+          const fz = (dz / dist) * force;
+          
+          na.vx -= fx;
+          na.vy -= fy;
+          na.vz -= fz;
+          nb.vx += fx;
+          nb.vy += fy;
+          nb.vz += fz;
+        }
+      }
+
+      // 2. Attraction (connections)
+      nodes.forEach((na) => {
+        na.connections.forEach((targetSlug) => {
+          const nb = nodeBySlug.get(targetSlug);
+          if (!nb) return;
+          const dx = nb.x - na.x;
+          const dy = nb.y - na.y;
+          const dz = nb.z - na.z;
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz) || 0.1;
+          
+          const k = 0.055;
+          const restLength = na.tier === 'lead' || nb.tier === 'lead' ? 6 : 4;
+          const force = (dist - restLength) * k;
+          const fx = (dx / dist) * force;
+          const fy = (dy / dist) * force;
+          const fz = (dz / dist) * force;
+          
+          na.vx += fx;
+          na.vy += fy;
+          na.vz += fz;
+          nb.vx -= fx;
+          nb.vy -= fy;
+          nb.vz -= fz;
+        });
+      });
+
+      // 3. Restoring force to Cartesian grid axes
+      nodes.forEach((n) => {
+        const kRestore = 0.095;
+        n.vx += (n.targetX - n.x) * kRestore;
+        n.vy += (n.targetY - n.y) * kRestore;
+        n.vz += (n.targetZ - n.z) * kRestore;
+
+        n.vx -= n.x * 0.005;
+        n.vy -= n.y * 0.005;
+        n.vz -= n.z * 0.005;
+
+        n.x += n.vx * 0.85;
+        n.y += n.vy * 0.85;
+        n.z += n.vz * 0.85;
+
+        n.vx = 0;
+        n.vy = 0;
+        n.vz = 0;
+      });
+    }
+
+    nodes.forEach((n) => {
+      this.constellationPositions.set(n.slug, { x: n.x, y: n.y, z: n.z });
+    });
+  }
+
+  private createCardTexture(asset: any, data: any, slideType: string, aspectRatio: number) {
     const canvas = document.createElement('canvas');
-    canvas.width = 1800;
     canvas.height = 1200;
+    canvas.width = Math.round(canvas.height * aspectRatio);
     const ctx = canvas.getContext('2d');
 
     if (!ctx) return new THREE.CanvasTexture(canvas);
@@ -248,10 +626,12 @@ export default class NodeManager {
     if (cardStyle === 'system') {
       ctx.strokeStyle = `${accent}2d`;
       [362, 790, 1228, 1504].forEach((x) => {
-        ctx.beginPath();
-        ctx.moveTo(x, inset);
-        ctx.lineTo(x, canvas.height - inset);
-        ctx.stroke();
+        if (x < canvas.width - inset) {
+          ctx.beginPath();
+          ctx.moveTo(x, inset);
+          ctx.lineTo(x, canvas.height - inset);
+          ctx.stroke();
+        }
       });
       [190, 900].forEach((y) => {
         ctx.beginPath();
@@ -266,27 +646,27 @@ export default class NodeManager {
       ctx.lineTo(canvas.width - 54, 900);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(1318, inset);
-      ctx.lineTo(1318, 900);
+      ctx.moveTo(canvas.width - 482, inset);
+      ctx.lineTo(canvas.width - 482, 900);
       ctx.stroke();
       ctx.strokeStyle = 'rgba(255,255,255,0.12)';
       ctx.beginPath();
-      ctx.arc(1468, 330, 118, 0, Math.PI * 2);
+      ctx.arc(canvas.width - 332, 330, 118, 0, Math.PI * 2);
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(1468, 330, 84, 0, Math.PI * 2);
+      ctx.arc(canvas.width - 332, 330, 84, 0, Math.PI * 2);
       ctx.stroke();
       ctx.fillStyle = 'rgba(242,242,237,0.18)';
       ctx.font = '700 24px ui-monospace, SFMono-Regular, Menlo, monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('PAPAZIAN', 1468, 322);
-      ctx.fillText('ARCHIVE', 1468, 358);
+      ctx.fillText('PAPAZIAN', canvas.width - 332, 322);
+      ctx.fillText('ARCHIVE', canvas.width - 332, 358);
       ctx.textAlign = 'left';
     } else {
       ctx.strokeStyle = 'rgba(255,255,255,0.1)';
       ctx.beginPath();
-      ctx.moveTo(1390, 54);
-      ctx.lineTo(1390, canvas.height - 54);
+      ctx.moveTo(canvas.width - 410, 54);
+      ctx.lineTo(canvas.width - 410, canvas.height - 54);
       ctx.stroke();
     }
 
@@ -304,37 +684,61 @@ export default class NodeManager {
 
     ctx.fillStyle = cardStyle === 'system' ? '#f3a821' : '#f4f1e8';
     ctx.font = `${cardStyle === 'system' ? '800' : '780'} ${this.getCardTitleSize(title)}px Inter, Helvetica, Arial, sans-serif`;
-    this.drawWrappedText(ctx, title, 110, 328, cardStyle === 'dossier' ? 950 : 1120, 124, 3);
+    this.drawWrappedText(ctx, title, 110, 328, cardStyle === 'dossier' ? canvas.width - 520 : canvas.width - 220, 124, 3);
 
     ctx.fillStyle = cardStyle === 'system' ? 'rgba(246,188,66,0.82)' : 'rgba(242,242,237,0.74)';
     ctx.font = '500 38px ui-monospace, SFMono-Regular, Menlo, monospace';
-    this.drawWrappedText(ctx, caption, 110, 622, cardStyle === 'dossier' ? 900 : 1040, 54, 3);
+    this.drawWrappedText(ctx, caption, 110, 622, cardStyle === 'dossier' ? canvas.width - 550 : canvas.width - 220, 54, 3);
 
     if (cardStyle === 'dossier') {
       ctx.font = '700 34px ui-monospace, SFMono-Regular, Menlo, monospace';
       body.slice(0, 6).forEach((item: string, index: number) => {
-        const x = 110 + (index % 3) * 535;
+        const x = 110 + (index % 3) * 515;
         const y = 978 + Math.floor(index / 3) * 92;
         ctx.fillStyle = accent;
         ctx.fillText(`0${index + 1}`.slice(-2), x, y);
         ctx.fillStyle = 'rgba(242,242,237,0.84)';
-        this.drawWrappedText(ctx, item, x + 68, y - 2, 390, 42, 2);
+        this.drawWrappedText(ctx, item, x + 68, y - 2, 380, 42, 2);
       });
     } else {
       ctx.font = '400 42px ui-monospace, SFMono-Regular, Menlo, monospace';
       ctx.fillStyle = cardStyle === 'system' ? 'rgba(246,188,66,0.78)' : 'rgba(242,242,237,0.82)';
       let y = 780;
       body.slice(0, 3).forEach((paragraph: string) => {
-        y = this.drawWrappedText(ctx, paragraph, 110, y, cardStyle === 'system' ? 1040 : 1080, 56, 3) + 30;
+        y = this.drawWrappedText(ctx, paragraph, 110, y, cardStyle === 'system' ? canvas.width - 260 : canvas.width - 220, 56, 3) + 30;
       });
     }
 
+    // Draw 1px bordered footer
+    const footerY = 1018;
+    ctx.strokeStyle = cardStyle === 'system' ? `${accent}28` : 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(110, footerY);
+    ctx.lineTo(canvas.width - 110, footerY);
+    ctx.stroke();
+
+    // Print monospace metrics
+    ctx.font = '500 18px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillStyle = cardStyle === 'system' ? 'rgba(246,188,66,0.36)' : 'rgba(242,242,237,0.36)';
+    ctx.letterSpacing = '1px';
+    
+    // Stable metrics generation
+    const charSum = (str: string) => str.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+    const idSum = charSum(nodeCode);
+    const titleSum = charSum(title);
+    const latency = (idSum % 100) * 0.0004 + 0.012;
+    const entropy = (titleSum % 100) * 0.005 + 0.085;
+    const faultRate = (titleSum % 10 === 0) ? '0.04%' : '0.00%';
+    const telemetry = `LATENCY DECAY: ${latency.toFixed(4)} ms  |  ENTROPY: ${entropy.toFixed(3)} bits  |  FAULT RATE: ${faultRate}`;
+    ctx.fillText(telemetry, 110, footerY + 34);
+
     ctx.font = '700 22px ui-monospace, SFMono-Regular, Menlo, monospace';
     ctx.fillStyle = cardStyle === 'system' ? accent : 'rgba(242,242,237,0.56)';
-    ctx.fillText(`PAPAZIAN ARCHIVE / ${projectTitle}`, 110, 1090);
+    ctx.fillText(`PAPAZIAN ARCHIVE / ${projectTitle}`, 110, 1115);
     ctx.fillStyle = cardStyle === 'system' ? 'rgba(246,188,66,0.78)' : 'rgba(242,242,237,0.46)';
     ctx.textAlign = 'right';
-    ctx.fillText(`${nodeCode} / ${dateRange}`, canvas.width - 110, 1090);
+    ctx.fillText(`${nodeCode} / ${dateRange}`, canvas.width - 110, 1115);
     ctx.textAlign = 'left';
 
     const texture = new THREE.CanvasTexture(canvas);
@@ -348,6 +752,11 @@ export default class NodeManager {
     }
 
     const role = asset.role || asset.assetRole;
+    const chapter = asset.chapter || asset.assetChapter;
+    if (String(chapter || '').toLowerCase() === 'authorship' || role === 'role') {
+      return 'dossier';
+    }
+
     const hasMetricBody = body.length >= 3 || body.some((item) => /[$%+]|\d/.test(String(item)));
     if (role === 'system' || role === 'process') return 'system';
     if (role === 'evidence' && hasMetricBody) return 'dossier';
@@ -430,24 +839,53 @@ export default class NodeManager {
   }
 
   private createRelationLines() {
-    const primaryBySlug = new Map<string, THREE.Mesh>();
-    this.getPrimaryMeshes().forEach((mesh) => primaryBySlug.set(mesh.userData.slug, mesh));
+    this.primaryMeshBySlug.clear();
+    this.getPrimaryMeshes().forEach((mesh) => this.primaryMeshBySlug.set(mesh.userData.slug, mesh));
+
+    const createdLines = new Set<string>();
 
     this.nodesData.forEach((node) => {
-      (node.connections || []).forEach((targetSlug: string) => {
-        if (!primaryBySlug.has(targetSlug)) return;
+      const connectionsList = node.relatedSlugs || node.connections || [];
+      const uniqueTargets = Array.from(new Set(connectionsList));
+
+      uniqueTargets.forEach((targetSlug: string) => {
+        if (!this.primaryMeshBySlug.has(targetSlug)) return;
+
+        const first = node.slug < targetSlug ? node.slug : targetSlug;
+        const second = node.slug < targetSlug ? targetSlug : node.slug;
+        const lineKey = `${first}_${second}`;
+        if (createdLines.has(lineKey)) return;
+        createdLines.add(lineKey);
+
+        const targetNode = this.nodesData.find(n => n.slug === targetSlug);
+        if (!targetNode) return;
+
+        const sourceRelated = node.relatedSlugs || node.connections || [];
+        const targetRelated = targetNode.relatedSlugs || targetNode.connections || [];
+        const isMutual = sourceRelated.includes(targetSlug) && targetRelated.includes(node.slug);
+
+        let weight = 1;
+        if (isMutual) {
+          weight = 3;
+        } else if (node.tier === 'lead' || targetNode.tier === 'lead') {
+          weight = 2;
+        }
+
         const geometry = new THREE.BufferGeometry().setFromPoints([
           new THREE.Vector3(),
           new THREE.Vector3(),
         ]);
+
+        const accentHex = node.accentColor || '#ffffff';
         const material = new THREE.LineBasicMaterial({
-          color: 0xffffff,
+          color: new THREE.Color(accentHex),
           transparent: true,
           opacity: 0,
           toneMapped: false,
         });
+
         const line = new THREE.Line(geometry, material);
-        line.userData = { sourceId: node.slug, targetId: targetSlug };
+        line.userData = { sourceId: node.slug, targetId: targetSlug, weight };
         this.relationLines.push(line);
         this.group.add(line);
       });
@@ -502,22 +940,39 @@ export default class NodeManager {
     return this.meshes.filter((mesh) => mesh.userData.projectId === this.focusedNodeId);
   }
 
+  private invalidateVisibleMeshCache() {
+    this.visibleMeshCache.clear();
+  }
+
   private getVisibleMeshes(mode = this.activeMode) {
-    if (mode === 'grid') return [...this.meshes].sort((a, b) => {
-      const domains = ['sound', 'image', 'space', 'code', 'systems', 'text'];
-      const tierWeight: Record<string, number> = { lead: 0, secondary: 1, archive: 2 };
-      const aDomain = domains.indexOf(a.userData.domains?.[0] || a.userData.category || '');
-      const bDomain = domains.indexOf(b.userData.domains?.[0] || b.userData.category || '');
-      const domainDelta = (aDomain === -1 ? 99 : aDomain) - (bDomain === -1 ? 99 : bDomain);
-      if (domainDelta !== 0) return domainDelta;
-      const tierDelta = (tierWeight[a.userData.tier] ?? 9) - (tierWeight[b.userData.tier] ?? 9);
-      if (tierDelta !== 0) return tierDelta;
-      return (a.userData.projectOrder - b.userData.projectOrder) || (a.userData.assetIndex - b.userData.assetIndex);
-    });
-    if (mode === 'horizontal') return this.getProjectRailMeshes();
-    if (mode === 'vertical') return this.getCanonicalPrimaryMeshes();
-    if (mode === 'cylinder') return this.meshes;
-    return this.getPrimaryMeshes();
+    const cached = this.visibleMeshCache.get(mode);
+    if (cached) return cached;
+
+    let result: THREE.Mesh[];
+    if (mode === 'grid') {
+      result = [...this.meshes].sort((a, b) => {
+        const domains = ['sound', 'image', 'space', 'code', 'systems', 'text'];
+        const tierWeight: Record<string, number> = { lead: 0, secondary: 1, archive: 2 };
+        const aDomain = domains.indexOf(a.userData.domains?.[0] || a.userData.category || '');
+        const bDomain = domains.indexOf(b.userData.domains?.[0] || b.userData.category || '');
+        const domainDelta = (aDomain === -1 ? 99 : aDomain) - (bDomain === -1 ? 99 : bDomain);
+        if (domainDelta !== 0) return domainDelta;
+        const tierDelta = (tierWeight[a.userData.tier] ?? 9) - (tierWeight[b.userData.tier] ?? 9);
+        if (tierDelta !== 0) return tierDelta;
+        return (a.userData.projectOrder - b.userData.projectOrder) || (a.userData.assetIndex - b.userData.assetIndex);
+      });
+    } else if (mode === 'horizontal') {
+      result = this.getProjectRailMeshes();
+    } else if (mode === 'vertical') {
+      result = this.getCanonicalPrimaryMeshes();
+    } else if (mode === 'cylinder') {
+      result = this.meshes;
+    } else {
+      result = this.getPrimaryMeshes();
+    }
+
+    this.visibleMeshCache.set(mode, result);
+    return result;
   }
 
   private getModeIndex(mesh: THREE.Mesh, mode = this.activeMode) {
@@ -568,11 +1023,12 @@ export default class NodeManager {
       targetY = 0;
       targetZ = 0;
       targetRotY = 0;
-    } else if (mode === 'atlas') {
-      const position = this.getAtlasPosition(mesh);
-      targetX = position.x;
-      targetY = position.y;
-      targetZ = position.z;
+    } else if (mode === 'map') {
+      const slug = mesh.userData.slug;
+      const pos = this.constellationPositions.get(slug) || { x: 0, y: 0, z: 0 };
+      targetX = pos.x;
+      targetY = pos.y;
+      targetZ = pos.z;
       targetRotY = 0;
     }
 
@@ -581,12 +1037,35 @@ export default class NodeManager {
     const opacity = isVisible ? 1 : 0;
 
     if (animate) {
-      gsap.to(mesh.position, { x: targetX, y: targetY, z: targetZ, duration: 1.2, ease: 'expo.inOut', delay: i * 0.008 });
-      gsap.to(mesh.rotation, { y: targetRotY, z: targetRotZ, duration: 1.2, ease: 'expo.inOut', delay: i * 0.008 });
-      gsap.to(mesh.scale, { ...targetScale, duration: 1.2, ease: 'expo.inOut', delay: i * 0.008 });
-      gsap.to(material.uniforms.uModeVisibility, { value: opacity, duration: 0.65, ease: 'power2.inOut' });
+      let delayVal = i * 0.006;
+      let durationVal = 1.25;
+      let easeCurve = 'expo.inOut';
+
+      if (mode === 'grid') {
+        const dist = Math.sqrt(targetX * targetX + targetY * targetY);
+        delayVal = dist * 0.018; // Spatial outward ripple
+        durationVal = 1.4;
+        easeCurve = 'cubic-bezier(0.16, 1, 0.3, 1)'; // Heavy spring ease
+      } else if (mode === 'map') {
+        const dist = Math.sqrt(targetX * targetX + targetY * targetY);
+        delayVal = dist * 0.015;
+        durationVal = 1.35;
+        easeCurve = 'cubic-bezier(0.16, 1, 0.3, 1)';
+      }
+
+      gsap.killTweensOf(mesh.position);
+      gsap.killTweensOf(mesh.rotation);
+      gsap.killTweensOf(mesh.scale);
+      gsap.killTweensOf(material.uniforms.uModeVisibility);
+      gsap.killTweensOf(material.uniforms.uSearchHighlight);
+
+      gsap.to(mesh.position, { x: targetX, y: targetY, z: targetZ, duration: durationVal, ease: easeCurve, delay: delayVal });
+      gsap.to(mesh.rotation, { y: targetRotY, z: targetRotZ, duration: durationVal, ease: easeCurve, delay: delayVal });
+      gsap.to(mesh.scale, { ...targetScale, duration: durationVal, ease: easeCurve, delay: delayVal });
+      gsap.to(material.uniforms.uModeVisibility, { value: opacity, duration: 0.65, ease: 'power2.inOut', delay: delayVal * 0.5 });
+      
       if (opacity === 1 && material.uniforms.uSearchHighlight.value === 0) {
-        gsap.to(material.uniforms.uSearchHighlight, { value: 1, duration: 0.45, ease: 'power2.inOut' });
+        gsap.to(material.uniforms.uSearchHighlight, { value: 1, duration: 0.45, ease: 'power2.inOut', delay: delayVal });
       }
     } else {
       mesh.position.set(targetX, targetY, targetZ);
@@ -614,7 +1093,7 @@ export default class NodeManager {
     const imageAspect = mesh.userData?.imageAspect || planeAspect;
 
     if (mode === 'horizontal') {
-      const heightScale = 1.48 * multiplier;
+      const heightScale = 2.8 * multiplier;
       const widthScale = Math.min(heightScale * (imageAspect / planeAspect), this.getMaxImageWidth(mode) / 6);
 
       return {
@@ -680,10 +1159,10 @@ export default class NodeManager {
   private getTierScale(tier?: string, mode = this.activeMode): number {
     const modeScale: Record<string, Record<string, number>> = {
       cylinder: { lead: 2.05, secondary: 1.54, archive: 1.16 },
-      grid: { lead: 0.62, secondary: 0.52, archive: 0.44 },
+      grid: { lead: 0.35, secondary: 0.28, archive: 0.22 },
       vertical: { lead: 1.02, secondary: 0.74, archive: 0.56 },
       horizontal: { lead: 1.06, secondary: 0.78, archive: 0.58 },
-      atlas: { lead: 0.5, secondary: 0.38, archive: 0.28 },
+      map: { lead: 0.5, secondary: 0.38, archive: 0.28 },
     };
 
     return modeScale[mode]?.[tier || 'archive'] || 0.58;
@@ -692,9 +1171,9 @@ export default class NodeManager {
   private getMaxImageWidth(mode = this.activeMode): number {
     if (mode === 'cylinder') return 18;
     if (mode === 'grid') return 5.8;
-    if (mode === 'horizontal') return 11.2;
+    if (mode === 'horizontal') return 22.0;
     if (mode === 'vertical') return 8.5;
-    if (mode === 'atlas') return 3.8;
+    if (mode === 'map') return 3.8;
     return 9.5;
   }
 
@@ -708,7 +1187,7 @@ export default class NodeManager {
   }
 
   private getLinearGap(mode: string): number {
-    if (mode === 'horizontal') return 0.46;
+    if (mode === 'horizontal') return 0.92;
     if (mode === 'vertical') return 0.48;
     return 0;
   }
@@ -826,11 +1305,32 @@ export default class NodeManager {
 
   public setLayoutMode(mode: string) {
     this.activeMode = mode;
+    this.invalidateVisibleMeshCache();
     this.meshes.forEach((mesh) => {
       this.setNodePosition(mesh, this.getModeIndex(mesh, mode), mode);
+      const mat = mesh.material as THREE.ShaderMaterial;
+      if (mat.uniforms.uIsHorizontalMode) {
+        mat.uniforms.uIsHorizontalMode.value = (mode === 'horizontal') ? 1.0 : 0.0;
+      }
     });
+    this.updateNodeHighlights();
     this.updateRelationLines(true);
     this.updateCylinderGuideLines(true);
+
+    const isMapMode = mode === 'map';
+    this.zoneMeshes.forEach((mesh) => {
+      mesh.visible = isMapMode;
+      if (isMapMode) {
+        const mat = mesh.material as THREE.MeshBasicMaterial;
+        const edgeLine = mesh.children[0] as THREE.LineSegments;
+        const edgeMat = edgeLine.material as THREE.LineBasicMaterial;
+        mat.opacity = 0;
+        edgeMat.opacity = 0;
+        gsap.to(mat, { opacity: 0.06, duration: 1.0, ease: 'power2.inOut' });
+        gsap.to(edgeMat, { opacity: 0.32, duration: 1.0, ease: 'power2.inOut' });
+      }
+    });
+
     if (mode === 'horizontal') {
       this.emitRailState();
     } else {
@@ -838,6 +1338,9 @@ export default class NodeManager {
     }
     if (mode !== 'horizontal') {
       this.resetCamera();
+    }
+    if (mode !== 'map') {
+      gsap.to(this.group.rotation, { x: 0, y: 0, duration: 1.2, ease: 'expo.inOut' });
     }
   }
 
@@ -854,13 +1357,13 @@ export default class NodeManager {
     } else if (this.activeMode === 'grid') {
       const rows = this.getGridRows();
       return (rows * 7) / 6;
-    } else if (this.activeMode === 'atlas') {
+    } else if (this.activeMode === 'map') {
       return 1;
     }
     return 1; // Default
   }
 
-  public update(scrollX: number, scrollY: number) {
+  public update(scrollX: number, scrollY: number, zoom = 1.0) {
     // Determine the extent of layout to create scroll bounds if desired
     // For now we just endlessly scroll. We'll use a modulo or clamp if needed.
     
@@ -933,30 +1436,80 @@ export default class NodeManager {
       this.group.position.y = scrollY * 6;
       this.group.position.x = scrollX * -8;
 
-      // Wrap columns/rows for infinite scroll in all directions
       const cols = 9;
       const rows = this.getGridRows();
-      const totalWidth = cols * 7.4;
-      const totalHeight = rows * 5.9;
-      
-      this.getVisibleMeshes('grid').forEach((mesh) => {
-        // Wrap Y
-        const worldY = mesh.position.y + this.group.position.y;
-        const wrappedY = ((worldY + totalHeight / 2) % totalHeight + totalHeight) % totalHeight - totalHeight / 2;
-        mesh.position.y = wrappedY - this.group.position.y;
+      const spanX = cols * 7.4;
+      const spanY = rows * 5.9;
 
-        // Wrap X
-        const worldX = mesh.position.x + this.group.position.x;
-        const wrappedX = ((worldX + totalWidth / 2) % totalWidth + totalWidth) % totalWidth - totalWidth / 2;
+      const visible = this.getVisibleMeshes('grid');
+      visible.forEach((mesh, index) => {
+        const slot = this.getGridSlot(index);
+        const col = slot % cols;
+        const row = Math.floor(slot / cols);
+        
+        const baseX = (col - (cols - 1) / 2) * 7.4 + this.getGridOffset(slot, 'x');
+        const baseY = (row - Math.floor(rows / 2)) * -5.9 + this.getGridOffset(slot, 'y');
+
+        const worldX = baseX + this.group.position.x;
+        const worldY = baseY + this.group.position.y;
+
+        const wrappedX = ((worldX + spanX / 2) % spanX + spanX) % spanX - spanX / 2;
+        const wrappedY = ((worldY + spanY / 2) % spanY + spanY) % spanY - spanY / 2;
+
         mesh.position.x = wrappedX - this.group.position.x;
+        mesh.position.y = wrappedY - this.group.position.y;
+        mesh.position.z = this.getGridOffset(slot, 'z');
       });
+
+      // Smoothly update camera Z based on fixed close-up zoom
+      const targetZ = 14.5;
+      this.camera.position.z += (targetZ - this.camera.position.z) * 0.08;
+
       this.updateRelationLines();
       this.updateCylinderGuideLines();
       this.emitRailState(null);
-    } else if (this.activeMode === 'atlas') {
-      this.group.rotation.y = 0;
-      this.group.position.y = scrollY * 5.5;
-      this.group.position.x = scrollX * -7;
+    } else if (this.activeMode === 'map') {
+      const time = performance.now() / 1000;
+      let driftX = 0;
+      let driftY = 0;
+
+      // Map connection detour drift near NO_DATA_ZONES
+      this.zoneMeshes.forEach((zoneMesh) => {
+        const zone = zoneMesh.userData;
+        const zoneAngleY = Math.atan2(zone.x, 25);
+        const zoneAngleX = Math.atan2(zone.y, 25);
+        const diffY = Math.sin(scrollX * 0.8 - zoneAngleY);
+        const diffX = Math.sin(scrollY * 0.8 - zoneAngleX);
+        if (Math.abs(diffY) < 0.35 && Math.abs(diffX) < 0.35) {
+          const intensity = (0.35 - Math.abs(diffY)) * (0.35 - Math.abs(diffX)) * 8.0;
+          driftX += Math.sin(time * 5.0) * 0.025 * intensity;
+          driftY += Math.cos(time * 4.5) * 0.025 * intensity;
+        }
+      });
+
+      this.group.rotation.y = scrollX * 0.8 + driftX;
+      this.group.rotation.x = scrollY * 0.8 + driftY;
+      this.group.position.x = 0;
+      this.group.position.y = 0;
+      this.group.position.z = 0;
+
+      if (this.focusedNodeId) {
+        const mesh = this.meshes.find(m => m.userData.slug === this.focusedNodeId);
+        if (mesh) {
+          const worldPos = new THREE.Vector3();
+          mesh.getWorldPosition(worldPos);
+          const targetCamPos = worldPos.clone().add(new THREE.Vector3(0, 0, 5.5));
+          this.camera.position.lerp(targetCamPos, 0.08);
+          this.camera.lookAt(worldPos);
+        }
+      } else {
+        const targetZ = Math.max(10, Math.min(80, 25 * zoom));
+        this.camera.position.z += (targetZ - this.camera.position.z) * 0.08;
+        this.camera.position.x += (0 - this.camera.position.x) * 0.08;
+        this.camera.position.y += (0 - this.camera.position.y) * 0.08;
+        this.camera.lookAt(0, 0, 0);
+      }
+
       this.updateRelationLines();
       this.updateCylinderGuideLines();
       this.emitRailState(null);
@@ -964,10 +1517,142 @@ export default class NodeManager {
   }
 
   public renderUpdate(time: number, velocity: number) {
+    let activeRailIndex = -1;
+    if (this.activeMode === 'horizontal') {
+      const railMeshes = this.getProjectRailMeshes();
+      let activeDistance = Infinity;
+      railMeshes.forEach((mesh, index) => {
+        const worldX = mesh.position.x + this.group.position.x;
+        const perspective = this.getHorizontalPerspective(mesh, index, worldX);
+        const distance = Math.abs(worldX - this.getHorizontalFocusX()) - perspective.progress * 0.9;
+        if (distance < activeDistance) {
+          activeDistance = distance;
+          activeRailIndex = index;
+        }
+      });
+    }
+
+    const activeSlug = this.hoveredMesh ? this.hoveredMesh.userData.slug : null;
+    const focusSlug = this.focusedNodeId;
+
+    const firstDegree = new Set<string>();
+    const secondDegree = new Set<string>();
+
+    if (focusSlug) {
+      const focusMesh = this.primaryMeshBySlug.get(focusSlug);
+      if (focusMesh) {
+        const sourceRelated = focusMesh.userData.connections || [];
+        sourceRelated.forEach((s: string) => firstDegree.add(s));
+      }
+      
+      this.meshes.forEach((m) => {
+        const connections = m.userData.connections || [];
+        if (connections.includes(focusSlug)) {
+          firstDegree.add(m.userData.slug);
+        }
+      });
+
+      firstDegree.forEach((neighborSlug) => {
+        const neighborMesh = this.primaryMeshBySlug.get(neighborSlug);
+        if (neighborMesh) {
+          const neighborRelated = neighborMesh.userData.connections || [];
+          neighborRelated.forEach((s: string) => {
+            if (s !== focusSlug && !firstDegree.has(s)) {
+              secondDegree.add(s);
+            }
+          });
+        }
+        this.meshes.forEach((m) => {
+          if (m.userData.slug !== focusSlug && !firstDegree.has(m.userData.slug)) {
+            const connections = m.userData.connections || [];
+            if (connections.includes(neighborSlug)) {
+              secondDegree.add(m.userData.slug);
+            }
+          }
+        });
+      });
+    }
+
+    const hoverNeighbors = new Set<string>();
+    if (!focusSlug && activeSlug) {
+      const hoverMesh = this.primaryMeshBySlug.get(activeSlug);
+      if (hoverMesh) {
+        const related = hoverMesh.userData.connections || [];
+        related.forEach((s: string) => hoverNeighbors.add(s));
+      }
+      this.meshes.forEach((m) => {
+        const connections = m.userData.connections || [];
+        if (connections.includes(activeSlug)) {
+          hoverNeighbors.add(m.userData.slug);
+        }
+      });
+    }
+
     this.meshes.forEach((mesh) => {
       const mat = mesh.material as THREE.ShaderMaterial;
       mat.uniforms.uTime.value = time;
       mat.uniforms.uVelocity.value = Math.abs(velocity);
+
+      let targetHover = 0.0;
+      if (this.activeMode === 'horizontal') {
+        const railMeshes = this.getProjectRailMeshes();
+        const meshIndexInRail = railMeshes.indexOf(mesh);
+        const isActive = meshIndexInRail !== -1 && meshIndexInRail === activeRailIndex;
+        const isHovered = this.hoveredMesh === mesh;
+        targetHover = (isActive || isHovered) ? 1.0 : 0.0;
+      } else {
+        targetHover = this.hoveredMesh === mesh ? 1.0 : 0.0;
+      }
+
+      if (mat.uniforms.uHover) {
+        mat.uniforms.uHover.value += (targetHover - mat.uniforms.uHover.value) * 0.12;
+      }
+
+      if (this.activeMode === 'map') {
+        mesh.quaternion.copy(this.group.quaternion).invert().multiply(this.camera.quaternion);
+
+        const slug = mesh.userData.slug;
+
+        let targetOpacity = 1.0;
+        if (focusSlug) {
+          if (slug === focusSlug) {
+            targetOpacity = 1.0;
+          } else if (firstDegree.has(slug)) {
+            targetOpacity = 0.8;
+          } else if (secondDegree.has(slug)) {
+            targetOpacity = 0.35;
+          } else {
+            targetOpacity = 0.08;
+          }
+        } else if (activeSlug) {
+          if (slug === activeSlug) {
+            targetOpacity = 1.0;
+          } else if (hoverNeighbors.has(slug)) {
+            targetOpacity = 0.85;
+          } else {
+            targetOpacity = 0.45;
+          }
+        } else {
+          targetOpacity = 1.0;
+        }
+
+        // Apply distance-based decay relative to NO_DATA_ZONES
+        let decayFactor = 1.0;
+        this.zoneMeshes.forEach((zoneMesh) => {
+          const zone = zoneMesh.userData;
+          const dx = mesh.position.x - zone.x;
+          const dy = mesh.position.y - zone.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const activeRadius = zone.radius + 3.0; // Decay boundary extends 3 units beyond radius
+          if (dist < activeRadius) {
+            const pct = Math.max(0, dist - zone.radius) / 3.0; // 0 inside, 1 outside
+            decayFactor = Math.min(decayFactor, pct);
+          }
+        });
+        targetOpacity *= (0.05 + 0.95 * decayFactor); // Decay down to 5% opacity
+        
+        mat.uniforms.uModeVisibility.value += (targetOpacity - mat.uniforms.uModeVisibility.value) * 0.1;
+      }
     });
     this.updateRelationLines();
     this.updateCylinderGuideLines();
@@ -992,30 +1677,49 @@ export default class NodeManager {
   }
 
   private updateRelationLines(animate = false) {
-    const primaryBySlug = new Map<string, THREE.Mesh>();
-    this.getPrimaryMeshes().forEach((mesh) => primaryBySlug.set(mesh.userData.slug, mesh));
-
-    const activeSlug = this.hoveredMesh ? this.hoveredMesh.userData.slug : this.focusedNodeId;
+    const activeSlug = this.hoveredMesh ? this.hoveredMesh.userData.slug : null;
+    const focusSlug = this.focusedNodeId;
 
     this.relationLines.forEach((line) => {
-      const source = primaryBySlug.get(line.userData.sourceId);
-      const target = primaryBySlug.get(line.userData.targetId);
+      const source = this.primaryMeshBySlug.get(line.userData.sourceId);
+      const target = this.primaryMeshBySlug.get(line.userData.targetId);
       const material = line.material as THREE.LineBasicMaterial;
 
       if (!source || !target) return;
 
-      line.geometry.setFromPoints([
-        source.position.clone(),
-        target.position.clone(),
-      ]);
+      const posAttr = line.geometry.attributes.position;
+      if (posAttr) {
+        const arr = posAttr.array as Float32Array;
+        arr[0] = source.position.x;
+        arr[1] = source.position.y;
+        arr[2] = source.position.z;
+        arr[3] = target.position.x;
+        arr[4] = target.position.y;
+        arr[5] = target.position.z;
+        posAttr.needsUpdate = true;
+        line.geometry.computeBoundingBox();
+        line.geometry.computeBoundingSphere();
+      }
 
       let targetOpacity = 0;
-      if (this.activeMode === 'atlas') {
-        if (activeSlug) {
-          const isConnected = line.userData.sourceId === activeSlug || line.userData.targetId === activeSlug;
-          targetOpacity = isConnected ? 0.45 : 0.05;
+      if (this.activeMode === 'map') {
+        const weight = line.userData.weight || 1;
+        if (focusSlug) {
+          const isConnectedToFocus = line.userData.sourceId === focusSlug || line.userData.targetId === focusSlug;
+          if (isConnectedToFocus) {
+            targetOpacity = weight === 3 ? 0.9 : (weight === 2 ? 0.6 : 0.3);
+          } else {
+            targetOpacity = 0.01;
+          }
+        } else if (activeSlug) {
+          const isConnectedToHover = line.userData.sourceId === activeSlug || line.userData.targetId === activeSlug;
+          if (isConnectedToHover) {
+            targetOpacity = weight === 3 ? 0.75 : (weight === 2 ? 0.45 : 0.2);
+          } else {
+            targetOpacity = weight === 3 ? 0.08 : (weight === 2 ? 0.04 : 0.02);
+          }
         } else {
-          targetOpacity = 0.12;
+          targetOpacity = weight === 3 ? 0.25 : (weight === 2 ? 0.12 : 0.04);
         }
       }
 
@@ -1031,6 +1735,27 @@ export default class NodeManager {
         }
       }
     });
+  }
+
+  public getClosestRailSlideIndex(): number {
+    const railMeshes = this.getProjectRailMeshes();
+    if (!railMeshes.length) return 0;
+
+    let activeIndex = 0;
+    let activeDistance = Infinity;
+
+    railMeshes.forEach((mesh, index) => {
+      const worldX = mesh.position.x + this.group.position.x;
+      const perspective = this.getHorizontalPerspective(mesh, index, worldX);
+      const distance = Math.abs(worldX - this.getHorizontalFocusX()) - perspective.progress * 0.9;
+
+      if (distance < activeDistance) {
+        activeDistance = distance;
+        activeIndex = index;
+      }
+    });
+
+    return activeIndex;
   }
 
   private emitRailState(forcedState?: any) {
@@ -1099,25 +1824,61 @@ export default class NodeManager {
   private applyHover(mesh: THREE.Mesh | null, pos: { x: number, y: number } | null = null) {
     if (this.hoveredMesh === mesh) return;
 
-    // Exit previous
-    if (this.hoveredMesh) {
-      gsap.to((this.hoveredMesh.material as THREE.ShaderMaterial).uniforms.uHover, {
-        value: 0,
-        duration: 0.5,
-        ease: 'power2.out'
-      });
+    const prevMesh = this.hoveredMesh;
+
+    if (this.activeMode === 'grid' || this.activeMode === 'map') {
+      const mode = this.activeMode;
+      if (prevMesh && !prevMesh.userData.isNoDataZone) {
+        const normalScale = this.getNodeScale(prevMesh, 1, mode);
+        gsap.to(prevMesh.scale, {
+          x: normalScale.x,
+          y: normalScale.y,
+          z: normalScale.z,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      }
+      if (mesh && !mesh.userData.isNoDataZone) {
+        const hoverScale = this.getNodeScale(mesh, 1.22, mode);
+        gsap.to(mesh.scale, {
+          x: hoverScale.x,
+          y: hoverScale.y,
+          z: hoverScale.z,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      }
     }
 
-    // Enter new
+    if (this.hoveredMesh && this.hoveredMesh.userData.isNoDataZone) {
+      const prevZoneMesh = this.hoveredMesh;
+      const mat = prevZoneMesh.material as THREE.MeshBasicMaterial;
+      const edgeLine = prevZoneMesh.children[0] as THREE.LineSegments;
+      const edgeMat = edgeLine.material as THREE.LineBasicMaterial;
+      gsap.to(mat, { opacity: 0.06, duration: 0.25 });
+      gsap.to(edgeMat, { opacity: 0.32, duration: 0.25 });
+    }
+
     this.hoveredMesh = mesh;
+
+    if (mesh && mesh.userData.isNoDataZone) {
+      const mat = mesh.material as THREE.MeshBasicMaterial;
+      const edgeLine = mesh.children[0] as THREE.LineSegments;
+      const edgeMat = edgeLine.material as THREE.LineBasicMaterial;
+      gsap.to(mat, { opacity: 0.22, duration: 0.25 });
+      gsap.to(edgeMat, { opacity: 0.85, duration: 0.25 });
+    }
+
     if (mesh) {
       this.options.onNodeHover?.(mesh.userData, pos);
-      gsap.to((mesh.material as THREE.ShaderMaterial).uniforms.uHover, {
-        value: 1,
-        duration: 0.3,
-        ease: 'power2.out'
-      });
-      document.body.style.cursor = this.options.canUseSceneClicks?.() === false ? 'default' : 'pointer';
+      if (mesh.userData.isNoDataZone) {
+        document.body.style.cursor = 'crosshair';
+      } else {
+        document.body.style.cursor = this.options.canUseSceneClicks?.() === false ? 'default' : 'pointer';
+        if (mesh.userData.projectId) {
+          this.loadProjectTextures(mesh.userData.projectId);
+        }
+      }
     } else {
       this.options.onNodeHover?.(null, null);
       document.body.style.cursor = 'default';
@@ -1134,13 +1895,23 @@ export default class NodeManager {
     this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-    // Hover detection
     this.raycaster.setFromCamera(this.mouse, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.getVisibleMeshes());
+    let targetMeshes = [...this.getVisibleMeshes()];
+    if (this.activeMode === 'map') {
+      targetMeshes = [...targetMeshes, ...this.zoneMeshes];
+    }
+    const intersects = this.raycaster.intersectObjects(targetMeshes);
 
     if (intersects.length > 0) {
-      const intersected = intersects[0].object as THREE.Mesh;
-      this.applyHover(intersected, { x: e.clientX, y: e.clientY });
+      let intersected: THREE.Object3D | null = intersects[0].object;
+      while (intersected && !intersected.userData.id && !intersected.userData.zoneId && intersected.parent) {
+        intersected = intersected.parent;
+      }
+      if (intersected && (intersected.userData.id || intersected.userData.zoneId)) {
+        this.applyHover(intersected as THREE.Mesh, { x: e.clientX, y: e.clientY });
+      } else {
+        this.applyHover(null);
+      }
     } else {
       this.applyHover(null);
     }
@@ -1235,13 +2006,23 @@ export default class NodeManager {
     const mesh = this.meshes.find(m => m.userData.id === node.id);
     if (!mesh) return;
     this.focusedNodeId = node.slug || node.projectId || null;
+    if (this.focusedNodeId) {
+      this.loadProjectTextures(this.focusedNodeId);
+    }
+    this.invalidateVisibleMeshCache();
     this.meshes.forEach((entry) => {
       this.setNodePosition(entry, this.getModeIndex(entry, this.activeMode), this.activeMode);
     });
     this.emitRailState();
 
-    if (this.activeMode === 'grid' || this.activeMode === 'atlas' || this.activeMode === 'cylinder') {
+    if (this.activeMode === 'grid' || this.activeMode === 'cylinder') {
       this.resetCamera();
+      return;
+    }
+
+    if (this.activeMode === 'map') {
+      this.updateNodeHighlights();
+      this.updateRelationLines(true);
       return;
     }
 
@@ -1266,6 +2047,13 @@ export default class NodeManager {
     });
   }
 
+  public focusNodeBySlug(slug: string) {
+    const mesh = this.meshes.find(m => m.userData.slug === slug);
+    if (mesh) {
+      this.focusNode(mesh.userData);
+    }
+  }
+
   private onClick = (event: MouseEvent) => {
     const target = event.target as HTMLElement | null;
     if (target?.closest('[data-ui-layer="true"]')) return;
@@ -1277,8 +2065,38 @@ export default class NodeManager {
     const intersects = this.raycaster.intersectObjects(this.getVisibleMeshes());
 
     if (intersects.length > 0) {
-      const mesh = intersects[0].object as THREE.Mesh;
+      let intersected: THREE.Object3D | null = intersects[0].object;
+      while (intersected && !intersected.userData.id && intersected.parent) {
+        intersected = intersected.parent;
+      }
+      if (!intersected || !intersected.userData.id) {
+        if (this.activeMode === 'map') {
+          this.options.onCloseNode?.();
+        }
+        return;
+      }
+      const mesh = intersected as THREE.Mesh;
       const node = mesh.userData;
+
+      if (this.activeMode === 'grid') {
+        this.options.onMediaOpen?.({
+          ...node,
+          type: node.assetType || 'image',
+          label: node.assetLabel || node.title,
+          caption: node.assetCaption || node.summary,
+          chapter: node.assetChapter || 'Archive',
+          role: node.assetRole || 'evidence',
+          src: node.assetSrc || node.thumbnail || '',
+          poster: node.assetPoster,
+          youtubeId: node.assetYoutubeId,
+          embedUrl: node.assetEmbedUrl,
+          externalUrl: node.assetExternalUrl,
+          body: node.assetBody,
+          projectId: node.projectId || node.slug,
+        });
+        return;
+      }
+
       if (node.assetType === 'video' || node.assetType === 'audio') {
         this.options.onMediaOpen?.({
           ...node,
@@ -1296,28 +2114,43 @@ export default class NodeManager {
         return;
       }
       this.options.onNodeClick(node);
+    } else {
+      if (this.activeMode === 'map') {
+        this.options.onCloseNode?.();
+      }
     }
   };
 
   public setSearchQuery(query: string) {
-    const q = query.toLowerCase().trim();
+    this.searchQueryString = query;
+    this.updateNodeHighlights();
+  }
+
+  public setFilters(domain: string, type: string) {
+    this.invalidateVisibleMeshCache();
+    const activeDomain = domain.toLowerCase().trim();
+    const activeType = type.toLowerCase().trim();
+
     this.meshes.forEach((mesh) => {
       const data = mesh.userData;
-      const match = !q || 
-        (data.title && data.title.toLowerCase().includes(q)) || 
-        (data.tags && data.tags.some((t: string) => t.toLowerCase().includes(q))) ||
-        (data.domains && data.domains.some((t: string) => t.toLowerCase().includes(q))) ||
-        (data.stack && data.stack.some((t: string) => t.toLowerCase().includes(q))) ||
-        (data.connections && data.connections.some((t: string) => t.toLowerCase().includes(q))) ||
-        (data.relatedSlugs && data.relatedSlugs.some((t: string) => t.toLowerCase().includes(q))) ||
-        (data.highlights && data.highlights.some((t: string) => t.toLowerCase().includes(q))) ||
-        (data.summary && data.summary.toLowerCase().includes(q)) ||
-        (data.thesis && data.thesis.toLowerCase().includes(q)) ||
-        (data.assetLabel && data.assetLabel.toLowerCase().includes(q)) ||
-        (data.assetCaption && data.assetCaption.toLowerCase().includes(q)) ||
-        (data.assetChapter && data.assetChapter.toLowerCase().includes(q)) ||
-        (data.category && data.category.toLowerCase().includes(q));
       
+      const nodeDomain = (data.domains?.[0] || data.category || '').toLowerCase();
+      const domainMatch = activeDomain === 'all' || nodeDomain === activeDomain;
+
+      const nodeType = (data.assetType || 'image').toLowerCase();
+      let typeMatch = false;
+      if (activeType === 'all') {
+        typeMatch = true;
+      } else if (activeType === 'photo') {
+        typeMatch = nodeType === 'image';
+      } else if (activeType === 'video') {
+        typeMatch = nodeType === 'video';
+      } else if (activeType === 'audio') {
+        typeMatch = nodeType === 'audio';
+      }
+
+      const match = domainMatch && typeMatch;
+
       gsap.to((mesh.material as THREE.ShaderMaterial).uniforms.uSearchHighlight, {
         value: match ? 1.0 : 0.0,
         duration: 0.4,
@@ -1326,13 +2159,64 @@ export default class NodeManager {
     });
   }
 
+  public updateNodeHighlights() {
+    const activeSlug = this.focusedNodeId;
+    const q = this.searchQueryString ? this.searchQueryString.toLowerCase().trim() : '';
+
+    this.meshes.forEach((mesh) => {
+      const data = mesh.userData;
+      let targetHighlight = 1.0;
+
+      if (this.activeMode === 'map' && activeSlug) {
+        // Relational map mode focused highlights: focused node + connected neighbors
+        const isSelf = data.slug === activeSlug;
+        const isConnected = data.connections && (
+          data.connections.includes(activeSlug) || 
+          (this.nodesData.find(n => n.slug === activeSlug)?.connections || []).includes(data.slug)
+        );
+        targetHighlight = (isSelf || isConnected) ? 1.0 : 0.15;
+      } else if (q) {
+        // Search query matching
+        const match = 
+          (data.title && data.title.toLowerCase().includes(q)) || 
+          (data.tags && data.tags.some((t: string) => t.toLowerCase().includes(q))) ||
+          (data.domains && data.domains.some((t: string) => t.toLowerCase().includes(q))) ||
+          (data.stack && data.stack.some((t: string) => t.toLowerCase().includes(q))) ||
+          (data.connections && data.connections.some((t: string) => t.toLowerCase().includes(q))) ||
+          (data.relatedSlugs && data.relatedSlugs.some((t: string) => t.toLowerCase().includes(q))) ||
+          (data.highlights && data.highlights.some((t: string) => t.toLowerCase().includes(q))) ||
+          (data.summary && data.summary.toLowerCase().includes(q)) ||
+          (data.thesis && data.thesis.toLowerCase().includes(q)) ||
+          (data.assetLabel && data.assetLabel.toLowerCase().includes(q)) ||
+          (data.assetCaption && data.assetCaption.toLowerCase().includes(q)) ||
+          (data.assetChapter && data.assetChapter.toLowerCase().includes(q)) ||
+          (data.category && data.category.toLowerCase().includes(q));
+        
+        targetHighlight = match ? 1.0 : 0.05;
+      }
+
+      if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms?.uSearchHighlight) {
+        gsap.to((mesh.material as THREE.ShaderMaterial).uniforms.uSearchHighlight, {
+          value: targetHighlight,
+          duration: 0.4,
+          ease: 'power2.inOut'
+        });
+      }
+    });
+  }
+
   public resetFocus() {
     this.focusedNodeId = null;
+    this.invalidateVisibleMeshCache();
     this.emitRailState(null);
     this.meshes.forEach((mesh) => {
       this.setNodePosition(mesh, this.getModeIndex(mesh, this.activeMode), this.activeMode);
     });
-    this.resetCamera();
+    this.updateNodeHighlights();
+    this.updateRelationLines(true);
+    if (this.activeMode !== 'map') {
+      this.resetCamera();
+    }
   }
 
   private resetCamera() {
@@ -1340,7 +2224,7 @@ export default class NodeManager {
     gsap.to(this.camera.position, {
       x: 0,
       y: 0,
-      z: isCylinder ? 0 : 25,
+      z: isCylinder ? 0 : (this.activeMode === 'horizontal' ? 18 : 25),
       duration: 1.5,
       ease: 'expo.inOut',
       onUpdate: () => {
@@ -1353,9 +2237,70 @@ export default class NodeManager {
     });
   }
 
+  public getAtlasNodesSpatialInfo() {
+    return this.meshes
+      .filter((mesh) => mesh.userData.isPrimary)
+      .map((mesh) => {
+        const pos = this.getAtlasPosition(mesh);
+        const domains = mesh.userData.domains || [];
+        return {
+          slug: mesh.userData.slug || '',
+          x: pos.x,
+          y: pos.y,
+          z: pos.z,
+          domain: domains[0] || 'systems',
+        };
+      });
+  }
+
+  public loadProjectTextures(projectId: string) {
+    const meshesToLoad = this.meshes.filter(
+      (m) => m.userData.projectId === projectId && !m.userData.textureLoaded
+    );
+    
+    if (meshesToLoad.length === 0) return;
+    
+    const loader = new THREE.TextureLoader();
+    loader.setCrossOrigin('anonymous');
+    
+    meshesToLoad.forEach((mesh) => {
+      const url = mesh.userData.textureUrl;
+      if (!url) return;
+      
+      mesh.userData.textureLoaded = true; // Mark as loading / loaded
+      
+      loader.load(
+        url,
+        (loadedTexture) => {
+          loadedTexture.colorSpace = THREE.SRGBColorSpace;
+          const image = loadedTexture.image;
+          
+          if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uMap) {
+            (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = loadedTexture;
+            (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value.needsUpdate = true;
+          }
+          
+          if (image?.width && image?.height) {
+            mesh.userData.imageAspect = image.width / image.height;
+            if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uAspect) {
+              (mesh.material as THREE.ShaderMaterial).uniforms.uAspect.value = mesh.userData.imageAspect;
+            }
+            this.scheduleRelayout();
+          }
+        },
+        undefined,
+        (error) => {
+          console.warn('Deferred texture failed to load:', url, error);
+          mesh.userData.textureLoaded = false; // Reset so we can retry if needed
+        }
+      );
+    });
+  }
+
   public dispose() {
     window.removeEventListener('mousemove', this.onMouseMove);
     window.removeEventListener('click', this.onClick);
+    document.body.style.cursor = '';
     if (this.relayoutTimer !== null) window.clearTimeout(this.relayoutTimer);
     const geometries = new Set<THREE.BufferGeometry>();
     const materials = new Set<THREE.Material>();
@@ -1371,6 +2316,19 @@ export default class NodeManager {
         const shaderMaterial = mat as THREE.ShaderMaterial;
         const texture = shaderMaterial.uniforms?.uMap?.value;
         if (texture?.isTexture) textures.add(texture);
+      });
+    });
+
+    this.zoneMeshes.forEach((mesh) => {
+      geometries.add(mesh.geometry);
+      const materialList = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+      materialList.forEach((material) => materials.add(material));
+      mesh.children.forEach((child) => {
+        if (child instanceof THREE.LineSegments) {
+          geometries.add(child.geometry);
+          const childMatList = Array.isArray(child.material) ? child.material : [child.material];
+          childMatList.forEach((material) => materials.add(material));
+        }
       });
     });
 

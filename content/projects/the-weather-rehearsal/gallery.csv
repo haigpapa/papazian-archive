@@ -1,9 +1,9 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,08_weather_rehearsal.png,,Establishing System,hero,Weather Console,The atmosphere enters the room as live signal.,Establishes climate as active input.,primary
-2,text,,,Thesis,thesis,The Climate Dictates the Score,The environment becomes composer.,Reframes weather as score.,secondary
-3,image,sunburn-weather-sonification.webp,,Evidence,evidence,Urban Weather Feed,The score begins in real atmospheric data.,Grounds the installation.,secondary
-4,image,sunburn-weather-rehearsal-climate-synthesis.jpeg,,System,system,AI Conductor,The system translates atmospheric volatility into musical instruction.,Shows the computation chain.,secondary
-5,image,sunburn-wave-terrain.png,,Technical Proof,system,Data-to-Audio Map,Weather variables become sonic parameters.,Makes sonification legible.,secondary
-6,image,sunburn-green-particle-wave.png,,Live Proof,evidence,Violin Under Atmosphere,The body rehearses climate pressure in sound.,Shows embodied performance.,secondary
-7,image,sunburn.jpg,,Conflict,evidence,API Latency / Sensor Gap,"Live weather must become legible music, not random meteorological noise.",Names the hard problem.,secondary
-8,text,,,Coda,coda,Heat After Tone,"The score ends, but the atmosphere remains.",Ends with climate as residue.,quiet
+1,image,cover.webp,,Establishing System,hero,Weather Console,The atmosphere enters the room as live signal.,Establishes climate as active input.,primary
+2,image,the-weather-rehearsal-01.png,,Thesis,thesis,The Climate Dictates the Score,The environment becomes composer.,Reframes weather as score.,secondary
+3,image,the-weather-rehearsal-02.png,,Evidence,evidence,Urban Weather Feed,The score begins in real atmospheric data.,Grounds the installation.,secondary
+4,image,the-weather-rehearsal-03.png,,System,system,AI Conductor,The system translates atmospheric volatility into musical instruction.,Shows the computation chain.,secondary
+5,image,the-weather-rehearsal-04.jpeg,,Technical Proof,system,Data-to-Audio Map,Weather variables become sonic parameters.,Makes sonification legible.,secondary
+6,image,the-weather-rehearsal-05.jpeg,,Live Proof,evidence,Violin Under Atmosphere,The body rehearses climate pressure in sound.,Shows embodied performance.,secondary
+7,image,the-weather-rehearsal-06.png,,Conflict,evidence,API Latency / Sensor Gap,"Live weather must become legible music, not random meteorological noise.",Names the hard problem.,secondary
+8,image,the-weather-rehearsal-07.png,,Coda,coda,Heat After Tone,"The score ends, but the atmosphere remains.",Ends with climate as residue.,quiet

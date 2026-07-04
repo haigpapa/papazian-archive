@@ -1,9 +1,9 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,04_why_were_like_this.png,,Establishing Mood,hero,Cold Open Still,The series begins with a mood before it becomes an argument.,Establishes emotional climate.,primary
-2,text,,,Thesis,thesis,Not Individual Dysfunction,The subject is not personal failure. It is the systems that make dysfunction feel personal.,Reframes neurosis as structural weather.,secondary
-3,image,why-were-like-this.jpg,,Process,process,Script as Instrument,"The essay is built through voice, pacing, image, and diagnostic rhythm.",Shows editorial construction.,secondary
-4,text,,,System,system,Cultural Weather Map,Psychological weather forms where social systems meet mediated life.,Turns mood into analyzable structure.,secondary
-5,text,,,Evidence,evidence,Edit Timeline,Diagnosis becomes audiovisual sequencing.,"Shows the piece as made, not merely written.",secondary
-6,text,,,Evidence,evidence,Data / Image / Voice,The work thinks by cutting between evidence and feeling.,Proves the method in motion.,secondary
-7,text,,,Relation,context,Public Bridge,The series is the accessible bridge between dense systems thought and emotional legibility.,Positions it in the archive.,secondary
-8,text,,,Coda,coda,The Feeling Remains,Diagnosis clarifies the weather. It does not make the weather disappear.,Ends without therapy-commercial nonsense.,quiet
+1,image,cover.webp,,Establishing Mood,hero,Cold Open Still,The series begins with a mood before it becomes an argument.,Establishes emotional climate.,primary
+2,image,why-were-like-this-01.png,,Thesis,thesis,Not Individual Dysfunction,The subject is not personal failure. It is the systems that make dysfunction feel personal.,Reframes neurosis as structural weather.,secondary
+3,image,why-were-like-this-02.png,,Process,process,Script as Instrument,"The essay is built through voice, pacing, image, and diagnostic rhythm.",Shows editorial construction.,secondary
+4,image,why-were-like-this-03.png,,System,system,Cultural Weather Map,Psychological weather forms where social systems meet mediated life.,Turns mood into analyzable structure.,secondary
+5,image,why-were-like-this-04.png,,Evidence,evidence,Edit Timeline,Diagnosis becomes audiovisual sequencing.,"Shows the piece as made, not merely written.",secondary
+6,image,why-were-like-this-05.png,,Evidence,evidence,Data / Image / Voice,The work thinks by cutting between evidence and feeling.,Proves the method in motion.,secondary
+7,image,why-were-like-this-06.png,,Relation,context,Public Bridge,The series is the accessible bridge between dense systems thought and emotional legibility.,Positions it in the archive.,secondary
+8,image,why-were-like-this-07.png,,Coda,coda,The Feeling Remains,Diagnosis clarifies the weather. It does not make the weather disappear.,Ends without therapy-commercial nonsense.,quiet
