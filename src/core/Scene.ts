@@ -42,17 +42,15 @@ export default class Scene {
     this.options = options;
 
     // 1. Renderer Setup
-    const canvas = document.createElement('canvas');
-    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
-    if (!gl) {
+    try {
+      this.renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: 'high-performance'
+      });
+    } catch {
       throw new Error('WebGL is not supported by this browser.');
     }
-
-    this.renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance'
-    });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setSize(container.clientWidth, container.clientHeight);
     
@@ -62,6 +60,12 @@ export default class Scene {
     }
     
     container.appendChild(this.renderer.domElement);
+
+    // Low-end devices (iOS Safari especially) reclaim WebGL contexts under
+    // memory pressure; preventDefault on loss lets the browser restore it,
+    // and three.js re-uploads GPU state on webglcontextrestored.
+    this.renderer.domElement.addEventListener('webglcontextlost', this.onContextLost);
+    this.renderer.domElement.addEventListener('webglcontextrestored', this.onContextRestored);
 
     // 2. Scene & Camera
     this.scene = new THREE.Scene();
@@ -96,6 +100,15 @@ export default class Scene {
     // 7. Start Animation Loop
     this.animate();
   }
+
+  private onContextLost = (event: Event) => {
+    event.preventDefault();
+    console.warn('WebGL context lost — waiting for restore');
+  };
+
+  private onContextRestored = () => {
+    console.info('WebGL context restored');
+  };
 
   private onResize = () => {
     const width = this.container.clientWidth;
@@ -209,6 +222,8 @@ export default class Scene {
 
   public dispose() {
     window.removeEventListener('resize', this.onResize);
+    this.renderer.domElement.removeEventListener('webglcontextlost', this.onContextLost);
+    this.renderer.domElement.removeEventListener('webglcontextrestored', this.onContextRestored);
     if (this.frameId) cancelAnimationFrame(this.frameId);
     this.renderer.dispose();
     this.scrollEngine.dispose();

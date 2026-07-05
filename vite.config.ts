@@ -18,8 +18,9 @@ export default defineConfig({
           'vendor-three': ['three'],
           // Animation library
           'vendor-gsap': ['gsap'],
-          // Audio engine — only needed when user plays audio
-          'vendor-tone': ['tone'],
+          // Tone.js is intentionally NOT listed here: AudioEngine loads it
+          // with a dynamic import on first user gesture, so Rollup splits
+          // it into a lazy chunk outside the critical path.
           // React core — changes rarely
           'vendor-react': ['react', 'react-dom'],
         },

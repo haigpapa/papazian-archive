@@ -70,7 +70,9 @@ body::before {
   height: 100%;
 }
 
-@media (max-width: 760px) {
+/* Keep in sync with Tailwind's md breakpoint (768px) and the
+   isMobileViewport matchMedia in Overlay.tsx (max-width: 767px). */
+@media (max-width: 767px) {
   html, body {
     height: 100svh;
   }

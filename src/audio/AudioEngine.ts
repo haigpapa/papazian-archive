@@ -14,10 +14,10 @@
  *   └── Stem Layer (Tone.Player, lazy-loaded per project)
  */
 
-import * as Tone from 'tone';
-import { CylinderAudio } from './modes/CylinderAudio';
-import { AtlasAudio } from './modes/AtlasAudio';
-import { InteractionAudio } from './modes/InteractionAudio';
+import type * as Tone from 'tone';
+import type { CylinderAudio } from './modes/CylinderAudio';
+import type { AtlasAudio } from './modes/AtlasAudio';
+import type { InteractionAudio } from './modes/InteractionAudio';
 import { domainTonic } from './MicrotonalScale';
 import {
   MASTER_VOLUME_DB,
@@ -53,6 +53,10 @@ export class AudioEngine {
   private _currentMode = 'cylinder';
   private _disposed = false;
 
+  // Tone.js is loaded on first initialize() so the audio stack stays
+  // out of the critical loading path.
+  private tone: typeof Tone | null = null;
+
   // ─── Master Bus ────────────────────────────────────────────────
   private masterGain: Tone.Gain | null = null;
   private reverb: Tone.Reverb | null = null;
@@ -68,6 +72,9 @@ export class AudioEngine {
   private stemGain: Tone.Gain | null = null;
   private stemRegistry = new Map<string, string>(); // slug → URL
   private activeStemSlug: string | null = null;
+  // Last project the user entered, tracked even while muted/uninitialized
+  // so enabling audio inside a project still starts its stem.
+  private pendingProjectSlug: string | null = null;
   private projectDomains = new Map<string, string>(); // slug → domain
 
   // ─── Visibility ───────────────────────────────────────────────
@@ -120,18 +127,27 @@ export class AudioEngine {
   async initialize(): Promise<void> {
     if (this._isInitialized || this._disposed) return;
 
+    const [tone, cylinderModule, atlasModule, interactionModule] = await Promise.all([
+      import('tone'),
+      import('./modes/CylinderAudio'),
+      import('./modes/AtlasAudio'),
+      import('./modes/InteractionAudio'),
+    ]);
+    if (this._disposed) return;
+    this.tone = tone;
+
     // Start Tone.js context (requires user gesture)
-    await Tone.start();
+    await tone.start();
 
     // ── Master Bus ──────────────────────────────────────────
-    this.compressor = new Tone.Compressor({
+    this.compressor = new tone.Compressor({
       threshold: COMPRESSOR_THRESHOLD_DB,
       ratio: COMPRESSOR_RATIO,
       attack: 0.003,
       release: 0.25,
     }).toDestination();
 
-    this.reverb = new Tone.Reverb({
+    this.reverb = new tone.Reverb({
       decay: REVERB_DECAY_SECONDS,
       wet: REVERB_WET,
       preDelay: 0.01,
@@ -140,15 +156,15 @@ export class AudioEngine {
     // Generate the reverb impulse response
     await this.reverb.ready;
 
-    this.masterGain = new Tone.Gain(0).connect(this.reverb);
+    this.masterGain = new tone.Gain(0).connect(this.reverb);
 
     // ── Stem Layer ──────────────────────────────────────────
-    this.stemGain = new Tone.Gain(0).connect(this.masterGain);
+    this.stemGain = new tone.Gain(0).connect(this.masterGain);
 
     // ── Mode Layers ─────────────────────────────────────────
-    this.cylinderAudio = new CylinderAudio(this.masterGain);
-    this.atlasAudio = new AtlasAudio(this.masterGain);
-    this.interactionAudio = new InteractionAudio(this.masterGain);
+    this.cylinderAudio = new cylinderModule.CylinderAudio(this.masterGain);
+    this.atlasAudio = new atlasModule.AtlasAudio(this.masterGain);
+    this.interactionAudio = new interactionModule.InteractionAudio(this.masterGain);
 
     // ── Page Visibility ─────────────────────────────────────
     this.visibilityHandler = this.handleVisibilityChange.bind(this);
@@ -160,13 +176,18 @@ export class AudioEngine {
 
     // Fade in master volume
     this.masterGain.gain.rampTo(
-      Tone.dbToGain(MASTER_VOLUME_DB),
+      tone.dbToGain(MASTER_VOLUME_DB),
       3 // 3-second fade from silence
     );
 
     // Activate the appropriate mode layer
     const layer = this.getLayerForMode(this._currentMode);
     this.activateLayer(layer);
+
+    // If audio was enabled while inside a project, start its stem now
+    if (this.pendingProjectSlug) {
+      this.startProjectStem(this.pendingProjectSlug);
+    }
 
     this.notifyListeners();
   }
@@ -182,11 +203,15 @@ export class AudioEngine {
 
     this._isMuted = !this._isMuted;
 
-    if (this.masterGain) {
+    if (this.masterGain && this.tone) {
       if (this._isMuted) {
         this.masterGain.gain.rampTo(0, 0.3);
       } else {
-        this.masterGain.gain.rampTo(Tone.dbToGain(MASTER_VOLUME_DB), 0.5);
+        this.masterGain.gain.rampTo(this.tone.dbToGain(MASTER_VOLUME_DB), 0.5);
+        // Catch up on a project entered while muted
+        if (this.pendingProjectSlug && this.pendingProjectSlug !== this.activeStemSlug) {
+          this.startProjectStem(this.pendingProjectSlug);
+        }
       }
     }
 
@@ -223,9 +248,11 @@ export class AudioEngine {
     this.compressor?.dispose();
 
     // Close the underlying Web Audio context
-    const rawContext = Tone.getContext().rawContext;
-    if (rawContext && 'close' in rawContext) {
-      (rawContext as AudioContext).close();
+    if (this.tone) {
+      const rawContext = this.tone.getContext().rawContext;
+      if (rawContext && 'close' in rawContext) {
+        (rawContext as AudioContext).close();
+      }
     }
 
     this.listeners.clear();
@@ -254,11 +281,12 @@ export class AudioEngine {
    * audio layer and deactivates others.
    */
   setMode(mode: string): void {
-    if (!this._isInitialized || this._disposed) return;
-
+    // Track the mode even before the audio context exists so that
+    // initialize() activates the layer for where the user actually is.
     const previousMode = this._currentMode;
     this._currentMode = mode;
 
+    if (!this._isInitialized || this._disposed) return;
     if (previousMode === mode) return;
 
     const prevLayer = this.getLayerForMode(previousMode);
@@ -366,8 +394,12 @@ export class AudioEngine {
    * If a stem is registered for this project, crossfade to it.
    */
   onProjectEnter(slug: string): void {
+    this.pendingProjectSlug = slug;
     if (!this._isInitialized || this._disposed || this._isMuted) return;
+    this.startProjectStem(slug);
+  }
 
+  private startProjectStem(slug: string): void {
     // Dynamic Drone Tuning for this project!
     const domain = this.projectDomains.get(slug);
     if (domain) {
@@ -376,7 +408,7 @@ export class AudioEngine {
     }
 
     const stemUrl = this.stemRegistry.get(slug);
-    if (!stemUrl || !this.stemGain || !this.masterGain) return;
+    if (!stemUrl || !this.stemGain || !this.masterGain || !this.tone) return;
 
     // Duck the drone
     this.cylinderAudio?.duck(STEM_CROSSFADE_SECONDS);
@@ -388,7 +420,7 @@ export class AudioEngine {
     }
 
     // Create and play the new stem
-    this.stemPlayer = new Tone.Player({
+    this.stemPlayer = new this.tone.Player({
       url: stemUrl,
       loop: true,
       fadeIn: STEM_CROSSFADE_SECONDS,
@@ -406,6 +438,7 @@ export class AudioEngine {
    * Crossfade back to the global drone.
    */
   onProjectExit(): void {
+    this.pendingProjectSlug = null;
     if (!this._isInitialized || this._disposed) return;
 
     // Fade out stem
@@ -444,15 +477,15 @@ export class AudioEngine {
   // ─── Page Visibility ──────────────────────────────────────────
 
   private handleVisibilityChange(): void {
-    if (!this._isInitialized || this._disposed || !this.masterGain) return;
+    if (!this._isInitialized || this._disposed || !this.masterGain || !this.tone) return;
 
     if (document.hidden) {
       this.masterGain.gain.rampTo(0, VISIBILITY_FADE_SECONDS);
-      Tone.getTransport().pause();
+      this.tone.getTransport().pause();
     } else if (!this._isMuted) {
-      Tone.getTransport().start();
+      this.tone.getTransport().start();
       this.masterGain.gain.rampTo(
-        Tone.dbToGain(MASTER_VOLUME_DB),
+        this.tone.dbToGain(MASTER_VOLUME_DB),
         VISIBILITY_FADE_SECONDS
       );
     }
