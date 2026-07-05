@@ -1202,6 +1202,37 @@ export default function Overlay({
         )}
       </AnimatePresence>
 
+      {/* Map Legend — world color key */}
+      <AnimatePresence>
+        {currentMode === 'map' && !activeRoute && !activeNode && (
+          <motion.div
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -12 }}
+            transition={{ duration: 0.3, ease: 'easeOut', delay: 0.08 }}
+            className="fixed left-5 bottom-[108px] z-[100] hidden w-[200px] pointer-events-auto md:block"
+            aria-label="Map legend"
+          >
+            <p className="mb-2 font-mono text-[8px] uppercase tracking-[0.28em] text-text-muted">
+              World Legend
+            </p>
+            <div className="space-y-1.5">
+              {WORLDS.map((world) => {
+                const color = ({'foundation-world': '#d5a2a2', 'public-culture-world': '#d7e7ef', 'exile-machines-world': '#9fd6bf', 'memory-interfaces-world': '#c7b28a', 'sonic-intelligence-world': '#7aa6ff', 'spatial-futures-world': '#8fa8c2'} as Record<string, string>)[world.id] || '#d7e7ef';
+                return (
+                  <div key={world.id} className="flex items-center gap-2.5">
+                    <span className="w-2 h-2 shrink-0" style={{ backgroundColor: color }} />
+                    <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted">
+                      {world.roman} {world.name}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Floating Hover Tooltip (grid mode only, visual view mode) */}
       {currentMode === 'grid' && indexFilters && indexFilters.viewMode === 'visual' && hoveredNode && mousePosition && (
         <div
