@@ -89,6 +89,13 @@ function publicAssetExists(publicPath: string) {
   return existsSync(diskPath);
 }
 
+// Serve the .webp sibling when one exists next to a png/jpeg source.
+function preferWebp(publicPath: string) {
+  if (!/\.(png|jpe?g)$/i.test(publicPath)) return publicPath;
+  const webpPath = publicPath.replace(/\.(png|jpe?g)$/i, '.webp');
+  return publicAssetExists(webpPath) ? webpPath : publicPath;
+}
+
 function main() {
   const warnings: string[] = [];
   const errors: string[] = [];
@@ -168,9 +175,10 @@ function main() {
             .map((row, index) => {
               const type = row.type || 'image';
               const file = row.file;
-              const src = file ? `/images/projects/${slug}/${file}` : '';
+              const rawSrc = file ? `/images/projects/${slug}/${file}` : '';
+              const src = rawSrc ? preferWebp(rawSrc) : '';
 
-              if (file && !publicAssetExists(src)) errors.push(`Missing image for ${slug}: ${src}`);
+              if (file && !publicAssetExists(rawSrc) && !publicAssetExists(src)) errors.push(`Missing image for ${slug}: ${rawSrc}`);
               if (!validateYouTubeId(row.youtubeId)) errors.push(`Invalid YouTube ID for ${slug} row ${row.order || index + 1}: ${row.youtubeId}`);
               if ((type === 'video' || type === 'audio') && !row.youtubeId) warnings.push(`Media slide without YouTube ID for ${slug} row ${row.order || index + 1}.`);
 
