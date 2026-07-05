@@ -13,6 +13,7 @@ import { AtlasNode, fetchAtlasNodes } from './data/atlas';
 import { useAudioEngine } from './audio/useAudioEngine';
 import { PROJECT_GALLERIES } from './data/projectGalleries';
 import { type IndexFilters, DEFAULT_INDEX_FILTERS } from './components/IndexFilterBar';
+import { FirstVisitHint } from './components/FirstVisitHint';
 
 type SceneMode = 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map';
 type AppMode = SceneMode | 'essays';
@@ -841,6 +842,8 @@ export default function App() {
           setInspectedRecord(flat[nextIdx]);
         }}
       />
+
+      <FirstVisitHint isReady={isReady} />
     </main>
   );
 }

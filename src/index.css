@@ -77,18 +77,28 @@ body::before {
 
   [data-ui-layer="true"] {
     padding: 14px;
+    /* Safe area padding for notched phones */
+    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
   }
 
   [data-ui-layer="true"] footer {
     left: 10px;
     right: 10px;
-    bottom: 10px;
+    /* Clear the home indicator on notched phones */
+    bottom: max(10px, env(safe-area-inset-bottom, 10px));
   }
 
   [data-ui-layer="true"] header {
-    top: 14px;
+    top: max(14px, env(safe-area-inset-top, 14px));
     left: 14px;
     right: 14px;
+  }
+
+  /* Ensure mode buttons have adequate touch targets on small screens */
+  [data-ui-layer="true"] footer button {
+    min-height: 48px;
+    min-width: 44px;
   }
 }
 
