@@ -37,6 +37,8 @@ interface NodeSpatialInfo {
 export class AtlasAudio {
   private sources: SpatialSource[] = [];
   private masterGain: Tone.Gain;
+  private filter: Tone.Filter;
+  private currentFilterHz = 800;
   private isActive = false;
   private disposed = false;
   private knownNodes: NodeSpatialInfo[] = [];
@@ -47,9 +49,16 @@ export class AtlasAudio {
   constructor(destination: Tone.InputNode) {
     this.masterGain = new Tone.Gain(0).connect(destination);
 
+    // Lowpass filter before master gain to modulate the ambient filter frequency based on scroll velocity
+    this.filter = new Tone.Filter({
+      type: 'lowpass',
+      frequency: 800,
+      Q: 1,
+    }).connect(this.masterGain);
+
     // Pre-allocate the spatial source pool
     for (let i = 0; i < SPATIAL_SOURCE_POOL_SIZE; i++) {
-      const gain = new Tone.Gain(0).connect(this.masterGain);
+      const gain = new Tone.Gain(0).connect(this.filter);
 
       const panner = new Tone.Panner3D({
         refDistance: SPATIAL_REF_DISTANCE,
@@ -185,6 +194,21 @@ export class AtlasAudio {
     }
   }
 
+  /**
+   * Update velocity-dependent filter cutoff.
+   */
+  setVelocity(velocity: number): void {
+    if (this.disposed || !this.isActive) return;
+
+    // Map velocity to filter range: 400Hz (idle) to 4000Hz (scrolling)
+    const normalizedVelocity = Math.min(1, velocity * 10);
+    const targetHz = 400 * Math.pow(4000 / 400, normalizedVelocity);
+
+    // Smooth filter value to prevent click/glitch artifacts
+    this.currentFilterHz += (targetHz - this.currentFilterHz) * 0.08;
+    this.filter.frequency.value = this.currentFilterHz;
+  }
+
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
@@ -196,6 +220,7 @@ export class AtlasAudio {
       source.gain.dispose();
     });
     this.sources = [];
+    this.filter.dispose();
     this.masterGain.dispose();
   }
 }

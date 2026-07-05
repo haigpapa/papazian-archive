@@ -89,8 +89,8 @@ export const SPATIAL_ROLLOFF = 1.5;
 /** Crossfade duration when switching between project stems */
 export const STEM_CROSSFADE_SECONDS = 2;
 
-/** Volume for project-specific ambient stems */
-export const STEM_VOLUME_DB = 0;
+/** Volume for project-specific ambient stems (-18dB relative to node hover sounds of -36dB) */
+export const STEM_VOLUME_DB = -54;
 
 /** How much to duck the global drone when a stem is active (effectively silent) */
 export const STEM_DRONE_DUCK_DB = -80;

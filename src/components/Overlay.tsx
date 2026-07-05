@@ -5,35 +5,42 @@ import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonica
 import { getRelationDetail } from '../data/relations';
 import { SITE_INFO_TABS, type SiteInfoTabId } from '../data/siteInfo';
 import { getYouTubeEmbedUrl } from '../utils/youtube';
+import { WORLDS, getProjectWorld } from '../data/worlds';
+import IndexFilterBar, { type IndexFilters } from './IndexFilterBar';
 
 const MODE_OPTIONS = [
   {
     id: 'cylinder',
     label: 'Home',
+    sublabel: 'Enter',
     description: 'Orbit intro',
     icon: Globe,
   },
   {
     id: 'vertical',
     label: 'Works',
+    sublabel: 'Curated',
     description: '20-project spine',
     icon: Rows3,
   },
   {
     id: 'grid',
     label: 'Index',
+    sublabel: 'Browse',
     description: 'Unwrapped grid',
     icon: LayoutGrid,
   },
   {
     id: 'map',
-    label: 'Map',
+    label: 'Maps',
+    sublabel: 'Trace',
     description: 'Relations',
     icon: Map,
   },
   {
     id: 'essays',
     label: 'Essays',
+    sublabel: 'Read',
     description: 'Writing panel',
     icon: BookOpen,
   },
@@ -128,61 +135,9 @@ const ESSAY_RECORDS = [
   },
 ];
 
-export const WORLDS = [
-  {
-    id: 'foundation-world',
-    name: 'FOUNDATION',
-    roman: '01',
-    systems: 'Image · Space · Breakdown',
-    definition: 'Early architectural and visual thinking.',
-    slugs: ['architecture-in-low-res', 'cartography-of-absence']
-  },
-  {
-    id: 'public-culture-world',
-    name: 'PUBLIC CULTURE',
-    roman: '02',
-    systems: 'Stage · Audience · Risk',
-    definition: 'The cultural infrastructure era.',
-    slugs: ['mashrou-leila', 'why-were-like-this']
-  },
-  {
-    id: 'exile-machines-world',
-    name: 'EXILE MACHINES',
-    roman: '03',
-    systems: 'Sound · Memory · Performance',
-    definition: 'The post-band performance and instrument-building era.',
-    slugs: ['space-time-tuning-machine', 'tebr', 'chronocumulator', 'the-weather-rehearsal']
-  },
-  {
-    id: 'memory-interfaces-world',
-    name: 'MEMORY INTERFACES',
-    roman: '04',
-    systems: 'Text · Archive · Navigation',
-    definition: 'The literary and hypertext systems era.',
-    slugs: ['sometimes-i-wake-up-elsewhere', 'derive', 'storylines']
-  },
-  {
-    id: 'sonic-intelligence-world',
-    name: 'SONIC INTELLIGENCE',
-    roman: '05',
-    systems: 'AI · Listening · Cultural Bias',
-    definition: 'The research and AI-audit era.',
-    slugs: ['hah-was', 'maqamai']
-  },
-  {
-    id: 'spatial-futures-world',
-    name: 'SPATIAL FUTURES',
-    roman: '06',
-    systems: 'Shelter · Code · Infrastructure',
-    definition: 'The outward-facing infrastructure era.',
-    slugs: ['mekena-nyc', 'codeverse-explorer']
-  }
-];
-
-
-export const getProjectWorld = (slug: string) => {
-  return WORLDS.find(w => w.slugs.includes(slug)) || null;
-};
+// WORLDS and getProjectWorld are now imported from '../data/worlds'
+// Re-exported here for backward compatibility with any external consumers
+export { WORLDS, getProjectWorld } from '../data/worlds';
 
 interface OverlayProps {
   inert?: boolean;
@@ -217,7 +172,44 @@ interface OverlayProps {
   onOpenProjectRail?: (node: any) => void;
   onFocusNodeBySlug?: (slug: string) => void;
   onEssayChange?: (slug: string) => void;
+  onInspectNode?: (node: any) => void;
+  indexFilters?: IndexFilters;
+  onIndexFiltersChange?: (filters: IndexFilters) => void;
+  onHoverFilter?: (category: 'world' | 'medium' | 'assetType' | null, value: string | null) => void;
+  projectedPositions?: Record<string, { x: number, y: number, w: number, h: number }>;
 }
+
+interface TraversalRoute {
+  id: string;
+  name: string;
+  subtitle: string;
+  description: string;
+  nodes: string[];
+}
+
+const TRAVERSAL_ROUTES: TraversalRoute[] = [
+  {
+    id: 'route-01',
+    name: 'ROUTE 01: VISIBILITY BECOMES INFRASTRUCTURE',
+    subtitle: 'The Structural Arc',
+    description: 'Traces the evolution of visibility, vulnerability, and spatial agency from the stadium stages of Mashrou’ Leila into physical blueprints of sanctuary in Queens.',
+    nodes: ['mashrou-leila', 'cost-of-being-queer-and-arab', 'mekena-nyc', 'architectures-of-belonging']
+  },
+  {
+    id: 'route-02',
+    name: 'ROUTE 02: MEMORY DOES NOT RESOLVE',
+    subtitle: 'The Literary Arc',
+    description: 'Tracks the cartography of damaged space, exilic drift, and digital memory decay across Bartlett drawings, hypertext operating systems, and generative neural pipelines.',
+    nodes: ['architecture-in-low-res', 'cartography-of-absence', 'sometimes-i-wake-up-elsewhere', 'sparrowos', 'derive']
+  },
+  {
+    id: 'route-03',
+    name: 'ROUTE 03: RED-TEAMING THE MACHINE',
+    subtitle: 'The Forensic Arc',
+    description: 'Examines the computational and acoustic resistance to Western bias in generative language models, microtonal tuning systems, and human-AI duos.',
+    nodes: ['localization-gap', 'hah-was', 'maqamai', 'tebr']
+  }
+];
 
 export default function Overlay({ 
   inert,
@@ -252,6 +244,11 @@ export default function Overlay({
   onOpenProjectRail,
   onFocusNodeBySlug,
   onEssayChange,
+  onInspectNode,
+  indexFilters,
+  onIndexFiltersChange,
+  onHoverFilter,
+  projectedPositions = {},
 }: OverlayProps) {
   const [showAbout, setShowAbout] = React.useState(false);
   const [activeInfoTab, setActiveInfoTab] = React.useState<SiteInfoTabId>('about');
@@ -261,7 +258,55 @@ export default function Overlay({
   const [isMobileViewport, setIsMobileViewport] = React.useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
   const [hoveredChapterIndex, setHoveredChapterIndex] = React.useState<number | null>(null);
-  const [showTextList, setShowTextList] = React.useState(false);
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState(false);
+
+  const filteredNodes = nodes.filter((node) => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return true;
+
+    return [
+      node.title,
+      node.year,
+      node.tier,
+      node.category,
+      node.summary,
+      node.thesis,
+      node.fullDescription,
+      ...(node.highlights || []),
+      ...(node.tags || []),
+      ...(node.domains || []),
+      ...(node.stack || []),
+      ...(node.connections || []),
+      ...(node.relatedSlugs || []),
+    ]
+      .filter(Boolean)
+      .some((value) => String(value).toLowerCase().includes(query));
+  });
+
+  const flatAssets = React.useMemo(() => {
+    const list: any[] = [];
+    filteredNodes.forEach((node) => {
+      const gallery = node.gallery?.length ? node.gallery : [
+        { id: `${node.slug}-0`, projectId: node.slug, src: node.thumbnail, isPrimary: true, label: node.title }
+      ];
+      gallery.forEach((asset: any) => {
+        list.push({
+          ...asset,
+          projectId: node.slug,
+          projectTitle: node.title,
+          accentColor: node.accentColor,
+          year: node.year,
+          domains: node.domains || [],
+          category: node.category || '',
+        });
+      });
+    });
+    return list;
+  }, [filteredNodes]);
+
+  // Curated traversal routes states
+  const [activeRoute, setActiveRoute] = React.useState<TraversalRoute | null>(null);
+  const [activeRouteStep, setActiveRouteStep] = React.useState<number>(0);
 
   React.useEffect(() => {
     if (currentMode === 'horizontal') {
@@ -272,10 +317,27 @@ export default function Overlay({
   }, [currentMode, activeNode?.slug]);
 
   React.useEffect(() => {
-    if (currentMode !== 'grid') {
-      setShowTextList(false);
+    if (currentMode !== 'map') {
+      setActiveRoute(null);
     }
   }, [currentMode]);
+
+  React.useEffect(() => {
+    if (!activeRoute) return;
+    if (!focusedMapNode) {
+      // Focus dismissed (Escape / background click) — exit the tour so the
+      // route launcher becomes available again.
+      setActiveRoute(null);
+      return;
+    }
+    const idx = activeRoute.nodes.indexOf(focusedMapNode.slug);
+    if (idx !== -1) {
+      setActiveRouteStep(idx);
+    } else {
+      // User clicked a node outside the tour, exit tour mode
+      setActiveRoute(null);
+    }
+  }, [focusedMapNode, activeRoute]);
 
 
   
@@ -381,7 +443,41 @@ export default function Overlay({
   let line1Text = `WORKS / ${projectCode.padEnd(12, ' ')} / ${year}`;
   let line3Text = `${currentIndex.padStart(5, ' ')} / ${totalIndex.padEnd(12, ' ')} / ${chapterName}`;
 
-  if (activeFocusNode?.isNoDataZone) {
+  // Assets currently visible in the Index grid — mirrors NodeManager's filters
+  // so the HUD file count matches what is actually on screen.
+  const indexAssetCount = React.useMemo(() => {
+    if (!indexFilters) return flatAssets.length;
+    return flatAssets.filter((asset) => {
+      if (indexFilters.world !== 'all') {
+        const world = getProjectWorld(asset.projectId);
+        if (!world || world.id !== indexFilters.world) return false;
+      }
+      if (indexFilters.medium !== 'all') {
+        const domains = asset.domains || [];
+        if (!domains.includes(indexFilters.medium) && asset.category !== indexFilters.medium) return false;
+      }
+      if (indexFilters.assetType !== 'all') {
+        const type = String(asset.type || 'image').toLowerCase();
+        const role = String(asset.role || '').toLowerCase();
+        if (indexFilters.assetType === 'video' || indexFilters.assetType === 'audio') {
+          if (type !== indexFilters.assetType) return false;
+        } else if (role !== indexFilters.assetType) {
+          return false;
+        }
+      }
+      return true;
+    }).length;
+  }, [flatAssets, indexFilters]);
+
+  if (currentMode === 'grid' && indexFilters) {
+    const worldPart = indexFilters.world === 'all' ? 'ALL' : indexFilters.world.toUpperCase();
+    const mediumPart = indexFilters.medium === 'all' ? 'ALL' : indexFilters.medium.toUpperCase();
+    line1Text = `INDEX / W:${worldPart.padEnd(8, ' ')} / M:${mediumPart.padEnd(8, ' ')}`;
+
+    const sortPart = indexFilters.sort.toUpperCase();
+    const viewPart = indexFilters.viewMode.toUpperCase();
+    line3Text = `SORT:${sortPart.padEnd(8, ' ')} / VIEW:${viewPart.padEnd(8, ' ')} / ${indexAssetCount} FILES`;
+  } else if (activeFocusNode?.isNoDataZone) {
     const code = String(activeFocusNode.zoneId || 'ZONE_01').toUpperCase().padEnd(12, ' ');
     line1Text = `ZONE  / ${code} / ${activeFocusNode.year || '2026'}`;
     
@@ -458,29 +554,6 @@ export default function Overlay({
 
     onCloseNode();
   };
-
-  const filteredNodes = nodes.filter((node) => {
-    const query = searchQuery.toLowerCase().trim();
-    if (!query) return true;
-
-    return [
-      node.title,
-      node.year,
-      node.tier,
-      node.category,
-      node.summary,
-      node.thesis,
-      node.fullDescription,
-      ...(node.highlights || []),
-      ...(node.tags || []),
-      ...(node.domains || []),
-      ...(node.stack || []),
-      ...(node.connections || []),
-      ...(node.relatedSlugs || []),
-    ]
-      .filter(Boolean)
-      .some((value) => String(value).toLowerCase().includes(query));
-  });
   const bottomMeta = currentMode === 'horizontal' && activeNode
     ? `${railHoverImage ? 'HOVER' : 'ACTIVE'} / ${String(displayRailIndex + 1).padStart(2, '0')} / ${String(Math.max(railTotal, 1)).padStart(2, '0')} / ${String(railChapter).toUpperCase()}`
     : searchQuery.trim()
@@ -493,8 +566,8 @@ export default function Overlay({
     <div data-ui-layer="true" className="fixed inset-0 pointer-events-none z-10 flex flex-col p-5" inert={inert ? true : undefined}>
       
       {/* Top Header - Always visible, minimalist */}
-      <header className="fixed top-5 left-5 right-5 flex justify-center items-start pointer-events-none z-[101]">
-        <div className="w-full flex justify-start pointer-events-auto">
+      <header className="fixed top-5 left-5 right-5 flex justify-between items-start pointer-events-none z-[101]">
+        <div className="flex pointer-events-auto">
           <h1 
             onClick={() => {
               onCloseNode();
@@ -505,6 +578,18 @@ export default function Overlay({
             PAPAZIAN
           </h1>
         </div>
+
+        {/* Filter Trigger button (grid/archive grid mode only) */}
+        {currentMode === 'grid' && !activeNode && (
+          <div className="pointer-events-auto">
+            <button
+              onClick={() => setIsFilterDrawerOpen(true)}
+              className="font-mono text-[9px] font-bold tracking-[0.16em] uppercase border border-white/12 hover:border-white px-3 py-1.5 transition-all text-white bg-black/40 backdrop-blur-sm cursor-pointer"
+            >
+              ⚡ FILTERS
+            </button>
+          </div>
+        )}
       </header>
 
 
@@ -732,6 +817,63 @@ export default function Overlay({
                 mobileSheetState === 'peek' ? 'overflow-hidden pt-1' : 'overflow-y-auto pt-1'
               }`}
             >
+              {activeRoute && (
+                <div className="border border-white/10 bg-white/5 p-4 mb-6 rounded-none pointer-events-auto shrink-0">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-mono text-[9px] tracking-[0.2em] uppercase font-bold" style={{ color: activeNode.accentColor || '#d7e7ef' }}>
+                      {activeRoute.name}
+                    </span>
+                    <button
+                      onClick={() => {
+                        setActiveRoute(null);
+                        onCloseNode();
+                      }}
+                      className="font-mono text-[9px] text-white/50 hover:text-white cursor-pointer uppercase"
+                    >
+                      EXIT TOUR
+                    </button>
+                  </div>
+                  <p className="font-mono text-[10px] text-text-muted leading-relaxed mb-4">
+                    {activeRoute.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <button
+                      disabled={activeRouteStep === 0}
+                      onClick={() => {
+                        const nextStep = activeRouteStep - 1;
+                        setActiveRouteStep(nextStep);
+                        const nextNodeSlug = activeRoute.nodes[nextStep];
+                        const nodeObj = nodes.find(n => n.slug === nextNodeSlug);
+                        if (nodeObj) {
+                          onNodeClick?.(nodeObj);
+                        }
+                      }}
+                      className={`font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-3 py-1.5 border border-white/10 transition-colors cursor-pointer rounded-none bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none`}
+                    >
+                      PREV STEP
+                    </button>
+                    <span className="font-mono text-[10px] text-white tracking-widest">
+                      {activeRouteStep + 1} / {activeRoute.nodes.length}
+                    </span>
+                    <button
+                      disabled={activeRouteStep === activeRoute.nodes.length - 1}
+                      onClick={() => {
+                        const nextStep = activeRouteStep + 1;
+                        setActiveRouteStep(nextStep);
+                        const nextNodeSlug = activeRoute.nodes[nextStep];
+                        const nodeObj = nodes.find(n => n.slug === nextNodeSlug);
+                        if (nodeObj) {
+                          onNodeClick?.(nodeObj);
+                        }
+                      }}
+                      className={`font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-3 py-1.5 border border-white/10 transition-colors cursor-pointer rounded-none bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none`}
+                    >
+                      NEXT STEP
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {isMobilePeek ? (
                 <div className="mb-2 pr-1">
                   <p className="mb-1 font-mono text-[8px] uppercase tracking-[0.22em] text-accent">
@@ -756,7 +898,7 @@ export default function Overlay({
               )}
 
               <div className={`${isMobilePeek ? 'mb-0' : 'mb-3 md:mb-8'} flex items-center gap-3`}>
-                <span className="font-mono text-[10px] text-accent tracking-[0.2em] uppercase">
+                <span className="font-mono text-[10px] tracking-[0.2em] uppercase font-bold" style={{ color: activeNode.accentColor || '#d7e7ef' }}>
                   {isMobilePeek && currentMode === 'horizontal' ? `${String(railIndex + 1).padStart(2, '0')} / ${String(Math.max(railTotal, 1)).padStart(2, '0')}` : activeNode.tier || activeNode.category || 'PROJECT'}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-white/20" />
@@ -769,8 +911,8 @@ export default function Overlay({
                 const world = getProjectWorld(activeNode.slug);
                 if (!world) return null;
                 return (
-                  <div className="mb-5 md:mb-7 border-l-2 border-accent pl-3 py-0.5 pointer-events-auto">
-                    <span className="font-mono text-[9px] text-accent tracking-[0.26em] uppercase block font-bold">
+                  <div className="mb-5 md:mb-7 border-l-2 pl-3 py-0.5 pointer-events-auto" style={{ borderLeftColor: activeNode.accentColor || '#d7e7ef' }}>
+                    <span className="font-mono text-[9px] tracking-[0.26em] uppercase block font-bold" style={{ color: activeNode.accentColor || '#d7e7ef' }}>
                       {world.roman} / {world.name}
                     </span>
                     <span className="font-mono text-[9px] text-text-muted mt-1 block leading-relaxed lowercase">
@@ -809,7 +951,7 @@ export default function Overlay({
                   <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.22em] text-accent">Signals</p>
                   <div className="space-y-3">
                     {activeNode.highlights.slice(0, currentMode === 'horizontal' ? 2 : 3).map((highlight: string) => (
-                      <p key={highlight} className="border-l border-white/12 pl-3 text-xs leading-relaxed text-text-muted text-pretty">
+                      <p key={highlight} className="border-l-2 pl-3 text-xs leading-relaxed text-text-muted text-pretty" style={{ borderLeftColor: activeNode.accentColor || '#d7e7ef' }}>
                         {highlight}
                       </p>
                     ))}
@@ -833,6 +975,7 @@ export default function Overlay({
                               ? 'bg-accent/[0.02] border-accent/20 hover:border-accent/40'
                               : 'bg-transparent border-white/5 hover:border-white/10'
                           }`}
+                          style={{ borderLeft: `2px solid ${targetNode?.accentColor || '#666a6f'}` }}
                         >
                           <div className="flex items-center justify-between gap-2 mb-1.5">
                             <button
@@ -1010,119 +1153,124 @@ export default function Overlay({
       </AnimatePresence>
 
 
-      {/* Works List Index Panel */}
-      <AnimatePresence>
-        {currentMode === 'grid' && showTextList && !activeNode && (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed inset-0 flex items-center justify-center pointer-events-none p-5 md:p-10 pb-24"
-          >
-            <div className="w-full max-w-6xl h-full flex flex-col pointer-events-auto bg-surface/40 backdrop-blur-md border border-white/5">
-              <div className="p-8 border-b border-white/10">
-                <h2 className="font-mono text-[10px] text-accent tracking-[0.4em] uppercase mb-2">ARCHIVE</h2>
-                <p className="font-display text-3xl font-bold text-white tracking-tight uppercase">WORKS</p>
-                <p className="mt-2 font-mono text-[10px] tracking-[0.2em] uppercase text-text-muted">
-                  {filteredNodes.length} / {nodes.length} records
-                </p>
-              </div>
-              
-              <div className="flex-1 overflow-y-auto custom-scrollbar p-8 pt-4">
-                <div className="flex flex-col gap-y-6">
-                  {WORLDS.map((world) => {
-                    const worldNodes = filteredNodes.filter((node) => world.slugs.includes(node.slug));
-                    if (worldNodes.length === 0) return null;
-                    return (
-                      <div key={world.id} className="mb-2">
-                        <div className="border-b border-white/10 pb-2 mb-3">
-                          <span className="font-mono text-[9px] text-accent tracking-[0.3em] uppercase block font-bold">
-                            {world.roman} / {world.name}
-                          </span>
-                          <p className="font-mono text-[9px] text-accent/80 tracking-widest uppercase mt-0.5">
-                            {(world as any).systems}
-                          </p>
-                          <p className="font-mono text-[9px] text-text-muted/80 mt-1.5 tracking-wide leading-relaxed lowercase">
-                            {world.definition}
-                          </p>
-                        </div>
-                        <div className="flex flex-col gap-y-1">
-                          {worldNodes.map((node) => (
-                            <button 
-                              key={node.id}
-                              onClick={() => {
-                                onNodeClick(node);
-                                onModeChange('horizontal');
-                              }}
-                              className="flex items-center gap-4 group py-3 border-b border-white/5 hover:border-accent/30 transition-colors text-left"
-                            >
-                              <span className="flex min-w-0 flex-col">
-                                <span className="font-display text-base md:text-md text-white group-hover:text-accent transition-colors tracking-tight uppercase truncate">
-                                  {node.title}
-                                </span>
-                                <span className="font-mono text-[9px] text-text-muted uppercase tracking-[0.18em]">
-                                  {node.tier} / {(node.domains || []).join(' + ')}
-                                </span>
-                              </span>
-                              <span className="flex-1 border-b border-dotted border-white/10 group-hover:border-accent/20 mx-4 h-0 self-center" />
-                              <span className="font-mono text-[10px] text-text-muted group-hover:text-white transition-colors">
-                                {node.year}
-                              </span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
+      {/* Index Filter Panel (grid mode drawer) */}
+      {currentMode === 'grid' && !activeNode && indexFilters && onIndexFiltersChange && (
+        <IndexFilterBar
+          isOpen={isFilterDrawerOpen}
+          onClose={() => setIsFilterDrawerOpen(false)}
+          filters={indexFilters}
+          onChange={onIndexFiltersChange}
+          onHoverFilter={onHoverFilter}
+        />
+      )}
 
-                  {(() => {
-                    const mappedSlugs = WORLDS.flatMap((w) => w.slugs);
-                    const unmappedNodes = filteredNodes.filter((node) => !mappedSlugs.includes(node.slug));
-                    if (unmappedNodes.length === 0) return null;
-                    return (
-                      <div className="mb-2">
-                        <div className="border-b border-white/10 pb-2 mb-3">
-                          <span className="font-mono text-[9px] text-accent tracking-[0.3em] uppercase block font-bold">
-                            Archive Satellites
-                          </span>
-                          <h3 className="font-display text-lg font-bold text-white uppercase tracking-tight">
-                            Additional Records
-                          </h3>
-                        </div>
-                        <div className="flex flex-col gap-y-1">
-                          {unmappedNodes.map((node) => (
-                            <button 
-                              key={node.id}
-                              onClick={() => {
-                                onNodeClick(node);
-                                onModeChange('horizontal');
-                              }}
-                              className="flex items-center gap-4 group py-3 border-b border-white/5 hover:border-accent/30 transition-colors text-left"
-                            >
-                              <span className="flex min-w-0 flex-col">
-                                <span className="font-display text-base md:text-md text-white group-hover:text-accent transition-colors tracking-tight uppercase truncate">
-                                  {node.title}
-                                </span>
-                                <span className="font-mono text-[9px] text-text-muted uppercase tracking-[0.18em]">
-                                  {node.tier} / {(node.domains || []).join(' + ')}
-                                </span>
-                              </span>
-                              <span className="flex-1 border-b border-dotted border-white/10 group-hover:border-accent/20 mx-4 h-0 self-center" />
-                              <span className="font-mono text-[10px] text-text-muted group-hover:text-white transition-colors">
-                                {node.year}
-                              </span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })()}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+      {/* Map Traversal Routes launcher — entry point for the curated tours */}
+      <AnimatePresence>
+        {currentMode === 'map' && !activeRoute && !activeNode && (
+          <motion.nav
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -12 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="fixed left-5 top-24 z-[100] hidden w-[290px] flex-col gap-1.5 pointer-events-auto md:flex"
+            aria-label="Curated traversal routes"
+          >
+            <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.28em] text-accent">
+              Traversal Routes
+            </p>
+            {TRAVERSAL_ROUTES.map((route) => (
+              <button
+                key={route.id}
+                type="button"
+                onClick={() => {
+                  setActiveRoute(route);
+                  setActiveRouteStep(0);
+                  const firstNode = nodes.find((node) => node.slug === route.nodes[0]);
+                  if (firstNode) onNodeClick(firstNode);
+                }}
+                className="border border-white/10 bg-black/40 p-3 text-left backdrop-blur-sm transition-colors hover:border-accent/50 hover:bg-white/5 group"
+              >
+                <span className="block font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-white group-hover:text-accent transition-colors">
+                  {route.name}
+                </span>
+                <span className="mt-1 block font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted">
+                  {route.subtitle} / {route.nodes.length} stops
+                </span>
+              </button>
+            ))}
+          </motion.nav>
         )}
       </AnimatePresence>
+
+      {/* Floating Hover Tooltip (grid mode only, visual view mode) */}
+      {currentMode === 'grid' && indexFilters && indexFilters.viewMode === 'visual' && hoveredNode && mousePosition && (
+        <div
+          className="fixed pointer-events-none z-[250] font-mono text-[9px] text-text-muted flex flex-col gap-1 border-l border-white/20 pl-2.5 bg-black/40 backdrop-blur-sm py-1.5"
+          style={{
+            left: mousePosition.x + 8,
+            top: mousePosition.y - 12,
+          }}
+        >
+          <span className="font-bold text-white uppercase tracking-wider text-[10px] mb-0.5">
+            {String(hoveredNode.assetLabel || hoveredNode.title || 'Untitled')}
+          </span>
+          <div>ID: {String(hoveredNode.assetId || hoveredNode.id || hoveredNode.slug).slice(-6).toUpperCase()}</div>
+          <div>W: {String(getProjectWorld(hoveredNode.slug)?.name || 'ARCHIVE').toUpperCase()}</div>
+          <div>M: {String(hoveredNode.assetType || hoveredNode.category || 'MEDIA').toUpperCase()}</div>
+          {typeof hoveredNode.gridX === 'number' && (
+            <div className="text-accent/60 font-bold mt-0.5">
+              X: {hoveredNode.gridX.toFixed(1)} / Y: {hoveredNode.gridY.toFixed(1)}
+            </div>
+          )}
+          <span className="text-[7px] text-text-muted/40 uppercase tracking-widest mt-1">
+            CLICK TO INSPECT
+          </span>
+        </div>
+      )}
+
+      {/* 2D HTML Metadata Cards Overlay for Grid mode */}
+      {currentMode === 'grid' && indexFilters && (indexFilters.viewMode === 'text' || indexFilters.viewMode === 'hybrid') && (
+        <div className="absolute inset-0 pointer-events-none z-[80] overflow-hidden">
+          {flatAssets.map((asset) => {
+            const key = asset.id || asset.projectId;
+            const pos = projectedPositions[key];
+            if (!pos) return null;
+
+            if (pos.w < 60 || pos.h < 60) return null;
+
+            return (
+              <div
+                key={key}
+                className="absolute pointer-events-none font-mono text-[9px] text-text-muted flex flex-col justify-between p-2 select-none"
+                style={{
+                  left: pos.x,
+                  top: pos.y,
+                  width: pos.w,
+                  height: pos.h,
+                }}
+              >
+                {/* Top Row */}
+                <div className="flex justify-between text-[7px] text-text-muted/50 font-bold">
+                  <span>FILE_{String(asset.id || asset.projectId).slice(-4).toUpperCase()}</span>
+                  <span>{asset.year}</span>
+                </div>
+                
+                {/* Bottom Row — pointer-events stay off so clicks fall through
+                    to the canvas raycast and open the Artifact Inspector */}
+                <div className="flex flex-col gap-0.5">
+                  <div className="text-[10px] font-bold text-white uppercase truncate">
+                    {asset.label || asset.projectTitle}
+                  </div>
+                  <div className="text-[8px] text-text-muted/80 uppercase truncate">
+                    {asset.role || asset.type || 'Evidence'}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <ArchiveInfoConsole
         open={showAbout}
         activeTab={activeInfoTab}
@@ -1145,7 +1293,7 @@ export default function Overlay({
                 <button 
                   ref={infoButtonRef}
                   onClick={() => setShowAbout(!showAbout)}
-                  className={`min-h-[64px] w-[64px] border-r border-white/10 flex items-center justify-center transition-colors rounded-none shrink-0 ${showAbout ? 'bg-accent text-white' : 'text-text-muted hover:text-white hover:bg-white/5'}`}
+                  className={`min-h-[64px] w-[64px] border-r border-white/10 flex items-center justify-center transition-colors rounded-none shrink-0 ${showAbout ? 'bg-accent text-black' : 'text-text-muted hover:text-white hover:bg-white/5'}`}
                   title="INFORMATION"
                   aria-label="Open information"
                 >
@@ -1160,8 +1308,8 @@ export default function Overlay({
                       ? 'text-accent'
                       : 'text-text-muted hover:text-white hover:bg-white/5'
                   }`}
-                  title={isMuted ? 'Mute sound' : 'Unmute sound'}
-                  aria-label={isMuted ? 'Mute sound' : 'Unmute sound'}
+                  title={isMuted ? 'Unmute sound' : 'Mute sound'}
+                  aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
                 >
                   {isMuted || !audioReady ? <VolumeX size={16} /> : <Volume2 size={16} />}
                 </button>
@@ -1251,7 +1399,7 @@ export default function Overlay({
                                         key={slide.globalIndex}
                                         type="button"
                                         onClick={() => onGoToRailSlide?.(slide.globalIndex)}
-                                        className={`h-1 flex-1 transition-all rounded-full cursor-pointer hover:h-1.5 ${
+                                        className={`h-1 flex-1 transition-all rounded-none cursor-pointer hover:h-1.5 ${
                                           isActive
                                             ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.7)]'
                                             : 'bg-white/10'
@@ -1276,7 +1424,11 @@ export default function Overlay({
                       exit={{ opacity: 0, y: -5 }}
                       className="flex flex-col md:flex-row md:items-center w-full min-h-[64px] py-3 md:py-0 px-8"
                     >
-                      <div className="flex-1 min-w-0 flex flex-col justify-center">
+                      <div className="flex-1 min-w-0 flex items-center gap-3 justify-center">
+                        {activeDetailNode.accentColor && (
+                          <span className="w-2 h-2 shrink-0 rounded-none" style={{ backgroundColor: activeDetailNode.accentColor }} />
+                        )}
+                        <div className="flex flex-col justify-center min-w-0">
                         <span className="font-mono text-[9px] text-accent/80 tracking-[0.16em] uppercase truncate">
                           {line1Text}
                         </span>
@@ -1286,22 +1438,23 @@ export default function Overlay({
                         <span className="font-mono text-[9px] text-text-muted/80 tracking-[0.16em] uppercase truncate">
                           {line3Text}
                         </span>
+                        </div>
                       </div>
                       
                       <div className="flex gap-3 mt-3 md:mt-0 shrink-0 select-none">
-                        {activeDetailNode.hasProjectPage === 'yes' && (
+                        {activeDetailNode.hasProjectPage && (
                           <button
                             onClick={() => onOpenProjectRail?.(activeDetailNode)}
-                            className="bg-accent hover:bg-accent/80 text-white font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2 border border-accent/20 transition-all cursor-pointer rounded-none"
+                            className="bg-accent hover:bg-accent/80 text-black font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2 border border-accent/20 transition-all cursor-pointer rounded-none"
                           >
-                            [ OPEN DETAILS ]
+                            OPEN DETAILS
                           </button>
                         )}
                         <button
                           onClick={() => onCloseNode()}
                           className="bg-white/5 hover:bg-white/10 text-white font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2 border border-white/10 transition-all cursor-pointer rounded-none"
                         >
-                          [ CLOSE ]
+                          CLOSE
                         </button>
                       </div>
                     </motion.div>
@@ -1326,12 +1479,6 @@ export default function Overlay({
                         <span className="font-mono text-[9px] text-text-muted/40 group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
                           {line3Text}
                         </span>
-                      </button>
-                      <button
-                        onClick={() => setShowTextList(!showTextList)}
-                        className="bg-white/5 hover:bg-white/10 text-white font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2.5 border border-white/10 transition-all cursor-pointer rounded-none shrink-0 pointer-events-auto"
-                      >
-                        {showTextList ? '[ SHOW 3D GRID ]' : '[ SHOW TEXT LIST ]'}
                       </button>
                     </motion.div>
                   ) : (
@@ -1364,6 +1511,7 @@ export default function Overlay({
                     active={publicMode === mode.id}
                     icon={mode.icon}
                     label={mode.label}
+                    sublabel={mode.sublabel}
                     description={mode.description}
                     onClick={() => onModeChange(mode.id)}
                   />
@@ -1384,16 +1532,19 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
       label: "Mashrou' Leila",
       meta: 'Cultural architecture / performance system',
       body: 'A counter-public built through sound, image, language, identity, and collective risk.',
+      accentColor: '#e85d75',
     },
     {
       label: 'MEKENA NYC',
       meta: 'Space / residency / radical hospitality',
       body: 'A physical operating system for artists, gathering, adaptive reuse, and diasporic belonging.',
+      accentColor: '#5ec4b6',
     },
     {
       label: 'Space Time Tuning Machine',
       meta: 'AI / sound / live instrument',
       body: 'A speculative performance engine for memory, displacement, and machine listening.',
+      accentColor: '#a78bfa',
     },
   ];
 
@@ -1461,7 +1612,7 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
                   </p>
                   <div className="space-y-3">
                     {caseStudies.map((study, index) => (
-                      <article key={study.label} className="border border-white/10 bg-white/[0.025] p-3">
+                      <article key={study.label} className="border border-white/10 border-l-2 bg-white/[0.025] p-3" style={{ borderLeftColor: study.accentColor }}>
                         <div className="flex items-start justify-between gap-4">
                           <p className="font-display text-lg font-bold uppercase leading-none text-white">
                             {study.label}
@@ -1586,10 +1737,10 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
                   key={essay.slug}
                   type="button"
                   onClick={() => selectEssay(essay.slug)}
-                  className={`mb-2 w-full border border-white/10 border-l-2 p-3 text-left transition-colors last:mb-0 md:mb-0 md:border-t-0 md:border-r-0 md:border-b md:border-l-2 ${
+                  className={`mb-2 w-full border border-white/10 border-l-2 p-3 text-left transition-all last:mb-0 md:mb-0 md:border-t-0 md:border-r-0 md:border-b md:border-l-2 ${
                     active
                       ? 'bg-accent/15 border-accent text-white'
-                      : 'bg-white/[0.025] border-transparent text-white hover:bg-white/8'
+                      : 'bg-white/[0.025] border-transparent text-white hover:bg-white/8 hover:border-l-white/40'
                   }`}
                 >
                   <span className={`font-mono text-[8px] uppercase tracking-[0.18em] ${active ? 'text-accent-2 font-semibold' : 'text-accent/80'}`}>
@@ -1646,14 +1797,14 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
             <h3 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.86] tracking-tight text-white md:text-7xl">
               {activeEssay.title}
             </h3>
-            <p className="mt-5 max-w-xl text-base leading-snug text-white/78 md:text-lg">
+            <p className="mt-5 max-w-[680px] text-base leading-[1.6] text-white/78 md:text-lg md:leading-[1.6]">
               {activeEssay.dek}
             </p>
           </div>
 
           <div className="space-y-5">
             {activeEssay.body.map((paragraph) => (
-              <p key={paragraph} className="max-w-[38rem] text-sm leading-relaxed text-text md:text-base">
+              <p key={paragraph} className="max-w-[680px] text-[15px] leading-[1.7] text-[#dddddd] font-body">
                 {paragraph}
               </p>
             ))}
@@ -1663,16 +1814,26 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
             <button
               type="button"
               onClick={() => stepEssay(-1)}
-              className="border-r border-white/10 px-4 py-3 text-left font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+              className="border-r border-white/10 px-5 py-4 text-left transition-colors hover:bg-white/5 group"
             >
-              Previous
+              <span className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted group-hover:text-white transition-colors">
+                ← PREVIOUS
+              </span>
+              <span className="mt-1.5 block font-display text-xs font-bold uppercase tracking-wide text-white/50 group-hover:text-white transition-colors truncate">
+                {ESSAY_RECORDS[(activeIndex - 1 + ESSAY_RECORDS.length) % ESSAY_RECORDS.length].title}
+              </span>
             </button>
             <button
               type="button"
               onClick={() => stepEssay(1)}
-              className="px-4 py-3 text-right font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+              className="px-5 py-4 text-right transition-colors hover:bg-white/5 group"
             >
-              Next
+              <span className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted group-hover:text-white transition-colors">
+                NEXT →
+              </span>
+              <span className="mt-1.5 block font-display text-xs font-bold uppercase tracking-wide text-white/50 group-hover:text-white transition-colors truncate">
+                {ESSAY_RECORDS[(activeIndex + 1) % ESSAY_RECORDS.length].title}
+              </span>
             </button>
           </div>
           </div>
@@ -1690,7 +1851,7 @@ function ModeButton({ active, disabled, onClick, icon: Icon, label, description 
       title={`${label}: ${description}`}
       aria-label={`${label}: ${description}`}
       className={`
-        group relative h-[64px] w-[64px] flex items-center justify-center shrink-0 rounded-none
+        group relative h-[64px] w-[64px] flex flex-col items-center justify-center shrink-0 rounded-none
         transition-all duration-0
         ${disabled 
           ? 'cursor-not-allowed text-white/18 border-r border-white/10' 
@@ -1701,12 +1862,6 @@ function ModeButton({ active, disabled, onClick, icon: Icon, label, description 
       `}
     >
       <Icon size={16} />
-      {!disabled && (
-        <div className="absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 hidden group-hover:flex w-[64px] h-[32px] bg-[#111316]/90 backdrop-blur-md border border-white/10 text-white font-mono text-[8px] uppercase tracking-[0.16em] shadow-2xl pointer-events-none z-[200] items-center justify-center text-center">
-          {label}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-[4px] border-x-transparent border-t-[4px] border-t-[#111316]/90" />
-        </div>
-      )}
     </button>
   );
 }

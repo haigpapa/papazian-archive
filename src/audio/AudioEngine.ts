@@ -310,6 +310,7 @@ export class AudioEngine {
   setScrollVelocity(velocity: number): void {
     if (!this._isInitialized || this._disposed || this._isMuted) return;
     this.cylinderAudio?.setVelocity(velocity);
+    this.atlasAudio?.setVelocity(velocity);
   }
 
   /**

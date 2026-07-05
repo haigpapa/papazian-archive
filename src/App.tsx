@@ -8,9 +8,11 @@ import { motion, AnimatePresence, useMotionValue } from 'motion/react';
 import Scene from './core/Scene';
 import Overlay from './components/Overlay';
 import VideoLightbox from './components/VideoLightbox';
+import ArtifactInspector from './components/ArtifactInspector';
 import { AtlasNode, fetchAtlasNodes } from './data/atlas';
 import { useAudioEngine } from './audio/useAudioEngine';
 import { PROJECT_GALLERIES } from './data/projectGalleries';
+import { type IndexFilters, DEFAULT_INDEX_FILTERS } from './components/IndexFilterBar';
 
 type SceneMode = 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map';
 type AppMode = SceneMode | 'essays';
@@ -48,6 +50,9 @@ export default function App() {
   const [domainFilter, setDomainFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [focusedMapNode, setFocusedMapNode] = useState<any>(null);
+  const [inspectedRecord, setInspectedRecord] = useState<any>(null);
+  const [indexFilters, setIndexFilters] = useState<IndexFilters>(DEFAULT_INDEX_FILTERS);
+  const [projectedPositions, setProjectedPositions] = useState<Record<string, { x: number, y: number, w: number, h: number }>>({});
 
   React.useEffect(() => {
     if (activeMedia) {
@@ -86,6 +91,39 @@ export default function App() {
       }
     });
     return flat;
+  };
+
+  // Assets the Artifact Inspector may cycle through: in Index mode, respect
+  // the active filters so prev/next never lands on a hidden record.
+  const getInspectorAssets = () => {
+    const flat = getFlatAssets();
+    if (currentModeRef.current !== 'grid') return flat;
+
+    const nodeBySlug = new Map<string, AtlasNode>(nodes.map((node) => [node.slug, node]));
+    return flat.filter((asset) => {
+      const node = nodeBySlug.get(asset.projectId);
+
+      if (indexFilters.world !== 'all') {
+        if (!node?.world || node.world.id !== indexFilters.world) return false;
+      }
+
+      if (indexFilters.medium !== 'all') {
+        const domains = node?.domains || [];
+        if (!domains.includes(indexFilters.medium) && node?.category !== indexFilters.medium) return false;
+      }
+
+      if (indexFilters.assetType !== 'all') {
+        const type = String(asset.type || 'image').toLowerCase();
+        const role = String(asset.role || '').toLowerCase();
+        if (indexFilters.assetType === 'video' || indexFilters.assetType === 'audio') {
+          if (type !== indexFilters.assetType) return false;
+        } else if (role !== indexFilters.assetType) {
+          return false;
+        }
+      }
+
+      return true;
+    });
   };
 
   const handlePrevMedia = () => {
@@ -254,30 +292,21 @@ export default function App() {
         return;
       }
 
+      // ArtifactInspector handles its own Escape/arrow keys
+      if (inspectedRecord) return;
+
       if (currentMode === 'map' && focusedMapNode) {
-        // Arrow key navigation between connected nodes
+        // Arrow keys walk the relation graph: forward enters the first
+        // connection, backward enters the last one.
         const connections = focusedMapNode.connections || [];
-        if (connections.length > 0) {
-          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-            const currentSlug = focusedMapNode.slug;
-            const currIdx = connections.indexOf(currentSlug);
-            const nextIdx = (currIdx + 1) % connections.length;
-            const targetSlug = connections[nextIdx];
-            const targetNode = nodes.find(n => n.slug === targetSlug);
-            if (targetNode) {
-              setFocusedMapNode(targetNode);
-              sceneRef.current?.focusNode(targetNode);
-            }
-          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-            const currentSlug = focusedMapNode.slug;
-            const currIdx = connections.indexOf(currentSlug);
-            const nextIdx = (currIdx - 1 + connections.length) % connections.length;
-            const targetSlug = connections[nextIdx];
-            const targetNode = nodes.find(n => n.slug === targetSlug);
-            if (targetNode) {
-              setFocusedMapNode(targetNode);
-              sceneRef.current?.focusNode(targetNode);
-            }
+        const isForward = e.key === 'ArrowRight' || e.key === 'ArrowDown';
+        const isBackward = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+        if (connections.length > 0 && (isForward || isBackward)) {
+          const targetSlug = isForward ? connections[0] : connections[connections.length - 1];
+          const targetNode = nodes.find(n => n.slug === targetSlug);
+          if (targetNode) {
+            setFocusedMapNode(targetNode);
+            sceneRef.current?.focusNode(targetNode);
           }
         }
         if (e.key === 'Escape') {
@@ -312,7 +341,7 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeMedia, focusedIndex, nodes, currentMode, focusedMapNode]);
+  }, [activeMedia, inspectedRecord, focusedIndex, nodes, currentMode, focusedMapNode]);
 
   // Initial deep link handling
   useEffect(() => {
@@ -326,6 +355,43 @@ export default function App() {
       const requestedMode = params.get('mode') as PublicMode | null;
       const mode = requestedMode && PUBLIC_MODES.includes(requestedMode) ? requestedMode : null;
       const targetNodeId = nodeId || caseStudySlug;
+
+      // Handle Index filters
+      const world = params.get('world') || 'all';
+      const medium = params.get('medium') || 'all';
+      const type = params.get('type') || 'all';
+      const sort = (params.get('sort') || 'project') as any;
+      const view = (params.get('view') || 'hybrid') as any;
+      setIndexFilters({ world, medium, assetType: type, sort, viewMode: view });
+
+      // Handle record inspection
+      const recordSlug = params.get('record');
+      const assetIndex = Number(params.get('asset') || '0');
+      if (recordSlug) {
+        const node = nodes.find(n => n.slug === recordSlug);
+        if (node) {
+          const gallery = node.gallery || [];
+          const asset = gallery[assetIndex] || gallery.find((img: any) => img.isPrimary) || gallery[0];
+          const record = asset ? {
+            ...asset,
+            projectId: node.slug,
+            projectTitle: node.title,
+            assetIndex: assetIndex,
+          } : {
+            type: 'image',
+            src: node.thumbnail || node.image,
+            label: node.title,
+            caption: node.summary || node.shortDescription || '',
+            role: 'hero',
+            projectId: node.slug,
+            projectTitle: node.title,
+            assetIndex: 0,
+          };
+          setInspectedRecord(record);
+        }
+      } else {
+        setInspectedRecord(null);
+      }
 
       if (targetNodeId) {
         const node = nodes.find(n => String(n.id) === targetNodeId || n.slug === targetNodeId);
@@ -368,9 +434,30 @@ export default function App() {
     
     const params = new URLSearchParams();
     const isCaseStudyPath = window.location.pathname.includes('/case-studies/');
-    if (activeNode && !isCaseStudyPath) params.set('node', activeNode.id);
+    
+    if (activeNode && !isCaseStudyPath) {
+      params.set('node', String(activeNode.id));
+    }
+    
     const publicModeForHash = currentMode === 'horizontal' ? returnMode : getPublicMode(currentMode);
-    if (publicModeForHash !== 'cylinder') params.set('mode', publicModeForHash);
+    if (publicModeForHash !== 'cylinder') {
+      params.set('mode', publicModeForHash);
+    }
+
+    if (currentMode === 'grid' && indexFilters) {
+      if (indexFilters.world !== 'all') params.set('world', indexFilters.world);
+      if (indexFilters.medium !== 'all') params.set('medium', indexFilters.medium);
+      if (indexFilters.assetType !== 'all') params.set('type', indexFilters.assetType);
+      if (indexFilters.sort !== 'project') params.set('sort', indexFilters.sort);
+      if (indexFilters.viewMode !== 'hybrid') params.set('view', indexFilters.viewMode);
+    }
+
+    if (inspectedRecord) {
+      params.set('record', inspectedRecord.projectId || inspectedRecord.slug);
+      if (inspectedRecord.assetIndex) {
+        params.set('asset', String(inspectedRecord.assetIndex));
+      }
+    }
     
     const newHash = params.toString();
     if (newHash) {
@@ -378,7 +465,7 @@ export default function App() {
     } else if (window.location.hash) {
       window.history.replaceState(null, '', window.location.pathname);
     }
-  }, [activeNode, currentMode, isReady]);
+  }, [activeNode, currentMode, isReady, indexFilters, inspectedRecord, returnMode]);
 
   useEffect(() => {
     if (!containerRef.current || nodes.length === 0) return;
@@ -403,6 +490,11 @@ export default function App() {
         onNodeClick: (node) => {
           openProjectRail(node, currentModeRef.current);
         },
+        onCloseNode: () => {
+          // Clicking empty space in Map mode dismisses the focused node
+          setFocusedMapNode(null);
+          sceneRef.current?.resetFocus();
+        },
         onNodeHover: (node, pos) => {
           setHoveredNode(node);
           setMousePosition(pos);
@@ -415,7 +507,14 @@ export default function App() {
         onProgress: (p) => progressValue.set(p),
         onRawScroll: (s) => rawScrollValue.set(s),
         onRailChange: (state) => setRailState(state),
-        onMediaOpen: (media) => setActiveMedia(media),
+        onMediaOpen: (media: any) => {
+          // In grid mode, open Artifact Inspector instead of VideoLightbox
+          if (currentModeRef.current === 'grid') {
+            setInspectedRecord(media);
+          } else {
+            setActiveMedia(media);
+          }
+        },
         canUseSceneClicks: () => currentModeRef.current !== 'cylinder' && currentModeRef.current !== 'essays',
         onLoadProgress: (p) => setLoadProgress(0.12 + p * 0.88),
         onLoadComplete: () => {
@@ -431,6 +530,9 @@ export default function App() {
         onAudioUpdate: (velocity, cameraPos) => {
           audioEngine.setScrollVelocity(velocity);
           audioEngine.setCameraPosition(cameraPos.x, cameraPos.y, cameraPos.z);
+        },
+        onUpdateProjectedPositions: (positions: any) => {
+          setProjectedPositions(positions);
         },
       });
       sceneRef.current = scene;
@@ -542,28 +644,34 @@ export default function App() {
     sceneRef.current?.setFilters(domainFilter, typeFilter);
   }, [domainFilter, typeFilter]);
 
+  useEffect(() => {
+    sceneRef.current?.setIndexFilters(indexFilters);
+  }, [indexFilters]);
+
   return (
     <main className="relative w-full h-full overflow-hidden bg-black selection:bg-accent selection:text-white font-body text-text">
       <AnimatePresence>
-        {isLoading && (
-          <motion.div 
+        {(isLoading || loadError) && (
+          <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1, ease: 'easeInOut' }}
             className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center pointer-events-none"
-            role="progressbar"
-            aria-valuenow={Math.round(loadProgress * 100)}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-label="Loading archive"
+            role={loadError ? 'alert' : 'progressbar'}
+            aria-valuenow={loadError ? undefined : Math.round(loadProgress * 100)}
+            aria-valuemin={loadError ? undefined : 0}
+            aria-valuemax={loadError ? undefined : 100}
+            aria-label={loadError ? 'Archive failed to load' : 'Loading archive'}
           >
-            <div className="w-64 h-[1px] bg-white/10 relative overflow-hidden mb-4">
-              <motion.div 
-                className="absolute inset-y-0 left-0 bg-accent"
-                animate={{ width: `${loadProgress * 100}%` }}
-                transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-              />
-            </div>
+            {!loadError && (
+              <div className="w-64 h-[1px] bg-white/10 relative overflow-hidden mb-4">
+                <motion.div
+                  className="absolute inset-y-0 left-0 bg-accent"
+                  animate={{ width: `${loadProgress * 100}%` }}
+                  transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+                />
+              </div>
+            )}
             <p className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase">
               {loadError || `Drawing Archive Field ${Math.round(loadProgress * 100)}%`}
             </p>
@@ -580,12 +688,12 @@ export default function App() {
         }`}
         role="application"
         aria-label="3D spatial archive"
-        inert={activeMedia ? true : undefined}
+        inert={activeMedia || inspectedRecord ? true : undefined}
       />
 
       {/* UI Overlay Layer */}
       <Overlay 
-        inert={activeMedia ? true : undefined}
+        inert={activeMedia || inspectedRecord ? true : undefined}
         nodes={nodes}
         activeNode={activeNode}
         centeredNode={centeredNode}
@@ -642,6 +750,33 @@ export default function App() {
             sceneRef.current?.setFocusedNode(nodeIndex);
           }
         }}
+        onInspectNode={(node) => {
+          // Create a record from the node's primary image for the inspector
+          const gallery = node.gallery || [];
+          const heroImage = gallery.find((img: any) => img.isPrimary) || gallery[0];
+          const record = heroImage ? {
+            ...heroImage,
+            projectId: node.slug,
+            projectTitle: node.title,
+            assetIndex: 0,
+          } : {
+            type: 'image',
+            src: node.thumbnail || node.image,
+            label: node.title,
+            caption: node.summary || node.shortDescription || '',
+            role: 'hero',
+            projectId: node.slug,
+            projectTitle: node.title,
+            assetIndex: 0,
+          };
+          setInspectedRecord(record);
+        }}
+        indexFilters={indexFilters}
+        onIndexFiltersChange={setIndexFilters}
+        onHoverFilter={(category, value) => {
+          sceneRef.current?.setHoveredFilter(category, value);
+        }}
+        projectedPositions={projectedPositions}
       />
 
       <VideoLightbox 
@@ -654,6 +789,56 @@ export default function App() {
           if (node) {
             openProjectRail(node, returnMode);
           }
+        }}
+      />
+
+      <ArtifactInspector
+        record={inspectedRecord}
+        parentNode={inspectedRecord ? nodes.find(n => n.slug === (inspectedRecord.projectId || inspectedRecord.slug)) : null}
+        onClose={() => setInspectedRecord(null)}
+        onOpenRail={(slug) => {
+          setInspectedRecord(null);
+          const node = nodes.find(n => n.slug === slug);
+          if (node) openProjectRail(node, 'grid');
+        }}
+        onShowInMaps={(slug) => {
+          setInspectedRecord(null);
+          const node = nodes.find(n => n.slug === slug);
+          if (node) {
+            handleModeChange('map' as AppMode);
+            setFocusedMapNode(node);
+            sceneRef.current?.focusNode(node);
+          }
+        }}
+        onPlayMedia={(media) => {
+          setInspectedRecord(null);
+          setActiveMedia(media);
+        }}
+        onPrev={() => {
+          if (!inspectedRecord) return;
+          const flat = getInspectorAssets();
+          if (flat.length === 0) return;
+          const activeProjSlug = inspectedRecord.projectId || inspectedRecord.slug;
+          const activeAssetIndex = inspectedRecord.assetIndex ?? 0;
+          const currentIdx = flat.findIndex(
+            (item: any) => (item.projectId === activeProjSlug && item.assetIndex === activeAssetIndex) ||
+                      (item.src === inspectedRecord.src)
+          );
+          const prevIdx = currentIdx === -1 ? 0 : (currentIdx - 1 + flat.length) % flat.length;
+          setInspectedRecord(flat[prevIdx]);
+        }}
+        onNext={() => {
+          if (!inspectedRecord) return;
+          const flat = getInspectorAssets();
+          if (flat.length === 0) return;
+          const activeProjSlug = inspectedRecord.projectId || inspectedRecord.slug;
+          const activeAssetIndex = inspectedRecord.assetIndex ?? 0;
+          const currentIdx = flat.findIndex(
+            (item: any) => (item.projectId === activeProjSlug && item.assetIndex === activeAssetIndex) ||
+                      (item.src === inspectedRecord.src)
+          );
+          const nextIdx = currentIdx === -1 ? 0 : (currentIdx + 1) % flat.length;
+          setInspectedRecord(flat[nextIdx]);
         }}
       />
     </main>

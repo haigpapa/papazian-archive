@@ -1,29 +1,9 @@
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
-
-const MAP_NODE_POSITIONS: Record<string, { x: number; y: number }> = {
-  "systems-choreography": { x: -2.0, y: 3.5 },
-  "fictive-environments": { x: -4.5, y: 2.0 },
-  "meaning-stack": { x: 0.5, y: 3.0 },
-  "99-nodes": { x: 3.5, y: 1.0 },
-  "architecture-in-low-res": { x: -6.0, y: -2.5 },
-  "cartography-of-absence": { x: -3.5, y: -4.0 },
-  "mashrou-leila": { x: -1.0, y: -1.5 },
-  "why-were-like-this": { x: -2.0, y: -3.0 },
-  "space-time-tuning-machine": { x: 2.0, y: -2.0 },
-  "tebr": { x: 0.0, y: -4.0 },
-  "chronocumulator": { x: 4.5, y: -3.5 },
-  "the-weather-rehearsal": { x: 3.5, y: -1.5 },
-  "sometimes-i-wake-up-elsewhere": { x: -6.5, y: 0.0 },
-  "derive": { x: -1.0, y: 1.0 },
-  "storylines": { x: 1.5, y: 2.0 },
-  "hah-was": { x: 2.0, y: 4.0 },
-  "localization-gap": { x: 4.0, y: 3.5 },
-  "maqamai": { x: 5.5, y: 1.5 },
-  "mekena-nyc": { x: -3.0, y: 0.0 },
-  "codeverse-explorer": { x: 5.5, y: -1.0 },
-};
+import { getProjectWorld } from '../data/worlds';
+import { getRelationDetail, RELATION_LINE_STYLES } from '../data/relations';
+import { type IndexFilters, DEFAULT_INDEX_FILTERS } from '../components/IndexFilterBar';
 
 const VERTEX_SHADER = `
   varying vec2 vUv;
@@ -133,8 +113,12 @@ export default class NodeManager {
   private lastCenteredNodeId: any = null;
   private zoneMeshes: THREE.Mesh[] = [];
   private searchQueryString = '';
+  private indexFilters: IndexFilters = DEFAULT_INDEX_FILTERS;
   private constellationPositions = new Map<string, { x: number; y: number; z: number }>();
   private placeholderTexture: THREE.Texture | null = null;
+  // Grid slot per visible-mesh index; recomputed once per filter/mode change
+  // instead of the previous O(n) walk per mesh per frame.
+  private gridSlotCache: number[] | null = null;
 
   constructor(scene: THREE.Scene, camera: THREE.PerspectiveCamera, nodesData: any[], options: any) {
     this.scene = scene;
@@ -864,11 +848,18 @@ export default class NodeManager {
         const targetRelated = targetNode.relatedSlugs || targetNode.connections || [];
         const isMutual = sourceRelated.includes(targetSlug) && targetRelated.includes(node.slug);
 
-        let weight = 1;
-        if (isMutual) {
-          weight = 3;
-        } else if (node.tier === 'lead' || targetNode.tier === 'lead') {
-          weight = 2;
+        // Prefer the curated relation model (type, weight, visual style); fall back
+        // to the mutuality/tier heuristic for uncurated connections.
+        const detail = getRelationDetail(node.slug, targetSlug);
+        const lineStyle = RELATION_LINE_STYLES[detail.type];
+
+        let weight = detail.isCurated ? (detail.weight || 1) : 1;
+        if (!detail.isCurated) {
+          if (isMutual) {
+            weight = 3;
+          } else if (node.tier === 'lead' || targetNode.tier === 'lead') {
+            weight = 2;
+          }
         }
 
         const geometry = new THREE.BufferGeometry().setFromPoints([
@@ -877,15 +868,32 @@ export default class NodeManager {
         ]);
 
         const accentHex = node.accentColor || '#ffffff';
-        const material = new THREE.LineBasicMaterial({
-          color: new THREE.Color(accentHex),
-          transparent: true,
-          opacity: 0,
-          toneMapped: false,
-        });
+        const isDashed = lineStyle.style !== 'solid';
+        const material = isDashed
+          ? new THREE.LineDashedMaterial({
+              color: new THREE.Color(accentHex),
+              transparent: true,
+              opacity: 0,
+              toneMapped: false,
+              dashSize: lineStyle.style === 'dashed' ? 0.42 : 0.1,
+              gapSize: lineStyle.style === 'dashed' ? 0.24 : 0.16,
+            })
+          : new THREE.LineBasicMaterial({
+              color: new THREE.Color(accentHex),
+              transparent: true,
+              opacity: 0,
+              toneMapped: false,
+            });
 
         const line = new THREE.Line(geometry, material);
-        line.userData = { sourceId: node.slug, targetId: targetSlug, weight };
+        line.userData = {
+          sourceId: node.slug,
+          targetId: targetSlug,
+          weight,
+          relationType: detail.type,
+          opacityMultiplier: lineStyle.opacityMultiplier,
+          isDashed,
+        };
         this.relationLines.push(line);
         this.group.add(line);
       });
@@ -927,6 +935,14 @@ export default class NodeManager {
     return this.meshes.filter((mesh) => mesh.userData.isPrimary);
   }
 
+  /**
+   * Union of curated connections and relatedSlugs — must match the pairs
+   * used by createRelationLines so node fading agrees with drawn lines.
+   */
+  private getRelatedSlugs(data: any): string[] {
+    return [...new Set([...(data.connections || []), ...(data.relatedSlugs || [])])];
+  }
+
   private getCanonicalPrimaryMeshes() {
     const canonical = this.getPrimaryMeshes()
       .filter((mesh) => mesh.userData.canonicalOrder >= 0)
@@ -942,6 +958,7 @@ export default class NodeManager {
 
   private invalidateVisibleMeshCache() {
     this.visibleMeshCache.clear();
+    this.gridSlotCache = null;
   }
 
   private getVisibleMeshes(mode = this.activeMode) {
@@ -950,17 +967,73 @@ export default class NodeManager {
 
     let result: THREE.Mesh[];
     if (mode === 'grid') {
-      result = [...this.meshes].sort((a, b) => {
-        const domains = ['sound', 'image', 'space', 'code', 'systems', 'text'];
-        const tierWeight: Record<string, number> = { lead: 0, secondary: 1, archive: 2 };
+      let filtered = [...this.meshes];
+
+      // 1. Filter by World
+      if (this.indexFilters.world !== 'all') {
+        filtered = filtered.filter((m) => {
+          const world = getProjectWorld(m.userData.slug);
+          return world && world.id === this.indexFilters.world;
+        });
+      }
+
+      // 2. Filter by Medium/Domain
+      if (this.indexFilters.medium !== 'all') {
+        filtered = filtered.filter((m) => {
+          const domains = m.userData.domains || [];
+          const category = m.userData.category || '';
+          return domains.includes(this.indexFilters.medium) || category === this.indexFilters.medium;
+        });
+      }
+
+      // 3. Filter by Asset Type / Role
+      if (this.indexFilters.assetType !== 'all') {
+        filtered = filtered.filter((m) => {
+          const type = (m.userData.assetType || '').toLowerCase();
+          const role = (m.userData.assetRole || '').toLowerCase();
+          if (this.indexFilters.assetType === 'video' || this.indexFilters.assetType === 'audio') {
+            return type === this.indexFilters.assetType;
+          }
+          return role === this.indexFilters.assetType;
+        });
+      }
+
+      // 4. Sort
+      const domains = ['sound', 'image', 'space', 'code', 'systems', 'text'];
+      const tierWeight: Record<string, number> = { lead: 0, secondary: 1, archive: 2 };
+
+      filtered.sort((a, b) => {
+        if (this.indexFilters.sort === 'year') {
+          const aYear = a.userData.year || '';
+          const bYear = b.userData.year || '';
+          if (aYear !== bYear) return bYear.localeCompare(aYear); // Descending year
+        } else if (this.indexFilters.sort === 'world') {
+          const aWorld = getProjectWorld(a.userData.slug)?.id || 'zz';
+          const bWorld = getProjectWorld(b.userData.slug)?.id || 'zz';
+          if (aWorld !== bWorld) return aWorld.localeCompare(bWorld);
+        } else if (this.indexFilters.sort === 'medium') {
+          const aDomain = domains.indexOf(a.userData.domains?.[0] || a.userData.category || '');
+          const bDomain = domains.indexOf(b.userData.domains?.[0] || b.userData.category || '');
+          const domainDelta = (aDomain === -1 ? 99 : aDomain) - (bDomain === -1 ? 99 : bDomain);
+          if (domainDelta !== 0) return domainDelta;
+        }
+
+        // Fallback: sort by domains, tier, projectOrder, assetIndex
         const aDomain = domains.indexOf(a.userData.domains?.[0] || a.userData.category || '');
         const bDomain = domains.indexOf(b.userData.domains?.[0] || b.userData.category || '');
         const domainDelta = (aDomain === -1 ? 99 : aDomain) - (bDomain === -1 ? 99 : bDomain);
         if (domainDelta !== 0) return domainDelta;
+
         const tierDelta = (tierWeight[a.userData.tier] ?? 9) - (tierWeight[b.userData.tier] ?? 9);
         if (tierDelta !== 0) return tierDelta;
-        return (a.userData.projectOrder - b.userData.projectOrder) || (a.userData.assetIndex - b.userData.assetIndex);
+
+        const orderDelta = (a.userData.projectOrder || 0) - (b.userData.projectOrder || 0);
+        if (orderDelta !== 0) return orderDelta;
+
+        return (a.userData.assetIndex || 0) - (b.userData.assetIndex || 0);
       });
+
+      result = filtered;
     } else if (mode === 'horizontal') {
       result = this.getProjectRailMeshes();
     } else if (mode === 'vertical') {
@@ -1042,10 +1115,9 @@ export default class NodeManager {
       let easeCurve = 'expo.inOut';
 
       if (mode === 'grid') {
-        const dist = Math.sqrt(targetX * targetX + targetY * targetY);
-        delayVal = dist * 0.018; // Spatial outward ripple
-        durationVal = 1.4;
-        easeCurve = 'cubic-bezier(0.16, 1, 0.3, 1)'; // Heavy spring ease
+        delayVal = 0;
+        durationVal = 0.45;
+        easeCurve = 'power2.out';
       } else if (mode === 'map') {
         const dist = Math.sqrt(targetX * targetX + targetY * targetY);
         delayVal = dist * 0.015;
@@ -1061,21 +1133,43 @@ export default class NodeManager {
 
       gsap.to(mesh.position, { x: targetX, y: targetY, z: targetZ, duration: durationVal, ease: easeCurve, delay: delayVal });
       gsap.to(mesh.rotation, { y: targetRotY, z: targetRotZ, duration: durationVal, ease: easeCurve, delay: delayVal });
-      gsap.to(mesh.scale, { ...targetScale, duration: durationVal, ease: easeCurve, delay: delayVal });
-      gsap.to(material.uniforms.uModeVisibility, { value: opacity, duration: 0.65, ease: 'power2.inOut', delay: delayVal * 0.5 });
       
-      if (opacity === 1 && material.uniforms.uSearchHighlight.value === 0) {
-        gsap.to(material.uniforms.uSearchHighlight, { value: 1, duration: 0.45, ease: 'power2.inOut', delay: delayVal });
+      if (mode === 'grid') {
+        mesh.scale.set(targetScale.x, targetScale.y, targetScale.z);
+      } else {
+        gsap.to(mesh.scale, { ...targetScale, duration: durationVal, ease: easeCurve, delay: delayVal });
       }
+      let targetOpacity = opacity;
+      let targetHighlight = 1.0;
+      if (mode === 'grid' && opacity === 1) {
+        if (this.indexFilters.viewMode === 'text') {
+          targetOpacity = 0.0;
+        } else if (this.indexFilters.viewMode === 'hybrid') {
+          targetOpacity = 1.0;
+          targetHighlight = 0.35;
+        }
+      }
+
+      gsap.to(material.uniforms.uModeVisibility, { value: targetOpacity, duration: 0.65, ease: 'power2.inOut', delay: delayVal * 0.5 });
+      gsap.to(material.uniforms.uSearchHighlight, { value: targetHighlight, duration: 0.45, ease: 'power2.inOut', delay: delayVal });
     } else {
       mesh.position.set(targetX, targetY, targetZ);
       mesh.rotation.y = targetRotY;
       mesh.rotation.z = targetRotZ;
       mesh.scale.set(targetScale.x, targetScale.y, targetScale.z);
-      material.uniforms.uModeVisibility.value = opacity;
-      if (opacity === 1 && material.uniforms.uSearchHighlight.value === 0) {
-        material.uniforms.uSearchHighlight.value = 1;
+      
+      let targetOpacity = opacity;
+      let targetHighlight = 1.0;
+      if (mode === 'grid' && opacity === 1) {
+        if (this.indexFilters.viewMode === 'text') {
+          targetOpacity = 0.0;
+        } else if (this.indexFilters.viewMode === 'hybrid') {
+          targetOpacity = 1.0;
+          targetHighlight = 0.35;
+        }
       }
+      material.uniforms.uModeVisibility.value = targetOpacity;
+      material.uniforms.uSearchHighlight.value = targetHighlight;
     }
   }
 
@@ -1159,7 +1253,7 @@ export default class NodeManager {
   private getTierScale(tier?: string, mode = this.activeMode): number {
     const modeScale: Record<string, Record<string, number>> = {
       cylinder: { lead: 2.05, secondary: 1.54, archive: 1.16 },
-      grid: { lead: 0.35, secondary: 0.28, archive: 0.22 },
+      grid: { lead: 0.90, secondary: 0.72, archive: 0.55 },
       vertical: { lead: 1.02, secondary: 0.74, archive: 0.56 },
       horizontal: { lead: 1.06, secondary: 0.78, archive: 0.58 },
       map: { lead: 0.5, secondary: 0.38, archive: 0.28 },
@@ -1170,7 +1264,7 @@ export default class NodeManager {
 
   private getMaxImageWidth(mode = this.activeMode): number {
     if (mode === 'cylinder') return 18;
-    if (mode === 'grid') return 5.8;
+    if (mode === 'grid') return 15.0;
     if (mode === 'horizontal') return 22.0;
     if (mode === 'vertical') return 8.5;
     if (mode === 'map') return 3.8;
@@ -1273,15 +1367,50 @@ export default class NodeManager {
   }
 
   private getGridSlot(index: number): number {
-    let slot = index;
-    let remaining = index;
+    const slots = this.getGridSlots();
+    if (!slots.length || index <= 0) return 0;
+    return slots[Math.min(index, slots.length - 1)];
+  }
 
-    while (remaining >= 0) {
-      if (!this.isGridGapSlot(slot)) remaining -= 1;
-      if (remaining >= 0) slot += 1;
+  private getGridSlots(): number[] {
+    if (this.gridSlotCache) return this.gridSlotCache;
+
+    const visible = this.getVisibleMeshes('grid');
+    const slots: number[] = [];
+    let slot = 0;
+    let lastWorld = visible.length ? getProjectWorld(visible[0].userData.slug)?.id || '' : '';
+
+    // Apply gap for the first slot if needed
+    while (this.isGridGapSlot(slot)) {
+      slot += 1;
     }
 
-    return slot;
+    visible.forEach((mesh, i) => {
+      if (i > 0) {
+        const world = getProjectWorld(mesh.userData.slug)?.id || '';
+
+        slot += 1;
+
+        // Grouping behavior: if sorted by world and world changes, force new row (multiple of 9 columns)
+        if (this.indexFilters.sort === 'world' && world !== lastWorld) {
+          const currentCol = slot % 9;
+          if (currentCol !== 0) {
+            slot += (9 - currentCol);
+          }
+          lastWorld = world;
+        }
+
+        // Apply organic gaps
+        while (this.isGridGapSlot(slot)) {
+          slot += 1;
+        }
+      }
+
+      slots.push(slot);
+    });
+
+    this.gridSlotCache = slots;
+    return slots;
   }
 
   private isGridGapSlot(slot: number): boolean {
@@ -1462,8 +1591,36 @@ export default class NodeManager {
       });
 
       // Smoothly update camera Z based on fixed close-up zoom
-      const targetZ = 14.5;
+      const targetZ = 17.5;
       this.camera.position.z += (targetZ - this.camera.position.z) * 0.08;
+
+      // Calculate projected 2D screen positions for all visible cards in grid mode
+      if (this.options.onUpdateProjectedPositions) {
+        const positions: Record<string, { x: number, y: number, w: number, h: number }> = {};
+        const tl = new THREE.Vector3();
+        const br = new THREE.Vector3();
+        
+        visible.forEach((mesh) => {
+          const key = mesh.userData.assetId || mesh.userData.id || mesh.userData.slug;
+          if (!key) return;
+
+          tl.set(-3, 2, 0);
+          mesh.localToWorld(tl);
+          tl.project(this.camera);
+
+          br.set(3, -2, 0);
+          mesh.localToWorld(br);
+          br.project(this.camera);
+
+          positions[key] = {
+            x: (tl.x * 0.5 + 0.5) * window.innerWidth,
+            y: (-tl.y * 0.5 + 0.5) * window.innerHeight,
+            w: Math.abs((br.x - tl.x) * 0.5 * window.innerWidth),
+            h: Math.abs((br.y - tl.y) * 0.5 * window.innerHeight)
+          };
+        });
+        this.options.onUpdateProjectedPositions(positions);
+      }
 
       this.updateRelationLines();
       this.updateCylinderGuideLines();
@@ -1541,13 +1698,11 @@ export default class NodeManager {
     if (focusSlug) {
       const focusMesh = this.primaryMeshBySlug.get(focusSlug);
       if (focusMesh) {
-        const sourceRelated = focusMesh.userData.connections || [];
-        sourceRelated.forEach((s: string) => firstDegree.add(s));
+        this.getRelatedSlugs(focusMesh.userData).forEach((s: string) => firstDegree.add(s));
       }
-      
+
       this.meshes.forEach((m) => {
-        const connections = m.userData.connections || [];
-        if (connections.includes(focusSlug)) {
+        if (this.getRelatedSlugs(m.userData).includes(focusSlug)) {
           firstDegree.add(m.userData.slug);
         }
       });
@@ -1555,8 +1710,7 @@ export default class NodeManager {
       firstDegree.forEach((neighborSlug) => {
         const neighborMesh = this.primaryMeshBySlug.get(neighborSlug);
         if (neighborMesh) {
-          const neighborRelated = neighborMesh.userData.connections || [];
-          neighborRelated.forEach((s: string) => {
+          this.getRelatedSlugs(neighborMesh.userData).forEach((s: string) => {
             if (s !== focusSlug && !firstDegree.has(s)) {
               secondDegree.add(s);
             }
@@ -1564,8 +1718,7 @@ export default class NodeManager {
         }
         this.meshes.forEach((m) => {
           if (m.userData.slug !== focusSlug && !firstDegree.has(m.userData.slug)) {
-            const connections = m.userData.connections || [];
-            if (connections.includes(neighborSlug)) {
+            if (this.getRelatedSlugs(m.userData).includes(neighborSlug)) {
               secondDegree.add(m.userData.slug);
             }
           }
@@ -1577,12 +1730,10 @@ export default class NodeManager {
     if (!focusSlug && activeSlug) {
       const hoverMesh = this.primaryMeshBySlug.get(activeSlug);
       if (hoverMesh) {
-        const related = hoverMesh.userData.connections || [];
-        related.forEach((s: string) => hoverNeighbors.add(s));
+        this.getRelatedSlugs(hoverMesh.userData).forEach((s: string) => hoverNeighbors.add(s));
       }
       this.meshes.forEach((m) => {
-        const connections = m.userData.connections || [];
-        if (connections.includes(activeSlug)) {
+        if (this.getRelatedSlugs(m.userData).includes(activeSlug)) {
           hoverNeighbors.add(m.userData.slug);
         }
       });
@@ -1699,6 +1850,9 @@ export default class NodeManager {
         posAttr.needsUpdate = true;
         line.geometry.computeBoundingBox();
         line.geometry.computeBoundingSphere();
+        if (line.userData.isDashed) {
+          line.computeLineDistances();
+        }
       }
 
       let targetOpacity = 0;
@@ -1721,6 +1875,8 @@ export default class NodeManager {
         } else {
           targetOpacity = weight === 3 ? 0.25 : (weight === 2 ? 0.12 : 0.04);
         }
+
+        targetOpacity *= line.userData.opacityMultiplier ?? 1;
       }
 
       if (animate) {
@@ -1870,7 +2026,20 @@ export default class NodeManager {
     }
 
     if (mesh) {
-      this.options.onNodeHover?.(mesh.userData, pos);
+      mesh.userData.gridX = mesh.position.x;
+      mesh.userData.gridY = mesh.position.y;
+
+      let hoverPos = pos;
+      if (this.activeMode === 'grid') {
+        const vec = new THREE.Vector3(3, 2, 0);
+        mesh.localToWorld(vec);
+        vec.project(this.camera);
+        hoverPos = {
+          x: (vec.x * 0.5 + 0.5) * window.innerWidth,
+          y: (-vec.y * 0.5 + 0.5) * window.innerHeight
+        };
+      }
+      this.options.onNodeHover?.(mesh.userData, hoverPos);
       if (mesh.userData.isNoDataZone) {
         document.body.style.cursor = 'crosshair';
       } else {
@@ -2159,6 +2328,79 @@ export default class NodeManager {
     });
   }
 
+  public setIndexFilters(filters: IndexFilters) {
+    this.indexFilters = filters;
+    this.invalidateVisibleMeshCache();
+    
+    if (this.activeMode === 'grid') {
+      this.meshes.forEach((mesh) => {
+        const isVisible = this.isMeshVisibleInMode(mesh, 'grid');
+        const mat = mesh.material as THREE.ShaderMaterial;
+        
+        if (!isVisible) {
+          gsap.killTweensOf(mesh.position);
+          gsap.killTweensOf(mesh.scale);
+          gsap.killTweensOf(mat.uniforms.uModeVisibility);
+          mesh.position.set(mesh.position.x, mesh.position.y, -70);
+          mesh.scale.set(0.001, 0.001, 0.001);
+          mat.uniforms.uModeVisibility.value = 0;
+        } else {
+          gsap.killTweensOf(mat.uniforms.uModeVisibility);
+          gsap.killTweensOf(mat.uniforms.uSearchHighlight);
+          
+          if (filters.viewMode === 'text') {
+            gsap.to(mat.uniforms.uModeVisibility, { value: 0.0, duration: 0.35, ease: 'power2.out' });
+          } else if (filters.viewMode === 'hybrid') {
+            gsap.to(mat.uniforms.uModeVisibility, { value: 1.0, duration: 0.35, ease: 'power2.out' });
+            gsap.to(mat.uniforms.uSearchHighlight, { value: 0.35, duration: 0.35, ease: 'power2.out' });
+          } else {
+            gsap.to(mat.uniforms.uModeVisibility, { value: 1.0, duration: 0.35, ease: 'power2.out' });
+            gsap.to(mat.uniforms.uSearchHighlight, { value: 1.0, duration: 0.35, ease: 'power2.out' });
+          }
+        }
+      });
+      this.scheduleRelayout();
+    }
+  }
+
+  public setHoveredFilter(category: 'world' | 'medium' | 'assetType' | null, value: string | null) {
+    this.meshes.forEach((mesh) => {
+      const mat = mesh.material as THREE.ShaderMaterial;
+      if (!category || !value) {
+        gsap.to(mat.uniforms.uSearchHighlight, {
+          value: 1.0,
+          duration: 0.25,
+          ease: 'power2.out'
+        });
+        return;
+      }
+
+      let match = false;
+      if (category === 'world') {
+        const world = getProjectWorld(mesh.userData.slug);
+        match = value === 'all' || (world && world.id === value);
+      } else if (category === 'medium') {
+        const domains = mesh.userData.domains || [];
+        const categoryVal = mesh.userData.category || '';
+        match = value === 'all' || domains.includes(value) || categoryVal === value;
+      } else if (category === 'assetType') {
+        const type = (mesh.userData.assetType || '').toLowerCase();
+        const role = (mesh.userData.assetRole || '').toLowerCase();
+        if (value === 'video' || value === 'audio') {
+          match = type === value;
+        } else {
+          match = value === 'all' || role === value;
+        }
+      }
+
+      gsap.to(mat.uniforms.uSearchHighlight, {
+        value: match ? 1.0 : 0.15,
+        duration: 0.25,
+        ease: 'power2.out'
+      });
+    });
+  }
+
   public updateNodeHighlights() {
     const activeSlug = this.focusedNodeId;
     const q = this.searchQueryString ? this.searchQueryString.toLowerCase().trim() : '';
@@ -2170,10 +2412,10 @@ export default class NodeManager {
       if (this.activeMode === 'map' && activeSlug) {
         // Relational map mode focused highlights: focused node + connected neighbors
         const isSelf = data.slug === activeSlug;
-        const isConnected = data.connections && (
-          data.connections.includes(activeSlug) || 
-          (this.nodesData.find(n => n.slug === activeSlug)?.connections || []).includes(data.slug)
-        );
+        const focusData = this.nodesData.find(n => n.slug === activeSlug);
+        const isConnected =
+          this.getRelatedSlugs(data).includes(activeSlug) ||
+          (focusData ? this.getRelatedSlugs(focusData).includes(data.slug) : false);
         targetHighlight = (isSelf || isConnected) ? 1.0 : 0.15;
       } else if (q) {
         // Search query matching

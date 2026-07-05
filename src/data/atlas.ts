@@ -3,6 +3,7 @@ import { getProjectContent } from './projectContent';
 import { ATLAS_IMAGE_FILENAMES } from './atlasImageFilenames';
 import { CANONICAL_PROJECT_SLUGS } from './canonicalProjects';
 import { GENERATED_PROJECT_RECORDS } from './generated/content';
+import { getProjectWorld, type ProjectWorld } from './worlds';
 
 export type ProjectTier = 'lead' | 'secondary' | 'archive';
 
@@ -19,6 +20,8 @@ export interface AtlasNode {
   image: string;
   thumbnail: string;
   hasProjectPage: boolean;
+  hasRail: boolean;
+  world: ProjectWorld | null;
   summary: string;
   shortDescription: string;
   fullDescription: string;
@@ -65,12 +68,12 @@ const TIER_ACCENTS: Record<ProjectTier, string> = {
 };
 
 const DOMAIN_ACCENTS: Record<string, string> = {
-  sound: '#e11d48',    // Crimson
-  space: '#a855f7',    // Amethyst
-  code: '#10b981',     // Emerald
-  text: '#3b82f6',     // Sapphire
-  systems: '#f59e0b',  // Amber
-  image: '#ec4899',    // Pink
+  sound: '#9fd6bf',    // Sage
+  space: '#c7b28a',    // Sand
+  code: '#7aa6ff',     // Steel
+  text: '#d5a2a2',     // Rose
+  systems: '#8fa8c2',  // Slate
+  image: '#d7e7ef',    // Cool White
 };
 
 const GENERATED_PROJECT_BY_SLUG = new Map(
@@ -117,6 +120,8 @@ export function parseAtlasCsv(csv: string): AtlasNode[] {
         image: row.image,
         thumbnail: row.image,
         hasProjectPage: typeof generated?.hasProjectPage === 'boolean' ? generated.hasProjectPage : row.hasProjectPage.toLowerCase() === 'yes',
+        hasRail: false, // Updated after gallery is built
+        world: getProjectWorld(row.id),
         summary: content?.thesis || row.summary,
         shortDescription: content?.shortDescription || row.summary,
         fullDescription: content?.fullDescription || buildFullDescription(tier, domains, connections),
@@ -135,10 +140,14 @@ export function parseAtlasCsv(csv: string): AtlasNode[] {
 
   const nodesWithSynthetic = addMissingCanonicalNodes(nodes);
 
-  return nodesWithSynthetic.map((node) => ({
-    ...node,
-    gallery: buildGalleryForNode(node, nodesWithSynthetic),
-  }));
+  return nodesWithSynthetic.map((node) => {
+    const gallery = buildGalleryForNode(node, nodesWithSynthetic);
+    return {
+      ...node,
+      gallery,
+      hasRail: gallery.length > 0,
+    };
+  });
 }
 
 function addMissingCanonicalNodes(nodes: Array<Omit<AtlasNode, 'gallery'>>) {
@@ -171,6 +180,8 @@ function addMissingCanonicalNodes(nodes: Array<Omit<AtlasNode, 'gallery'>>) {
       image,
       thumbnail: image,
       hasProjectPage: generated?.hasProjectPage ?? true,
+      hasRail: false, // Updated after gallery is built
+      world: getProjectWorld(slug),
       summary: content.thesis,
       shortDescription: content.shortDescription,
       fullDescription: content.fullDescription,

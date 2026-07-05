@@ -3,12 +3,14 @@ import gsap from 'gsap';
 import { Observer } from 'gsap/Observer';
 import NodeManager from './NodeManager';
 import ScrollEngine from './ScrollEngine';
+import { type IndexFilters } from '../components/IndexFilterBar';
 
 gsap.registerPlugin(Observer);
 
 export interface SceneOptions {
   onNodeClick: (node: any) => void;
   onNodeHover?: (node: any, pos: { x: number, y: number } | null) => void;
+  onCloseNode?: () => void;
   onProgress: (progress: number) => void;
   onRawScroll?: (scroll: number) => void;
   onRailChange?: (state: any | null) => void;
@@ -18,6 +20,7 @@ export interface SceneOptions {
   onLoadComplete?: () => void;
   onCenteredNodeChange?: (node: any | null) => void;
   onAudioUpdate?: (velocity: number, cameraPos: { x: number; y: number; z: number }) => void;
+  onUpdateProjectedPositions?: (positions: Record<string, { x: number, y: number, w: number, h: number }>) => void;
 }
 
 export default class Scene {
@@ -178,6 +181,14 @@ export default class Scene {
 
   public setFilters(domain: string, type: string) {
     this.nodeManager.setFilters(domain, type);
+  }
+
+  public setIndexFilters(filters: IndexFilters) {
+    this.nodeManager.setIndexFilters(filters);
+  }
+
+  public setHoveredFilter(category: 'world' | 'medium' | 'assetType' | null, value: string | null) {
+    this.nodeManager.setHoveredFilter(category, value);
   }
 
   public resetFocus() {
