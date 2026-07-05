@@ -1,7 +1,11 @@
 import {StrictMode, Component, ErrorInfo, ReactNode} from 'react';
 import {createRoot} from 'react-dom/client';
+import { inject } from '@vercel/analytics';
 import App from './App.tsx';
 import './index.css';
+
+// Initialize Vercel Web Analytics (no-cookie, privacy-friendly)
+inject();
 
 interface ErrorBoundaryProps {
   children: ReactNode;

@@ -43,7 +43,7 @@ export const WORLDS: ProjectWorld[] = [
     roman: '04',
     systems: 'Text · Archive · Navigation',
     definition: 'The literary and hypertext systems era.',
-    slugs: ['sometimes-i-wake-up-elsewhere', 'derive', 'storylines']
+    slugs: ['sometimes-i-wake-up-elsewhere', 'derive', 'storylines', '99-nodes']
   },
   {
     id: 'sonic-intelligence-world',
@@ -51,7 +51,7 @@ export const WORLDS: ProjectWorld[] = [
     roman: '05',
     systems: 'AI · Listening · Cultural Bias',
     definition: 'The research and AI-audit era.',
-    slugs: ['hah-was', 'maqamai']
+    slugs: ['hah-was', 'maqamai', 'meaning-stack', 'localization-gap']
   },
   {
     id: 'spatial-futures-world',
@@ -59,7 +59,7 @@ export const WORLDS: ProjectWorld[] = [
     roman: '06',
     systems: 'Shelter · Code · Infrastructure',
     definition: 'The outward-facing infrastructure era.',
-    slugs: ['mekena-nyc', 'codeverse-explorer']
+    slugs: ['mekena-nyc', 'codeverse-explorer', 'systems-choreography', 'fictive-environments']
   }
 ];
 
