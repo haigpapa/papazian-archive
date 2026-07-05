@@ -78,7 +78,7 @@ export const SITE_INFO_TABS: SiteInfoTab[] = [
     body: [
       'Built as a React, Vite, and Three.js spatial interface.',
       'Project writing lives in repo-local markdown and CSV files. Images are organized by project folder and prepared as WebP where possible.',
-      'Typography set in General Sans and EB Garamond. Spatial engine renders 119 works across five navigable modes.',
+      'Typography set in Cabinet Grotesk, Satoshi, and JetBrains Mono via Fontshare. Spatial engine renders 120 works across five navigable modes.',
     ],
   },
 ];
