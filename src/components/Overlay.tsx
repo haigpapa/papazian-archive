@@ -1310,7 +1310,7 @@ export default function Overlay({
       />
 
 
-      <footer className="fixed bottom-5 left-5 right-5 flex justify-center items-center pointer-events-none z-[130]">
+      <footer className={`fixed bottom-5 left-5 right-5 justify-center items-center pointer-events-none z-[130] ${currentMode === 'horizontal' ? 'hidden md:flex' : 'flex'}`}>
         <div className="w-full pointer-events-auto">
           <div className="relative bg-surface/82 backdrop-blur-xl border border-white/18 shadow-2xl rounded-none w-full">
             <motion.div
@@ -1411,7 +1411,7 @@ export default function Overlay({
                             const isChapterActive = railIndex >= chapter.startIndex && railIndex < chapter.startIndex + chapter.count;
                             return (
                               <div 
-                                key={chapter.name} 
+                                key={`${chapter.name}-${chapter.startIndex}`}
                                 style={{ flex: chapter.count }} 
                                 className="flex flex-col gap-1 min-w-0"
                               >
@@ -1585,7 +1585,7 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.99 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-auto fixed bottom-0 left-0 right-0 top-[64px] z-[140] flex overflow-hidden shadow-2xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] central-panel"
+      className="pointer-events-auto fixed bottom-[132px] left-0 right-0 top-[64px] z-[140] flex overflow-hidden shadow-2xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] central-panel"
     >
       <div className="flex min-h-0 w-full flex-col">
         <div className="min-h-0 flex-1 overflow-y-auto custom-scrollbar py-4">
@@ -1673,12 +1673,14 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
               </div>
 
               <div className="grid grid-cols-[1fr_auto] items-stretch border-b border-white/12">
-                <a
-                  href="/cv.pdf"
-                  className="flex items-center border-r border-white/12 px-5 py-4 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
-                >
-                  CV
-                </a>
+                <div className="flex items-stretch border-r border-white/12">
+                  <a
+                    href="/cv.pdf"
+                    className="flex w-fit items-center px-5 py-4 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+                  >
+                    CV
+                  </a>
+                </div>
                 <button
                   type="button"
                   onClick={onExploreWork}
@@ -1747,7 +1749,7 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.99 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-auto fixed bottom-0 left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-t border-white/16 bg-black/86 shadow-2xl backdrop-blur-xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(900px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] md:border md:border-white/16"
+      className="pointer-events-auto fixed bottom-[132px] left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-y border-white/16 bg-black/86 shadow-2xl backdrop-blur-xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(900px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] md:border md:border-white/16"
     >
       <div className="grid h-full w-full grid-rows-1 md:grid-cols-[240px_1fr]">
         <aside className={`${isMobileViewport && mobileEssayView === 'reader' ? 'hidden' : 'flex'} min-h-0 flex-col border-white/12 md:flex md:border-r`}>
@@ -1916,7 +1918,7 @@ const ArchiveInfoConsole = React.forwardRef<
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.985 }}
           transition={{ duration: 0.18, ease: 'easeOut' }}
-          className="fixed bottom-0 left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-t border-white/16 bg-[#050505]/96 shadow-2xl backdrop-blur-xl pointer-events-auto md:top-auto md:bottom-[118px] md:left-5 md:right-auto md:h-[520px] md:w-[520px] md:bg-surface/92 md:border md:border-white/16 md:z-[125]"
+          className="fixed bottom-[132px] left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-y border-white/16 bg-[#050505]/96 shadow-2xl backdrop-blur-xl pointer-events-auto md:top-auto md:bottom-[118px] md:left-5 md:right-auto md:h-[520px] md:w-[520px] md:bg-surface/92 md:border md:border-white/16 md:z-[125]"
           role="dialog"
           aria-label="Archive information console"
         >
