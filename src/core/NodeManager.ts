@@ -2223,6 +2223,27 @@ export default class NodeManager {
     }
   }
 
+  // Map nodes project to only a few pixels at mobile zoom, so when a direct
+  // raycast misses, pick the nearest node within a screen-space radius.
+  private findNearestMapNode(clientX: number, clientY: number, radius: number): THREE.Mesh | null {
+    let best: THREE.Mesh | null = null;
+    let bestDist = radius;
+    const vec = new THREE.Vector3();
+    this.getVisibleMeshes().forEach((mesh) => {
+      if (!mesh.userData.id) return;
+      vec.setFromMatrixPosition(mesh.matrixWorld).project(this.camera);
+      if (vec.z > 1) return;
+      const sx = (vec.x * 0.5 + 0.5) * window.innerWidth;
+      const sy = (-vec.y * 0.5 + 0.5) * window.innerHeight;
+      const dist = Math.hypot(sx - clientX, sy - clientY);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = mesh;
+      }
+    });
+    return best;
+  }
+
   private onClick = (event: MouseEvent) => {
     const target = event.target as HTMLElement | null;
     if (target?.closest('[data-ui-layer="true"]')) return;
@@ -2240,7 +2261,7 @@ export default class NodeManager {
       }
       if (!intersected || !intersected.userData.id) {
         if (this.activeMode === 'map') {
-          this.options.onCloseNode?.();
+          this.handleMapMiss(event);
         }
         return;
       }
@@ -2285,10 +2306,20 @@ export default class NodeManager {
       this.options.onNodeClick(node);
     } else {
       if (this.activeMode === 'map') {
-        this.options.onCloseNode?.();
+        this.handleMapMiss(event);
       }
     }
   };
+
+  private handleMapMiss(event: MouseEvent) {
+    const radius = window.matchMedia('(pointer: coarse)').matches ? 44 : 24;
+    const nearest = this.findNearestMapNode(event.clientX, event.clientY, radius);
+    if (nearest) {
+      this.options.onNodeClick(nearest.userData);
+      return;
+    }
+    this.options.onCloseNode?.();
+  }
 
   public setSearchQuery(query: string) {
     this.searchQueryString = query;

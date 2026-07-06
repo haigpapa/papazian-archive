@@ -584,7 +584,7 @@ export default function Overlay({
           <div className="pointer-events-auto">
             <button
               onClick={() => setIsFilterDrawerOpen(true)}
-              className="font-mono text-[9px] font-bold tracking-[0.16em] uppercase border border-white/12 hover:border-white px-3 py-1.5 transition-all text-white bg-black/40 backdrop-blur-sm cursor-pointer"
+              className="min-h-[44px] md:min-h-0 font-mono text-[9px] font-bold tracking-[0.16em] uppercase border border-white/12 hover:border-white px-3 py-1.5 transition-all text-white bg-black/40 backdrop-blur-sm cursor-pointer"
             >
               ⚡ FILTERS
             </button>
@@ -659,7 +659,7 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onCloseNode();
                     }}
-                    className="flex h-8 items-center justify-center px-2 text-text-muted transition-colors hover:text-white"
+                    className="flex h-11 min-w-[44px] items-center justify-center px-2 text-text-muted transition-colors hover:text-white"
                     aria-label="Return to previous view"
                   >
                     <ArrowLeft size={13} />
@@ -671,7 +671,7 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onRailStep(-1);
                     }}
-                    className="flex h-8 items-center justify-center px-2 text-text-muted transition-colors hover:text-white"
+                    className="flex h-11 min-w-[44px] items-center justify-center px-2 text-text-muted transition-colors hover:text-white"
                     aria-label="Previous slide"
                   >
                     <ChevronLeft size={14} />
@@ -683,7 +683,7 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onRailStep(1);
                     }}
-                    className="flex h-8 items-center justify-center px-2 text-text-muted transition-colors hover:text-white"
+                    className="flex h-11 min-w-[44px] items-center justify-center px-2 text-text-muted transition-colors hover:text-white"
                     aria-label="Next slide"
                   >
                     <ChevronRight size={14} />
@@ -699,7 +699,7 @@ export default function Overlay({
                     key={state}
                     type="button"
                     onClick={() => setMobileSheetState(state)}
-                    className={`px-2 py-1.5 font-mono text-[8px] uppercase tracking-[0.16em] transition-colors border ${
+                    className={`min-h-[44px] min-w-[44px] px-2 py-1.5 font-mono text-[8px] uppercase tracking-[0.16em] transition-colors border ${
                       mobileSheetState === state ? 'bg-white/10 text-white border-white/20' : 'text-text-muted hover:text-white border-transparent'
                     }`}
                   >
@@ -711,7 +711,7 @@ export default function Overlay({
               <button
                 type="button"
                 onClick={handleCopyLink}
-                className="flex h-8 w-8 items-center justify-center border border-white/10 text-text-muted transition-colors hover:border-white/25 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center border border-white/10 text-text-muted transition-colors hover:border-white/25 hover:text-white"
                 aria-label={copied ? 'Link copied' : 'Copy direct link'}
                 title={copied ? 'Link copied' : 'Copy direct link'}
               >
@@ -721,7 +721,7 @@ export default function Overlay({
               <button
                 type="button"
                 onClick={handleDismissDetail}
-                className="flex h-8 w-8 items-center justify-center border border-white/10 text-text-muted transition-colors hover:border-white/25 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center border border-white/10 text-text-muted transition-colors hover:border-white/25 hover:text-white"
                 aria-label="Collapse project sheet"
               >
                 <X size={15} />
@@ -980,7 +980,7 @@ export default function Overlay({
                           <div className="flex items-center justify-between gap-2 mb-1.5">
                             <button
                               onClick={() => onSelectSlug(slug)}
-                              className="font-display text-[10px] md:text-xs font-bold text-white tracking-wider uppercase hover:text-accent transition-colors cursor-pointer text-left"
+                              className="min-h-[44px] md:min-h-0 font-display text-[10px] md:text-xs font-bold text-white tracking-wider uppercase hover:text-accent transition-colors cursor-pointer text-left"
                             >
                               {targetNode?.title || slug.replace(/-/g, ' ')}
                             </button>
@@ -1077,7 +1077,7 @@ export default function Overlay({
                           <button
                             key={slug}
                             onClick={() => onSelectSlug(slug)}
-                            className="border border-white/10 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted transition-colors hover:border-accent/60 hover:text-white"
+                            className="min-h-[44px] md:min-h-0 border border-white/10 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted transition-colors hover:border-accent/60 hover:text-white"
                           >
                             {slug.replace(/-/g, ' ')}
                           </button>
@@ -1666,7 +1666,7 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
                 <button
                   type="button"
                   onClick={() => setShowBio(true)}
-                  className="w-full border border-white/10 p-3 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:bg-white/5 hover:text-white transition-colors"
+                  className="w-full min-h-[44px] md:min-h-0 border border-white/10 p-3 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:bg-white/5 hover:text-white transition-colors"
                 >
                   View Studio Profile →
                 </button>
@@ -1676,7 +1676,7 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
                 <div className="flex items-stretch border-r border-white/12">
                   <a
                     href="/cv.pdf"
-                    className="flex w-fit items-center px-5 py-4 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+                    className="flex w-fit min-h-[44px] items-center px-5 py-4 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
                   >
                     CV
                   </a>
@@ -1684,7 +1684,7 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
                 <button
                   type="button"
                   onClick={onExploreWork}
-                  className="cta-explore flex items-center gap-2 px-5 py-4 font-mono text-[9px] uppercase tracking-[0.2em]"
+                  className="cta-explore flex min-h-[44px] items-center gap-2 px-5 py-4 font-mono text-[9px] uppercase tracking-[0.2em]"
                 >
                   Explore the Work
                   <ArrowUpRight size={13} />

@@ -52,7 +52,7 @@ export function FirstVisitHint({ isReady }: FirstVisitHintProps) {
               </span>
               <button
                 onClick={dismiss}
-                className="text-text-muted hover:text-white transition-colors p-1"
+                className="text-text-muted hover:text-white transition-colors p-3 -m-2"
                 aria-label="Dismiss hint"
               >
                 <X size={14} />
@@ -87,7 +87,7 @@ export function FirstVisitHint({ isReady }: FirstVisitHintProps) {
             <div className="border-t border-white/10 px-5 py-3">
               <button
                 onClick={dismiss}
-                className="w-full bg-accent hover:bg-accent/80 text-black font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2.5 transition-all cursor-pointer"
+                className="w-full min-h-[44px] bg-accent hover:bg-accent/80 text-black font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2.5 transition-all cursor-pointer"
               >
                 Begin Exploring
               </button>

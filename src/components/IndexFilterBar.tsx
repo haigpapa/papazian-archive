@@ -103,7 +103,7 @@ export default function IndexFilterBar({
               <span className="text-[10px] text-white tracking-[0.2em] uppercase font-bold">⚡ ARCHIVE FILTERS</span>
               <button
                 onClick={onClose}
-                className="text-text-muted hover:text-white text-[9px] tracking-wider cursor-pointer border border-white/8 hover:border-white px-2.5 py-1.5 transition-colors"
+                className="min-h-[44px] md:min-h-0 text-text-muted hover:text-white text-[9px] tracking-wider cursor-pointer border border-white/8 hover:border-white px-2.5 py-1.5 transition-colors"
               >
                 CLOSE
               </button>
@@ -242,7 +242,7 @@ function FilterChip({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={`
-        font-mono text-[9px] uppercase tracking-[0.12em] px-2.5 py-1.5 border transition-all duration-150 shrink-0 cursor-pointer
+        min-h-[44px] md:min-h-0 font-mono text-[9px] uppercase tracking-[0.12em] px-2.5 py-1.5 border transition-all duration-150 shrink-0 cursor-pointer
         ${active
           ? 'border-white text-white bg-white/5'
           : 'border-white/8 text-text-muted/60 hover:text-white hover:border-white/20'
