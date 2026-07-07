@@ -7,6 +7,7 @@ import { SITE_INFO_TABS, type SiteInfoTabId } from '../data/siteInfo';
 import { getYouTubeEmbedUrl } from '../utils/youtube';
 import { WORLDS, getProjectWorld } from '../data/worlds';
 import IndexFilterBar, { type IndexFilters } from './IndexFilterBar';
+import { ImageWithFallback } from './ImageWithFallback';
 
 const MODE_OPTIONS = [
   {
@@ -141,6 +142,7 @@ export { WORLDS, getProjectWorld } from '../data/worlds';
 
 interface OverlayProps {
   inert?: boolean;
+  hasLoadError?: boolean;
   nodes: any[];
   activeNode: any;
   centeredNode?: any;
@@ -161,9 +163,11 @@ interface OverlayProps {
   onBackToWorks: () => void;
   onOpenMedia: (media: any) => void;
   onGoToRailSlide?: (index: number) => void;
-  audioReady?: boolean;
-  isMuted?: boolean;
-  onToggleAudio?: () => void;
+  audioReady: boolean;
+  audioStatus?: 'idle' | 'loading' | 'ready' | 'error';
+  audioError?: string | null;
+  isMuted: boolean;
+  onToggleAudio: () => void;
   domainFilter?: string;
   onDomainFilterChange?: (domain: string) => void;
   typeFilter?: string;
@@ -177,6 +181,7 @@ interface OverlayProps {
   onIndexFiltersChange?: (filters: IndexFilters) => void;
   onHoverFilter?: (category: 'world' | 'medium' | 'assetType' | null, value: string | null) => void;
   projectedPositions?: Record<string, { x: number, y: number, w: number, h: number }>;
+  onInspectRecord?: (record: any) => void;
 }
 
 interface TraversalRoute {
@@ -213,6 +218,7 @@ const TRAVERSAL_ROUTES: TraversalRoute[] = [
 
 export default function Overlay({ 
   inert,
+  hasLoadError = false,
   nodes, 
   activeNode, 
   centeredNode,
@@ -233,9 +239,11 @@ export default function Overlay({
   onBackToWorks,
   onOpenMedia,
   onGoToRailSlide,
-  audioReady,
-  isMuted,
-  onToggleAudio,
+  audioReady = false,
+  audioStatus = 'idle',
+  audioError,
+  isMuted = true,
+  onToggleAudio = () => {},
   domainFilter,
   onDomainFilterChange,
   typeFilter,
@@ -249,6 +257,7 @@ export default function Overlay({
   onIndexFiltersChange,
   onHoverFilter,
   projectedPositions = {},
+  onInspectRecord,
 }: OverlayProps) {
   const [showAbout, setShowAbout] = React.useState(false);
   const [activeInfoTab, setActiveInfoTab] = React.useState<SiteInfoTabId>('about');
@@ -258,6 +267,7 @@ export default function Overlay({
   const [isMobileViewport, setIsMobileViewport] = React.useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
   const [hoveredChapterIndex, setHoveredChapterIndex] = React.useState<number | null>(null);
+  const [showMobileMapTools, setShowMobileMapTools] = React.useState(false);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState(false);
 
   const filteredNodes = nodes.filter((node) => {
@@ -445,8 +455,8 @@ export default function Overlay({
 
   // Assets currently visible in the Index grid — mirrors NodeManager's filters
   // so the HUD file count matches what is actually on screen.
-  const indexAssetCount = React.useMemo(() => {
-    if (!indexFilters) return flatAssets.length;
+  const filteredAssets = React.useMemo(() => {
+    if (!indexFilters) return flatAssets;
     return flatAssets.filter((asset) => {
       if (indexFilters.world !== 'all') {
         const world = getProjectWorld(asset.projectId);
@@ -465,9 +475,20 @@ export default function Overlay({
           return false;
         }
       }
+      // Apply search query filter
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchesLabel = (asset.label || '').toLowerCase().includes(q);
+        const matchesTitle = (asset.projectTitle || '').toLowerCase().includes(q);
+        const matchesRole = (asset.role || '').toLowerCase().includes(q);
+        const matchesType = (asset.type || '').toLowerCase().includes(q);
+        if (!matchesLabel && !matchesTitle && !matchesRole && !matchesType) return false;
+      }
       return true;
-    }).length;
-  }, [flatAssets, indexFilters]);
+    });
+  }, [flatAssets, indexFilters, searchQuery]);
+
+  const indexAssetCount = filteredAssets.length;
 
   if (currentMode === 'grid' && indexFilters) {
     const worldPart = indexFilters.world === 'all' ? 'ALL' : indexFilters.world.toUpperCase();
@@ -584,13 +605,61 @@ export default function Overlay({
           <div className="pointer-events-auto">
             <button
               onClick={() => setIsFilterDrawerOpen(true)}
-              className="min-h-[44px] md:min-h-0 font-mono text-[9px] font-bold tracking-[0.16em] uppercase border border-white/12 hover:border-white px-3 py-1.5 transition-all text-white bg-black/40 backdrop-blur-sm cursor-pointer"
+              className="min-h-[44px] md:min-h-0 font-mono text-[9px] font-bold tracking-[0.16em] uppercase border border-ui-border hover:border-white px-3 py-1.5 transition-all text-white bg-black/40 backdrop-blur-sm cursor-pointer"
             >
               ⚡ FILTERS
             </button>
           </div>
         )}
       </header>
+
+      {/* 2D Fallback Safe Mode Grid (renders when WebGL fails) */}
+      {hasLoadError && currentMode === 'grid' && !activeNode && (
+        <div className="fixed inset-0 top-[70px] bottom-[110px] left-4 right-4 overflow-y-auto pointer-events-auto z-[90] custom-scrollbar bg-black/90 p-4 md:p-6 border border-ui-border">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+            {filteredAssets.map((asset) => {
+              const fallbackUrl = asset.src?.replace(/\.webp$/, '.jpg');
+              const isTextCard = asset.type === 'text';
+              return (
+                <button
+                  key={asset.id}
+                  onClick={() => onInspectRecord?.(asset)}
+                  className="aspect-[3/4] w-full border border-ui-border hover:border-white transition-all duration-200 bg-surface flex flex-col p-2 text-left shrink-0 cursor-pointer group"
+                >
+                  {isTextCard ? (
+                    <div className="flex-1 flex flex-col justify-center items-center text-center p-3 border border-dashed border-ui-border">
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-accent">Text Entry</span>
+                      <p className="font-display text-[10px] text-white/90 mt-1 uppercase font-bold line-clamp-3 leading-snug">{asset.label}</p>
+                    </div>
+                  ) : (
+                    <div className="flex-1 w-full bg-black/40 overflow-hidden relative border border-white/5">
+                      <ImageWithFallback
+                        src={asset.poster || asset.src || asset.thumbnail}
+                        fallbackSrc={fallbackUrl}
+                        alt={asset.label}
+                        containerClassName="w-full h-full"
+                        className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div className="mt-2 shrink-0 font-mono text-[9px] flex flex-col gap-0.5">
+                    <div className="flex justify-between text-[7px] text-text-muted-quiet font-bold">
+                      <span>FILE_{String(asset.id).slice(-4).toUpperCase()}</span>
+                      <span>{asset.year}</span>
+                    </div>
+                    <div className="text-[10px] font-bold text-white uppercase truncate mt-0.5">
+                      {asset.label || asset.projectTitle}
+                    </div>
+                    <div className="text-[8px] text-text-muted uppercase truncate">
+                      {asset.role || asset.type || 'Evidence'}
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
 
       {/* Left-side dynamic Project World typographic overlay */}
@@ -651,7 +720,7 @@ export default function Overlay({
           >
             <div className="mb-3 flex items-center justify-between gap-2 md:hidden">
               {currentMode === 'horizontal' ? (
-                <div className="grid grid-cols-3 border border-white/10 bg-white/5">
+                <div className="grid grid-cols-3 border border-ui-border bg-ui-bg">
                   <button
                     type="button"
                     onMouseDown={(event) => event.preventDefault()}
@@ -693,14 +762,14 @@ export default function Overlay({
                 <span />
               )}
 
-              <div className="ml-auto grid grid-cols-2 border border-white/10 bg-white/5">
+              <div className="ml-auto grid grid-cols-2 border border-ui-border bg-ui-bg">
                 {(['peek', 'full'] as const).map((state) => (
                   <button
                     key={state}
                     type="button"
                     onClick={() => setMobileSheetState(state)}
                     className={`min-h-[44px] min-w-[44px] px-2 py-1.5 font-mono text-[8px] uppercase tracking-[0.16em] transition-colors border ${
-                      mobileSheetState === state ? 'bg-white/10 text-white border-white/20' : 'text-text-muted hover:text-white border-transparent'
+                      mobileSheetState === state ? 'bg-ui-bg-hover text-white border-ui-border-hover' : 'text-text-muted hover:text-white border-transparent'
                     }`}
                   >
                     {state}
@@ -711,7 +780,7 @@ export default function Overlay({
               <button
                 type="button"
                 onClick={handleCopyLink}
-                className="flex h-11 w-11 items-center justify-center border border-white/10 text-text-muted transition-colors hover:border-white/25 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center border border-ui-border text-text-muted transition-colors hover:border-ui-border-hover hover:text-white"
                 aria-label={copied ? 'Link copied' : 'Copy direct link'}
                 title={copied ? 'Link copied' : 'Copy direct link'}
               >
@@ -721,16 +790,20 @@ export default function Overlay({
               <button
                 type="button"
                 onClick={handleDismissDetail}
-                className="flex h-11 w-11 items-center justify-center border border-white/10 text-text-muted transition-colors hover:border-white/25 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center border border-ui-border text-text-muted transition-colors hover:border-ui-border-hover hover:text-white"
                 aria-label="Collapse project sheet"
               >
                 <X size={15} />
               </button>
             </div>
 
+
+
+
+            {/* Right Controls */}
             <div className="absolute right-4 top-4 hidden items-center gap-2 md:flex">
               {currentMode === 'horizontal' && (
-                <div className="flex border border-white/10 bg-white/[0.03]">
+                <div className="flex border border-ui-border bg-white/[0.03]">
                   <button
                     type="button"
                     onMouseDown={(event) => event.preventDefault()}
@@ -738,7 +811,7 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onCloseNode();
                     }}
-                    className="flex h-10 items-center justify-center gap-2 border-r border-white/10 px-3 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted transition-colors hover:text-white"
+                    className="flex h-10 items-center justify-center gap-2 border-r border-ui-border px-3 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted transition-colors hover:text-white"
                   >
                     <ArrowLeft size={13} />
                     Return
@@ -750,7 +823,7 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onRailStep(-1);
                     }}
-                    className="flex h-10 items-center justify-center border-r border-white/10 px-3 text-text-muted transition-colors hover:text-white"
+                    className="flex h-10 items-center justify-center border-r border-ui-border px-3 text-text-muted transition-colors hover:text-white"
                     aria-label="Previous slide"
                   >
                     <ChevronLeft size={15} />
@@ -762,7 +835,7 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onRailStep(1);
                     }}
-                    className="flex h-10 items-center justify-center border-r border-white/10 px-3 text-text-muted transition-colors hover:text-white"
+                    className="flex h-10 items-center justify-center border-r border-ui-border px-3 text-text-muted transition-colors hover:text-white"
                     aria-label="Next slide"
                   >
                     <ChevronRight size={15} />
@@ -787,7 +860,7 @@ export default function Overlay({
               <button
                 type="button"
                 onClick={handleCopyLink}
-                className="flex h-10 items-center justify-center gap-2 border border-white/10 px-3 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted transition-colors hover:border-white/25 hover:text-white"
+                className="flex h-10 items-center justify-center gap-2 border border-ui-border px-3 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted transition-colors hover:border-ui-border-hover hover:text-white"
                 aria-label={copied ? 'Link copied' : 'Copy direct link'}
               >
                 <Link size={13} className={copied ? 'text-accent' : ''} />
@@ -797,7 +870,7 @@ export default function Overlay({
               <button
                 type="button"
                 onClick={onCloseNode}
-                className="flex h-10 w-10 items-center justify-center border border-white/10 text-text-muted transition-colors hover:border-white/25 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center border border-ui-border text-text-muted transition-colors hover:border-ui-border-hover hover:text-white"
                 aria-label="Close detail view"
               >
                 <X size={18} />
@@ -818,7 +891,7 @@ export default function Overlay({
               }`}
             >
               {activeRoute && (
-                <div className="border border-white/10 bg-white/5 p-4 mb-6 rounded-none pointer-events-auto shrink-0">
+                <div className="border border-ui-border bg-ui-bg p-4 mb-6 rounded-none pointer-events-auto shrink-0">
                   <div className="flex justify-between items-center mb-2">
                     <span className="font-mono text-[9px] tracking-[0.2em] uppercase font-bold" style={{ color: activeNode.accentColor || '#d7e7ef' }}>
                       {activeRoute.name}
@@ -848,7 +921,7 @@ export default function Overlay({
                           onNodeClick?.(nodeObj);
                         }
                       }}
-                      className={`font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-3 py-1.5 border border-white/10 transition-colors cursor-pointer rounded-none bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none`}
+                      className={`font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-3 py-1.5 border border-ui-border transition-colors cursor-pointer rounded-none bg-ui-bg hover:bg-ui-bg-hover disabled:opacity-30 disabled:pointer-events-none`}
                     >
                       PREV STEP
                     </button>
@@ -866,7 +939,7 @@ export default function Overlay({
                           onNodeClick?.(nodeObj);
                         }
                       }}
-                      className={`font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-3 py-1.5 border border-white/10 transition-colors cursor-pointer rounded-none bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none`}
+                      className={`font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-3 py-1.5 border border-ui-border transition-colors cursor-pointer rounded-none bg-ui-bg hover:bg-ui-bg-hover disabled:opacity-30 disabled:pointer-events-none`}
                     >
                       NEXT STEP
                     </button>
@@ -901,7 +974,7 @@ export default function Overlay({
                 <span className="font-mono text-[10px] tracking-[0.2em] uppercase font-bold" style={{ color: activeNode.accentColor || '#d7e7ef' }}>
                   {isMobilePeek && currentMode === 'horizontal' ? `${String(railIndex + 1).padStart(2, '0')} / ${String(Math.max(railTotal, 1)).padStart(2, '0')}` : activeNode.tier || activeNode.category || 'PROJECT'}
                 </span>
-                <span className="w-1 h-1 rounded-full bg-white/20" />
+                <span className="w-1 h-1 rounded-full bg-ui-bg-active" />
                 <span className="font-mono text-[10px] text-text-muted tracking-widest">
                   {isMobilePeek && currentMode === 'horizontal' ? railChapter : activeNode.year}
                 </span>
@@ -936,9 +1009,11 @@ export default function Overlay({
                     {activeNode.thesis}
                   </p>
                 )}
-                <p className="text-text leading-relaxed text-sm text-pretty">
-                  {activeNode.shortDescription}
-                </p>
+                {currentMode !== 'horizontal' && (
+                  <p className="text-text leading-relaxed text-sm text-pretty">
+                    {activeNode.shortDescription}
+                  </p>
+                )}
                 {activeNode.fullDescription && currentMode !== 'horizontal' && (
                   <p className="text-text-muted mt-4 leading-relaxed text-sm text-pretty">
                     {activeNode.fullDescription}
@@ -947,7 +1022,7 @@ export default function Overlay({
               </div>
 
               {activeNode.highlights?.length > 0 && (
-                <div className={`${mobileSheetState === 'full' ? 'block' : 'hidden'} mt-8 border-t border-white/10 pt-5 md:block`}>
+                <div className={`${mobileSheetState === 'full' ? 'block' : 'hidden'} mt-8 border-t border-ui-border pt-5 md:block`}>
                   <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.22em] text-accent">Signals</p>
                   <div className="space-y-3">
                     {activeNode.highlights.slice(0, currentMode === 'horizontal' ? 2 : 3).map((highlight: string) => (
@@ -960,7 +1035,7 @@ export default function Overlay({
               )}
 
               {currentMode !== 'horizontal' && relatedSlugs.length > 0 && (
-                <div className="mt-8 border-t border-white/10 pt-5">
+                <div className="mt-8 border-t border-ui-border pt-5">
                   <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.22em] text-accent">Relations</p>
                   <div className="space-y-3">
                     {relatedSlugs.map((slug: string) => {
@@ -973,7 +1048,7 @@ export default function Overlay({
                           className={`p-3 border transition-all ${
                             isMutual
                               ? 'bg-accent/[0.02] border-accent/20 hover:border-accent/40'
-                              : 'bg-transparent border-white/5 hover:border-white/10'
+                              : 'bg-transparent border-white/5 hover:border-ui-border'
                           }`}
                           style={{ borderLeft: `2px solid ${targetNode?.accentColor || '#666a6f'}` }}
                         >
@@ -987,7 +1062,7 @@ export default function Overlay({
                             <span className={`px-1.5 py-0.5 font-mono text-[7px] tracking-wider uppercase border shrink-0 ${
                               isMutual
                                 ? 'bg-accent/15 border-accent/30 text-accent'
-                                : 'bg-white/5 border-white/10 text-text-muted'
+                                : 'bg-ui-bg border-ui-border text-text-muted'
                             }`}>
                               {relDetail.typeName} {isMutual ? '⚡' : ''}
                             </span>
@@ -1002,8 +1077,8 @@ export default function Overlay({
                 </div>
               )}
 
-              {currentMode === 'horizontal' && activeNode && mobileSheetState === 'full' && (
-                <div className="mt-4 border-y border-white/10 py-4 md:mt-10 md:py-5">
+              {currentMode === 'horizontal' && activeNode && (mobileSheetState === 'full' || !isMobileViewport) && (
+                <div className="mt-4 border-y border-ui-border py-4 md:mt-10 md:py-5">
                   <div className="flex items-center justify-between gap-4 font-mono text-[9px] uppercase tracking-[0.18em] text-text-muted">
                     <span>
                       {railHoverImage ? 'HOVER' : 'ACTIVE'} / {String(displayRailIndex + 1).padStart(2, '0')} / {String(Math.max(railTotal, 1)).padStart(2, '0')}
@@ -1021,11 +1096,11 @@ export default function Overlay({
                         </p>
                       )}
                       {displayRailImage?.body && (
-                        <div className="mt-4 border-t border-white/10 pt-4">
+                        <div className="mt-4 border-t border-ui-border pt-4">
                           <p className="mb-2.5 font-mono text-[9px] uppercase tracking-[0.2em] text-accent">Role Deliverables</p>
                           <div className="grid grid-cols-2 gap-2">
                             {(Array.isArray(displayRailImage.body) ? displayRailImage.body : [displayRailImage.body]).map((item: string, idx: number) => (
-                              <div key={item} className="flex items-start gap-2 border border-white/5 bg-white/3 p-2 font-mono text-[9px] uppercase tracking-wider">
+                              <div key={item} className="flex items-start gap-2 border border-white/5 bg-ui-bg p-2 font-mono text-[9px] uppercase tracking-wider">
                                 <span className="text-accent font-bold">0{idx + 1}</span>
                                 <span className="text-text-muted leading-tight">{item}</span>
                               </div>
@@ -1051,7 +1126,7 @@ export default function Overlay({
                     const entropy = (charSum(titleStr) % 100) * 0.005 + 0.085;
                     const faultRate = (charSum(titleStr) % 10 === 0) ? '0.04%' : '0.00%';
                     return (
-                      <div className="mt-4 border-t border-white/10 pt-4 flex items-center justify-between font-mono text-[8px] uppercase tracking-[0.16em] text-text-muted/64">
+                      <div className="mt-4 border-t border-ui-border pt-4 flex items-center justify-between font-mono text-[8px] uppercase tracking-[0.16em] text-text-muted-quiet">
                         <span>LATENCY: {latency.toFixed(4)} MS</span>
                         <span>ENTROPY: {entropy.toFixed(3)} BITS</span>
                         <span>FAULT RATE: {faultRate}</span>
@@ -1063,7 +1138,7 @@ export default function Overlay({
                       type="button"
                       disabled={!railEmbedUrl}
                       onClick={() => railEmbedUrl && onOpenMedia(displayRailImage)}
-                      className="mt-4 flex w-full items-center justify-center gap-2 border border-accent/40 bg-accent/10 py-3 font-mono text-[9px] uppercase tracking-[0.18em] text-white transition-colors hover:border-accent hover:bg-accent/18 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/5 disabled:text-white/28"
+                      className="mt-4 flex w-full items-center justify-center gap-2 border border-accent/40 bg-accent/10 py-3 font-mono text-[9px] uppercase tracking-[0.18em] text-white transition-colors hover:border-accent hover:bg-accent/18 disabled:cursor-not-allowed disabled:border-ui-border disabled:bg-ui-bg disabled:text-white/28"
                     >
                       {railType === 'audio' ? <Volume2 size={14} /> : <Play size={14} />}
                       {railEmbedUrl ? 'Play in Archive' : 'Video unavailable'}
@@ -1077,7 +1152,7 @@ export default function Overlay({
                           <button
                             key={slug}
                             onClick={() => onSelectSlug(slug)}
-                            className="min-h-[44px] md:min-h-0 border border-white/10 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted transition-colors hover:border-accent/60 hover:text-white"
+                            className="min-h-[44px] md:min-h-0 border border-ui-border px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted transition-colors hover:border-accent/60 hover:text-white"
                           >
                             {slug.replace(/-/g, ' ')}
                           </button>
@@ -1092,7 +1167,7 @@ export default function Overlay({
                 {activeNode.hasProjectPage ? (
                   null
                 ) : (
-                  <div className="w-full py-4 border border-white/10 text-text-muted font-mono text-[10px] tracking-widest flex items-center justify-center">
+                  <div className="w-full py-4 border border-ui-border text-text-muted font-mono text-[10px] tracking-widest flex items-center justify-center">
                     {activeNode.tier === 'archive' ? 'ARCHIVE NODE' : 'SPATIAL RECORD'}
                   </div>
                 )}
@@ -1116,14 +1191,14 @@ export default function Overlay({
 
       {/* Floating Expand Sidebar Button when in horizontal mode and collapsed */}
       <AnimatePresence>
-        {currentMode === 'horizontal' && activeNode && isSidebarCollapsed && (
+        {currentMode === 'horizontal' && activeNode && isSidebarCollapsed && !isMobileViewport && (
           <motion.button
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
             type="button"
             onClick={() => setIsSidebarCollapsed(false)}
-            className="fixed right-0 top-1/2 -translate-y-1/2 z-[141] bg-surface/95 border-l border-y border-border px-3 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:text-white hover:bg-white/5 transition-all cursor-pointer flex flex-col items-center gap-2 pointer-events-auto shadow-xl"
+            className="fixed right-0 top-1/2 -translate-y-1/2 z-[141] bg-surface/95 border-l border-y border-border px-3 py-4 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:text-white hover:bg-ui-bg transition-all cursor-pointer flex flex-col items-center gap-2 pointer-events-auto shadow-xl"
             aria-label="Show project information"
           >
             <ChevronsLeft size={13} className="text-accent animate-pulse" />
@@ -1188,7 +1263,7 @@ export default function Overlay({
                   const firstNode = nodes.find((node) => node.slug === route.nodes[0]);
                   if (firstNode) onNodeClick(firstNode);
                 }}
-                className="border border-white/10 bg-black/40 p-3 text-left backdrop-blur-sm transition-colors hover:border-accent/50 hover:bg-white/5 group"
+                className="border border-ui-border bg-black/40 p-3 text-left backdrop-blur-sm transition-colors hover:border-accent/50 hover:bg-ui-bg group"
               >
                 <span className="block font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-white group-hover:text-accent transition-colors">
                   {route.name}
@@ -1233,10 +1308,65 @@ export default function Overlay({
         )}
       </AnimatePresence>
 
+      {/* Mobile Map Tools (Legend & Routes) */}
+      <AnimatePresence>
+        {currentMode === 'map' && !activeNode && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-[108px] left-5 right-5 z-[90] flex flex-col md:hidden pointer-events-auto gap-2"
+          >
+            <AnimatePresence>
+              {showMobileMapTools && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="bg-black/80 backdrop-blur-md border border-ui-border p-4 flex flex-col gap-4 overflow-hidden rounded-none"
+                >
+                  <div className="flex flex-col gap-2">
+                    <span className="font-mono text-[8px] uppercase tracking-widest text-text-muted">Routes</span>
+                    {TRAVERSAL_ROUTES.map((route) => (
+                      <button
+                        key={route.id}
+                        onClick={() => {
+                          if (activeRoute?.id === route.id) {
+                            setActiveRoute(null);
+                          } else {
+                            setActiveRoute(route);
+                            setActiveRouteStep(0);
+                            const firstNode = nodes.find((node) => node.slug === route.nodes[0]);
+                            if (firstNode) onNodeClick(firstNode);
+                          }
+                          setShowMobileMapTools(false);
+                        }}
+                        className={`text-left px-3 py-2 font-mono text-[9px] uppercase tracking-wider border transition-colors ${
+                          activeRoute?.id === route.id ? 'border-accent text-accent bg-accent/10' : 'border-ui-border text-white hover:bg-ui-bg'
+                        }`}
+                      >
+                        {route.name}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            
+            <button 
+              onClick={() => setShowMobileMapTools(!showMobileMapTools)}
+              className="w-full bg-surface/80 backdrop-blur-md border border-ui-border py-2.5 font-mono text-[9px] uppercase tracking-[0.16em] text-white flex justify-center items-center gap-2 shadow-lg"
+            >
+              <Map size={12} /> {showMobileMapTools ? 'CLOSE TOOLS' : 'MAP TOOLS & ROUTES'}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Floating Hover Tooltip (grid mode only, visual view mode) */}
       {currentMode === 'grid' && indexFilters && indexFilters.viewMode === 'visual' && hoveredNode && mousePosition && (
         <div
-          className="fixed pointer-events-none z-[250] font-mono text-[9px] text-text-muted flex flex-col gap-1 border-l border-white/20 pl-2.5 bg-black/40 backdrop-blur-sm py-1.5"
+          className="fixed pointer-events-none z-[250] font-mono text-[9px] text-text-muted flex flex-col gap-1 border-l border-ui-border-hover pl-2.5 bg-black/40 backdrop-blur-sm py-1.5"
           style={{
             left: mousePosition.x + 8,
             top: mousePosition.y - 12,
@@ -1253,7 +1383,7 @@ export default function Overlay({
               X: {hoveredNode.gridX.toFixed(1)} / Y: {hoveredNode.gridY.toFixed(1)}
             </div>
           )}
-          <span className="text-[7px] text-text-muted/40 uppercase tracking-widest mt-1">
+          <span className="text-[7px] text-text-muted-quiet uppercase tracking-widest mt-1">
             CLICK TO INSPECT
           </span>
         </div>
@@ -1292,7 +1422,7 @@ export default function Overlay({
                   <div className="text-[10px] font-bold text-white uppercase truncate">
                     {asset.label || asset.projectTitle}
                   </div>
-                  <div className="text-[8px] text-text-muted/80 uppercase truncate">
+                  <div className="text-[8px] text-text-muted uppercase truncate">
                     {asset.role || asset.type || 'Evidence'}
                   </div>
                 </div>
@@ -1320,11 +1450,11 @@ export default function Overlay({
 
             <div className="grid grid-cols-[auto_1fr] lg:grid-cols-[auto_minmax(0,1fr)_auto]">
               {/* Left Actions Group */}
-              <div className="flex border-r border-white/10 shrink-0">
+              <div className="flex border-r border-ui-border shrink-0">
                 <button 
                   ref={infoButtonRef}
                   onClick={() => setShowAbout(!showAbout)}
-                  className={`min-h-[64px] w-[64px] border-r border-white/10 flex items-center justify-center transition-colors rounded-none shrink-0 ${showAbout ? 'bg-accent text-black' : 'text-text-muted hover:text-white hover:bg-white/5'}`}
+                  className={`min-h-[64px] w-[64px] border-r border-ui-border flex items-center justify-center transition-colors rounded-none shrink-0 ${showAbout ? 'bg-accent text-black' : 'text-text-muted hover:text-white hover:bg-ui-bg'}`}
                   title="INFORMATION"
                   aria-label="Open information"
                 >
@@ -1335,14 +1465,22 @@ export default function Overlay({
                 <button
                   onClick={onToggleAudio}
                   className={`min-h-[64px] w-[64px] flex items-center justify-center transition-colors rounded-none shrink-0 ${
-                    audioReady && !isMuted
+                    audioStatus === 'error'
+                      ? 'text-red-400 bg-red-500/10'
+                      : audioStatus === 'ready' && !isMuted
                       ? 'text-accent'
-                      : 'text-text-muted hover:text-white hover:bg-white/5'
+                      : 'text-text-muted hover:text-white hover:bg-ui-bg ' + (audioStatus === 'loading' || !audioReady ? 'animate-pulse opacity-80' : '')
                   }`}
-                  title={isMuted ? 'Unmute sound' : 'Mute sound'}
-                  aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
+                  title={audioStatus === 'error' ? (audioError || 'Sound unavailable') : isMuted ? 'Unmute sound' : 'Mute sound'}
+                  aria-label={audioStatus === 'error' ? 'Sound unavailable' : isMuted ? 'Unmute sound' : 'Mute sound'}
                 >
-                  {isMuted || !audioReady ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                  {audioStatus === 'error' ? (
+                    <span className="font-mono text-[9px] uppercase tracking-wider text-center leading-tight">Audio<br/>Error</span>
+                  ) : isMuted || !audioReady ? (
+                    <VolumeX size={16} />
+                  ) : (
+                    <Volume2 size={16} />
+                  )}
                 </button>
               </div>
 
@@ -1388,21 +1526,21 @@ export default function Overlay({
                       {/* Left: Clickable Metadata Block (triggers search) */}
                       <button 
                         onClick={() => setIsSearchActive(true)}
-                        className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-white/5 transition-colors rounded-none justify-center h-full min-h-[48px] md:min-h-[64px] shrink-0 w-full md:w-[240px] lg:w-[280px] cursor-pointer"
+                        className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-ui-bg transition-colors rounded-none justify-center h-full min-h-[48px] md:min-h-[64px] shrink-0 w-full md:w-[240px] lg:w-[280px] cursor-pointer"
                       >
-                        <span className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                        <span aria-hidden="true" className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
                           {line1Text}
                         </span>
                         <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
                           {bottomTitle}
                         </span>
-                        <span className="font-mono text-[9px] text-text-muted/40 group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                        <span aria-hidden="true" className="font-mono text-[9px] text-text-muted-quiet group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
                           {line3Text}
                         </span>
                       </button>
 
                       {/* Vertical divider on desktop */}
-                      <div className="hidden md:block w-[1px] h-[36px] bg-white/10 self-center shrink-0" />
+                      <div className="hidden md:block w-[1px] h-[36px] bg-ui-bg-hover self-center shrink-0" />
 
                       {/* Right: Chapter Map Scrubber Progress Meter */}
                       <div className="flex-1 min-w-0 px-8 flex flex-col justify-center gap-1 h-full min-h-[48px] md:min-h-[64px] py-1.5 md:py-0 select-none">
@@ -1433,7 +1571,7 @@ export default function Overlay({
                                         className={`h-1 flex-1 transition-all rounded-none cursor-pointer hover:h-1.5 ${
                                           isActive
                                             ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.7)]'
-                                            : 'bg-white/10'
+                                            : 'bg-ui-bg-hover'
                                         }`}
                                         title={`${chapter.name}: ${slide.label}`}
                                         aria-label={`Go to slide ${slide.globalIndex + 1}`}
@@ -1460,13 +1598,13 @@ export default function Overlay({
                           <span className="w-2 h-2 shrink-0 rounded-none" style={{ backgroundColor: activeDetailNode.accentColor }} />
                         )}
                         <div className="flex flex-col justify-center min-w-0">
-                        <span className="font-mono text-[9px] text-accent/80 tracking-[0.16em] uppercase truncate">
+                        <span aria-hidden="true" className="font-mono text-[9px] text-accent/80 tracking-[0.16em] uppercase truncate">
                           {line1Text}
                         </span>
                         <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate my-0.5">
                           {bottomTitle}
                         </span>
-                        <span className="font-mono text-[9px] text-text-muted/80 tracking-[0.16em] uppercase truncate">
+                        <span aria-hidden="true" className="font-mono text-[9px] text-text-muted tracking-[0.16em] uppercase truncate">
                           {line3Text}
                         </span>
                         </div>
@@ -1483,7 +1621,7 @@ export default function Overlay({
                         )}
                         <button
                           onClick={() => onCloseNode()}
-                          className="bg-white/5 hover:bg-white/10 text-white font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2 border border-white/10 transition-all cursor-pointer rounded-none"
+                          className="bg-ui-bg hover:bg-ui-bg-hover text-white font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2 border border-ui-border transition-all cursor-pointer rounded-none"
                         >
                           CLOSE
                         </button>
@@ -1497,17 +1635,29 @@ export default function Overlay({
                       exit={{ opacity: 0, y: -5 }}
                       className="flex items-center justify-between w-full h-full min-h-[64px] pr-8"
                     >
+                      {/* Mobile version: Compact Chips */}
+                      <button 
+                        onClick={() => setIsFilterDrawerOpen(true)}
+                        className="md:hidden flex items-center gap-1.5 px-4 overflow-hidden h-full flex-1 w-full flex-wrap content-center py-2"
+                      >
+                        <span className="shrink-0 bg-ui-bg-hover text-white font-mono text-[9px] uppercase tracking-wider px-2 py-1">INDEX</span>
+                        <span className="shrink-0 bg-ui-bg text-text-muted font-mono text-[9px] uppercase tracking-wider px-2 py-1">W: {indexFilters?.world === 'all' ? 'ALL' : indexFilters?.world}</span>
+                        <span className="shrink-0 bg-ui-bg text-text-muted font-mono text-[9px] uppercase tracking-wider px-2 py-1">M: {indexFilters?.medium === 'all' ? 'ALL' : indexFilters?.medium}</span>
+                        <span className="shrink-0 bg-ui-bg text-text-muted font-mono text-[9px] uppercase tracking-wider px-2 py-1">{indexAssetCount} FILES</span>
+                      </button>
+
+                      {/* Desktop version: Strings */}
                       <button 
                         onClick={() => setIsSearchActive(true)}
-                        className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-white/5 transition-colors rounded-none justify-center h-full min-h-[64px] flex-1 cursor-pointer"
+                        className="hidden md:flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-ui-bg transition-colors rounded-none justify-center h-full min-h-[64px] flex-1 cursor-pointer"
                       >
-                        <span className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                        <span aria-hidden="true" className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
                           {line1Text}
                         </span>
                         <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
                           {bottomTitle}
                         </span>
-                        <span className="font-mono text-[9px] text-text-muted/40 group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                        <span aria-hidden="true" className="font-mono text-[9px] text-text-muted-quiet group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
                           {line3Text}
                         </span>
                       </button>
@@ -1519,15 +1669,15 @@ export default function Overlay({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
                       onClick={() => setIsSearchActive(true)}
-                      className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-white/5 transition-colors rounded-none justify-center h-full min-h-[64px] w-full cursor-pointer"
+                      className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-ui-bg transition-colors rounded-none justify-center h-full min-h-[64px] w-full cursor-pointer"
                     >
-                      <span className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                      <span aria-hidden="true" className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
                         {line1Text}
                       </span>
                       <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
                         {bottomTitle}
                       </span>
-                      <span className="font-mono text-[9px] text-text-muted/40 group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                      <span aria-hidden="true" className="font-mono text-[9px] text-text-muted-quiet group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
                         {line3Text}
                       </span>
                     </motion.button>
@@ -1535,7 +1685,7 @@ export default function Overlay({
                 </AnimatePresence>
               </div>
 
-              <div className="col-span-2 grid grid-cols-5 border-t border-white/10 lg:col-span-1 lg:flex lg:border-l lg:border-t-0">
+              <div className="col-span-2 grid grid-cols-5 border-t border-ui-border lg:col-span-1 lg:flex lg:border-l lg:border-t-0">
                 {MODE_OPTIONS.map((mode) => (
                   <ModeButton
                     key={mode.id}
@@ -1585,11 +1735,11 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.99 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-auto fixed bottom-[132px] left-0 right-0 top-[64px] z-[140] flex overflow-hidden shadow-2xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] central-panel"
+      className="pointer-events-auto fixed bottom-[160px] left-0 right-0 top-[84px] z-[140] flex overflow-hidden shadow-2xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] central-panel"
     >
       <div className="flex min-h-0 w-full flex-col">
         <div className="min-h-0 flex-1 overflow-y-auto custom-scrollbar py-4">
-          <div className="border-b border-white/12 p-5 md:p-7">
+          <div className="border-b border-ui-border p-5 md:p-7">
             <h2 className="font-display text-5xl font-bold leading-[0.86] tracking-tight text-white md:text-7xl text-balance">
               Systems<br />of Meaning
             </h2>
@@ -1601,8 +1751,8 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
             </p>
           </div>
 
-          <div className="grid grid-cols-2 border-b border-white/12">
-            <div className="border-r border-white/12 p-4">
+          <div className="grid grid-cols-2 border-b border-ui-border">
+            <div className="border-r border-ui-border p-4">
               <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-text-muted">Selected Works</p>
               <p className="mt-2 font-display text-3xl font-bold text-white">{workCount || 20}</p>
             </div>
@@ -1615,7 +1765,7 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
           </div>
 
           {showBio ? (
-            <div className="space-y-5 border-b border-white/12 p-5 md:p-7">
+            <div className="space-y-5 border-b border-ui-border p-5 md:p-7">
               <div>
                 <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
                   About / Bio
@@ -1629,21 +1779,21 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
               <button
                 type="button"
                 onClick={() => setShowBio(false)}
-                className="w-full border border-white/10 p-3 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:bg-white/5 hover:text-white transition-colors"
+                className="w-full border border-ui-border p-3 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:bg-ui-bg hover:text-white transition-colors"
               >
                 ← Back to Index
               </button>
             </div>
           ) : (
             <>
-              <div className="space-y-5 border-b border-white/12 p-5 md:p-7">
+              <div className="space-y-5 border-b border-ui-border p-5 md:p-7">
                 <div>
                   <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
                     Editorial Case Studies
                   </p>
                   <div className="space-y-3">
                     {caseStudies.map((study, index) => (
-                      <article key={study.label} className="border border-white/10 border-l-2 bg-white/[0.025] p-3" style={{ borderLeftColor: study.accentColor }}>
+                      <article key={study.label} className="border border-ui-border border-l-2 bg-white/[0.025] p-3" style={{ borderLeftColor: study.accentColor }}>
                         <div className="flex items-start justify-between gap-4">
                           <p className="font-display text-lg font-bold uppercase leading-none text-white">
                             {study.label}
@@ -1666,17 +1816,17 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
                 <button
                   type="button"
                   onClick={() => setShowBio(true)}
-                  className="w-full min-h-[44px] md:min-h-0 border border-white/10 p-3 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:bg-white/5 hover:text-white transition-colors"
+                  className="w-full min-h-[44px] md:min-h-0 border border-ui-border p-3 font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted hover:bg-ui-bg hover:text-white transition-colors"
                 >
                   View Studio Profile →
                 </button>
               </div>
 
-              <div className="grid grid-cols-[1fr_auto] items-stretch border-b border-white/12">
-                <div className="flex items-stretch border-r border-white/12">
+              <div className="grid grid-cols-[1fr_auto] items-stretch border-b border-ui-border">
+                <div className="flex items-stretch border-r border-ui-border">
                   <a
                     href="/cv.pdf"
-                    className="flex w-fit min-h-[44px] items-center px-5 py-4 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+                    className="flex w-fit min-h-[44px] items-center px-5 py-4 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted transition-colors hover:bg-ui-bg hover:text-white"
                   >
                     CV
                   </a>
@@ -1752,8 +1902,8 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
       className="pointer-events-auto fixed bottom-[132px] left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-y border-white/16 bg-black/86 shadow-2xl backdrop-blur-xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(900px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] md:border md:border-white/16"
     >
       <div className="grid h-full w-full grid-rows-1 md:grid-cols-[240px_1fr]">
-        <aside className={`${isMobileViewport && mobileEssayView === 'reader' ? 'hidden' : 'flex'} min-h-0 flex-col border-white/12 md:flex md:border-r`}>
-          <div className="border-b border-white/12 p-4 md:p-5">
+        <aside className={`${isMobileViewport && mobileEssayView === 'reader' ? 'hidden' : 'flex'} min-h-0 flex-col border-ui-border md:flex md:border-r`}>
+          <div className="border-b border-ui-border p-4 md:p-5">
             <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent">
               Essays / Writings
             </p>
@@ -1770,7 +1920,7 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
                   key={essay.slug}
                   type="button"
                   onClick={() => selectEssay(essay.slug)}
-                  className={`mb-2 w-full border border-white/10 border-l-2 p-3 text-left transition-all last:mb-0 md:mb-0 md:border-t-0 md:border-r-0 md:border-b md:border-l-2 ${
+                  className={`mb-2 w-full border border-ui-border border-l-2 p-3 text-left transition-all last:mb-0 md:mb-0 md:border-t-0 md:border-r-0 md:border-b md:border-l-2 ${
                     active
                       ? 'bg-accent/15 border-accent text-white'
                       : 'bg-white/[0.025] border-transparent text-white hover:bg-white/8 hover:border-l-white/40'
@@ -1798,32 +1948,32 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
           ref={readerScrollRef}
           className={`${isMobileViewport && mobileEssayView === 'index' ? 'hidden' : 'block'} h-full overflow-y-auto custom-scrollbar md:block`}
         >
-          <div className="sticky top-0 z-10 grid grid-cols-3 border-b border-white/12 bg-black/95 md:hidden">
+          <div className="sticky top-0 z-10 grid grid-cols-3 border-b border-ui-border bg-black/95 md:hidden">
             <button
               type="button"
               onClick={() => setMobileEssayView('index')}
-              className="border-r border-white/10 px-3 py-3 text-left font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+              className="border-r border-ui-border px-3 py-3 text-left font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-ui-bg hover:text-white"
             >
               Return
             </button>
             <button
               type="button"
               onClick={() => stepEssay(-1)}
-              className="border-r border-white/10 px-3 py-3 text-center font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+              className="border-r border-ui-border px-3 py-3 text-center font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-ui-bg hover:text-white"
             >
               Previous
             </button>
             <button
               type="button"
               onClick={() => stepEssay(1)}
-              className="px-3 py-3 text-right font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-white/5 hover:text-white"
+              className="px-3 py-3 text-right font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-ui-bg hover:text-white"
             >
               Next
             </button>
           </div>
 
           <div className="p-5 md:p-8">
-          <div className="mb-7 border-b border-white/12 pb-7">
+          <div className="mb-7 border-b border-ui-border pb-7">
             <p className="font-mono text-[9px] uppercase tracking-[0.26em] text-accent">
               {activeEssay.eyebrow} / {activeEssay.date} / {activeEssay.readTime}
             </p>
@@ -1843,11 +1993,11 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
             ))}
           </div>
 
-          <div className="mt-10 hidden grid-cols-2 border border-white/10 md:grid">
+          <div className="mt-10 hidden grid-cols-2 border border-ui-border md:grid">
             <button
               type="button"
               onClick={() => stepEssay(-1)}
-              className="border-r border-white/10 px-5 py-4 text-left transition-colors hover:bg-white/5 group"
+              className="border-r border-ui-border px-5 py-4 text-left transition-colors hover:bg-ui-bg group"
             >
               <span className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted group-hover:text-white transition-colors">
                 ← PREVIOUS
@@ -1859,7 +2009,7 @@ function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
             <button
               type="button"
               onClick={() => stepEssay(1)}
-              className="px-5 py-4 text-right transition-colors hover:bg-white/5 group"
+              className="px-5 py-4 text-right transition-colors hover:bg-ui-bg group"
             >
               <span className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted group-hover:text-white transition-colors">
                 NEXT →
@@ -1884,13 +2034,13 @@ function ModeButton({ active, disabled, onClick, icon: Icon, label, description 
       title={`${label}: ${description}`}
       aria-label={`${label}: ${description}`}
       className={`
-        group relative h-[64px] w-[64px] flex flex-col items-center justify-center shrink-0 rounded-none
+        group relative h-[64px] w-full lg:w-[64px] flex flex-col items-center justify-center rounded-none
         transition-all duration-0
         ${disabled 
-          ? 'cursor-not-allowed text-white/18 border-r border-white/10' 
+          ? 'cursor-not-allowed text-white/18 border-r border-ui-border' 
           : active 
           ? 'bg-white/12 text-white border-r border-transparent' 
-          : 'text-text-muted hover:bg-white/5 hover:text-white border-r border-white/10'}
+          : 'text-text-muted hover:bg-ui-bg hover:text-white border-r border-ui-border'}
         last:border-r-0
       `}
     >
@@ -1923,7 +2073,7 @@ const ArchiveInfoConsole = React.forwardRef<
           aria-label="Archive information console"
         >
           <div className="flex min-h-0 w-full flex-col">
-          <div className="shrink-0 border-b border-white/10 px-4 py-3">
+          <div className="shrink-0 border-b border-ui-border px-4 py-3">
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
                 <p className="font-mono text-[8px] uppercase tracking-[0.26em] text-accent">
@@ -1938,7 +2088,7 @@ const ArchiveInfoConsole = React.forwardRef<
               </p>
             </div>
 
-            <div className="mt-4 grid grid-cols-4 gap-px border border-white/10 bg-white/10">
+            <div className="mt-4 grid grid-cols-4 gap-px border border-ui-border bg-ui-bg-hover">
               {SITE_INFO_TABS.map((item) => (
                 <button
                   key={item.id}
@@ -1961,7 +2111,7 @@ const ArchiveInfoConsole = React.forwardRef<
               <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent">
                 {tab.eyebrow}
               </span>
-              <span className="h-px flex-1 bg-white/10" />
+              <span className="h-px flex-1 bg-ui-bg-hover" />
             </div>
 
             <h2 className="mt-4 font-display text-xl font-bold uppercase leading-tight tracking-[0.02em] text-white">
@@ -1977,7 +2127,7 @@ const ArchiveInfoConsole = React.forwardRef<
             </div>
 
             {tab.entries && (
-              <div className="mt-6 space-y-4 border-t border-white/10 pt-5">
+              <div className="mt-6 space-y-4 border-t border-ui-border pt-5">
                 {tab.entries.map((entry) => (
                   <div key={`${entry.date}-${entry.title}`} className="grid grid-cols-[64px_1fr] gap-4">
                     <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted">
@@ -1997,14 +2147,14 @@ const ArchiveInfoConsole = React.forwardRef<
             )}
 
             {tab.links && (
-              <div className="mt-6 border-t border-white/10 pt-4">
+              <div className="mt-6 border-t border-ui-border pt-4">
                 {tab.links.map((link) => (
                   <a
                     key={link.label}
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                    className="group flex items-center justify-between gap-5 border-b border-white/8 py-3 transition-colors hover:border-accent/50"
+                    className="group flex items-center justify-between gap-5 border-b border-ui-border py-3 transition-colors hover:border-accent/50"
                   >
                     <span className="min-w-0">
                       <span className="block font-mono text-[9px] uppercase tracking-[0.18em] text-white transition-colors group-hover:text-accent">
@@ -2022,7 +2172,7 @@ const ArchiveInfoConsole = React.forwardRef<
               </div>
             )}
 
-            <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-4 font-mono text-[8px] uppercase tracking-[0.18em] text-white/24">
+            <div className="mt-7 flex items-center justify-between border-t border-ui-border pt-4 font-mono text-[8px] uppercase tracking-[0.18em] text-white/24">
               <span>Papazian Archive</span>
               <span>v1.0.5</span>
             </div>

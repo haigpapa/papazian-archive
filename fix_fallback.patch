@@ -1,0 +1,62 @@
+--- src/App.tsx
++++ src/App.tsx
+@@ -539,6 +539,7 @@
+       console.error('Failed to initialize Scene:', e);
+       setLoadError('Unable to initialize the spatial engine. Your browser may not support WebGL.');
+       setIsLoading(false);
++      setCurrentMode('grid'); // Force 2D fallback mode
+       setIsReady(false);
+     }
+ 
+@@ -652,7 +653,7 @@
+   return (
+     <main className="relative w-full h-full overflow-hidden bg-black selection:bg-accent selection:text-white font-body text-text">
+       <AnimatePresence>
+-        {(isLoading || loadError) && (
++        {isLoading && !loadError && (
+           <motion.div
+             initial={{ opacity: 1 }}
+             exit={{ opacity: 0 }}
+@@ -661,16 +662,6 @@
+             role={loadError ? 'alert' : 'progressbar'}
+             aria-valuenow={loadError ? undefined : Math.round(loadProgress * 100)}
+             aria-valuemin={loadError ? undefined : 0}
+             aria-valuemax={loadError ? undefined : 100}
+             aria-label={loadError ? 'Archive failed to load' : 'Loading archive'}
+           >
+-            {loadError ? (
+-              <div className="bg-surface/95 backdrop-blur-xl border border-red-500/30 p-6 max-w-[400px] text-center shadow-2xl">
+-                <span className="font-mono text-[10px] tracking-[0.2em] text-red-400 uppercase font-bold block mb-3">
+-                  SYSTEM FAILURE
+-                </span>
+-                <p className="font-mono text-[9px] tracking-wider text-text-muted uppercase leading-relaxed">
+-                  {loadError}
+-                </p>
+-              </div>
+-            ) : (
+               <>
+                 <div className="w-64 h-[1px] bg-white/10 relative overflow-hidden mb-4">
+                   <motion.div
+@@ -682,7 +673,6 @@
+                 <p className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase">
+                   {`Drawing Archive Field ${Math.round(loadProgress * 100)}%`}
+                 </p>
+               </>
+-            )}
+           </motion.div>
+         )}
+       </AnimatePresence>
+@@ -698,6 +688,14 @@
+         inert={activeMedia || inspectedRecord ? true : undefined}
+       />
+ 
++      {loadError && (
++        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[150] pointer-events-none">
++          <div className="bg-red-500/10 backdrop-blur-md border border-red-500/30 px-4 py-2 rounded shadow-2xl flex items-center gap-3">
++            <span className="font-mono text-[9px] text-red-400 tracking-wider uppercase">WebGL Error: Operating in 2D Safe Mode</span>
++          </div>
++        </div>
++      )}
++
+       {/* UI Overlay Layer */}
+       <Overlay 

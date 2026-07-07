@@ -1,0 +1,78 @@
+{
+  "hash": "#mode=vertical",
+  "text": "PAPAZIAN\n03 / EXILE MACHINES\nSOUND · MEMORY · PERFORMANCE\n\nThe post-band performance and instrument-building era.\n\nWORKS / THE-WEATHER-REHEARSAL / 2026\nTHE WEATHER REHEARSAL\n000 / 020 / SPACE",
+  "buttons": [
+    {
+      "name": "Open information",
+      "rect": {
+        "x": 21,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Unmute sound",
+      "rect": {
+        "x": 85,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "WORKS / THE-WEATHER-REHEARSAL / 2026The Weather Rehearsal 000 / 020 / SPACE",
+      "rect": {
+        "x": 150,
+        "y": 823,
+        "w": 708,
+        "h": 64
+      }
+    },
+    {
+      "name": "Home: Orbit intro",
+      "rect": {
+        "x": 859,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Works: 20-project spine",
+      "rect": {
+        "x": 923,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Index: Unwrapped grid",
+      "rect": {
+        "x": 987,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Maps: Relations",
+      "rect": {
+        "x": 1051,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Essays: Writing panel",
+      "rect": {
+        "x": 1115,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    }
+  ]
+}

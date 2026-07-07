@@ -2,6 +2,7 @@ import * as React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, X, Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getYouTubeEmbedUrl, getYouTubeWatchUrl } from '../utils/youtube';
+import { ImageWithFallback } from './ImageWithFallback';
 
 interface VideoLightboxProps {
   media: any | null;
@@ -125,7 +126,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
             <button
               ref={closeButtonRef}
               onClick={onClose}
-              className="absolute top-4 right-4 z-[100] flex h-9 w-9 items-center justify-center border border-white/10 text-white/50 bg-black/40 backdrop-blur-sm transition-all hover:border-white/35 hover:text-white cursor-pointer"
+              className="absolute top-4 right-4 z-[100] flex h-9 w-9 items-center justify-center border border-ui-border text-white/50 bg-black/40 backdrop-blur-sm transition-all hover:border-white/35 hover:text-white cursor-pointer"
               aria-label="Close panel"
             >
               <X size={16} />
@@ -133,27 +134,27 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
 
             {/* Desktop Keyboard Shortcut Keycaps (Linear-inspired) */}
             <div className="absolute top-6 right-16 hidden md:flex items-center gap-1.5 font-mono text-[7px] text-white/30 tracking-widest pointer-events-none select-none z-[100]">
-              <span className="flex items-center justify-center h-4.5 min-w-[18px] px-1 border border-white/10 bg-white/[0.03] text-white/40 text-[8px] font-sans">
+              <span className="flex items-center justify-center h-4.5 min-w-[18px] px-1 border border-ui-border bg-white/[0.03] text-white/40 text-[8px] font-sans">
                 ←
               </span>
-              <span className="flex items-center justify-center h-4.5 min-w-[18px] px-1 border border-white/10 bg-white/[0.03] text-white/40 text-[8px] font-sans">
+              <span className="flex items-center justify-center h-4.5 min-w-[18px] px-1 border border-ui-border bg-white/[0.03] text-white/40 text-[8px] font-sans">
                 →
               </span>
               <span className="text-[6px] opacity-60">PREV/NEXT</span>
-              <span className="w-px h-2.5 bg-white/10 mx-1" />
-              <span className="flex items-center justify-center h-4.5 min-w-[26px] px-1 border border-white/10 bg-white/[0.03] text-white/40 text-[7px]">
+              <span className="w-px h-2.5 bg-ui-bg-hover mx-1" />
+              <span className="flex items-center justify-center h-4.5 min-w-[26px] px-1 border border-ui-border bg-white/[0.03] text-white/40 text-[7px]">
                 ESC
               </span>
               <span className="text-[6px] opacity-60">CLOSE</span>
             </div>
 
             {/* Left Column: Media Viewer (Width: 58%) */}
-            <div className="w-full h-[45vh] md:h-full md:w-[58%] relative bg-black/45 border-b md:border-b-0 md:border-r border-white/10 flex items-center justify-center p-3">
+            <div className="w-full h-[45vh] md:h-full md:w-[58%] relative bg-black/45 border-b md:border-b-0 md:border-r border-ui-border flex items-center justify-center p-3">
               {/* Floating Prev/Next Chevron Controls inside the media container */}
               {onPrev && (
                 <button
                   onClick={onPrev}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-50 flex h-10 w-10 items-center justify-center border border-white/10 bg-black/60 text-white/70 rounded-none transition-all hover:bg-accent hover:text-black hover:border-accent cursor-pointer shadow-lg active:scale-95 group"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-50 flex h-10 w-10 items-center justify-center border border-ui-border bg-black/60 text-white/70 rounded-none transition-all hover:bg-accent hover:text-black hover:border-accent cursor-pointer shadow-lg active:scale-95 group"
                   aria-label="Previous image"
                 >
                   <ChevronLeft size={18} className="group-hover:-translate-x-0.5 transition-transform" />
@@ -162,7 +163,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
               {onNext && (
                 <button
                   onClick={onNext}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-50 flex h-10 w-10 items-center justify-center border border-white/10 bg-black/60 text-white/70 rounded-none transition-all hover:bg-accent hover:text-black hover:border-accent cursor-pointer shadow-lg active:scale-95 group"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-50 flex h-10 w-10 items-center justify-center border border-ui-border bg-black/60 text-white/70 rounded-none transition-all hover:bg-accent hover:text-black hover:border-accent cursor-pointer shadow-lg active:scale-95 group"
                   aria-label="Next image"
                 >
                   <ChevronRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
@@ -202,13 +203,15 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
               {/* IMAGE VIEWER */}
               {isImageType && (
                 <div className="w-full h-full flex items-center justify-center p-2">
-                  <img
+                  <ImageWithFallback
                     className="max-w-full max-h-full object-contain border border-white/5 select-none"
                     src={media.src}
+                    fallbackSrc={media.src?.replace(/\.webp$/, '.jpg')}
                     alt={media.label || 'Archive specimen'}
                     draggable={false}
                     decoding="async"
                     fetchpriority="high"
+                    containerClassName="w-full h-full"
                   />
                 </div>
               )}
@@ -249,7 +252,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
                     />
                   )}
 
-                  <div className="w-full max-w-[240px] border border-white/8 bg-black/45 p-3">
+                  <div className="w-full max-w-[240px] border border-ui-border bg-black/45 p-3">
                     <div className="flex items-center justify-between gap-3 mb-2">
                       <button
                         onClick={() => setIsPlaying(!isPlaying)}
@@ -264,7 +267,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
                       </div>
                       <button
                         onClick={() => setIsMuted(!isMuted)}
-                        className="flex h-7 w-7 items-center justify-center border border-white/10 text-white/70 hover:text-white"
+                        className="flex h-7 w-7 items-center justify-center border border-ui-border text-white/70 hover:text-white"
                       >
                         {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
                       </button>
@@ -285,7 +288,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
                               setCurrentTime(val);
                             }
                           }}
-                          className="flex-1 h-[1.5px] bg-white/10 accent-accent cursor-pointer"
+                          className="flex-1 h-[1.5px] bg-ui-bg-hover accent-accent cursor-pointer"
                         />
                         <span>{formatTime(duration)}</span>
                       </div>
@@ -310,7 +313,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
                   <span className="font-mono text-[8px] uppercase tracking-[0.22em] text-accent/40">
                     {media.type || 'specimen'}
                   </span>
-                  <span className="h-px flex-1 bg-white/10" />
+                  <span className="h-px flex-1 bg-ui-bg-hover" />
                 </div>
               </div>
 
@@ -329,7 +332,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
               </div>
 
               {/* Action Bridge & Pagination Footer */}
-              <div className="shrink-0 border-t border-white/10 pt-4 flex flex-col gap-3">
+              <div className="shrink-0 border-t border-ui-border pt-4 flex flex-col gap-3">
                 <div className="flex items-center justify-between font-mono text-[8px] uppercase tracking-[0.18em] text-white/28">
                   <span>Project Code: {media.projectId?.toUpperCase() || 'SPECIMEN'}</span>
                   <span>{media.assetIndex !== undefined && `IMAGE ${String(media.assetIndex + 1).padStart(2, '0')}`}</span>
@@ -353,7 +356,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
                     href={watchUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-center gap-2 border border-white/10 px-4 py-2.5 font-mono text-[9px] uppercase tracking-[0.16em] text-white/60 hover:border-white/20 hover:text-white transition-colors cursor-pointer select-none"
+                    className="flex items-center justify-center gap-2 border border-ui-border px-4 py-2.5 font-mono text-[9px] uppercase tracking-[0.16em] text-white/60 hover:border-ui-border-hover hover:text-white transition-colors cursor-pointer select-none"
                   >
                     Watch on YouTube
                     <ArrowUpRight size={11} />

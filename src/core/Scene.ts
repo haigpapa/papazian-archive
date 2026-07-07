@@ -21,6 +21,8 @@ export interface SceneOptions {
   onCenteredNodeChange?: (node: any | null) => void;
   onAudioUpdate?: (velocity: number, cameraPos: { x: number; y: number; z: number }) => void;
   onUpdateProjectedPositions?: (positions: Record<string, { x: number, y: number, w: number, h: number }>) => void;
+  onContextLost?: () => void;
+  onContextRestored?: () => void;
 }
 
 export default class Scene {
@@ -104,10 +106,12 @@ export default class Scene {
   private onContextLost = (event: Event) => {
     event.preventDefault();
     console.warn('WebGL context lost — waiting for restore');
+    this.options.onContextLost?.();
   };
 
   private onContextRestored = () => {
     console.info('WebGL context restored');
+    this.options.onContextRestored?.();
   };
 
   private onResize = () => {

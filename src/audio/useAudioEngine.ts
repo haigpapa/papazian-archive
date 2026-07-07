@@ -20,6 +20,10 @@ interface UseAudioEngineReturn {
   isMuted: boolean;
   /** Toggle audio on/off. Initializes on first call. */
   toggleAudio: () => Promise<void>;
+  /** The current status of the audio engine */
+  status: 'idle' | 'loading' | 'ready' | 'error';
+  /** Any error message from initialization */
+  error: string | null;
 }
 
 /**
@@ -50,8 +54,13 @@ export function useAudioEngine(): UseAudioEngineReturn {
   const getIsInitialized = useCallback(() => engine.isInitialized, [engine]);
   const getIsMuted = useCallback(() => engine.isMuted, [engine]);
 
+  const getStatus = useCallback(() => engine.status, [engine]);
+  const getError = useCallback(() => engine.error, [engine]);
+
   const isInitialized = useSyncExternalStore(subscribe, getIsInitialized, getIsInitialized);
   const isMuted = useSyncExternalStore(subscribe, getIsMuted, getIsMuted);
+  const status = useSyncExternalStore(subscribe, getStatus, getStatus);
+  const error = useSyncExternalStore(subscribe, getError, getError);
 
   const toggleAudio = useCallback(async () => {
     await engine.toggleMute();
@@ -67,5 +76,5 @@ export function useAudioEngine(): UseAudioEngineReturn {
     };
   }, []);
 
-  return { engine, isInitialized, isMuted, toggleAudio };
+  return { engine, isInitialized, isMuted, toggleAudio, status, error };
 }

@@ -1,0 +1,25 @@
+- main [ref=f1e3]:
+  - application "3D spatial archive" [ref=f1e4]
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=f1e7] [cursor=pointer]
+    - generic [ref=f1e56]:
+      - generic [ref=f1e57]:
+        - button "Open information" [ref=f1e58]:
+          - img [ref=f1e59]
+        - button "Unmute sound" [ref=f1e60]:
+          - img [ref=f1e61]
+      - button "WORKS / SYSTEM / 2026 Archive field 000 / 020 / ARCHIVE" [ref=f1e147] [cursor=pointer]:
+        - generic [ref=f1e148]: WORKS / SYSTEM / 2026
+        - generic [ref=f1e149]: Archive field
+        - generic [ref=f1e150]: 000 / 020 / ARCHIVE
+      - generic [ref=f1e70]:
+        - 'button "Home: Orbit intro" [ref=f1e71]':
+          - img [ref=f1e72]
+        - 'button "Works: 20-project spine" [ref=f1e75]':
+          - img [ref=f1e76]
+        - 'button "Index: Unwrapped grid" [ref=f1e78]':
+          - img [ref=f1e79]
+        - 'button "Maps: Relations" [active] [ref=f1e84]':
+          - img [ref=f1e85]
+        - 'button "Essays: Writing panel" [ref=f1e87]':
+          - img [ref=f1e88]

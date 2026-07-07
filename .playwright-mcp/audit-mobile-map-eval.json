@@ -1,0 +1,148 @@
+{
+  "hash": "#mode=map",
+  "text": "PAPAZIAN\nWORKS / SYSTEM / 2026\nARCHIVE FIELD\n000 / 020 / ARCHIVE",
+  "includesWorldLegend": false,
+  "includesTraversal": false,
+  "buttons": [
+    {
+      "tag": "DIV",
+      "name": "3D spatial archive",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 844
+      }
+    },
+    {
+      "tag": "NAV",
+      "name": "Curated traversal routes",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "ROUTE 01: VISIBILITY BECOMES INFRASTRUCTUREThe Structural Arc / 4 stops",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "ROUTE 02: MEMORY DOES NOT RESOLVEThe Literary Arc / 5 stops",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "ROUTE 03: RED-TEAMING THE MACHINEThe Forensic Arc / 4 stops",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "DIV",
+      "name": "Map legend",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Open information",
+      "rect": {
+        "x": 11,
+        "y": 720,
+        "w": 64,
+        "h": 48
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Unmute sound",
+      "rect": {
+        "x": 75,
+        "y": 720,
+        "w": 64,
+        "h": 48
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "WORKS / SYSTEM / 2026Archive field 000 / 020 / ARCHIVE",
+      "rect": {
+        "x": 140,
+        "y": 720,
+        "w": 239,
+        "h": 48
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Home: Orbit intro",
+      "rect": {
+        "x": 11,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Works: 20-project spine",
+      "rect": {
+        "x": 84.59375,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Index: Unwrapped grid",
+      "rect": {
+        "x": 158.1953125,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Maps: Relations",
+      "rect": {
+        "x": 231.796875,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Essays: Writing panel",
+      "rect": {
+        "x": 305.3984375,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    }
+  ]
+}

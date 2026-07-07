@@ -1060,8 +1060,8 @@ export const GENERATED_PROJECT_CONTENT = {
     ]
   },
   "tebr": {
-    "thesis": "Solo electronic research persona treating AI failure and microtonal collapse as forensic records of cultural memory.",
-    "shortDescription": "Solo electronic research persona treating AI failure and microtonal collapse as forensic records of cultural memory.",
+    "thesis": "Displacement is treated as a frequency problem: what happens to a voice when the room it was built for no longer exists?",
+    "shortDescription": "TEBR is a sound-text work that turns forced exile, machine failure, Arabic maqam, and archival residue into a deliberate compositional territory.",
     "fullDescription": "Machine failure becomes future folklore when every hallucination is traced to the cultural structure it failed to hear.",
     "highlights": [
       "Cinematic Rail Type: 15-card flagship dossier",

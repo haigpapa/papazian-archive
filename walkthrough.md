@@ -46,6 +46,14 @@ We have successfully implemented the structural and visual separation between **
 * **World-Grouped Rows**:
   * Modified the slot calculation in `getGridSlot` to force a new grid row whenever the project's world changes when sorted by world, separating worlds cleanly.
 
+### 🔎 Routing, SEO & Audit Polish (Sprints 4 & 5)
+* **Client-Side Routing**: Integrated `window.history.pushState` in `App.tsx` so the browser URL syncs with internal modes. 
+* **Static HTML Shells for SEO**: Created `scripts/generate-static-shells.ts` to generate static `dist/{route}/index.html` folders post-build.
+* **2D DOM Safe Mode Fallback**: Implemented a responsive 2D HTML/CSS layout fallback in `Overlay.tsx` when WebGL fails.
+* **Context Loss Recovery**: Configured `onContextRestored` event hook to automatically remount the 3D scene on mobile viewports.
+* **Responsive Footer & Contrast**: Adjusted ModeButtons for fluid-width on mobile and updated `--color-text-muted-quiet` to `#8f8f8f` to satisfy WCAG AA contrast standards.
+* **Comprehensive Eager Preloading**: Fully enabled eager loading for all asset slides (primary cover and gallery sub-slides) during initialization in `NodeManager.ts`. Combined this with default eager loading (`loading="eager"`) for all DOM image instances (`ImageWithFallback.tsx`), enabling the front-end loading screen overlay to track and cache the entire media archive before displaying the site.
+
 ---
 
 ## 2. Bureaucratic Brutalist Redesign & Layout Realignment
@@ -86,17 +94,80 @@ We have transitioned the visual interface into an industrialized, technical cons
 
 ---
 
-## 5. What is In Progress
-* **Phase 2 Implementation: Maps/Relational Atlas**: Rename types on the map layout, design the `RelationshipDrawer`, place the `MapsLegend` control, and implement 1.5-degree neighborhood fading.
+## 5. Launch Readiness — Sprint 1 Handoff (2026-07-04)
+
+### Completed
+- **C1**: Working tree committed (`3739a16` — Phase 1 + audit fixes)
+- **C2**: Resume PDF → `public/cv.pdf` (fixes dead /cv.pdf link in HomeOrbitPanel)
+- **C5**: AI-Studio template debris stripped:
+  - Removed `GEMINI_API_KEY` define from `vite.config.ts`
+  - Deleted `.env.example`, `metadata.json`
+  - `package.json`: name=`papazian-archive`, version=`1.0.0`; removed `@google/genai`, `express`, `dotenv`, `@types/express`
+- **S3**: Colophon fixed in `siteInfo.ts` → "Cabinet Grotesk, Satoshi, JetBrains Mono"; work count → 120
+- **S6**: Created `public/robots.txt` + `public/sitemap.xml` (21 canonical URLs)
+- **S2** (partial): YouTube verification via oEmbed API:
+  - ✅ 3/7 confirmed: Lil Watan, Aoede, Bahr
+  - ⚠️ 4/7 returned oEmbed 404: Roman, Fasateen, Shim El Yasmine, Cavalry — may be private, geo-restricted, or embedding-disabled. **Needs Haig's manual verification.**
+
+All committed in `667f4ac`.
+
+### In Progress
+- **S2**: YouTube ID verification — 4 IDs need Haig's manual check
 
 ---
 
-## 6. Tasks Queued for Next Session
-* Begin Sprints 4-5 of Phase 2 to map the relational connections.
-* Implement clickable hit-zones for relation line meshes.
+## 6. Sprint 2 — Deploy, Assets & Performance (2026-07-04)
+
+### Completed
+- **C4**: Generated OG image (`og-image.jpg`, 1200×630, wireframe cylinder) + apple-touch-icon (`apple-touch-icon.png`, P monogram)
+- **C7**: Vendor chunk splitting in `vite.config.ts`:
+  - `vendor-three` (508 KB), `vendor-tone` (253 KB), `vendor-gsap` (70 KB), `vendor-react` (12 KB)
+  - App chunk reduced from 1.5 MB monolith to 675 KB
+- **S4**: Pruned 209 unreferenced images — 150 MB freed (public/ 304 MB → 154 MB)
+  - Quarantined to `/tmp/papazian-quarantine/` (recoverable within session)
+  - 4 duplicate pairs found but both copies are referenced — noted for future symlink dedup
+- **C3** (config): Created `vercel.json` — SPA rewrites for case-studies/modes + aggressive cache headers (immutable for hashed assets, 1-week for images)
+
+### Deferred
+- **S8**: WebP conversion — `cwebp` not installed; 30+ images ≥500 KB identified but needs Haig's approval for tool install
+- **C3** (deploy): Vercel deploy needs Haig's CLI action (`npx vercel`)
+
+All committed in `d5ef0d6`.
 
 ---
 
-## 7. Build and Compilation Status
-* **Typechecking**: `npx tsc --noEmit` completes with **0 errors**.
-* **Production Build**: `npm run build` completes successfully, generating minified static files in 3.67 seconds.
+## 7. Sprint 3 — Mobile, Polish & Launch Assets (2026-07-04)
+
+### Completed
+- **C6**: Mobile QA — `viewport-fit=cover`, `env(safe-area-inset-*)` for footer/header/UI layer, 48px/44px touch targets. Committed in `579a2e6`.
+- **S9**: First-visit hint overlay — localStorage-persisted navigation guide (Orbit/Works/Index/Map), appears once 2.4s after load. Component: `FirstVisitHint.tsx`. Committed in `579a2e6`.
+- **S5**: Map legend — compact world color key with 6 swatches + roman numerals, desktop only, positioned bottom-left in Map mode. Committed in `bc2d4ac`.
+
+### Remaining (needs Haig)
+- **S1**: World assignments (5 projects without worlds)
+- **S7**: Analytics (choice of provider)
+- **S8**: WebP optimization (deferred from Sprint 2)
+- Image deduplication (low priority, ~3.6 MB)
+- Screenshots + press kit
+
+### Decisions Pending
+1. YouTube IDs: 4 videos need manual verification
+2. World assignments: 5 unassigned projects
+3. Deploy to Vercel + domain bind
+4. Analytics provider choice
+5. WebP tool install approval
+6. CV freshness
+
+### State
+- Build: ✅ clean (2.96s, no warnings)
+- Typecheck: ✅ clean
+- Git: clean (only `docs/haig-papazian-resume (1).pdf` untracked)
+- Commit log: `3739a16` → `667f4ac` → `d5ef0d6` → `579a2e6` → `bc2d4ac`
+
+---
+
+## 8. Tasks Queued for Next Session
+* Haig's decisions on YouTube IDs, World assignments, analytics, CV
+* Vercel deploy + domain binding
+* WebP optimization (if approved)
+* Screenshots + press kit for launch announcement

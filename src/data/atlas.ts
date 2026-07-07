@@ -81,6 +81,16 @@ const GENERATED_PROJECT_BY_SLUG = new Map(
 );
 
 export async function fetchAtlasNodes(): Promise<AtlasNode[]> {
+  if (typeof window === 'undefined') {
+    // Node.js environment (SSG script)
+    const fs = await import('fs');
+    const path = await import('path');
+    const process = await import('process');
+    const csvPath = path.join(process.cwd(), 'public', ATLAS_CSV_URL);
+    const text = fs.readFileSync(csvPath, 'utf-8');
+    return parseAtlasCsv(text);
+  }
+
   const response = await fetch(ATLAS_CSV_URL);
 
   if (!response.ok) {

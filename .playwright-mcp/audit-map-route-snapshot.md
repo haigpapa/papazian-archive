@@ -1,0 +1,61 @@
+- main [ref=e3] [box=0,0,1200,908]:
+  - application "3D spatial archive" [ref=e4] [box=0,0,1200,908]
+  - generic [box=0,0,1200,908]:
+    - heading "PAPAZIAN" [level=1] [ref=e7] [cursor=pointer] [box=20,20,98,30]
+    - generic [ref=e226] [box=780,0,420,908]:
+      - generic [ref=e227] [box=1062,16,122,40]:
+        - button "Copy direct link" [ref=e228] [box=1062,16,74,40]:
+          - img [ref=e229] [box=1075,30,13,13]
+          - text: Link
+        - button "Close detail view" [ref=e232] [box=1144,16,40,40]:
+          - img [ref=e233] [box=1155,27,18,18]
+      - generic [ref=e236] [box=821,80,339,716]:
+        - generic [ref=e237] [box=821,128,323,178]:
+          - generic [ref=e238] [box=838,145,289,27]
+          - paragraph [ref=e241] [box=838,180,289,65]: Traces the evolution of visibility, vulnerability, and spatial agency from the stadium stages of Mashrou’ Leila into physical blueprints of sanctuary in Queens.
+          - generic [ref=e242] [box=838,261,289,28]
+        - heading "Mashrou' Leila" [level=2] [ref=e245] [box=821,330,323,80]
+        - generic [ref=e246] [box=821,418,323,15]:
+          - generic [ref=e247] [box=821,418,32,15]: lead
+          - generic [ref=e249] [box=881,418,49,15]: 2008–22
+        - generic [ref=e250] [box=821,465,323,36]:
+          - generic [ref=e251] [box=835,467,309,14]: 02 / PUBLIC CULTURE
+          - generic [ref=e252] [box=835,484,309,15]: The cultural infrastructure era.
+        - generic [ref=e253] [box=821,529,323,58]:
+          - generic [ref=e254] [box=821,529,46,25]: lead
+          - generic [ref=e255] [box=875,529,57,25]: sound
+          - generic [ref=e256] [box=939,529,52,25]: space
+          - generic [ref=e257] [box=999,529,66,25]: systems
+          - generic [ref=e258] [box=821,562,152,25]: Stage · Audience · Risk
+        - generic [ref=e259] [box=821,619,323,227]:
+          - paragraph [ref=e260] [box=821,619,323,74]: A band became cultural infrastructure, and that infrastructure exposed the fatal gap between visibility and protection.
+          - paragraph [ref=e261] [box=821,693,323,68]: A band became cultural infrastructure, and that infrastructure exposed the fatal gap between visibility and protection.
+          - paragraph [ref=e262] [box=821,777,323,68]: A band became cultural infrastructure, and then revealed that visibility without shelter can become a trap.
+        - generic [ref=e263] [box=821,877,323,192]:
+          - paragraph [ref=e264] [box=821,898,323,14]: Signals
+          - generic [ref=e265] [box=821,928,323,141]
+    - generic [ref=e56] [box=21,823,1158,64]:
+      - generic [ref=e57] [box=21,823,129,64]:
+        - button "Open information" [ref=e58] [box=21,823,64,64]:
+          - img [ref=e59] [box=43,845,20,20]
+        - button "Unmute sound" [ref=e60] [box=85,823,64,64]:
+          - img [ref=e61] [box=109,847,16,16]
+      - generic [ref=e270] [box=150,823,708,64]:
+        - generic [ref=e273] [box=202,830,428,51]:
+          - generic [ref=e274] [box=202,830,428,14]: WORKS / MASHROU-LEILA / 2008–22
+          - generic [ref=e275] [box=202,845,428,20]: Mashrou' Leila
+          - generic [ref=e276] [box=202,867,428,14]: "RELATIONS: WHY-WERE-LIKE-THIS + SPACE-TIME-TUNING-MACHINE + TEBR + SOMETIMES-I-WAKE-UP-ELSEWHERE + CHRONOCUMULATOR + 1000-STRINGS-AT-REST"
+        - generic [ref=e277] [box=630,839,196,32]:
+          - button "OPEN DETAILS" [ref=e278] [cursor=pointer] [box=630,839,116,32]
+          - button "CLOSE" [ref=e279] [cursor=pointer] [box=758,839,68,32]
+      - generic [ref=e70] [box=858,823,321,64]:
+        - 'button "Home: Orbit intro" [ref=e71] [box=859,823,64,64]':
+          - img [ref=e72] [box=883,847,16,16]
+        - 'button "Works: 20-project spine" [ref=e75] [box=923,823,64,64]':
+          - img [ref=e76] [box=947,847,16,16]
+        - 'button "Index: Unwrapped grid" [ref=e78] [box=987,823,64,64]':
+          - img [ref=e79] [box=1011,847,16,16]
+        - 'button "Maps: Relations" [ref=e84] [box=1051,823,64,64]':
+          - img [ref=e85] [box=1075,847,16,16]
+        - 'button "Essays: Writing panel" [ref=e87] [box=1115,823,64,64]':
+          - img [ref=e88] [box=1139,847,16,16]

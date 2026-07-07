@@ -23,12 +23,31 @@ type ProjectEntryMode = 'grid' | 'vertical' | 'map';
 const PUBLIC_MODES: PublicMode[] = ['cylinder', 'vertical', 'grid', 'map', 'essays'];
 const PROJECT_ENTRY_MODES: ProjectEntryMode[] = ['vertical', 'grid', 'map'];
 
+
+const getModeFromPath = (path: string): AppMode => {
+  if (path.startsWith('/works')) return 'vertical';
+  if (path.startsWith('/index')) return 'grid';
+  if (path.startsWith('/map')) return 'map';
+  if (path.startsWith('/essays')) return 'essays';
+  if (path.startsWith('/case-studies')) return 'horizontal';
+  return 'cylinder';
+};
+
+const getPathFromMode = (mode: AppMode, node?: any): string => {
+  if (mode === 'vertical') return '/works';
+  if (mode === 'grid') return '/index';
+  if (mode === 'map') return '/map';
+  if (mode === 'essays') return '/essays';
+  if (mode === 'horizontal' && node) return `/case-studies/${node.slug}`;
+  return '/orbit';
+};
+
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<Scene | null>(null);
   const currentModeRef = useRef<AppMode>('cylinder');
   const returnModeRef = useRef<PublicMode>('cylinder');
-  const { engine: audioEngine, isInitialized: audioReady, isMuted, toggleAudio } = useAudioEngine();
+  const { engine: audioEngine, isInitialized: audioReady, isMuted, toggleAudio, status: audioStatus, error: audioError } = useAudioEngine();
   const [activeNode, setActiveNode] = useState<any>(null);
   const [currentMode, setCurrentMode] = useState<AppMode>('cylinder');
   const [nodes, setNodes] = useState<AtlasNode[]>([]);
@@ -42,6 +61,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loadProgress, setLoadProgress] = useState(0);
   const [loadError, setLoadError] = useState('');
+  const [sceneKey, setSceneKey] = useState(0);
   const [hoveredNode, setHoveredNode] = useState<any>(null);
   const [mousePosition, setMousePosition] = useState<{ x: number, y: number } | null>(null);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -218,9 +238,7 @@ export default function App() {
     setActiveNode(node);
     setActiveMedia(null);
     setRailState(null);
-    currentModeRef.current = 'horizontal';
-    setCurrentMode('horizontal');
-    sceneRef.current?.switchMode('horizontal');
+    handleModeChange('horizontal', node);
     sceneRef.current?.focusNode(node);
     audioEngine.setMode('horizontal');
     audioEngine.onNodeClick(node);
@@ -231,11 +249,45 @@ export default function App() {
     setActiveNode(node);
     setActiveMedia(null);
     setRailState(null);
-    currentModeRef.current = 'horizontal';
-    setCurrentMode('horizontal');
-    sceneRef.current?.switchMode('horizontal');
+    handleModeChange('horizontal', node);
     sceneRef.current?.focusNode(node);
   };
+
+
+  // Client-Side Routing: initial load & popstate
+  useEffect(() => {
+    if (!isReady || nodes.length === 0) return;
+
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      const targetMode = getModeFromPath(path);
+      
+      if (targetMode === 'horizontal') {
+        const slug = path.replace('/case-studies/', '');
+        const node = nodes.find(n => n.slug === slug);
+        if (node) {
+          retargetProjectRail(node);
+        } else {
+          handleModeChange('cylinder');
+        }
+      } else {
+        if (currentModeRef.current !== targetMode) {
+          handleModeChange(targetMode);
+        }
+      }
+    };
+
+    // Only run on first ready or popstate
+    window.addEventListener('popstate', handlePopState);
+    
+    // Initial sync
+    const initialPath = window.location.pathname;
+    if (initialPath !== '/' && initialPath !== '/orbit') {
+      handlePopState();
+    }
+
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [isReady, nodes]);
 
   useEffect(() => {
     currentModeRef.current = currentMode;
@@ -535,23 +587,41 @@ export default function App() {
         onUpdateProjectedPositions: (positions: any) => {
           setProjectedPositions(positions);
         },
+        onContextLost: () => {
+          setLoadError('WebGL Error: Connection lost. Attempting to restore...');
+        },
+        onContextRestored: () => {
+          setLoadError('');
+          setSceneKey(k => k + 1); // Remount!
+        },
       });
       sceneRef.current = scene;
     } catch (e) {
       console.error('Failed to initialize Scene:', e);
       setLoadError('Unable to initialize the spatial engine. Your browser may not support WebGL.');
       setIsLoading(false);
-      setIsReady(false);
+      setIsReady(true);
+      
+      // Force safe fallback mode
+      currentModeRef.current = 'grid';
+      setCurrentMode('grid');
     }
 
     return () => {
       if (scene) scene.dispose();
       clearTimeout(timer);
     };
-  }, [nodes]);
+  }, [nodes, sceneKey]);
 
-  const handleModeChange = (mode: AppMode) => {
-    if (mode === 'horizontal' && !activeNode) return;
+  const handleModeChange = (mode: AppMode, targetNode?: any) => {
+    if (mode === 'horizontal' && !activeNode && !targetNode) return;
+    
+    const nodeToUse = targetNode || activeNode;
+    const newPath = getPathFromMode(mode, nodeToUse);
+    if (window.location.pathname !== newPath) {
+      window.history.pushState(null, '', newPath);
+    }
+
     if (mode === 'horizontal') {
       const sourceMode = getPublicMode(currentMode);
       if (canOpenProjectFromMode(sourceMode)) {
@@ -587,10 +657,7 @@ export default function App() {
     setRailState(null);
     setFocusedMapNode(null);
     if (currentMode === 'horizontal') {
-      currentModeRef.current = returnMode;
-      setCurrentMode(returnMode);
-      sceneRef.current?.switchMode(returnMode);
-      audioEngine.setMode(returnMode);
+      handleModeChange(returnMode);
     }
     sceneRef.current?.resetFocus();
     audioEngine.onProjectExit();
@@ -603,11 +670,8 @@ export default function App() {
     setFocusedMapNode(null);
     returnModeRef.current = 'vertical';
     setReturnMode('vertical');
-    currentModeRef.current = 'vertical';
-    setCurrentMode('vertical');
-    sceneRef.current?.switchMode('vertical');
+    handleModeChange('vertical');
     sceneRef.current?.resetFocus();
-    audioEngine.setMode('vertical');
     audioEngine.onProjectExit();
   };
 
@@ -652,33 +716,39 @@ export default function App() {
   return (
     <main className="relative w-full h-full overflow-hidden bg-black selection:bg-accent selection:text-white font-body text-text">
       <AnimatePresence>
-        {(isLoading || loadError) && (
+        {isLoading && (
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1, ease: 'easeInOut' }}
             className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center pointer-events-none"
-            role={loadError ? 'alert' : 'progressbar'}
-            aria-valuenow={loadError ? undefined : Math.round(loadProgress * 100)}
-            aria-valuemin={loadError ? undefined : 0}
-            aria-valuemax={loadError ? undefined : 100}
-            aria-label={loadError ? 'Archive failed to load' : 'Loading archive'}
+            role="progressbar"
+            aria-valuenow={Math.round(loadProgress * 100)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Loading archive"
           >
-            {!loadError && (
-              <div className="w-64 h-[1px] bg-white/10 relative overflow-hidden mb-4">
-                <motion.div
-                  className="absolute inset-y-0 left-0 bg-accent"
-                  animate={{ width: `${loadProgress * 100}%` }}
-                  transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-                />
-              </div>
-            )}
+            <div className="w-64 h-[1px] bg-ui-bg-hover relative overflow-hidden mb-4">
+              <motion.div
+                className="absolute inset-y-0 left-0 bg-accent"
+                animate={{ width: `${loadProgress * 100}%` }}
+                transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+              />
+            </div>
             <p className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase">
-              {loadError || `Drawing Archive Field ${Math.round(loadProgress * 100)}%`}
+              {`Drawing Archive Field ${Math.round(loadProgress * 100)}%`}
             </p>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {loadError && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[150] pointer-events-none">
+          <div className="bg-red-500/10 backdrop-blur-md border border-red-500/30 px-4 py-2 rounded shadow-2xl flex items-center gap-3">
+            <span className="font-mono text-[9px] text-red-400 tracking-wider uppercase">WebGL Error: Operating in 2D Safe Mode</span>
+          </div>
+        </div>
+      )}
 
       {/* 3D Canvas Container */}
       <div 
@@ -695,6 +765,7 @@ export default function App() {
       {/* UI Overlay Layer */}
       <Overlay 
         inert={activeMedia || inspectedRecord ? true : undefined}
+        hasLoadError={!!loadError}
         nodes={nodes}
         activeNode={activeNode}
         centeredNode={centeredNode}
@@ -703,6 +774,7 @@ export default function App() {
         returnMode={returnMode}
         progress={progressValue}
         rawScroll={rawScrollValue}
+        onInspectRecord={setInspectedRecord}
         hoveredNode={hoveredNode}
         mousePosition={mousePosition}
         searchQuery={searchQuery}
@@ -716,6 +788,8 @@ export default function App() {
         onOpenMedia={setActiveMedia}
         onGoToRailSlide={(idx) => sceneRef.current?.goToRailSlide(idx)}
         audioReady={audioReady}
+        audioStatus={audioStatus}
+        audioError={audioError}
         isMuted={isMuted}
         onToggleAudio={toggleAudio}
         domainFilter={domainFilter}

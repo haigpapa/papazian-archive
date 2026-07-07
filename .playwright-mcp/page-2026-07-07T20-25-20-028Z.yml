@@ -1,0 +1,74 @@
+- main [ref=e3]:
+  - application "3D spatial archive" [ref=e4]
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e7] [cursor=pointer]
+    - generic [ref=e281]:
+      - complementary [ref=e282]:
+        - generic [ref=e283]:
+          - paragraph [ref=e284]: Essays / Writings
+          - heading "Reading Panel" [level=2] [ref=e285]:
+            - text: Reading
+            - text: Panel
+        - generic [ref=e286]:
+          - button "01 / 2026 Systems of Meaning Statement" [ref=e287]:
+            - generic [ref=e288]: 01 / 2026
+            - generic [ref=e289]: Systems of Meaning
+            - generic [ref=e290]: Statement
+          - button "02 / 2024 The Localization Gap AI / Music / Cultural Bias" [ref=e291]:
+            - generic [ref=e292]: 02 / 2024
+            - generic [ref=e293]: The Localization Gap
+            - generic [ref=e294]: AI / Music / Cultural Bias
+          - button "03 / 2020 The Cost of Being Queer and Arab Visibility / Risk / Public Culture" [ref=e295]:
+            - generic [ref=e296]: 03 / 2020
+            - generic [ref=e297]: The Cost of Being Queer and Arab
+            - generic [ref=e298]: Visibility / Risk / Public Culture
+          - button "04 / 2024 The Cartography of Absence Forms / Exile / Bureaucracy" [ref=e299]:
+            - generic [ref=e300]: 04 / 2024
+            - generic [ref=e301]: The Cartography of Absence
+            - generic [ref=e302]: Forms / Exile / Bureaucracy
+          - button "05 / 2015 Architecture in Low Res Architecture / Image / Breakdown" [ref=e303]:
+            - generic [ref=e304]: 05 / 2015
+            - generic [ref=e305]: Architecture in Low Res
+            - generic [ref=e306]: Architecture / Image / Breakdown
+          - button "06 / 2026 Why We're Like This Video Essay / Cultural Mood" [ref=e307]:
+            - generic [ref=e308]: 06 / 2026
+            - generic [ref=e309]: Why We're Like This
+            - generic [ref=e310]: Video Essay / Cultural Mood
+      - article [ref=e311]:
+        - generic [ref=e312]:
+          - generic [ref=e313]:
+            - paragraph [ref=e314]: Statement / 2026 / 4 min
+            - heading "Systems of Meaning" [level=3] [ref=e315]
+            - paragraph [ref=e316]: "A short operating statement for the archive: memory, performance, and cultural translation as systems rather than isolated works."
+          - generic [ref=e317]:
+            - paragraph [ref=e318]: "I build systems for memory, performance, and cultural translation. The work moves across sound, space, code, text, image, and systems because the subject keeps changing scale: a song becomes a public architecture, a building becomes a social protocol, a manuscript becomes a software engine, and a data set becomes a record of cultural pressure."
+            - paragraph [ref=e319]: Systems Choreography names the method behind that movement. It treats space, time, code, narrative, and performance as related structures that can be rehearsed, tuned, and reassembled. The archive is not a neutral container for finished objects. It is a way of showing how the objects think together.
+            - paragraph [ref=e320]: "The point is not to make technology look magical. It is to make cultural structure visible: who gets translated, what gets flattened, where memory is stored, and how people build forms of belonging under pressure."
+          - generic [ref=e321]:
+            - button "← PREVIOUS Why We're Like This" [ref=e322]:
+              - text: ← PREVIOUS
+              - generic [ref=e323]: Why We're Like This
+            - button "NEXT → The Localization Gap" [ref=e324]:
+              - text: NEXT →
+              - generic [ref=e325]: The Localization Gap
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - button "Open information" [ref=e58]:
+          - img [ref=e59]
+        - button "Unmute sound" [ref=e60]:
+          - img [ref=e61]
+      - button "WORKS / SYSTEMS-CHOREOGRAPHY / 2024–26 SYSTEMS CHOREOGRAPHY 001 / 020 / CODE" [ref=e326] [cursor=pointer]:
+        - generic [ref=e327]: WORKS / SYSTEMS-CHOREOGRAPHY / 2024–26
+        - generic [ref=e328]: SYSTEMS CHOREOGRAPHY
+        - generic [ref=e329]: 001 / 020 / CODE
+      - generic [ref=e70]:
+        - 'button "Home: Orbit intro" [ref=e71]':
+          - img [ref=e72]
+        - 'button "Works: 20-project spine" [ref=e75]':
+          - img [ref=e76]
+        - 'button "Index: Unwrapped grid" [ref=e78]':
+          - img [ref=e79]
+        - 'button "Maps: Relations" [ref=e84]':
+          - img [ref=e85]
+        - 'button "Essays: Writing panel" [active] [ref=e87]':
+          - img [ref=e88]

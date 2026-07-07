@@ -201,7 +201,7 @@ export const PROJECT_GALLERIES: Record<string, ProjectGalleryImage[]> = {
     {
       type: 'video',
       src: '/images/atlas/npr-tiny-desk-mashrou-leila.webp',
-      poster: '/images/atlas/mashrou-leila-npr-desk.jpg',
+      poster: '/images/atlas/mashrou-leila-npr-desk.webp',
       youtubeId: 'pfPvgAtgTNM',
       externalUrl: 'https://www.youtube.com/watch?v=pfPvgAtgTNM',
       label: 'Tiny Desk Concert',
@@ -212,7 +212,7 @@ export const PROJECT_GALLERIES: Record<string, ProjectGalleryImage[]> = {
     },
     {
       type: 'image',
-      src: '/images/atlas/mashrou-leila-olympia-live.jpg',
+      src: '/images/atlas/mashrou-leila-olympia-live.webp',
       label: "L'Olympia",
       caption: 'The project travels as a complete stage language: light, body, audience, and mythology.',
       role: 'evidence',
@@ -221,7 +221,7 @@ export const PROJECT_GALLERIES: Record<string, ProjectGalleryImage[]> = {
     },
     {
       type: 'image',
-      src: '/images/atlas/mashrou-leila-exit-festival.jpg',
+      src: '/images/atlas/mashrou-leila-exit-festival.webp',
       label: 'Exit Festival',
       caption: 'Festival scale turns the archive into public infrastructure.',
       role: 'evidence',
@@ -276,7 +276,7 @@ export const PROJECT_GALLERIES: Record<string, ProjectGalleryImage[]> = {
     },
     {
       type: 'image',
-      src: '/images/atlas/mashrou-leila-gq-cover.jpg',
+      src: '/images/atlas/mashrou-leila-gq-cover.webp',
       label: 'GQ Cover',
       caption: 'The media image becomes another stage where Arab identity, glamour, and risk are negotiated.',
       role: 'evidence',
@@ -325,7 +325,7 @@ export const PROJECT_GALLERIES: Record<string, ProjectGalleryImage[]> = {
     },
     {
       type: 'image',
-      src: '/images/atlas/mashrou-leila-annex-stage.jpg',
+      src: '/images/atlas/mashrou-leila-annex-stage.webp',
       label: 'Annex Stage',
       caption: 'A smaller stage still behaves as architecture: pressure, frame, crowd, and signal.',
       role: 'process',

@@ -1,10 +1,10 @@
 # TEBR
  
 ## Thesis
-Solo electronic research persona treating AI failure and microtonal collapse as forensic records of cultural memory.
+Displacement is treated as a frequency problem: what happens to a voice when the room it was built for no longer exists?
  
 ## Short Description
-Solo electronic research persona treating AI failure and microtonal collapse as forensic records of cultural memory.
+TEBR is a sound-text work that turns forced exile, machine failure, Arabic maqam, and archival residue into a deliberate compositional territory.
  
 ## Full Description
 Machine failure becomes future folklore when every hallucination is traced to the cultural structure it failed to hear.

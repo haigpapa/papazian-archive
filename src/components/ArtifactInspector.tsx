@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Play, ArrowUpRight, Map, LayoutGrid, ExternalLink, Copy, ChevronLeft, ChevronRight, Volume2 } from 'lucide-react';
+import { ImageWithFallback } from './ImageWithFallback';
 import { getYouTubeEmbedUrl, getYouTubeWatchUrl } from '../utils/youtube';
 import { getProjectWorld } from '../data/worlds';
 
@@ -121,13 +122,13 @@ export default function ArtifactInspector({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.98 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-[301] flex flex-col lg:flex-row max-w-[1100px] w-[95vw] max-h-[90vh] bg-surface/95 backdrop-blur-xl border border-white/12 shadow-2xl overflow-hidden"
+              className="relative z-[301] flex flex-col lg:flex-row max-w-[1100px] w-[95vw] max-h-[90vh] bg-surface/95 backdrop-blur-xl border border-ui-border-hover shadow-2xl overflow-hidden"
             >
               {/* Close button */}
               <button
                 ref={closeButtonRef}
                 onClick={onClose}
-                className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center text-text-muted hover:text-white hover:bg-white/10 transition-colors"
+                className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center text-text-muted hover:text-white hover:bg-ui-bg-hover transition-colors"
                 aria-label="Close inspector"
               >
                 <X size={16} />
@@ -137,7 +138,7 @@ export default function ArtifactInspector({
               {onPrev && (
                 <button
                   onClick={onPrev}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center text-text-muted hover:text-white hover:bg-white/10 transition-colors lg:left-3"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center text-text-muted hover:text-white hover:bg-ui-bg-hover transition-colors lg:left-3"
                   aria-label="Previous artifact"
                 >
                   <ChevronLeft size={18} />
@@ -146,7 +147,7 @@ export default function ArtifactInspector({
               {onNext && (
                 <button
                   onClick={onNext}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center text-text-muted hover:text-white hover:bg-white/10 transition-colors lg:hidden"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center text-text-muted hover:text-white hover:bg-ui-bg-hover transition-colors lg:hidden"
                   aria-label="Next artifact"
                 >
                   <ChevronRight size={18} />
@@ -155,51 +156,66 @@ export default function ArtifactInspector({
 
               {/* Left: Media Preview */}
               <div className="flex-1 min-h-[200px] lg:min-h-0 flex items-center justify-center p-4 lg:p-8 bg-black/30 relative overflow-hidden">
-                {isVideoType && embedUrl ? (
-                  <div className="w-full aspect-video max-h-[60vh]">
-                    <iframe
-                      src={embedUrl}
-                      allow="autoplay; encrypted-media"
-                      allowFullScreen
-                      className="w-full h-full"
-                      title={title}
-                    />
-                  </div>
-                ) : isVideoType && localVideoSrc ? (
-                  <video
-                    src={localVideoSrc}
-                    poster={record?.poster}
-                    controls
-                    className="max-w-full max-h-[60vh] object-contain"
-                  />
-                ) : isAudioType ? (
-                  <div className="w-full flex flex-col items-center gap-6 px-6">
-                    {record?.poster && (
-                      <img
-                        src={record.poster}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={record?.src || embedUrl || localVideoSrc || 'empty'}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="w-full h-full flex items-center justify-center"
+                  >
+                    {isVideoType && embedUrl ? (
+                      <div className="w-full aspect-video max-h-[60vh]">
+                        <iframe
+                          src={embedUrl}
+                          allow="autoplay; encrypted-media"
+                          allowFullScreen
+                          className="w-full h-full"
+                          title={title}
+                        />
+                      </div>
+                    ) : isVideoType && localVideoSrc ? (
+                      <video
+                        src={localVideoSrc}
+                        poster={record?.poster}
+                        controls
+                        className="max-w-full max-h-[60vh] object-contain"
+                      />
+                    ) : isAudioType ? (
+                      <div className="w-full flex flex-col items-center gap-6 px-6">
+                        {record?.poster && (
+                          <ImageWithFallback
+                            src={record.poster}
+                            fallbackSrc={record.poster.replace(/\.webp$/, '.jpg')}
+                            alt={title}
+                            className="max-h-[200px] object-contain"
+                            containerClassName="w-[300px] h-[200px]"
+                          />
+                        )}
+                        <div className="w-full flex items-center gap-4">
+                          <Volume2 size={16} className="text-accent shrink-0" />
+                          <audio src={record?.src} controls className="w-full h-8" />
+                        </div>
+                      </div>
+                    ) : (
+                      <ImageWithFallback
+                        src={record?.src || record?.thumbnail || ''}
+                        fallbackSrc={(record?.src || record?.thumbnail || '').replace(/\.webp$/, '.jpg')}
                         alt={title}
-                        className="max-h-[200px] object-contain"
+                        className="max-w-full max-h-[60vh] object-contain"
+                        containerClassName="w-full h-[60vh]"
+                        loading="eager"
                       />
                     )}
-                    <div className="w-full flex items-center gap-4">
-                      <Volume2 size={16} className="text-accent shrink-0" />
-                      <audio src={record?.src} controls className="w-full h-8" />
-                    </div>
-                  </div>
-                ) : (
-                  <img
-                    src={record?.src || record?.thumbnail || ''}
-                    alt={title}
-                    className="max-w-full max-h-[60vh] object-contain"
-                    loading="eager"
-                  />
-                )}
+                  </motion.div>
+                </AnimatePresence>
 
                 {/* Video/Audio overlay play button hint */}
                 {(isVideoType || isAudioType) && onPlayMedia && (
                   <button
                     onClick={() => onPlayMedia(record)}
-                    className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/20 text-white font-mono text-[9px] uppercase tracking-[0.16em] hover:bg-white/20 transition-colors"
+                    className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-ui-bg-hover border border-ui-border-hover text-white font-mono text-[9px] uppercase tracking-[0.16em] hover:bg-ui-bg-active transition-colors"
                     aria-label="Open in player"
                   >
                     <Play size={12} />
@@ -209,9 +225,9 @@ export default function ArtifactInspector({
               </div>
 
               {/* Right: Metadata Panel */}
-              <div className="w-full lg:w-[340px] border-t lg:border-t-0 lg:border-l border-white/10 flex flex-col overflow-y-auto">
+              <div className="w-full lg:w-[340px] border-t lg:border-t-0 lg:border-l border-ui-border flex flex-col overflow-y-auto momentum-scroll">
                 {/* Header */}
-                <div className="p-5 border-b border-white/8">
+                <div className="p-5 border-b border-ui-border">
                   <h2 className="font-display text-sm font-bold text-white uppercase tracking-wider leading-tight">
                     {title}
                   </h2>
@@ -223,7 +239,7 @@ export default function ArtifactInspector({
                 </div>
 
                 {/* Metadata Grid */}
-                <div className="p-5 flex flex-col gap-3 border-b border-white/8 flex-1">
+                <div className="p-5 flex flex-col gap-3 border-b border-ui-border flex-1">
                   <MetaRow label="Parent Project" value={parentTitle} />
                   {world && (
                     <MetaRow
@@ -271,7 +287,7 @@ export default function ArtifactInspector({
                       href={record.externalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-3 py-2.5 border border-white/10 hover:bg-white/5 transition-colors group"
+                      className="flex items-center gap-3 px-3 py-2.5 border border-ui-border hover:bg-ui-bg transition-colors group"
                     >
                       <ExternalLink size={12} className="text-text-muted group-hover:text-accent shrink-0" />
                       <div className="min-w-0">
@@ -286,7 +302,7 @@ export default function ArtifactInspector({
                       href={watchUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-3 py-2.5 border border-white/10 hover:bg-white/5 transition-colors group"
+                      className="flex items-center gap-3 px-3 py-2.5 border border-ui-border hover:bg-ui-bg transition-colors group"
                     >
                       <Play size={12} className="text-text-muted group-hover:text-accent shrink-0" />
                       <div className="min-w-0">
@@ -306,10 +322,10 @@ export default function ArtifactInspector({
 
                 {/* Next button on desktop */}
                 {onNext && (
-                  <div className="hidden lg:block border-t border-white/8 p-2">
+                  <div className="hidden lg:block border-t border-ui-border p-2">
                     <button
                       onClick={onNext}
-                      className="w-full flex items-center justify-center gap-2 px-3 py-2 text-text-muted hover:text-white hover:bg-white/5 transition-colors font-mono text-[9px] uppercase tracking-[0.16em]"
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 text-text-muted hover:text-white hover:bg-ui-bg transition-colors font-mono text-[9px] uppercase tracking-[0.16em]"
                     >
                       Next Artifact <ChevronRight size={12} />
                     </button>
@@ -342,7 +358,7 @@ function ActionButton({ icon, label, sublabel, onClick }: { icon: React.ReactNod
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-3 px-3 py-2.5 border border-white/10 hover:bg-white/5 transition-colors group text-left"
+      className="flex items-center gap-3 px-3 py-2.5 border border-ui-border hover:bg-ui-bg transition-colors group text-left"
     >
       <span className="text-text-muted group-hover:text-accent shrink-0 transition-colors">
         {icon}
@@ -352,7 +368,7 @@ function ActionButton({ icon, label, sublabel, onClick }: { icon: React.ReactNod
           {label}
         </span>
         {sublabel && (
-          <span className="font-mono text-[7px] text-text-muted/40 uppercase tracking-[0.1em] block truncate mt-0.5">
+          <span className="font-mono text-[7px] text-text-muted-quiet uppercase tracking-[0.1em] block truncate mt-0.5">
             {sublabel}
           </span>
         )}

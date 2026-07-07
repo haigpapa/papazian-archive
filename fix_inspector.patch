@@ -1,0 +1,27 @@
+--- src/components/ArtifactInspector.tsx
++++ src/components/ArtifactInspector.tsx
+@@ -194,14 +194,15 @@
+                           <audio src={record?.src} controls className="w-full h-8" />
+                         </div>
+                       </div>
+-                      <ImageWithFallback
+-                        src={record?.src || record?.thumbnail || ''}
+-                        fallbackSrc={(record?.src || record?.thumbnail || '').replace(/\.webp$/, '.jpg')}
+-                        alt={title}
+-                        className="max-w-full max-h-[60vh] object-contain"
+-                        containerClassName="w-full h-[60vh]"
+-                        loading="eager"
+-                      />
++                    ) : (
++                        <ImageWithFallback
++                          src={record?.src || record?.thumbnail || ''}
++                          fallbackSrc={(record?.src || record?.thumbnail || '').replace(/\.webp$/, '.jpg')}
++                          alt={title}
++                          className="max-w-full max-h-[60vh] object-contain"
++                          containerClassName="w-full h-[60vh]"
++                          loading="eager"
++                        />
++                    )}
+                   </motion.div>
+                 </AnimatePresence>
+ 

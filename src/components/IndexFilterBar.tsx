@@ -96,14 +96,14 @@ export default function IndexFilterBar({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 26, stiffness: 170 }}
-            className="fixed top-0 right-0 h-full w-[320px] md:w-[380px] bg-surface/98 border-l border-white/10 z-[120] p-6 md:p-8 flex flex-col gap-8 overflow-y-auto pointer-events-auto font-mono text-[10px] text-text-muted"
+            className="fixed top-0 right-0 h-[100dvh] w-[320px] md:w-[380px] bg-surface/98 border-l border-ui-border-hover z-[150] p-6 md:p-8 pb-[calc(env(safe-area-inset-bottom,20px)+32px)] flex flex-col gap-8 overflow-y-auto momentum-scroll pointer-events-auto font-mono text-[10px] text-text-muted"
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="flex items-center justify-between border-b border-ui-border pb-4">
               <span className="text-[10px] text-white tracking-[0.2em] uppercase font-bold">⚡ ARCHIVE FILTERS</span>
               <button
                 onClick={onClose}
-                className="min-h-[44px] md:min-h-0 text-text-muted hover:text-white text-[9px] tracking-wider cursor-pointer border border-white/8 hover:border-white px-2.5 py-1.5 transition-colors"
+                className="min-h-[44px] md:min-h-0 text-text-muted hover:text-white text-[9px] tracking-wider cursor-pointer border border-ui-border hover:border-white px-2.5 py-1.5 transition-colors"
               >
                 CLOSE
               </button>
@@ -113,7 +113,7 @@ export default function IndexFilterBar({
             <div className="flex flex-col gap-6">
               {/* WORLD SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted/40 uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
                   WORLD SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -140,7 +140,7 @@ export default function IndexFilterBar({
 
               {/* MEDIUM SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted/40 uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
                   MEDIUM SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -160,7 +160,7 @@ export default function IndexFilterBar({
 
               {/* TYPE SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted/40 uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
                   TYPE SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -179,7 +179,7 @@ export default function IndexFilterBar({
 
               {/* SORT SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted/40 uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
                   SORT SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -196,7 +196,7 @@ export default function IndexFilterBar({
 
               {/* VIEW SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted/40 uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
                   VIEW SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -244,8 +244,8 @@ function FilterChip({
       className={`
         min-h-[44px] md:min-h-0 font-mono text-[9px] uppercase tracking-[0.12em] px-2.5 py-1.5 border transition-all duration-150 shrink-0 cursor-pointer
         ${active
-          ? 'border-white text-white bg-white/5'
-          : 'border-white/8 text-text-muted/60 hover:text-white hover:border-white/20'
+          ? 'border-white text-white bg-ui-bg'
+          : 'border-ui-border text-text-muted-quiet hover:text-white hover:border-ui-border-hover'
         }
       `}
       style={active && accentColor ? {

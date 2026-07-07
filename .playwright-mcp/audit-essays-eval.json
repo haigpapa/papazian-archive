@@ -1,0 +1,226 @@
+{
+  "hash": "#mode=essays",
+  "text": "PAPAZIAN\n\nESSAYS / WRITINGS\n\nREADING\nPANEL\n01 / 2026\nSYSTEMS OF MEANING\nSTATEMENT\n02 / 2024\nTHE LOCALIZATION GAP\nAI / MUSIC / CULTURAL BIAS\n03 / 2020\nTHE COST OF BEING QUEER AND ARAB\nVISIBILITY / RISK / PUBLIC CULTURE\n04 / 2024\nTHE CARTOGRAPHY OF ABSENCE\nFORMS / EXILE / BUREAUCRACY\n05 / 2015\nARCHITECTURE IN LOW RES\nARCHITECTURE / IMAGE / BREAKDOWN\n06 / 2026\nWHY WE'RE LIKE THIS\nVIDEO ESSAY / CULTURAL MOOD\n\nSTATEMENT / 2026 / 4 MIN\n\nSYSTEMS OF MEANING\n\nA short operating statement for the archive: memory, performance, and cultural translation as systems rather than isolated works.\n\nI build systems for memory, performance, and cultural translation. The work moves across sound, space, code, text, image, and systems because the subject keeps changing scale: a song becomes a public architecture, a building becomes a social protocol, a manuscript becomes a software engine, and a data set becomes a record of cultural pressure.\n\nSystems Choreography names the method behind that movement. It treats space, time, code, narrative, and performance as related structures that can be rehearsed, tuned, and reassembled. The archive is not a neutral container for finished objects. It is a way of showing how the objects think together.\n\nThe point is not to make technology look magical. It is to make cultural structure visible: who gets translated, what gets flattened, where memory is stored, and how people build forms of belonging under pressure.\n\n← PREVIOUS\nWHY WE'RE LIKE THIS\nNEXT →\nTHE LOCALIZATION GAP\nWORKS / SYSTEMS-CHOREOGRAPHY / 2024–26\nSYSTEMS CHOREOGRAPHY\n001 / 020 / CODE",
+  "els": [
+    {
+      "tag": "DIV",
+      "name": "3D spatial archive",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1200,
+        "h": 908
+      }
+    },
+    {
+      "tag": "ASIDE",
+      "name": "Essays / WritingsReadingPanel01 / 2026Systems of MeaningStatementA short operating statement for the archive: memory, pe",
+      "rect": {
+        "x": 151,
+        "y": 75,
+        "w": 240,
+        "h": 724
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "01 / 2026Systems of MeaningStatementA short operating statement for the archive: memory, performance, and cultural trans",
+      "rect": {
+        "x": 151,
+        "y": 206.296875,
+        "w": 239,
+        "h": 93
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "02 / 2024The Localization GapAI / Music / Cultural BiasA forensic argument about what generative music systems erase whe",
+      "rect": {
+        "x": 151,
+        "y": 299.296875,
+        "w": 239,
+        "h": 93
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "03 / 2020The Cost of Being Queer and ArabVisibility / Risk / Public CultureA public argument about the point where cultu",
+      "rect": {
+        "x": 151,
+        "y": 392.296875,
+        "w": 239,
+        "h": 109
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "04 / 2024The Cartography of AbsenceForms / Exile / BureaucracyBureaucratic surrealism as a way to document what ordinary",
+      "rect": {
+        "x": 151,
+        "y": 501.296875,
+        "w": 239,
+        "h": 109
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "05 / 2015Architecture in Low ResArchitecture / Image / BreakdownA foundational thesis on low resolution, ruin, and syste",
+      "rect": {
+        "x": 151,
+        "y": 610.296875,
+        "w": 239,
+        "h": 93
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "06 / 2026Why We're Like ThisVideo Essay / Cultural MoodA scripted essay series about synthetic culture, contemporary psy",
+      "rect": {
+        "x": 151,
+        "y": 703.296875,
+        "w": 239,
+        "h": 93
+      }
+    },
+    {
+      "tag": "ARTICLE",
+      "name": "ReturnPreviousNextStatement / 2026 / 4 minSystems of MeaningA short operating statement for the archive: memory, perform",
+      "rect": {
+        "x": 391,
+        "y": 75,
+        "w": 658,
+        "h": 724
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Return",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Previous",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Next",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "← PREVIOUSWhy We're Like This",
+      "rect": {
+        "x": 424,
+        "y": 756.421875,
+        "w": 296,
+        "h": 78
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "NEXT →The Localization Gap",
+      "rect": {
+        "x": 720,
+        "y": 756.421875,
+        "w": 296,
+        "h": 78
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Open information",
+      "rect": {
+        "x": 21,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Unmute sound",
+      "rect": {
+        "x": 85,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "WORKS / SYSTEMS-CHOREOGRAPHY / 2024–26SYSTEMS CHOREOGRAPHY 001 / 020 / CODE",
+      "rect": {
+        "x": 150,
+        "y": 823,
+        "w": 708,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Home: Orbit intro",
+      "rect": {
+        "x": 859,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Works: 20-project spine",
+      "rect": {
+        "x": 923,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Index: Unwrapped grid",
+      "rect": {
+        "x": 987,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Maps: Relations",
+      "rect": {
+        "x": 1051,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Essays: Writing panel",
+      "rect": {
+        "x": 1115,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    }
+  ]
+}

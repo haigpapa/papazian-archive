@@ -1,0 +1,53 @@
+- main [ref=e3] [box=0,0,1200,908]:
+  - application "3D spatial archive" [ref=e4] [box=0,0,1200,908]
+  - generic [box=0,0,1200,908]:
+    - heading "PAPAZIAN" [level=1] [ref=e7] [cursor=pointer] [box=20,20,98,30]
+    - generic [ref=e10] [box=386,75,428,724]:
+      - generic [ref=e11] [box=386,91,428,284]:
+        - heading "Systems of Meaning" [level=2] [ref=e12] [box=414,119,372,124]
+        - paragraph [ref=e13] [box=414,263,352,50]: I build systems for memory, performance, and cultural translation.
+        - paragraph [ref=e14] [box=414,332,372,14]: Sound / Space / Code / Text / Image / Systems
+      - generic [ref=e15] [box=386,375,428,89]:
+        - generic [ref=e16] [box=386,375,214,88]
+        - generic [ref=e19] [box=600,375,214,88]
+      - generic [ref=e22] [box=386,464,428,499]:
+        - generic [ref=e23] [box=414,492,372,383]
+        - button "View Studio Profile →" [ref=e44] [box=414,894,372,40]
+      - generic [ref=e45] [box=386,963,428,62]:
+        - link "CV" [ref=e47] [cursor=pointer] [box=386,963,55,61]:
+          - /url: /cv.pdf
+        - button "Explore the Work" [ref=e48] [cursor=pointer] [box=671,963,143,61]
+      - paragraph [ref=e53] [box=414,1052,372,36]: "Twenty works orbit a single spine: memory as architecture, performance as infrastructure, translation as a moving system."
+    - generic [ref=e56] [box=21,823,1158,64]:
+      - generic [ref=e57] [box=21,823,129,64]:
+        - button "Open information" [ref=e58] [box=21,823,64,64]
+        - button "Unmute sound" [ref=e60] [box=85,823,64,64]
+      - button "WORKS / SYSTEM / 2026 Archive field 000 / 020 / ARCHIVE" [ref=e66] [cursor=pointer] [box=150,823,708,64]:
+        - generic [ref=e67] [box=182,830,644,14]: WORKS / SYSTEM / 2026
+        - generic [ref=e68] [box=182,845,644,20]: Archive field
+        - generic [ref=e69] [box=182,867,644,14]: 000 / 020 / ARCHIVE
+      - generic [ref=e70] [box=858,823,321,64]:
+        - 'button "Home: Orbit intro" [ref=e71] [box=859,823,64,64]'
+        - 'button "Works: 20-project spine" [ref=e75] [box=923,823,64,64]'
+        - 'button "Index: Unwrapped grid" [ref=e78] [box=987,823,64,64]'
+        - 'button "Maps: Relations" [ref=e84] [box=1051,823,64,64]'
+        - 'button "Essays: Writing panel" [ref=e87] [box=1115,823,64,64]'
+  - generic [ref=e91] [box=420,287,360,333]:
+    - generic [ref=e92] [box=421,288,358,47]:
+      - generic [ref=e93] [box=441,305,110,12]: Navigation Guide
+      - button "Dismiss hint" [ref=e94] [box=729,292,38,38]:
+        - img [ref=e95] [box=741,304,14,14]
+    - generic [ref=e98] [box=421,335,358,215]:
+      - generic [ref=e99] [box=441,351,318,30]:
+        - img [ref=e101] [box=441,353,14,14]
+        - generic [ref=e103] [box=467,351,259,30]
+      - generic [ref=e106] [box=441,398,318,30]:
+        - img [ref=e108] [box=441,400,14,14]
+        - generic [ref=e111] [box=467,398,254,30]
+      - generic [ref=e114] [box=441,444,318,45]:
+        - img [ref=e116] [box=441,446,14,14]
+        - generic [ref=e118] [box=467,444,292,45]
+      - generic [ref=e121] [box=441,504,318,30]:
+        - img [ref=e123] [box=441,506,14,14]
+        - generic [ref=e126] [box=467,504,281,30]
+    - button "Begin Exploring" [ref=e130] [cursor=pointer] [box=441,564,318,44]

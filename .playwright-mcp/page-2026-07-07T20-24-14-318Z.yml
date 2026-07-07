@@ -1,0 +1,45 @@
+- main [ref=e3]:
+  - application "3D spatial archive" [ref=e4]
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e7] [cursor=pointer]
+    - navigation "Curated traversal routes" [ref=e190]:
+      - paragraph [ref=e191]: Traversal Routes
+      - 'button "ROUTE 01: VISIBILITY BECOMES INFRASTRUCTURE The Structural Arc / 4 stops" [ref=e192]':
+        - generic [ref=e193]: "ROUTE 01: VISIBILITY BECOMES INFRASTRUCTURE"
+        - generic [ref=e194]: The Structural Arc / 4 stops
+      - 'button "ROUTE 02: MEMORY DOES NOT RESOLVE The Literary Arc / 5 stops" [ref=e195]':
+        - generic [ref=e196]: "ROUTE 02: MEMORY DOES NOT RESOLVE"
+        - generic [ref=e197]: The Literary Arc / 5 stops
+      - 'button "ROUTE 03: RED-TEAMING THE MACHINE The Forensic Arc / 4 stops" [ref=e198]':
+        - generic [ref=e199]: "ROUTE 03: RED-TEAMING THE MACHINE"
+        - generic [ref=e200]: The Forensic Arc / 4 stops
+    - generic "Map legend" [ref=e201]:
+      - paragraph [ref=e202]: World Legend
+      - generic [ref=e203]:
+        - generic [ref=e206]: 01 FOUNDATION
+        - generic [ref=e209]: 02 PUBLIC CULTURE
+        - generic [ref=e212]: 03 EXILE MACHINES
+        - generic [ref=e215]: 04 MEMORY INTERFACES
+        - generic [ref=e218]: 05 SONIC INTELLIGENCE
+        - generic [ref=e221]: 06 SPATIAL FUTURES
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - button "Open information" [ref=e58]:
+          - img [ref=e59]
+        - button "Unmute sound" [ref=e60]:
+          - img [ref=e61]
+      - button "WORKS / SYSTEM / 2026 Archive field 000 / 020 / ARCHIVE" [ref=e222] [cursor=pointer]:
+        - generic [ref=e223]: WORKS / SYSTEM / 2026
+        - generic [ref=e224]: Archive field
+        - generic [ref=e225]: 000 / 020 / ARCHIVE
+      - generic [ref=e70]:
+        - 'button "Home: Orbit intro" [ref=e71]':
+          - img [ref=e72]
+        - 'button "Works: 20-project spine" [ref=e75]':
+          - img [ref=e76]
+        - 'button "Index: Unwrapped grid" [ref=e78]':
+          - img [ref=e79]
+        - 'button "Maps: Relations" [active] [ref=e84]':
+          - img [ref=e85]
+        - 'button "Essays: Writing panel" [ref=e87]':
+          - img [ref=e88]

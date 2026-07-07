@@ -5,6 +5,14 @@
   --font-display: "Cabinet Grotesk", "Helvetica Neue", sans-serif;
   --font-body: "Satoshi", "Helvetica Neue", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+
+  /* Sprint 3 Tokens */
+  --color-ui-border: rgba(255, 255, 255, 0.12);
+  --color-ui-border-hover: rgba(255, 255, 255, 0.22);
+  --color-ui-bg: rgba(255, 255, 255, 0.05);
+  --color-ui-bg-hover: rgba(255, 255, 255, 0.1);
+  --color-ui-bg-active: rgba(255, 255, 255, 0.15);
+  --color-text-muted-quiet: #8f8f8f;
 }
 
 :root {
@@ -13,7 +21,7 @@
   --color-surface: #0d0d0d;
   --color-border: #1a1a1a;
   --color-text: #ffffff;
-  --color-text-muted: #8a8a8a;
+  --color-text-muted: #a3a3a3; /* Improved contrast */
   --color-accent: #d7e7ef;
   --color-accent-2: #d7e7ef;
 }
@@ -250,5 +258,11 @@ dialog.lightbox-dialog::backdrop {
 .spotlight-panel > * {
   position: relative;
   z-index: 1;
+}
+
+/* iOS momentum scroll for modal panels */
+.momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 

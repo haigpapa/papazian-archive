@@ -1,0 +1,148 @@
+{
+  "hash": "#mode=map",
+  "text": "PAPAZIAN\n\nTRAVERSAL ROUTES\n\nROUTE 01: VISIBILITY BECOMES INFRASTRUCTURE\nTHE STRUCTURAL ARC / 4 STOPS\nROUTE 02: MEMORY DOES NOT RESOLVE\nTHE LITERARY ARC / 5 STOPS\nROUTE 03: RED-TEAMING THE MACHINE\nTHE FORENSIC ARC / 4 STOPS\n\nWORLD LEGEND\n\n01 FOUNDATION\n02 PUBLIC CULTURE\n03 EXILE MACHINES\n04 MEMORY INTERFACES\n05 SONIC INTELLIGENCE\n06 SPATIAL FUTURES\nWORKS / SYSTEM / 2026\nARCHIVE FIELD\n000 / 020 / ARCHIVE",
+  "hasLegend": false,
+  "hasRoutes": false,
+  "nodes": [
+    {
+      "tag": "DIV",
+      "name": "3D spatial archive",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1200,
+        "h": 908
+      }
+    },
+    {
+      "tag": "NAV",
+      "name": "Curated traversal routes",
+      "rect": {
+        "x": 20,
+        "y": 96,
+        "w": 290,
+        "h": 197.5
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "ROUTE 01: VISIBILITY BECOMES INFRASTRUCTUREThe Structural Arc / 4 stops",
+      "rect": {
+        "x": 20,
+        "y": 119.5,
+        "w": 290,
+        "h": 54
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "ROUTE 02: MEMORY DOES NOT RESOLVEThe Literary Arc / 5 stops",
+      "rect": {
+        "x": 20,
+        "y": 179.5,
+        "w": 290,
+        "h": 54
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "ROUTE 03: RED-TEAMING THE MACHINEThe Forensic Arc / 4 stops",
+      "rect": {
+        "x": 20,
+        "y": 239.5,
+        "w": 290,
+        "h": 54
+      }
+    },
+    {
+      "tag": "DIV",
+      "name": "Map legend",
+      "rect": {
+        "x": 20,
+        "y": 678,
+        "w": 200,
+        "h": 122
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Open information",
+      "rect": {
+        "x": 21,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Unmute sound",
+      "rect": {
+        "x": 85,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "WORKS / SYSTEM / 2026Archive field 000 / 020 / ARCHIVE",
+      "rect": {
+        "x": 150,
+        "y": 823,
+        "w": 708,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Home: Orbit intro",
+      "rect": {
+        "x": 859,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Works: 20-project spine",
+      "rect": {
+        "x": 923,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Index: Unwrapped grid",
+      "rect": {
+        "x": 987,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Maps: Relations",
+      "rect": {
+        "x": 1051,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "name": "Essays: Writing panel",
+      "rect": {
+        "x": 1115,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    }
+  ]
+}

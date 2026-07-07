@@ -40,6 +40,7 @@ interface AudioNodeInfo {
   isNoDataZone?: boolean;
 }
 
+type AudioStatus = 'idle' | 'loading' | 'ready' | 'error';
 type AudioStateListener = () => void;
 
 // ─── Singleton ─────────────────────────────────────────────────────
@@ -50,6 +51,8 @@ export class AudioEngine {
   // ─── State ─────────────────────────────────────────────────────
   private _isInitialized = false;
   private _isMuted = true;
+  private _status: AudioStatus = 'idle';
+  private _error: string | null = null;
   private _currentMode = 'cylinder';
   private _disposed = false;
 
@@ -106,6 +109,14 @@ export class AudioEngine {
     return this._isMuted;
   }
 
+  get status(): AudioStatus {
+    return this._status;
+  }
+
+  get error(): string | null {
+    return this._error;
+  }
+
   // ─── External State Subscription (for React) ─────────────────
 
   subscribe(listener: AudioStateListener): () => void {
@@ -125,71 +136,84 @@ export class AudioEngine {
    * browser autoplay policy.
    */
   async initialize(): Promise<void> {
-    if (this._isInitialized || this._disposed) return;
-
-    const [tone, cylinderModule, atlasModule, interactionModule] = await Promise.all([
-      import('tone'),
-      import('./modes/CylinderAudio'),
-      import('./modes/AtlasAudio'),
-      import('./modes/InteractionAudio'),
-    ]);
-    if (this._disposed) return;
-    this.tone = tone;
-
-    // Start Tone.js context (requires user gesture)
-    await tone.start();
-
-    // ── Master Bus ──────────────────────────────────────────
-    this.compressor = new tone.Compressor({
-      threshold: COMPRESSOR_THRESHOLD_DB,
-      ratio: COMPRESSOR_RATIO,
-      attack: 0.003,
-      release: 0.25,
-    }).toDestination();
-
-    this.reverb = new tone.Reverb({
-      decay: REVERB_DECAY_SECONDS,
-      wet: REVERB_WET,
-      preDelay: 0.01,
-    }).connect(this.compressor);
-
-    // Generate the reverb impulse response
-    await this.reverb.ready;
-
-    this.masterGain = new tone.Gain(0).connect(this.reverb);
-
-    // ── Stem Layer ──────────────────────────────────────────
-    this.stemGain = new tone.Gain(0).connect(this.masterGain);
-
-    // ── Mode Layers ─────────────────────────────────────────
-    this.cylinderAudio = new cylinderModule.CylinderAudio(this.masterGain);
-    this.atlasAudio = new atlasModule.AtlasAudio(this.masterGain);
-    this.interactionAudio = new interactionModule.InteractionAudio(this.masterGain);
-
-    // ── Page Visibility ─────────────────────────────────────
-    this.visibilityHandler = this.handleVisibilityChange.bind(this);
-    document.addEventListener('visibilitychange', this.visibilityHandler);
-
-    // ── Finalize ────────────────────────────────────────────
-    this._isInitialized = true;
-    this._isMuted = false;
-
-    // Fade in master volume
-    this.masterGain.gain.rampTo(
-      tone.dbToGain(MASTER_VOLUME_DB),
-      3 // 3-second fade from silence
-    );
-
-    // Activate the appropriate mode layer
-    const layer = this.getLayerForMode(this._currentMode);
-    this.activateLayer(layer);
-
-    // If audio was enabled while inside a project, start its stem now
-    if (this.pendingProjectSlug) {
-      this.startProjectStem(this.pendingProjectSlug);
-    }
-
+    if (this._status === 'loading' || this._status === 'ready' || this._disposed) return;
+    
+    this._status = 'loading';
+    this._error = null;
     this.notifyListeners();
+
+    try {
+      const [tone, cylinderModule, atlasModule, interactionModule] = await Promise.all([
+        import('tone'),
+        import('./modes/CylinderAudio'),
+        import('./modes/AtlasAudio'),
+        import('./modes/InteractionAudio'),
+      ]);
+      if (this._disposed) return;
+      this.tone = tone;
+
+      // Start Tone.js context (requires user gesture)
+      await tone.start();
+
+      // ── Master Bus ──────────────────────────────────────────
+      this.compressor = new tone.Compressor({
+        threshold: COMPRESSOR_THRESHOLD_DB,
+        ratio: COMPRESSOR_RATIO,
+        attack: 0.003,
+        release: 0.25,
+      }).toDestination();
+
+      this.reverb = new tone.Reverb({
+        decay: REVERB_DECAY_SECONDS,
+        wet: REVERB_WET,
+        preDelay: 0.01,
+      }).connect(this.compressor);
+
+      // Generate the reverb impulse response
+      await this.reverb.ready;
+
+      this.masterGain = new tone.Gain(0).connect(this.reverb);
+
+      // ── Stem Layer ──────────────────────────────────────────
+      this.stemGain = new tone.Gain(0).connect(this.masterGain);
+
+      // ── Mode Layers ─────────────────────────────────────────
+      this.cylinderAudio = new cylinderModule.CylinderAudio(this.masterGain);
+      this.atlasAudio = new atlasModule.AtlasAudio(this.masterGain);
+      this.interactionAudio = new interactionModule.InteractionAudio(this.masterGain);
+
+      // ── Page Visibility ─────────────────────────────────────
+      this.visibilityHandler = this.handleVisibilityChange.bind(this);
+      document.addEventListener('visibilitychange', this.visibilityHandler);
+
+      // ── Finalize ────────────────────────────────────────────
+      this._isInitialized = true;
+      this._isMuted = false;
+      this._status = 'ready';
+
+      // Fade in master volume
+      this.masterGain.gain.rampTo(
+        tone.dbToGain(MASTER_VOLUME_DB),
+        3 // 3-second fade from silence
+      );
+
+      // Activate the appropriate mode layer
+      const layer = this.getLayerForMode(this._currentMode);
+      this.activateLayer(layer);
+
+      // If audio was enabled while inside a project, start its stem now
+      if (this.pendingProjectSlug) {
+        this.startProjectStem(this.pendingProjectSlug);
+      }
+    } catch (err) {
+      console.error('Audio initialization failed:', err);
+      this._status = 'error';
+      this._error = 'Sound unavailable';
+      this._isInitialized = false;
+      this._isMuted = true;
+    } finally {
+      this.notifyListeners();
+    }
   }
 
   /**
