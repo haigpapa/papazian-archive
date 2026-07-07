@@ -1,0 +1,182 @@
+{
+  "url": "https://papazian.studio/",
+  "title": "Haig Papazian — Spatial Archive",
+  "progressVisible": false,
+  "canvasInfo": {
+    "width": 2400,
+    "height": 1816,
+    "clientWidth": 1200,
+    "clientHeight": 908
+  },
+  "buttonCount": 12,
+  "buttons": [
+    {
+      "text": "View Studio Profile →",
+      "aria": null,
+      "rect": {
+        "x": 414,
+        "y": 894.328125,
+        "width": 372,
+        "height": 39.5,
+        "top": 894.328125,
+        "right": 786,
+        "bottom": 933.828125,
+        "left": 414
+      }
+    },
+    {
+      "text": "Explore the Work",
+      "aria": null,
+      "rect": {
+        "x": 671.1953125,
+        "y": 962.828125,
+        "width": 142.8046875,
+        "height": 60.5,
+        "top": 962.828125,
+        "right": 814,
+        "bottom": 1023.328125,
+        "left": 671.1953125
+      }
+    },
+    {
+      "text": "",
+      "aria": "Open information",
+      "rect": {
+        "x": 21,
+        "y": 823,
+        "width": 64,
+        "height": 64,
+        "top": 823,
+        "right": 85,
+        "bottom": 887,
+        "left": 21
+      }
+    },
+    {
+      "text": "",
+      "aria": "Unmute sound",
+      "rect": {
+        "x": 85,
+        "y": 823,
+        "width": 64,
+        "height": 64,
+        "top": 823,
+        "right": 149,
+        "bottom": 887,
+        "left": 85
+      }
+    },
+    {
+      "text": "WORKS / SYSTEM / 2026Archive field 000 / 020 / ARCHIVE",
+      "aria": null,
+      "rect": {
+        "x": 150,
+        "y": 823,
+        "width": 708,
+        "height": 64,
+        "top": 823,
+        "right": 858,
+        "bottom": 887,
+        "left": 150
+      }
+    },
+    {
+      "text": "",
+      "aria": "Home: Orbit intro",
+      "rect": {
+        "x": 859,
+        "y": 823,
+        "width": 64,
+        "height": 64,
+        "top": 823,
+        "right": 923,
+        "bottom": 887,
+        "left": 859
+      }
+    },
+    {
+      "text": "",
+      "aria": "Works: 20-project spine",
+      "rect": {
+        "x": 923,
+        "y": 823,
+        "width": 64,
+        "height": 64,
+        "top": 823,
+        "right": 987,
+        "bottom": 887,
+        "left": 923
+      }
+    },
+    {
+      "text": "",
+      "aria": "Index: Unwrapped grid",
+      "rect": {
+        "x": 987,
+        "y": 823,
+        "width": 64,
+        "height": 64,
+        "top": 823,
+        "right": 1051,
+        "bottom": 887,
+        "left": 987
+      }
+    },
+    {
+      "text": "",
+      "aria": "Maps: Relations",
+      "rect": {
+        "x": 1051,
+        "y": 823,
+        "width": 64,
+        "height": 64,
+        "top": 823,
+        "right": 1115,
+        "bottom": 887,
+        "left": 1051
+      }
+    },
+    {
+      "text": "",
+      "aria": "Essays: Writing panel",
+      "rect": {
+        "x": 1115,
+        "y": 823,
+        "width": 64,
+        "height": 64,
+        "top": 823,
+        "right": 1179,
+        "bottom": 887,
+        "left": 1115
+      }
+    },
+    {
+      "text": "",
+      "aria": "Dismiss hint",
+      "rect": {
+        "x": 729,
+        "y": 292.4375,
+        "width": 38,
+        "height": 38,
+        "top": 292.4375,
+        "right": 767,
+        "bottom": 330.4375,
+        "left": 729
+      }
+    },
+    {
+      "text": "Begin Exploring",
+      "aria": null,
+      "rect": {
+        "x": 441,
+        "y": 563.5625,
+        "width": 318,
+        "height": 44,
+        "top": 563.5625,
+        "right": 759,
+        "bottom": 607.5625,
+        "left": 441
+      }
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "byType": {
+    "other": {
+      "count": 3,
+      "transfer": 0,
+      "encoded": 165896,
+      "duration": 9
+    },
+    "script": {
+      "count": 6,
+      "transfer": 89105,
+      "encoded": 290868,
+      "duration": 161
+    },
+    "link": {
+      "count": 1,
+      "transfer": 0,
+      "encoded": 9837,
+      "duration": 2
+    },
+    "css": {
+      "count": 1,
+      "transfer": 0,
+      "encoded": 0,
+      "duration": 3
+    },
+    "fetch": {
+      "count": 2,
+      "transfer": 302,
+      "encoded": 8928,
+      "duration": 103
+    },
+    "img": {
+      "count": 123,
+      "transfer": 0,
+      "encoded": 4207594,
+      "duration": 1330
+    }
+  },
+  "imageCount": 123,
+  "imageTransfer": 0,
+  "imageEncoded": 4207594,
+  "scriptCount": 9,
+  "scriptTransfer": 89105,
+  "largest": [
+    {
+      "name": "https://papazian.studio/assets/index-1NUlcaP9.js",
+      "type": "script",
+      "transfer": 85645,
+      "encoded": 85345,
+      "decoded": 340530,
+      "duration": 51
+    },
+    {
+      "name": "https://papazian.studio/assets/AtlasAudio-h3gMBihK.js",
+      "type": "script",
+      "transfer": 1448,
+      "encoded": 1148,
+      "decoded": 2723,
+      "duration": 34
+    },
+    {
+      "name": "https://papazian.studio/assets/CylinderAudio-XcIDVHyP.js",
+      "type": "script",
+      "transfer": 1045,
+      "encoded": 745,
+      "decoded": 1874,
+      "duration": 34
+    },
+    {
+      "name": "https://papazian.studio/assets/InteractionAudio-DGOIx8nX.js",
+      "type": "script",
+      "transfer": 967,
+      "encoded": 667,
+      "decoded": 1430,
+      "duration": 36
+    },
+    {
+      "name": "https://papazian.studio/_vercel/insights/view",
+      "type": "fetch",
+      "transfer": 302,
+      "encoded": 2,
+      "decoded": 2,
+      "duration": 102
+    },
+    {
+      "name": "https://papazian.studio/assets/vendor-react-sA6Nv1NP.js",
+      "type": "other",
+      "transfer": 0,
+      "encoded": 4383,
+      "decoded": 11794,
+      "duration": 1
+    },
+    {
+      "name": "https://papazian.studio/assets/index-CMJnB7yN.js",
+      "type": "script",
+      "transfer": 0,
+      "encoded": 201663,
+      "decoded": 687013,
+      "duration": 5
+    },
+    {
+      "name": "https://papazian.studio/assets/vendor-three-B7qsveMy.js",
+      "type": "other",
+      "transfer": 0,
+      "encoded": 132392,
+      "decoded": 507598,
+      "duration": 5
+    },
+    {
+      "name": "https://papazian.studio/assets/index-Ehq5JZMY.css",
+      "type": "link",
+      "transfer": 0,
+      "encoded": 9837,
+      "decoded": 50356,
+      "duration": 2
+    },
+    {
+      "name": "https://papazian.studio/assets/vendor-gsap-CzGW6FVa.js",
+      "type": "other",
+      "transfer": 0,
+      "encoded": 29121,
+      "decoded": 70462,
+      "duration": 3
+    },
+    {
+      "name": "https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700&f[]=satoshi@400,500,700&f[]=jet-brains-mono@400&display=swap",
+      "type": "css",
+      "transfer": 0,
+      "encoded": 0,
+      "decoded": 0,
+      "duration": 3
+    },
+    {
+      "name": "https://papazian.studio/_vercel/insights/script.js",
+      "type": "script",
+      "transfer": 0,
+      "encoded": 1300,
+      "decoded": 2495,
+      "duration": 1
+    },
+    {
+      "name": "https://papazian.studio/images/atlas/atlas.csv",
+      "type": "fetch",
+      "transfer": 0,
+      "encoded": 8926,
+      "decoded": 25284,
+      "duration": 1
+    },
+    {
+      "name": "https://papazian.studio/images/projects/mashrou-leila/cover.webp",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 41140,
+      "decoded": 41140,
+      "duration": 1
+    },
+    {
+      "name": "https://papazian.studio/images/projects/tebr/cover.webp",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 28250,
+      "decoded": 28250,
+      "duration": 2
+    },
+    {
+      "name": "https://papazian.studio/images/projects/fictive-environments/cover.webp",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 21400,
+      "decoded": 21400,
+      "duration": 2
+    },
+    {
+      "name": "https://papazian.studio/images/projects/localization-gap/cover.webp",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 40016,
+      "decoded": 40016,
+      "duration": 1
+    },
+    {
+      "name": "https://papazian.studio/images/projects/cartography-of-absence/02_cartography_of_absence.webp",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 113426,
+      "decoded": 113426,
+      "duration": 2
+    },
+    {
+      "name": "https://papazian.studio/images/projects/mekena-nyc/cover.webp",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 54620,
+      "decoded": 54620,
+      "duration": 2
+    },
+    {
+      "name": "https://papazian.studio/images/atlas/cost-of-being-queer-arab-nyt.webp",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 13528,
+      "decoded": 13528,
+      "duration": 3
+    }
+  ]
+}

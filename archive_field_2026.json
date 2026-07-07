@@ -1,0 +1,11 @@
+[
+  {
+    "id": "ref_25",
+    "title": "Columbia University — Lecture",
+    "discipline": "SYSTEMS",
+    "year": "2024",
+    "coordinates": { "x": 0.15, "y": -0.42, "z": 0.89 },
+    "description": "Invited lecture at Columbia University exploring systems choreography, structural politics of creative infrastructure, and the validation of the Localization Gap thesis.",
+    "connected_links": ["ref_12", "ref_20"]
+  }
+]

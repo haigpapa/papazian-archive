@@ -1,0 +1,69 @@
+- main [ref=e3]:
+  - application "3D spatial archive" [ref=e4]
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e7] [cursor=pointer]
+    - generic [ref=e226]:
+      - generic [ref=e227]:
+        - button "Copy direct link" [ref=e228]:
+          - img [ref=e229]
+          - text: Link
+        - button "Close detail view" [ref=e232]:
+          - img [ref=e233]
+      - generic [ref=e236]:
+        - generic [ref=e237]:
+          - generic [ref=e238]:
+            - generic [ref=e239]: "ROUTE 01: VISIBILITY BECOMES INFRASTRUCTURE"
+            - button "EXIT TOUR" [ref=e240] [cursor=pointer]
+          - paragraph [ref=e241]: Traces the evolution of visibility, vulnerability, and spatial agency from the stadium stages of Mashrou’ Leila into physical blueprints of sanctuary in Queens.
+          - generic [ref=e242]:
+            - button "PREV STEP" [disabled]
+            - generic [ref=e243]: 1 / 4
+            - button "NEXT STEP" [ref=e244] [cursor=pointer]
+        - heading "Mashrou' Leila" [level=2] [ref=e245]
+        - generic [ref=e246]:
+          - generic [ref=e247]: lead
+          - generic [ref=e249]: 2008–22
+        - generic [ref=e250]:
+          - generic [ref=e251]: 02 / PUBLIC CULTURE
+          - generic [ref=e252]: The cultural infrastructure era.
+        - generic [ref=e253]:
+          - generic [ref=e254]: lead
+          - generic [ref=e255]: sound
+          - generic [ref=e256]: space
+          - generic [ref=e257]: systems
+          - generic [ref=e258]: Stage · Audience · Risk
+        - generic [ref=e259]:
+          - paragraph [ref=e260]: A band became cultural infrastructure, and that infrastructure exposed the fatal gap between visibility and protection.
+          - paragraph [ref=e261]: A band became cultural infrastructure, and that infrastructure exposed the fatal gap between visibility and protection.
+          - paragraph [ref=e262]: A band became cultural infrastructure, and then revealed that visibility without shelter can become a trap.
+        - generic [ref=e263]:
+          - paragraph [ref=e264]: Signals
+          - generic [ref=e265]:
+            - paragraph [ref=e266]: "Cinematic Rail Type: 16-card flagship dossier"
+            - paragraph [ref=e267]: "Argument: A band became cultural infrastructure, and then revealed that visibility without shelter can become a trap."
+            - paragraph [ref=e268]: "Evidence / Rail Status: Complete chronological audio, video, and press archive."
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - button "Open information" [ref=e58]:
+          - img [ref=e59]
+        - button "Unmute sound" [ref=e60]:
+          - img [ref=e61]
+      - generic [ref=e270]:
+        - generic [ref=e273]:
+          - generic [ref=e274]: WORKS / MASHROU-LEILA / 2008–22
+          - generic [ref=e275]: Mashrou' Leila
+          - generic [ref=e276]: "RELATIONS: WHY-WERE-LIKE-THIS + SPACE-TIME-TUNING-MACHINE + TEBR + SOMETIMES-I-WAKE-UP-ELSEWHERE + CHRONOCUMULATOR + 1000-STRINGS-AT-REST"
+        - generic [ref=e277]:
+          - button "OPEN DETAILS" [ref=e278] [cursor=pointer]
+          - button "CLOSE" [ref=e279] [cursor=pointer]
+      - generic [ref=e70]:
+        - 'button "Home: Orbit intro" [ref=e71]':
+          - img [ref=e72]
+        - 'button "Works: 20-project spine" [ref=e75]':
+          - img [ref=e76]
+        - 'button "Index: Unwrapped grid" [ref=e78]':
+          - img [ref=e79]
+        - 'button "Maps: Relations" [ref=e84]':
+          - img [ref=e85]
+        - 'button "Essays: Writing panel" [ref=e87]':
+          - img [ref=e88]

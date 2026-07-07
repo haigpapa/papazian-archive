@@ -1,0 +1,107 @@
+{
+  "url": "https://papazian.studio/",
+  "viewport": {
+    "w": 390,
+    "h": 844
+  },
+  "progress": false,
+  "canvas": {
+    "w": 390,
+    "h": 844,
+    "cw": 390,
+    "ch": 844
+  },
+  "text": "PAPAZIAN\nSystems\nof Meaning\n\nI build systems for memory, performance, and cultural translation.\n\nSOUND / SPACE / CODE / TEXT / IMAGE / SYSTEMS\n\nSELECTED WORKS\n\n20\n\nMODES\n\nWORKS / INDEX / MAP / ESSAYS\n\nEDITORIAL CASE STUDIES\n\nMASHROU' LEILA\n\n01\n\nCULTURAL ARCHITECTURE / PERFORMANCE SYSTEM\n\nA counter-public built through sound, image, language, identity, and collective risk.\n\nMEKENA NYC\n\n02\n\nSPACE / RESIDENCY / RADICAL HOSPITALITY\n\nA physical operating system for artists, gathering, adaptive reuse, and diasporic belonging.\n\nSPACE TIME TUNING MACHINE\n\n03\n\nAI / SOUND / LIVE INSTRUMENT\n\nA speculative performance engine for memory, displacement, and machine listening.\n\nVIEW STUDIO PROFILE →\nCV\nEXPLORE THE WORK\n\nTWENTY WORKS ORBIT A SINGLE SPINE: MEMORY AS ARCHITECTURE, PERFORMANCE AS INFRASTRUCTURE, TRANSLATION AS A MOVING SYSTEM.\n\nWORKS / SYSTEM / 2026\nARCHIVE FIELD\n000 / 020 / ARCHIVE",
+  "buttons": [
+    {
+      "name": "View Studio Profile →",
+      "rect": {
+        "x": 21,
+        "y": 813.546875,
+        "w": 348,
+        "h": 44
+      }
+    },
+    {
+      "name": "Explore the Work",
+      "rect": {
+        "x": 246.1953125,
+        "y": 878.546875,
+        "w": 142.8046875,
+        "h": 60.5
+      }
+    },
+    {
+      "name": "Open information",
+      "rect": {
+        "x": 11,
+        "y": 720,
+        "w": 64,
+        "h": 48
+      }
+    },
+    {
+      "name": "Unmute sound",
+      "rect": {
+        "x": 75,
+        "y": 720,
+        "w": 64,
+        "h": 48
+      }
+    },
+    {
+      "name": "WORKS / SYSTEM / 2026Archive field 000 / 020 / ARCHIVE",
+      "rect": {
+        "x": 140,
+        "y": 720,
+        "w": 239,
+        "h": 48
+      }
+    },
+    {
+      "name": "Home: Orbit intro",
+      "rect": {
+        "x": 11,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Works: 20-project spine",
+      "rect": {
+        "x": 84.59375,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Index: Unwrapped grid",
+      "rect": {
+        "x": 158.1953125,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Maps: Relations",
+      "rect": {
+        "x": 231.796875,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Essays: Writing panel",
+      "rect": {
+        "x": 305.3984375,
+        "y": 769,
+        "w": 64,
+        "h": 64
+      }
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+- main [ref=e3]:
+  - application "3D spatial archive" [ref=e4]
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e7] [cursor=pointer]
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - heading "Systems of Meaning" [level=2] [ref=e12]:
+          - text: Systems
+          - text: of Meaning
+        - paragraph [ref=e13]: I build systems for memory, performance, and cultural translation.
+        - paragraph [ref=e14]: Sound / Space / Code / Text / Image / Systems
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - paragraph [ref=e17]: Selected Works
+          - paragraph [ref=e18]: "20"
+        - generic [ref=e19]:
+          - paragraph [ref=e20]: Modes
+          - paragraph [ref=e21]: Works / Index / Map / Essays
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - paragraph [ref=e24]: Editorial Case Studies
+          - generic [ref=e25]:
+            - article [ref=e26]:
+              - generic [ref=e27]:
+                - paragraph [ref=e28]: Mashrou' Leila
+                - generic [ref=e29]: "01"
+              - paragraph [ref=e30]: Cultural architecture / performance system
+              - paragraph [ref=e31]: A counter-public built through sound, image, language, identity, and collective risk.
+            - article [ref=e32]:
+              - generic [ref=e33]:
+                - paragraph [ref=e34]: MEKENA NYC
+                - generic [ref=e35]: "02"
+              - paragraph [ref=e36]: Space / residency / radical hospitality
+              - paragraph [ref=e37]: A physical operating system for artists, gathering, adaptive reuse, and diasporic belonging.
+            - article [ref=e38]:
+              - generic [ref=e39]:
+                - paragraph [ref=e40]: Space Time Tuning Machine
+                - generic [ref=e41]: "03"
+              - paragraph [ref=e42]: AI / sound / live instrument
+              - paragraph [ref=e43]: A speculative performance engine for memory, displacement, and machine listening.
+        - button "View Studio Profile →" [ref=e44]
+      - generic [ref=e45]:
+        - link "CV" [ref=e47] [cursor=pointer]:
+          - /url: /cv.pdf
+        - button "Explore the Work" [ref=e48] [cursor=pointer]:
+          - text: Explore the Work
+          - img [ref=e49]
+      - paragraph [ref=e53]: "Twenty works orbit a single spine: memory as architecture, performance as infrastructure, translation as a moving system."
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - button "Open information" [ref=e58]:
+          - img [ref=e59]
+        - button "Unmute sound" [ref=e60]:
+          - img [ref=e61]
+      - button "WORKS / SYSTEM / 2026 Archive field 000 / 020 / ARCHIVE" [ref=e66] [cursor=pointer]:
+        - generic [ref=e67]: WORKS / SYSTEM / 2026
+        - generic [ref=e68]: Archive field
+        - generic [ref=e69]: 000 / 020 / ARCHIVE
+      - generic [ref=e70]:
+        - 'button "Home: Orbit intro" [ref=e71]':
+          - img [ref=e72]
+        - 'button "Works: 20-project spine" [ref=e75]':
+          - img [ref=e76]
+        - 'button "Index: Unwrapped grid" [ref=e78]':
+          - img [ref=e79]
+        - 'button "Maps: Relations" [ref=e84]':
+          - img [ref=e85]
+        - 'button "Essays: Writing panel" [ref=e87]':
+          - img [ref=e88]

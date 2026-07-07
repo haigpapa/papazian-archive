@@ -1,0 +1,90 @@
+{
+  "hash": "#mode=grid",
+  "text": "PAPAZIAN\n⚡ FILTERS\nFILE_ED-0\n2024–26\nCASSETTE EVIDENCE\nHERO\nFILE_ED-1\n2024–26\nFAILURE AS FOLKLORE\nTHESIS\nFILE_ED-2\n2024–26\nANCESTRAL SOURCE TOKENS\nEVIDENCE\nFILE_ED-3\n2024–26\nMAQAM IS STRUCTURE\nEVIDENCE\nFILE_ED-4\n2024–26\nADVERSARIAL PROMPT LOG\nPROCESS\nFILE_ED-5\n2024–26\nTRACEABILITY PIPELINE\nSYSTEM\nFILE_ED-6\n2024–26\nTRUNCATE_BEFORE_RESOLUTION\nPROCESS\nFILE_ED-7\n2024–26\nMODEL OUTPUT GRID\nEVIDENCE\nFILE_ED-8\n2024–26\nSPECTROGRAM DRIFT\nEVIDENCE\nFILE_ED-9\n2024–26\nFAILURE TAXONOMY\nSYSTEM\nFILE_D-10\n2024–26\nLISTENING COMPARISON\nEVIDENCE\nFILE_D-11\n2024–26\nFUTURE FOLKLORE ARTIFACT\nEVIDENCE\nFILE_D-12\n2024–26\nSYSTEM AUTHORSHIP\nROLE\nFILE_D-13\n2024–26\nRELATION TO STTM / 427 ARCHIVE / LOCALIZATION GAP\nCONTEXT\nFILE_D-14\n2024–26\nUNRESOLVED SIGNAL\nCODA\nFILE_ED-0\n2008–22\nBAALBECK\nHERO\nFILE_ED-1\n2008–22\nNOT A BAND\nTHESIS\nFILE_ED-2\n2008–22\nORIGIN SURFACE\nEVIDENCE\nFILE_ED-3\n2008–22\nCOUNTER-PUBLIC INFRASTRUCTURE\nSYSTEM\nFILE_ED-4\n2008–22\nDIRECT-TO-FAN PUBLIC\nEVIDENCE\nFILE_ED-5\n2008–22\nSCALE LEDGER\nEVIDENCE\nFILE_E",
+  "buttonCount": 9,
+  "buttons": [
+    {
+      "name": "⚡ FILTERS",
+      "rect": {
+        "x": 1092.4375,
+        "y": 21,
+        "w": 87.5625,
+        "h": 27.5
+      }
+    },
+    {
+      "name": "Open information",
+      "rect": {
+        "x": 21,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Unmute sound",
+      "rect": {
+        "x": 85,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "INDEX / W:ALL / M:ALL Archive fieldSORT:PROJECT / VIEW:HYBRID / 429 FILES",
+      "rect": {
+        "x": 150,
+        "y": 823,
+        "w": 676,
+        "h": 64
+      }
+    },
+    {
+      "name": "Home: Orbit intro",
+      "rect": {
+        "x": 859,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Works: 20-project spine",
+      "rect": {
+        "x": 923,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Index: Unwrapped grid",
+      "rect": {
+        "x": 987,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Maps: Relations",
+      "rect": {
+        "x": 1051,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    },
+    {
+      "name": "Essays: Writing panel",
+      "rect": {
+        "x": 1115,
+        "y": 823,
+        "w": 64,
+        "h": 64
+      }
+    }
+  ],
+  "hasFilters": true,
+  "hasTooltip": false
+}

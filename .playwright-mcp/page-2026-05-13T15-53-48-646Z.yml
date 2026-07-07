@@ -1,0 +1,63 @@
+- main [ref=e3]:
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e6]
+    - generic [ref=e57]:
+      - button "Close detail view" [ref=e58]:
+        - img [ref=e60]
+      - generic [ref=e63]:
+        - heading "TEBR" [level=2] [ref=e64]
+        - generic [ref=e65]:
+          - generic [ref=e66]: lead
+          - generic [ref=e68]: 2024–26
+        - generic [ref=e69]:
+          - generic [ref=e70]: lead
+          - generic [ref=e71]: sound
+          - generic [ref=e72]: systems
+          - generic [ref=e73]: code
+        - generic [ref=e74]:
+          - paragraph [ref=e75]: The project converts machine failure, archive residue, and cultural specificity into a deliberate compositional territory rather than a problem to be corrected away.
+          - paragraph [ref=e76]: "Lead work Domains: sound, systems, code. Connected to fictive-environments, space-time-tuning-machine."
+        - generic [ref=e83]:
+          - button "OPEN PROJECT RAIL" [ref=e92]:
+            - text: OPEN PROJECT RAIL
+            - img [ref=e93]
+          - button "COPY DIRECT LINK" [ref=e87]:
+            - img [ref=e88]
+            - text: COPY DIRECT LINK
+    - generic [ref=e9]:
+      - button "Open information" [ref=e10]:
+        - img [ref=e11]
+      - button "Index / All images TEBR lead / sound + systems + code 001 / 119" [ref=e96]:
+        - generic [ref=e14]:
+          - generic [ref=e15]: Index / All images
+          - generic [ref=e16]: TEBR
+          - generic [ref=e17]: lead / sound + systems + code
+        - generic [ref=e18]:
+          - generic [ref=e19]: "001"
+          - generic [ref=e20]: / 119
+      - generic [ref=e21]:
+        - 'button "Works: Project spine" [ref=e22]':
+          - generic [ref=e23]:
+            - img [ref=e24]
+            - generic [ref=e26]: Works
+            - generic [ref=e27]: Project spine
+        - 'button "Project: Image rail" [ref=e28]':
+          - generic [ref=e29]:
+            - img [ref=e30]
+            - generic [ref=e32]: Project
+            - generic [ref=e33]: Image rail
+        - 'button "Index: All images" [active] [ref=e34]':
+          - generic [ref=e35]:
+            - img [ref=e36]
+            - generic [ref=e41]: Index
+            - generic [ref=e42]: All images
+        - 'button "Atlas: Relations" [ref=e43]':
+          - generic [ref=e44]:
+            - img [ref=e45]
+            - generic [ref=e47]: Atlas
+            - generic [ref=e48]: Relations
+        - 'button "Orbit: Cinematic loop" [ref=e49]':
+          - generic [ref=e50]:
+            - img [ref=e51]
+            - generic [ref=e54]: Orbit
+            - generic [ref=e55]: Cinematic loop

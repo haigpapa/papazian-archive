@@ -1,0 +1,79 @@
+- main [ref=e3]:
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e6]
+    - generic [ref=e57]:
+      - button "Close detail view" [ref=e58]:
+        - img [ref=e60]
+      - generic [ref=e63]:
+        - heading "TEBR" [level=2] [ref=e64]
+        - generic [ref=e65]:
+          - generic [ref=e66]: lead
+          - generic [ref=e68]: 2024–26
+        - generic [ref=e69]:
+          - generic [ref=e70]: lead
+          - generic [ref=e71]: sound
+          - generic [ref=e72]: systems
+          - generic [ref=e73]: code
+        - generic [ref=e74]:
+          - paragraph [ref=e75]: "Displacement is treated as a frequency problem: what happens to a voice when the room it was built for no longer exists?"
+          - paragraph [ref=e76]: TEBR is a sound-text work that turns forced exile, machine failure, Arabic maqam, and archival residue into a deliberate compositional territory.
+        - generic [ref=e77]:
+          - paragraph [ref=e78]: Signals
+          - generic [ref=e79]:
+            - paragraph [ref=e80]: Research-led performance and installation, 2024-26
+            - paragraph [ref=e81]: Uses AI failure as a faulty transducer of cultural memory
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: 01 / 05
+            - generic [ref=e85]: Frequency Problem / hero
+          - paragraph [ref=e86]: Violin Waveform
+          - paragraph [ref=e87]: The voice becomes a signal moving through exile, mistranslation, and machine failure.
+          - generic [ref=e88]:
+            - button "Works" [ref=e89]:
+              - img [ref=e90]
+              - text: Works
+            - button "Prev" [ref=e92]:
+              - img [ref=e93]
+              - text: Prev
+            - button "Next" [ref=e95]:
+              - text: Next
+              - img [ref=e96]
+          - generic [ref=e98]:
+            - paragraph [ref=e99]: Related
+            - generic [ref=e100]:
+              - button "space time tuning machine" [ref=e101]
+              - button "maqamai" [ref=e102]
+              - button "resonance atlas" [ref=e103]
+              - button "hah was" [ref=e104]
+        - button "COPY DIRECT LINK" [ref=e106]:
+          - img [ref=e107]
+          - text: COPY DIRECT LINK
+    - generic [ref=e9]:
+      - button "Open information" [ref=e10]:
+        - img [ref=e11]
+      - button "Project / Image rail TEBR 01 / 05 / FREQUENCY PROBLEM" [ref=e111]:
+        - generic [ref=e14]:
+          - generic [ref=e15]: Project / Image rail
+          - generic [ref=e16]: TEBR
+          - generic [ref=e17]: 01 / 05 / FREQUENCY PROBLEM
+      - generic [ref=e21]:
+        - 'button "Works: Project spine" [ref=e22]':
+          - generic [ref=e23]:
+            - img [ref=e24]
+            - generic [ref=e26]: Works
+        - 'button "Project: Image rail" [ref=e28]':
+          - generic [ref=e29]:
+            - img [ref=e30]
+            - generic [ref=e32]: Project
+        - 'button "Index: All images" [ref=e34]':
+          - generic [ref=e35]:
+            - img [ref=e36]
+            - generic [ref=e41]: Index
+        - 'button "Atlas: Relations" [ref=e43]':
+          - generic [ref=e44]:
+            - img [ref=e45]
+            - generic [ref=e47]: Atlas
+        - 'button "Orbit: Cinematic loop" [ref=e49]':
+          - generic [ref=e50]:
+            - img [ref=e51]
+            - generic [ref=e54]: Orbit

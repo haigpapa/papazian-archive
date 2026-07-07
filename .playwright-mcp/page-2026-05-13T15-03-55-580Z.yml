@@ -1,0 +1,42 @@
+- main [ref=e3]:
+  - generic:
+    - paragraph: Drawing Archive Field 0%
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e6]
+    - generic [ref=e9]:
+      - button "Open information" [ref=e10]:
+        - img [ref=e11]
+      - button "Works / Project spine Archive field 0 works / 0 images FIELD / 000" [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]: Works / Project spine
+          - generic [ref=e16]: Archive field
+          - generic [ref=e17]: 0 works / 0 images
+        - generic [ref=e18]:
+          - generic [ref=e19]: FIELD
+          - generic [ref=e20]: / 000
+      - generic [ref=e21]:
+        - 'button "Works: Project spine" [ref=e22]':
+          - generic [ref=e23]:
+            - img [ref=e24]
+            - generic [ref=e26]: Works
+            - generic [ref=e27]: Project spine
+        - 'button "Project: Image rail" [disabled] [ref=e28]':
+          - generic [ref=e29]:
+            - img [ref=e30]
+            - generic [ref=e32]: Project
+            - generic [ref=e33]: Image rail
+        - 'button "Index: All images" [ref=e34]':
+          - generic [ref=e35]:
+            - img [ref=e36]
+            - generic [ref=e41]: Index
+            - generic [ref=e42]: All images
+        - 'button "Atlas: Relations" [ref=e43]':
+          - generic [ref=e44]:
+            - img [ref=e45]
+            - generic [ref=e47]: Atlas
+            - generic [ref=e48]: Relations
+        - 'button "Orbit: Cinematic loop" [ref=e49]':
+          - generic [ref=e50]:
+            - img [ref=e51]
+            - generic [ref=e54]: Orbit
+            - generic [ref=e55]: Cinematic loop

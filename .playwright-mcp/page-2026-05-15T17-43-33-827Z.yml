@@ -1,0 +1,123 @@
+- main [ref=e3]:
+  - generic:
+    - heading "PAPAZIAN" [level=1] [ref=e6]
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - paragraph [ref=e10]: Systems Choreography
+        - heading "Systems of Meaning" [level=2] [ref=e11]:
+          - text: Systems
+          - text: of Meaning
+        - paragraph [ref=e12]: I build systems for memory, performance, and cultural translation.
+        - paragraph [ref=e13]: Sound / Space / Code / Text / Image / Systems
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - paragraph [ref=e16]: Selected Works
+          - paragraph [ref=e17]: "20"
+        - generic [ref=e18]:
+          - paragraph [ref=e19]: Modes
+          - paragraph [ref=e20]: Works / Index / Atlas / Essays
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - paragraph [ref=e23]: About / Bio
+          - paragraph [ref=e24]: Born in Beirut and based in New York, Haig Papazian works across sound, architecture, film, AI, narrative, and cultural infrastructure. The work treats culture as an interface and technology as material, method, and critique.
+        - generic [ref=e25]:
+          - paragraph [ref=e26]: Editorial Case Studies
+          - generic [ref=e27]:
+            - article [ref=e28]:
+              - generic [ref=e29]:
+                - paragraph [ref=e30]: Mashrou' Leila
+                - generic [ref=e31]: "01"
+              - paragraph [ref=e32]: Cultural architecture / performance system
+              - paragraph [ref=e33]: A counter-public built through sound, image, language, identity, and collective risk.
+            - article [ref=e34]:
+              - generic [ref=e35]:
+                - paragraph [ref=e36]: MEKENA NYC
+                - generic [ref=e37]: "02"
+              - paragraph [ref=e38]: Space / residency / radical hospitality
+              - paragraph [ref=e39]: A physical operating system for artists, gathering, adaptive reuse, and diasporic belonging.
+            - article [ref=e40]:
+              - generic [ref=e41]:
+                - paragraph [ref=e42]: Space Time Tuning Machine
+                - generic [ref=e43]: "03"
+              - paragraph [ref=e44]: AI / sound / live instrument
+              - paragraph [ref=e45]: A speculative performance engine for memory, displacement, and machine listening.
+      - generic [ref=e46]:
+        - link "CV" [ref=e47] [cursor=pointer]:
+          - /url: /cv.pdf
+        - button "Explore the Work" [ref=e48]:
+          - text: Explore the Work
+          - img [ref=e49]
+      - paragraph [ref=e53]: "Twenty works orbit a single spine: memory as architecture, performance as infrastructure, translation as a moving system."
+    - generic [ref=e107]:
+      - complementary [ref=e108]:
+        - generic [ref=e109]:
+          - paragraph [ref=e110]: Essays / Writings
+          - heading "Reading Panel" [level=2] [ref=e111]:
+            - text: Reading
+            - text: Panel
+        - generic [ref=e112]:
+          - button "01 / 2026 Systems of Meaning Statement" [ref=e113]:
+            - generic [ref=e114]: 01 / 2026
+            - generic [ref=e115]: Systems of Meaning
+            - generic [ref=e116]: Statement
+          - button "02 / 2024 The Localization Gap AI / Music / Cultural Bias" [ref=e117]:
+            - generic [ref=e118]: 02 / 2024
+            - generic [ref=e119]: The Localization Gap
+            - generic [ref=e120]: AI / Music / Cultural Bias
+          - button "03 / 2020 The Cost of Being Queer and Arab Visibility / Risk / Public Culture" [ref=e121]:
+            - generic [ref=e122]: 03 / 2020
+            - generic [ref=e123]: The Cost of Being Queer and Arab
+            - generic [ref=e124]: Visibility / Risk / Public Culture
+          - button "04 / 2024 The Cartography of Absence Forms / Exile / Bureaucracy" [ref=e125]:
+            - generic [ref=e126]: 04 / 2024
+            - generic [ref=e127]: The Cartography of Absence
+            - generic [ref=e128]: Forms / Exile / Bureaucracy
+          - button "05 / 2015 Architecture in Low Res Architecture / Image / Breakdown" [ref=e129]:
+            - generic [ref=e130]: 05 / 2015
+            - generic [ref=e131]: Architecture in Low Res
+            - generic [ref=e132]: Architecture / Image / Breakdown
+          - button "06 / 2026 Why We're Like This Video Essay / Cultural Mood" [ref=e133]:
+            - generic [ref=e134]: 06 / 2026
+            - generic [ref=e135]: Why We're Like This
+            - generic [ref=e136]: Video Essay / Cultural Mood
+      - article [ref=e137]:
+        - generic [ref=e138]:
+          - paragraph [ref=e139]: Statement / 2026 / 4 min
+          - heading "Systems of Meaning" [level=3] [ref=e140]
+          - paragraph [ref=e141]: "A short operating statement for the archive: memory, performance, and cultural translation as systems rather than isolated works."
+        - generic [ref=e142]:
+          - paragraph [ref=e143]: "I build systems for memory, performance, and cultural translation. The work moves across sound, space, code, text, image, and systems because the subject keeps changing scale: a song becomes a public architecture, a building becomes a social protocol, a manuscript becomes a software engine, and a data set becomes a record of cultural pressure."
+          - paragraph [ref=e144]: Systems Choreography names the method behind that movement. It treats space, time, code, narrative, and performance as related structures that can be rehearsed, tuned, and reassembled. The archive is not a neutral container for finished objects. It is a way of showing how the objects think together.
+          - paragraph [ref=e145]: "The point is not to make technology look magical. It is to make cultural structure visible: who gets translated, what gets flattened, where memory is stored, and how people build forms of belonging under pressure."
+        - generic [ref=e146]:
+          - button "Previous" [ref=e147]
+          - button "Next" [ref=e148]
+    - generic [ref=e56]:
+      - button "Open information" [ref=e57]:
+        - img [ref=e58]
+      - button "Essays / Writing panel Heroes of a Transitional Time secondary / image + systems" [ref=e149]:
+        - generic [ref=e61]:
+          - generic [ref=e62]: Essays / Writing panel
+          - generic [ref=e63]: Heroes of a Transitional Time
+          - generic [ref=e64]: secondary / image + systems
+      - generic [ref=e68]:
+        - 'button "Home: Orbit intro" [ref=e69]':
+          - generic [ref=e70]:
+            - img [ref=e71]
+            - generic [ref=e74]: Home
+        - 'button "Works: 20-project spine" [ref=e76]':
+          - generic [ref=e77]:
+            - img [ref=e78]
+            - generic [ref=e80]: Works
+        - 'button "Index: Unwrapped grid" [ref=e82]':
+          - generic [ref=e83]:
+            - img [ref=e84]
+            - generic [ref=e89]: Index
+        - 'button "Atlas: Relations" [ref=e91]':
+          - generic [ref=e92]:
+            - img [ref=e93]
+            - generic [ref=e95]: Atlas
+        - 'button "Essays: Writing panel" [ref=e97]':
+          - generic [ref=e98]:
+            - img [ref=e99]
+            - generic [ref=e101]: Essays

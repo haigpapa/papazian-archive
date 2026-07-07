@@ -1,0 +1,2758 @@
+- main [ref=e3]:
+  - application "3D spatial archive" [ref=e4]
+  - generic:
+    - generic:
+      - heading "PAPAZIAN" [level=1] [ref=e7] [cursor=pointer]
+      - button "⚡ FILTERS" [ref=e134] [cursor=pointer]
+    - generic:
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: 2024–26
+        - generic:
+          - generic: Cassette Evidence
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: 2024–26
+        - generic:
+          - generic: Failure as Folklore
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: 2024–26
+        - generic:
+          - generic: Ancestral Source Tokens
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: 2024–26
+        - generic:
+          - generic: Maqam Is Structure
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: 2024–26
+        - generic:
+          - generic: Adversarial Prompt Log
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: 2024–26
+        - generic:
+          - generic: Traceability Pipeline
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: 2024–26
+        - generic:
+          - generic: TRUNCATE_BEFORE_RESOLUTION
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: 2024–26
+        - generic:
+          - generic: Model Output Grid
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: 2024–26
+        - generic:
+          - generic: Spectrogram Drift
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: 2024–26
+        - generic:
+          - generic: Failure Taxonomy
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: 2024–26
+        - generic:
+          - generic: Listening Comparison
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: 2024–26
+        - generic:
+          - generic: Future Folklore Artifact
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-12
+          - generic: 2024–26
+        - generic:
+          - generic: SYSTEM AUTHORSHIP
+          - generic: role
+      - generic:
+        - generic:
+          - generic: FILE_D-13
+          - generic: 2024–26
+        - generic:
+          - generic: Relation to STTM / 427 Archive / Localization Gap
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-14
+          - generic: 2024–26
+        - generic:
+          - generic: Unresolved Signal
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: 2008–22
+        - generic:
+          - generic: Baalbeck
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: 2008–22
+        - generic:
+          - generic: Not a Band
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: 2008–22
+        - generic:
+          - generic: Origin Surface
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: 2008–22
+        - generic:
+          - generic: Counter-Public Infrastructure
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: 2008–22
+        - generic:
+          - generic: Direct-to-Fan Public
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: 2008–22
+        - generic:
+          - generic: Scale Ledger
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: 2008–22
+        - generic:
+          - generic: The Design Problem
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: 2008–22
+        - generic:
+          - generic: Ibn El Leil
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: 2008–22
+        - generic:
+          - generic: Roman
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: 2008–22
+        - generic:
+          - generic: Tiny Desk
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: 2008–22
+        - generic:
+          - generic: Stage Architecture
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: 2008–22
+        - generic:
+          - generic: Rolling Stone
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-12
+          - generic: 2008–22
+        - generic:
+          - generic: Crisis Operations
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-13
+          - generic: 2008–22
+        - generic:
+          - generic: CREATIVE & VISUAL DIRECTION
+          - generic: role
+      - generic:
+        - generic:
+          - generic: FILE_D-14
+          - generic: 2008–22
+        - generic:
+          - generic: Visibility Without Shelter
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-15
+          - generic: 2008–22
+        - generic:
+          - generic: Empty Stage
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_D-16
+          - generic: 2008–22
+        - generic:
+          - generic: Lil Watan
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-17
+          - generic: 2008–22
+        - generic:
+          - generic: Aoede
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-18
+          - generic: 2008–22
+        - generic:
+          - generic: Bahr
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-19
+          - generic: 2008–22
+        - generic:
+          - generic: Roman
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-20
+          - generic: 2008–22
+        - generic:
+          - generic: Fasateen
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-21
+          - generic: 2008–22
+        - generic:
+          - generic: Shim El Yasmine
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-22
+          - generic: 2008–22
+        - generic:
+          - generic: Cavalry
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-23
+          - generic: 2008–22
+        - generic:
+          - generic: Raksit Leila
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-24
+          - generic: 2008–22
+        - generic:
+          - generic: Radio Romance
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-25
+          - generic: 2008–22
+        - generic:
+          - generic: 3 Minutes
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-26
+          - generic: 2008–22
+        - generic:
+          - generic: Imm El Jacket
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-27
+          - generic: 2008–22
+        - generic:
+          - generic: Inni Mneeh
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-28
+          - generic: 2008–22
+        - generic:
+          - generic: Abdo
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-29
+          - generic: 2008–22
+        - generic:
+          - generic: Cavalry (English)
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-30
+          - generic: 2008–22
+        - generic:
+          - generic: Aoede (Live at AUB Assembly Hall)
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-31
+          - generic: 2008–22
+        - generic:
+          - generic: Kalaam (Live at AUB Assembly Hall)
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-32
+          - generic: 2008–22
+        - generic:
+          - generic: Marrikh (Live at AUB Assembly Hall)
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-33
+          - generic: 2008–22
+        - generic:
+          - generic: Maghawir (Live at Byblos)
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-34
+          - generic: 2008–22
+        - generic:
+          - generic: Bint el Khandaq (Live at Uberhaus)
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-35
+          - generic: 2008–22
+        - generic:
+          - generic: Tayf (Ghost)
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-36
+          - generic: 2008–22
+        - generic:
+          - generic: NPR Tiny Desk Concert
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-37
+          - generic: 2008–22
+        - generic:
+          - generic: "Making of Ibn El Leil — Part 1: La Frette"
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-38
+          - generic: 2008–22
+        - generic:
+          - generic: "Making of Ibn El Leil — Part 2: Orchestra"
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-39
+          - generic: 2008–22
+        - generic:
+          - generic: "Making of Ibn El Leil — Part 3: LIVE"
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: 2025–26
+        - generic:
+          - generic: The Studio as Interface
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: 2025–26
+        - generic:
+          - generic: Reality Is a Design Problem
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: 2025–26
+        - generic:
+          - generic: The Meaning Stack Enters the City
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: 2025–26
+        - generic:
+          - generic: Between Panic Feed and Dead Institution
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: 2025–26
+        - generic:
+          - generic: Structural Fiction
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: 2025–26
+        - generic:
+          - generic: Architectures of Belonging
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: 2025–26
+        - generic:
+          - generic: Governance Triad in Practice
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: 2025–26
+        - generic:
+          - generic: Para-Institutional Posture
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: 2025–26
+        - generic:
+          - generic: Deployment Gap
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: 2025–26
+        - generic:
+          - generic: A Fiction That Became Load-Bearing
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: 2025–26
+        - generic:
+          - generic: The Door on Austell Place
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: 2025–26
+        - generic:
+          - generic: Building as Operating System
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: 2025–26
+        - generic:
+          - generic: Condition of Vashad
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: 2025–26
+        - generic:
+          - generic: Site / Block / Queens
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: 2025–26
+        - generic:
+          - generic: Before / After
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: 2025–26
+        - generic:
+          - generic: Plan / Section / Elevation
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: 2025–26
+        - generic:
+          - generic: Sanctuary / Forge / Plaza
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: 2025–26
+        - generic:
+          - generic: Resident Journey Map
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: 2025–26
+        - generic:
+          - generic: Threshold Walkthrough
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: 2025–26
+        - generic:
+          - generic: IoT / Sensor Layer
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: 2025–26
+        - generic:
+          - generic: Radical Hospitality Protocol
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: 2025–26
+        - generic:
+          - generic: Program Calendar
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-12
+          - generic: 2025–26
+        - generic:
+          - generic: Sustainability / Retrofit Claim
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-13
+          - generic: 2025–26
+        - generic:
+          - generic: OPERATIONAL & SPATIAL DESIGN
+          - generic: role
+      - generic:
+        - generic:
+          - generic: FILE_D-14
+          - generic: 2025–26
+        - generic:
+          - generic: From Stage to Shelter
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-15
+          - generic: 2025–26
+        - generic:
+          - generic: Quiet Room
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: 2025–26
+        - generic:
+          - generic: Manuscript on Desk
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: 2025–26
+        - generic:
+          - generic: Exile as Interface
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: 2025–26
+        - generic:
+          - generic: Nine Houses
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: 2025–26
+        - generic:
+          - generic: Entry Fragment
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: 2025–26
+        - generic:
+          - generic: Temporal Debt Ledger
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: 2025–26
+        - generic:
+          - generic: Möbius Engine
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: 2025–26
+        - generic:
+          - generic: Face A / Face B
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: 2025–26
+        - generic:
+          - generic: Typographic Shatter
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: 2025–26
+        - generic:
+          - generic: Form 404
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: 2025–26
+        - generic:
+          - generic: SparrowOS Marker
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: 2025–26
+        - generic:
+          - generic: Interface Walkthrough
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: 2025–26
+        - generic:
+          - generic: Reader Journey Map
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_D-12
+          - generic: 2025–26
+        - generic:
+          - generic: Ordinary Presence
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-13
+          - generic: 2025–26
+        - generic:
+          - generic: NARRATIVE ARCHITECTURE
+          - generic: role
+      - generic:
+        - generic:
+          - generic: FILE_D-14
+          - generic: 2025–26
+        - generic:
+          - generic: Relation to Cartography / DERIVE / MEKENA
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-15
+          - generic: 2025–26
+        - generic:
+          - generic: Animal / Room / Light
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2024"
+        - generic:
+          - generic: The Audit Table
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2024"
+        - generic:
+          - generic: What AI Cannot Hear
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2024"
+        - generic:
+          - generic: Maqam Reference Card
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2024"
+        - generic:
+          - generic: Dataset Card
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2024"
+        - generic:
+          - generic: Prompt Method
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2024"
+        - generic:
+          - generic: Python / Librosa Analysis
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2024"
+        - generic:
+          - generic: Spectrogram I
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2024"
+        - generic:
+          - generic: Spectrogram II
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: "2024"
+        - generic:
+          - generic: Model Comparison Matrix
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: "2024"
+        - generic:
+          - generic: Failure Taxonomy
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: "2024"
+        - generic:
+          - generic: A/B Listening Demo
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: "2024"
+        - generic:
+          - generic: HAH-WAS Truth Map
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-12
+          - generic: "2024"
+        - generic:
+          - generic: MaqamAI Ear Training
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-13
+          - generic: "2024"
+        - generic:
+          - generic: Model Drift Log
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-14
+          - generic: "2024"
+        - generic:
+          - generic: FORENSIC AUDIT METHODOLOGY
+          - generic: role
+      - generic:
+        - generic:
+          - generic: FILE_D-15
+          - generic: "2024"
+        - generic:
+          - generic: The Unheard Interval
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_AB-0
+          - generic: "2020"
+        - generic:
+          - generic: Cost Of Being Queer Arab Nyt
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_AB-1
+          - generic: "2020"
+        - generic:
+          - generic: Mashrou Leila Self Titled Ep Cover
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_AB-2
+          - generic: "2020"
+        - generic:
+          - generic: Mekena Nyc Building Schematic Queens
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2024"
+        - generic:
+          - generic: Form Table
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2024"
+        - generic:
+          - generic: The Form Is the Antagonist
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2024"
+        - generic:
+          - generic: Visa for Skin
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2024"
+        - generic:
+          - generic: Fee Schedule for Speech
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2024"
+        - generic:
+          - generic: Negative Database
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2024"
+        - generic:
+          - generic: Composite Tongue
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2024"
+        - generic:
+          - generic: Stamp / Ledger / Redaction
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2024"
+        - generic:
+          - generic: Void Map
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: "2024"
+        - generic:
+          - generic: Administrative Fiction Engine
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: "2024"
+        - generic:
+          - generic: Digitization Gap
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: "2024"
+        - generic:
+          - generic: Relation to SIWUE / SparrowOS
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: "2024"
+        - generic:
+          - generic: Filed but Not Resolved
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_NG-0
+          - generic: "2020"
+        - generic:
+          - generic: Crane Song Sarkis Ai Bird
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_VE-0
+          - generic: "2024"
+        - generic:
+          - generic: 427 Tracks Notion Taxonomy
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_VE-1
+          - generic: "2024"
+        - generic:
+          - generic: Localization Gap 427 Tracks Archive Metadata
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2025"
+        - generic:
+          - generic: Stack Cutaway
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2025"
+        - generic:
+          - generic: Culture Is Not Metadata
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2025"
+        - generic:
+          - generic: Sensorium Layer
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2025"
+        - generic:
+          - generic: Latent Space
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2025"
+        - generic:
+          - generic: Conductor Layer
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2025"
+        - generic:
+          - generic: Stage Layer
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2025"
+        - generic:
+          - generic: Veracity Shield
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2025"
+        - generic:
+          - generic: Four Deployments
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: "2025"
+        - generic:
+          - generic: Biological Mismatch
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: "2025"
+        - generic:
+          - generic: Sovereign Infrastructure
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: "2025"
+        - generic:
+          - generic: Architecture Paper Needed
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: "2025"
+        - generic:
+          - generic: No Output Without Friction
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: 2024–26
+        - generic:
+          - generic: The Rehearsal Field
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: 2024–26
+        - generic:
+          - generic: Systems Are Rehearsed
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: 2024–26
+        - generic:
+          - generic: From Object to Operating System
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: 2024–26
+        - generic:
+          - generic: The Pilot Protocol
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: 2024–26
+        - generic:
+          - generic: Governance Triad
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: 2024–26
+        - generic:
+          - generic: Raw Material / Friction / Artifact
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: 2024–26
+        - generic:
+          - generic: Refusal of Resolution
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: 2024–26
+        - generic:
+          - generic: Applied Across Worlds
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: 2024–26
+        - generic:
+          - generic: Documentation Gap
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: 2024–26
+        - generic:
+          - generic: The Trace of Choice
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ER-0
+          - generic: "2017"
+        - generic:
+          - generic: Rolling Stone Mena Cover Mashrou
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ER-1
+          - generic: "2017"
+        - generic:
+          - generic: Mashrou Leila Self Titled Ep Cover
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_YC-0
+          - generic: "2026"
+        - generic:
+          - generic: Lede Nyc Civic Intelligence Ui
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_LD-0
+          - generic: "2012"
+        - generic:
+          - generic: Sophies World Film Still
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2015"
+        - generic:
+          - generic: Broken Render
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2015"
+        - generic:
+          - generic: Low Resolution Is Evidence
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2015"
+        - generic:
+          - generic: Thesis Page
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2015"
+        - generic:
+          - generic: Digital Proxy
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2015"
+        - generic:
+          - generic: Resolution Loss Diagram
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2015"
+        - generic:
+          - generic: Against the Polished Render
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2015"
+        - generic:
+          - generic: Seed Crystal
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2015"
+        - generic:
+          - generic: Pixel as Ruin
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_UB-0
+          - generic: "2008"
+        - generic:
+          - generic: B018 Nightclub Dw5 Interior
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_TH-0
+          - generic: "2024"
+        - generic:
+          - generic: The Labyrinth Sayat Nova Script
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_EX-0
+          - generic: "2024"
+        - generic:
+          - generic: The Annex Stage Design Script
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RA-1
+          - generic: "2019"
+        - generic:
+          - generic: Mashrou Leila Self Titled Ep Cover
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2021"
+        - generic:
+          - generic: Machine in Darkness
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2021"
+        - generic:
+          - generic: Relic of a Future
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2021"
+        - generic:
+          - generic: Broken Instrument Myth
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2021"
+        - generic:
+          - generic: Anatomy Table
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2021"
+        - generic:
+          - generic: Physical-to-Digital Translation
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2021"
+        - generic:
+          - generic: Signal Flow
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2021"
+        - generic:
+          - generic: How It Is Played
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2021"
+        - generic:
+          - generic: Patch Reactivity
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: "2021"
+        - generic:
+          - generic: Bricolage as Friction
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: "2021"
+        - generic:
+          - generic: What Broke
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: "2021"
+        - generic:
+          - generic: Performance Clip
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: "2021"
+        - generic:
+          - generic: Public / Institutional Proof
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-12
+          - generic: "2021"
+        - generic:
+          - generic: Predecessor to DERIVE
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-13
+          - generic: "2021"
+        - generic:
+          - generic: Input Valve to TEBR
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-14
+          - generic: "2021"
+        - generic:
+          - generic: Wire After Sound
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ON-0
+          - generic: "2021"
+        - generic:
+          - generic: Yo Yo Ma Byblos Performance
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ON-1
+          - generic: "2021"
+        - generic:
+          - generic: Mashrou Leila Self Titled Ep Cover
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_UM-0
+          - generic: "2015"
+        - generic:
+          - generic: Ibn El Leil Album Cover Full
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_UM-0
+          - generic: "2013"
+        - generic:
+          - generic: Raasuk Album Cover
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_CY-0
+          - generic: "2011"
+        - generic:
+          - generic: El Hal Romancy Album
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_CY-1
+          - generic: "2011"
+        - generic:
+          - generic: Mashrou Leila Self Titled Ep Cover
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_SE-0
+          - generic: "2009"
+        - generic:
+          - generic: Plot House Beirut Dw5
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_NK-0
+          - generic: "2026"
+        - generic:
+          - generic: Frank Bias Detection Ui
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_NK-1
+          - generic: "2026"
+        - generic:
+          - generic: Localization Gap 427 Tracks Archive Metadata
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_NK-2
+          - generic: "2026"
+        - generic:
+          - generic: Localization Gap Ai Track Rejection Log
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2026"
+        - generic:
+          - generic: Weather Console
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2026"
+        - generic:
+          - generic: The Climate Dictates the Score
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2026"
+        - generic:
+          - generic: Urban Weather Feed
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2026"
+        - generic:
+          - generic: AI Conductor
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2026"
+        - generic:
+          - generic: Data-to-Audio Map
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2026"
+        - generic:
+          - generic: Violin Under Atmosphere
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2026"
+        - generic:
+          - generic: API Latency / Sensor Gap
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2026"
+        - generic:
+          - generic: Heat After Tone
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_UR-0
+          - generic: "2020"
+        - generic:
+          - generic: Post Apocalyptic Walking Tour Beirut Ar
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_IA-0
+          - generic: "2018"
+        - generic:
+          - generic: Skyline Insomnia Nocturnal Beirut
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_IA-1
+          - generic: "2018"
+        - generic:
+          - generic: Beyrouth Et Beyrouth Beirut School
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_SM-0
+          - generic: "2024"
+        - generic:
+          - generic: Bureaucratic Surrealism Form Detail
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_SM-1
+          - generic: "2024"
+        - generic:
+          - generic: Cartography Of Absence Data Void Trace
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_DE-0
+          - generic: "2025"
+        - generic:
+          - generic: Telescode Code Visualization
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RA-0
+          - generic: "2025"
+        - generic:
+          - generic: Menara Generative Architectural Render
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RA-1
+          - generic: "2025"
+        - generic:
+          - generic: Mekena Nyc Building Schematic Queens
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ES-0
+          - generic: "2024"
+        - generic:
+          - generic: Itp Camp Prototypes 2024
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_VE-0
+          - generic: "2023"
+        - generic:
+          - generic: Artistic Freedom Archive Of Bans Censorship
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_AD-0
+          - generic: "2014"
+        - generic:
+          - generic: Souad Family Archive Installation
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_OL-0
+          - generic: "2019"
+        - generic:
+          - generic: The Beirut School Anthology
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_OL-1
+          - generic: "2019"
+        - generic:
+          - generic: Beyrouth Et Beyrouth Beirut School
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_OL-2
+          - generic: "2019"
+        - generic:
+          - generic: Mashrou Leila Self Titled Ep Cover
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_EL-0
+          - generic: "2014"
+        - generic:
+          - generic: Material For A Novel Video Still
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2026"
+        - generic:
+          - generic: Mobile Truth Interface
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2026"
+        - generic:
+          - generic: Reverse Turing Test
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2026"
+        - generic:
+          - generic: AI Claim Card
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2026"
+        - generic:
+          - generic: Adversarial Game Loop
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2026"
+        - generic:
+          - generic: Grounding Pass
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2026"
+        - generic:
+          - generic: Spectral Input
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2026"
+        - generic:
+          - generic: Hallucination Score
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2026"
+        - generic:
+          - generic: Failure Taxonomy
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: "2026"
+        - generic:
+          - generic: Relation to Localization Gap / Meaning Stack
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: "2026"
+        - generic:
+          - generic: The Human Auditor
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ER-0
+          - generic: "2010"
+        - generic:
+          - generic: Plot 1063 Tower Beirut
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ON-0
+          - generic: "2006"
+        - generic:
+          - generic: 2006 Reconstruction South Lebanon
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ST-0
+          - generic: "2021"
+        - generic:
+          - generic: People Like Us Podcast Visual Identity
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ST-1
+          - generic: "2021"
+        - generic:
+          - generic: Mekena Nyc Building Schematic Queens
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_RE-0
+          - generic: "2009"
+        - generic:
+          - generic: Museum Of Architecture Aub Design
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_25-0
+          - generic: "2025"
+        - generic:
+          - generic: Arabic Pop 1925 2025 Archive Map
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RE-0
+          - generic: 2015–22
+        - generic:
+          - generic: Stage Architecture Mashrou Tour
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RE-1
+          - generic: 2015–22
+        - generic:
+          - generic: Mashrou Leila Self Titled Ep Cover
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_RE-0
+          - generic: "2022"
+        - generic:
+          - generic: Nowhere Elsewhere Transit Visual
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2021"
+        - generic:
+          - generic: Body Signal
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2021"
+        - generic:
+          - generic: Topographic Mesh
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2021"
+        - generic:
+          - generic: Maintenance Log
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_OR-0
+          - generic: "2025"
+        - generic:
+          - generic: Loop Corridor Feedback System
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_OR-1
+          - generic: "2025"
+        - generic:
+          - generic: Mekena Nyc Building Schematic Queens
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2025"
+        - generic:
+          - generic: WebGL Instrument
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2025"
+        - generic:
+          - generic: Frequency Wireframe
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2025"
+        - generic:
+          - generic: ITP Prototype
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2025"
+        - generic:
+          - generic: Tuning Fork Study
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2024"
+        - generic:
+          - generic: Constellation of Texts
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2024"
+        - generic:
+          - generic: Knowledge Is Topography
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2024"
+        - generic:
+          - generic: Source Corpus
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2024"
+        - generic:
+          - generic: Force-Directed Simulation
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2024"
+        - generic:
+          - generic: Node Inspection
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2024"
+        - generic:
+          - generic: GPU / Mobile Constraint
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2024"
+        - generic:
+          - generic: Relation to SIWUE / Codeverse / Atlas
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2024"
+        - generic:
+          - generic: The Unread Path
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_NG-0
+          - generic: "2021"
+        - generic:
+          - generic: Architectures Of Belonging Cohesion Model
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_NG-1
+          - generic: "2021"
+        - generic:
+          - generic: Mekena Nyc Building Schematic Queens
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_CT-0
+          - generic: "2025"
+        - generic:
+          - generic: Derive Negentropic Sorted Blocks Grid
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_GN-0
+          - generic: "2025"
+        - generic:
+          - generic: Speculative Narrative Design Workshop
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2024"
+        - generic:
+          - generic: Beirut Phantom
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2024"
+        - generic:
+          - generic: Sonic Map
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2024"
+        - generic:
+          - generic: Low-Res Lineage
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_GS-1
+          - generic: "2024"
+        - generic:
+          - generic: Localization Gap 427 Tracks Archive Metadata
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ET-0
+          - generic: "2019"
+        - generic:
+          - generic: Vessel Orchestra Met Documentation
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2025"
+        - generic:
+          - generic: Repository Galaxy
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2025"
+        - generic:
+          - generic: Software Is Invisible Architecture
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2025"
+        - generic:
+          - generic: AST Intake
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2025"
+        - generic:
+          - generic: Dependency Gravity Map
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2025"
+        - generic:
+          - generic: Before / After
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2025"
+        - generic:
+          - generic: Narrative Layer
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2025"
+        - generic:
+          - generic: Relation to STORYLINES / 99 Nodes
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2025"
+        - generic:
+          - generic: Unopened Module
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_RK-0
+          - generic: "2025"
+        - generic:
+          - generic: Tuning Fork Image Decay Software
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ME-0
+          - generic: "2012"
+        - generic:
+          - generic: Heroes Transitional Time Exhibition
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_CH-0
+          - generic: 2004–09
+        - generic:
+          - generic: Aub Barch Beirut Campus
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_CH-1
+          - generic: 2004–09
+        - generic:
+          - generic: Beyrouth Et Beyrouth Beirut School
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_CH-0
+          - generic: 2014–15
+        - generic:
+          - generic: Bartlett March London Thesis
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_CY-0
+          - generic: "2012"
+        - generic:
+          - generic: Marra Tein Residency Beirut
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_WP-0
+          - generic: "2013"
+        - generic:
+          - generic: Home Workspace Ashkal Alwan
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_WP-1
+          - generic: "2013"
+        - generic:
+          - generic: Beyrouth Et Beyrouth Beirut School
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_CY-0
+          - generic: "2017"
+        - generic:
+          - generic: Nyu Kevorkian Great Gig Exhibition
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_CY-1
+          - generic: "2017"
+        - generic:
+          - generic: Mekena Nyc Building Schematic Queens
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_AT-0
+          - generic: "2018"
+        - generic:
+          - generic: Banksy Block9 Walled Off Hotel
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_AT-1
+          - generic: "2018"
+        - generic:
+          - generic: Mashrou Leila Self Titled Ep Cover
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_RY-0
+          - generic: "2016"
+        - generic:
+          - generic: Aub 150th Documentary Production
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RY-1
+          - generic: "2016"
+        - generic:
+          - generic: Beyrouth Et Beyrouth Beirut School
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_KY-0
+          - generic: "2017"
+        - generic:
+          - generic: Great Gig Sky Nyu Exhibition
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_LE-0
+          - generic: "2013"
+        - generic:
+          - generic: Auditions For A Battle Performance Video
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_LE-1
+          - generic: "2013"
+        - generic:
+          - generic: Beyrouth Et Beyrouth Beirut School
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_RE-0
+          - generic: "2008"
+        - generic:
+          - generic: Lilly Doesnt Care 2d Animation
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_CE-0
+          - generic: "2014"
+        - generic:
+          - generic: Material For A Novel Research Still
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_MV-0
+          - generic: "2010"
+        - generic:
+          - generic: Fasateen Music Video Still
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_MV-0
+          - generic: "2010"
+        - generic:
+          - generic: Raksit Leila Video Still
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_AL-0
+          - generic: "2011"
+        - generic:
+          - generic: Exit Festival Serbia 2011
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_SK-0
+          - generic: "2016"
+        - generic:
+          - generic: Npr Tiny Desk Mashrou Leila
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_EO-0
+          - generic: "2017"
+        - generic:
+          - generic: Roman Music Video Still
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_GN-0
+          - generic: "2014"
+        - generic:
+          - generic: Greenpeace Campaign Renewable Energy
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_OG-0
+          - generic: "2021"
+        - generic:
+          - generic: Body Maintenance Log Document Art
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RO-0
+          - generic: "2026"
+        - generic:
+          - generic: Project Zero Civic Protocol
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_OM-0
+          - generic: "2012"
+        - generic:
+          - generic: The Mirage Room Optical Installation
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_IS-0
+          - generic: "2009"
+        - generic:
+          - generic: Bourj Hammoud Urban Thesis
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ND-0
+          - generic: "2024"
+        - generic:
+          - generic: Map Of The Wound Literary Visual
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RE-0
+          - generic: "2011"
+        - generic:
+          - generic: Ants Design Store Interior
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_IR-0
+          - generic: "2017"
+        - generic:
+          - generic: Hercules Love Affair Are You Still Certain
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_HY-0
+          - generic: "2018"
+        - generic:
+          - generic: Roisin Murphy Salam Banksy
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RN-0
+          - generic: "2019"
+        - generic:
+          - generic: Lost Souls Saturn Bint El Khandaq
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ON-0
+          - generic: "2020"
+        - generic:
+          - generic: Mika Promiseland Sursock Palace
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ST-0
+          - generic: "2018"
+        - generic:
+          - generic: Narcycist Time Collaboration
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_MV-0
+          - generic: "2019"
+        - generic:
+          - generic: Cavalry Music Video Militarized
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_MV-0
+          - generic: "2019"
+        - generic:
+          - generic: Radio Romance Narrative Video
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_MV-0
+          - generic: "2016"
+        - generic:
+          - generic: Aoede Experimental Video
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_MV-0
+          - generic: "2015"
+        - generic:
+          - generic: 3 Minutes Fan Collaborated Video
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_MV-0
+          - generic: "2013"
+        - generic:
+          - generic: Lil Watan Political Satire Video
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_OM-0
+          - generic: "2010"
+        - generic:
+          - generic: The Waiting Room Installation
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2022"
+        - generic:
+          - generic: Strings at Rest
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2025"
+        - generic:
+          - generic: Optical Sequencer
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2025"
+        - generic:
+          - generic: Source Instrument
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2025"
+        - generic:
+          - generic: Instrument Family
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2024"
+        - generic:
+          - generic: Latent Memory Field
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2024"
+        - generic:
+          - generic: Proximity Is Relevance
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2024"
+        - generic:
+          - generic: Displaced Source Corpus
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2024"
+        - generic:
+          - generic: Whisper Breath Chunks
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2024"
+        - generic:
+          - generic: ChromaDB Vector Map
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2024"
+        - generic:
+          - generic: Drift Algorithm
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2024"
+        - generic:
+          - generic: Tuning Rules
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2024"
+        - generic:
+          - generic: Source to Output
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: "2024"
+        - generic:
+          - generic: Against Fake Coherence
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: "2024"
+        - generic:
+          - generic: OSC / MIDI Signal
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: "2024"
+        - generic:
+          - generic: Relation to SIWUE / TEBR / STTM
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: "2024"
+        - generic:
+          - generic: Unresolved Fragment
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_NE-0
+          - generic: "2025"
+        - generic:
+          - generic: Mobius Engine Binary Data Topology
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2024"
+        - generic:
+          - generic: Spatial Sound Map
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2024"
+        - generic:
+          - generic: 427 Track Metadata
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2024"
+        - generic:
+          - generic: Evaluation Protocol
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_TY-0
+          - generic: "2020"
+        - generic:
+          - generic: Cartography Of Absence Data Void Absence Index
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_AT-0
+          - generic: "2020"
+        - generic:
+          - generic: Sparrowos Pixel Eye Icon
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ME-0
+          - generic: "2025"
+        - generic:
+          - generic: Navigating Latency Temporal Routing
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_VE-0
+          - generic: "2025"
+        - generic:
+          - generic: Derive Entropy Reducing Structure Emerging
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_AL-0
+          - generic: "2025"
+        - generic:
+          - generic: Derive Boids Vector Flow Field
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_SE-0
+          - generic: "2025"
+        - generic:
+          - generic: Localization Gap Batch Processing Yield Terminal
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_BI-0
+          - generic: "2008"
+        - generic:
+          - generic: Louvre Abu Dhabi Jean Nouvel Internship
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2025"
+        - generic:
+          - generic: Interval Made Visible
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2025"
+        - generic:
+          - generic: You Cannot Engineer What You Cannot Hear
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2025"
+        - generic:
+          - generic: Lesson Flow
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2025"
+        - generic:
+          - generic: Reference / Flattened Output
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2025"
+        - generic:
+          - generic: Microtonal Error Card
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2025"
+        - generic:
+          - generic: Engineer Mode
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2025"
+        - generic:
+          - generic: Relation to Localization Gap / HAH-WAS
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2025"
+        - generic:
+          - generic: The Trained Ear
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_IN-0
+          - generic: "2009"
+        - generic:
+          - generic: House Ii Skin Architectural Model
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_RY-0
+          - generic: "2024"
+        - generic:
+          - generic: Mobius Engine System Flowchart
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_AI-0
+          - generic: "2025"
+        - generic:
+          - generic: Projectarium Ai Speculative Forms Grid
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_CT-0
+          - generic: "2009"
+        - generic:
+          - generic: Beirut River Project Map
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_GN-0
+          - generic: "2008"
+        - generic:
+          - generic: Opera House Design Aub Project
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_SE-0
+          - generic: "2015"
+        - generic:
+          - generic: Barbican Release London Performance
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_EN-0
+          - generic: "2009"
+        - generic:
+          - generic: Shim El Yasmeen Foundation Song
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_TO-0
+          - generic: "2021"
+        - generic:
+          - generic: Walaw Manifesto Origin Text
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_UM-0
+          - generic: "2019"
+        - generic:
+          - generic: The Beirut School Album Cover
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_OS-0
+          - generic: "2025"
+        - generic:
+          - generic: Sparrowos Pixel Eye Icon
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2025"
+        - generic:
+          - generic: The Black Field
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2025"
+        - generic:
+          - generic: Editorial Gravity
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2025"
+        - generic:
+          - generic: The 99-Node Constraint
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2025"
+        - generic:
+          - generic: Input Corpus
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2025"
+        - generic:
+          - generic: Works Spine
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2025"
+        - generic:
+          - generic: Atlas Relations
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2025"
+        - generic:
+          - generic: Index Flattening
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2025"
+        - generic:
+          - generic: Project Rail Interior
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: "2025"
+        - generic:
+          - generic: Public / Private Layers
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: "2025"
+        - generic:
+          - generic: Duplicate Node Warning
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-10
+          - generic: "2025"
+        - generic:
+          - generic: Institutional View
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_D-11
+          - generic: "2025"
+        - generic:
+          - generic: The Field Returns
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2020"
+        - generic:
+          - generic: Cold Open Still
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2020"
+        - generic:
+          - generic: Not Individual Dysfunction
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2020"
+        - generic:
+          - generic: Script as Instrument
+          - generic: process
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2020"
+        - generic:
+          - generic: Cultural Weather Map
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2020"
+        - generic:
+          - generic: Edit Timeline
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2020"
+        - generic:
+          - generic: Data / Image / Voice
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2020"
+        - generic:
+          - generic: Public Bridge
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2020"
+        - generic:
+          - generic: The Feeling Remains
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2025"
+        - generic:
+          - generic: Circular Score Field
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2025"
+        - generic:
+          - generic: Time Does Not Progress Cleanly
+          - generic: thesis
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2025"
+        - generic:
+          - generic: Microtonal Circle
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-3
+          - generic: "2025"
+        - generic:
+          - generic: Event Accumulation Engine
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-4
+          - generic: "2025"
+        - generic:
+          - generic: Loop Trace I
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-5
+          - generic: "2025"
+        - generic:
+          - generic: Loop Trace II
+          - generic: system
+      - generic:
+        - generic:
+          - generic: FILE_ED-6
+          - generic: "2025"
+        - generic:
+          - generic: Against Western Resolution
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-7
+          - generic: "2025"
+        - generic:
+          - generic: Relation to Localization Gap
+          - generic: context
+      - generic:
+        - generic:
+          - generic: FILE_ED-8
+          - generic: "2025"
+        - generic:
+          - generic: Prototype Interface
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-9
+          - generic: "2025"
+        - generic:
+          - generic: The Loop Remains Open
+          - generic: coda
+      - generic:
+        - generic:
+          - generic: FILE_ED-0
+          - generic: "2024"
+        - generic:
+          - generic: Research Engine
+          - generic: hero
+      - generic:
+        - generic:
+          - generic: FILE_ED-1
+          - generic: "2024"
+        - generic:
+          - generic: Maqam Spectrogram
+          - generic: evidence
+      - generic:
+        - generic:
+          - generic: FILE_ED-2
+          - generic: "2024"
+        - generic:
+          - generic: Batch Processing
+          - generic: system
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - button "Open information" [ref=e58]:
+          - img [ref=e59]
+        - button "Unmute sound" [ref=e60]:
+          - img [ref=e61]
+      - button "INDEX / W:ALL / M:ALL Archive field SORT:PROJECT / VIEW:HYBRID / 429 FILES" [ref=e136] [cursor=pointer]:
+        - generic [ref=e137]: INDEX / W:ALL / M:ALL
+        - generic [ref=e138]: Archive field
+        - generic [ref=e139]: SORT:PROJECT / VIEW:HYBRID / 429 FILES
+      - generic [ref=e70]:
+        - 'button "Home: Orbit intro" [ref=e71]':
+          - img [ref=e72]
+        - 'button "Works: 20-project spine" [ref=e75]':
+          - img [ref=e76]
+        - 'button "Index: Unwrapped grid" [active] [ref=e78]':
+          - img [ref=e79]
+        - 'button "Maps: Relations" [ref=e84]':
+          - img [ref=e85]
+        - 'button "Essays: Writing panel" [ref=e87]':
+          - img [ref=e88]
