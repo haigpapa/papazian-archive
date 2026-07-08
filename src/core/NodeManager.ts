@@ -1151,7 +1151,7 @@ export default class NodeManager {
     } else if (mode === 'vertical') {
       result = this.getCanonicalPrimaryMeshes();
     } else if (mode === 'cylinder') {
-      result = this.meshes;
+      result = this.getPrimaryMeshes();
     } else {
       result = this.getPrimaryMeshes();
     }
@@ -2253,8 +2253,9 @@ export default class NodeManager {
   }
 
   public getScrollForNode(index: number, mode: string): number {
-    const TOTAL = this.meshes.length;
     if (mode === 'cylinder') {
+      const visible = this.getVisibleMeshes('cylinder');
+      const TOTAL = visible.length || 1;
       const nodesPerRing = 8;
       const REVOLUTIONS = Math.max(1, Math.ceil(TOTAL / nodesPerRing));
       const y_node = (index / TOTAL) * REVOLUTIONS * -9 + (REVOLUTIONS * 9) / 2;
