@@ -138,7 +138,7 @@ export default function ArtifactInspector({
               {onPrev && (
                 <button
                   onClick={onPrev}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center text-text-muted hover:text-white hover:bg-ui-bg-hover transition-colors lg:left-3"
+                  className="hidden lg:flex absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 items-center justify-center text-text-muted hover:text-white hover:bg-ui-bg-hover transition-colors"
                   aria-label="Previous artifact"
                 >
                   <ChevronLeft size={18} />
@@ -147,7 +147,7 @@ export default function ArtifactInspector({
               {onNext && (
                 <button
                   onClick={onNext}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center text-text-muted hover:text-white hover:bg-ui-bg-hover transition-colors lg:hidden"
+                  className="hidden lg:flex absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 items-center justify-center text-text-muted hover:text-white hover:bg-ui-bg-hover transition-colors"
                   aria-label="Next artifact"
                 >
                   <ChevronRight size={18} />
@@ -223,102 +223,100 @@ export default function ArtifactInspector({
                   </button>
                 )}
               </div>
-
               {/* Right: Metadata Panel */}
-              <div className="w-full lg:w-[340px] border-t lg:border-t-0 lg:border-l border-ui-border flex flex-col overflow-y-auto momentum-scroll">
-                {/* Header */}
-                <div className="p-5 border-b border-ui-border">
-                  <h2 className="font-display text-sm font-bold text-white uppercase tracking-wider leading-tight">
-                    {title}
-                  </h2>
-                  {chapter && (
-                    <p className="font-mono text-[9px] text-accent/60 uppercase tracking-[0.16em] mt-1">
-                      {chapter}
-                    </p>
-                  )}
+              <div className="w-full lg:w-[340px] border-t lg:border-t-0 lg:border-l border-ui-border flex flex-col overflow-hidden">
+                {/* Scrollable Content */}
+                <div className="flex-1 overflow-y-auto momentum-scroll">
+                  {/* Header */}
+                  <div className="p-5 border-b border-ui-border">
+                    <h2 className="font-display text-sm font-bold text-white uppercase tracking-wider leading-tight">
+                      {title}
+                    </h2>
+                    {chapter && (
+                      <p className="font-mono text-[9px] text-accent/60 uppercase tracking-[0.16em] mt-1">
+                        {chapter}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Metadata Grid */}
+                  <div className="p-5 flex flex-col gap-3 border-b border-ui-border">
+                    <MetaRow label="Parent Project" value={parentTitle} />
+                    {world && (
+                      <MetaRow
+                        label="World"
+                        value={`${world.roman} — ${world.name}`}
+                        accent={true}
+                      />
+                    )}
+                    <MetaRow label="Year" value={year} />
+                    <MetaRow label="Medium" value={medium} />
+                    <MetaRow label="Asset Type" value={assetType.toUpperCase()} />
+                    <MetaRow label="Evidence Role" value={role.toUpperCase()} />
+                    {record?.caption && (
+                      <div className="mt-2 pt-2 border-t border-white/6">
+                        <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-text-muted block mb-1">CAPTION</span>
+                        <p className="font-mono text-[9px] text-text-muted leading-relaxed">
+                          {record.caption}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="p-5 flex flex-col gap-2">
+                    {onOpenRail && projectSlug && (
+                      <ActionButton
+                        icon={<ArrowUpRight size={12} />}
+                        label="Open Rail"
+                        sublabel={`Enter ${parentTitle} cinematic view`}
+                        onClick={() => onOpenRail(projectSlug)}
+                      />
+                    )}
+                    {watchUrl && (
+                      <a
+                        href={watchUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-left p-3 bg-ui-bg hover:bg-ui-bg-hover transition-colors border border-ui-border flex items-center justify-between"
+                      >
+                        <div className="min-w-0">
+                          <span className="font-mono text-[9px] font-bold text-white block uppercase tracking-[0.16em]">
+                            Watch on YouTube
+                          </span>
+                        </div>
+                      </a>
+                    )}
+                    <ActionButton
+                      icon={<Copy size={12} />}
+                      label="Copy Link"
+                      sublabel="Copy deep link to clipboard"
+                      onClick={handleCopyLink}
+                    />
+                  </div>
                 </div>
 
-                {/* Metadata Grid */}
-                <div className="p-5 flex flex-col gap-3 border-b border-ui-border flex-1">
-                  <MetaRow label="Parent Project" value={parentTitle} />
-                  {world && (
-                    <MetaRow
-                      label="World"
-                      value={`${world.roman} — ${world.name}`}
-                      accent={true}
-                    />
-                  )}
-                  <MetaRow label="Year" value={year} />
-                  <MetaRow label="Medium" value={medium} />
-                  <MetaRow label="Asset Type" value={assetType.toUpperCase()} />
-                  <MetaRow label="Evidence Role" value={role.toUpperCase()} />
-                  {record?.caption && (
-                    <div className="mt-2 pt-3 border-t border-white/6">
-                      <p className="font-mono text-[9px] text-text-muted/50 uppercase tracking-[0.16em] mb-1">
-                        Caption
-                      </p>
-                      <p className="text-xs text-text-body leading-relaxed">
-                        {record.caption}
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="p-4 flex flex-col gap-2">
-                  {onOpenRail && projectSlug && (
-                    <ActionButton
-                      icon={<ArrowUpRight size={12} />}
-                      label="Open Rail"
-                      sublabel={`Enter ${parentTitle} cinematic view`}
-                      onClick={() => onOpenRail(projectSlug)}
-                    />
-                  )}
-                  {onShowInMaps && projectSlug && (
-                    <ActionButton
-                      icon={<Map size={12} />}
-                      label="Show in Maps"
-                      sublabel="View relations in atlas"
-                      onClick={() => onShowInMaps(projectSlug)}
-                    />
-                  )}
-                  {record?.externalUrl && (
-                    <a
-                      href={record.externalUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-3 py-2.5 border border-ui-border hover:bg-ui-bg transition-colors group"
+                {/* Mobile nav strip — only show below lg */}
+                {(onPrev || onNext) && (
+                  <div className="lg:hidden flex items-center justify-between border-t border-ui-border px-5 py-3 bg-surface/95 backdrop-blur-md shrink-0">
+                    <button
+                      onClick={onPrev}
+                      disabled={!onPrev}
+                      aria-label="Previous"
+                      className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted hover:text-white disabled:opacity-20 disabled:pointer-events-none transition-colors"
                     >
-                      <ExternalLink size={12} className="text-text-muted group-hover:text-accent shrink-0" />
-                      <div className="min-w-0">
-                        <span className="font-mono text-[9px] text-white uppercase tracking-[0.16em] block truncate">
-                          External Link
-                        </span>
-                      </div>
-                    </a>
-                  )}
-                  {watchUrl && (
-                    <a
-                      href={watchUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-3 py-2.5 border border-ui-border hover:bg-ui-bg transition-colors group"
+                      <ChevronLeft size={14} /> Prev
+                    </button>
+                    <button
+                      onClick={onNext}
+                      disabled={!onNext}
+                      aria-label="Next"
+                      className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted hover:text-white disabled:opacity-20 disabled:pointer-events-none transition-colors"
                     >
-                      <Play size={12} className="text-text-muted group-hover:text-accent shrink-0" />
-                      <div className="min-w-0">
-                        <span className="font-mono text-[9px] text-white uppercase tracking-[0.16em] block truncate">
-                          Watch on YouTube
-                        </span>
-                      </div>
-                    </a>
-                  )}
-                  <ActionButton
-                    icon={<Copy size={12} />}
-                    label="Copy Link"
-                    sublabel="Copy deep link to clipboard"
-                    onClick={handleCopyLink}
-                  />
-                </div>
+                      Next <ChevronRight size={14} />
+                    </button>
+                  </div>
+                )}
 
                 {/* Next button on desktop */}
                 {onNext && (

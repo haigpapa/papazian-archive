@@ -47,8 +47,13 @@ export default function App() {
   const sceneRef = useRef<Scene | null>(null);
   const currentModeRef = useRef<AppMode>('cylinder');
   const returnModeRef = useRef<PublicMode>('cylinder');
+  const activeNodeRef = useRef<any>(null);
   const { engine: audioEngine, isInitialized: audioReady, isMuted, toggleAudio, status: audioStatus, error: audioError } = useAudioEngine();
   const [activeNode, setActiveNode] = useState<any>(null);
+
+  React.useEffect(() => {
+    activeNodeRef.current = activeNode;
+  }, [activeNode]);
   const [currentMode, setCurrentMode] = useState<AppMode>('cylinder');
   const [nodes, setNodes] = useState<AtlasNode[]>([]);
   const [centeredNode, setCenteredNode] = useState<any>(null);
@@ -577,6 +582,9 @@ export default function App() {
           if (sceneRef.current) {
             const spatialInfo = sceneRef.current.getAtlasNodesSpatialInfo();
             audioEngine.setAtlasNodes(spatialInfo);
+            if (activeNodeRef.current) {
+              audioEngine.onProjectEnter(activeNodeRef.current.slug);
+            }
           }
         },
         onCenteredNodeChange: (node) => setCenteredNode(node),
@@ -592,6 +600,7 @@ export default function App() {
         },
         onContextRestored: () => {
           setLoadError('');
+          audioEngine.onProjectExit();
           setSceneKey(k => k + 1); // Remount!
         },
       });
@@ -742,11 +751,23 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {loadError && (
+      {loadError && !loadError.includes('Unable') && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[150] pointer-events-none">
           <div className="bg-red-500/10 backdrop-blur-md border border-red-500/30 px-4 py-2 rounded shadow-2xl flex items-center gap-3">
-            <span className="font-mono text-[9px] text-red-400 tracking-wider uppercase">WebGL Error: Operating in 2D Safe Mode</span>
+            <span className="font-mono text-[9px] text-red-400 tracking-wider uppercase">{loadError}</span>
           </div>
+        </div>
+      )}
+
+      {loadError && loadError.includes('Unable') && (
+        <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/90 gap-4 px-8 pointer-events-auto">
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-red-400 text-center">{loadError}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-6 py-3 text-[9px] bg-white hover:bg-white/90 text-black font-mono font-bold tracking-[0.16em] uppercase cursor-pointer transition-colors border border-white"
+          >
+            Reload Archive
+          </button>
         </div>
       )}
 

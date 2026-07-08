@@ -115,7 +115,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
       <AnimatePresence>
         {media && (
           <motion.div
-            className="relative w-full max-w-[95vw] md:max-w-[940px] h-[85vh] md:h-[580px] border border-white/16 bg-[#050505]/96 md:bg-surface/92 backdrop-blur-xl flex flex-col md:flex-row rounded-none shadow-2xl overflow-hidden pointer-events-auto"
+            className="relative w-full max-w-[95vw] md:max-w-[940px] h-[85svh] md:h-[580px] border border-white/16 bg-[#050505]/96 md:bg-surface/92 backdrop-blur-xl flex flex-col md:flex-row rounded-none shadow-2xl overflow-hidden pointer-events-auto"
             initial={{ opacity: 0, y: 14, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.985 }}

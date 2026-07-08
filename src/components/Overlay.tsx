@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { LayoutGrid, Rows3, Globe, X, ArrowUpRight, Plus, Link, Search, Map, ArrowLeft, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Play, Volume2, VolumeX, BookOpen } from 'lucide-react';
+import { LayoutGrid, Rows3, Globe, X, ArrowUpRight, Plus, Link, Search, Map, ArrowLeft, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Play, Volume2, VolumeX, BookOpen, Loader2 } from 'lucide-react';
 import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
 import { getRelationDetail } from '../data/relations';
 import { SITE_INFO_TABS, type SiteInfoTabId } from '../data/siteInfo';
@@ -1320,7 +1320,7 @@ export default function Overlay({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-[108px] left-5 right-5 z-[90] flex flex-col md:hidden pointer-events-auto gap-2"
+            className="fixed bottom-[170px] left-5 right-5 z-[90] flex flex-col md:hidden pointer-events-auto gap-2"
           >
             <AnimatePresence>
               {showMobileMapTools && (
@@ -1474,13 +1474,31 @@ export default function Overlay({
                       ? 'text-red-400 bg-red-500/10'
                       : audioStatus === 'ready' && !isMuted
                       ? 'text-accent'
-                      : 'text-text-muted hover:text-white hover:bg-ui-bg ' + (audioStatus === 'loading' || !audioReady ? 'animate-pulse opacity-80' : '')
+                      : 'text-text-muted hover:text-white hover:bg-ui-bg ' + (audioStatus === 'loading' || !audioReady ? 'opacity-80' : '')
                   }`}
-                  title={audioStatus === 'error' ? (audioError || 'Sound unavailable') : isMuted ? 'Unmute sound' : 'Mute sound'}
-                  aria-label={audioStatus === 'error' ? 'Sound unavailable' : isMuted ? 'Unmute sound' : 'Mute sound'}
+                  title={
+                    audioStatus === 'error'
+                      ? (audioError || 'Sound unavailable')
+                      : audioStatus === 'loading'
+                      ? 'Initializing audio...'
+                      : isMuted
+                      ? 'Unmute sound'
+                      : 'Mute sound'
+                  }
+                  aria-label={
+                    audioStatus === 'error'
+                      ? 'Sound unavailable'
+                      : audioStatus === 'loading'
+                      ? 'Initializing audio'
+                      : isMuted
+                      ? 'Unmute sound'
+                      : 'Mute sound'
+                  }
                 >
                   {audioStatus === 'error' ? (
                     <span className="font-mono text-[9px] uppercase tracking-wider text-center leading-tight">Audio<br/>Error</span>
+                  ) : audioStatus === 'loading' ? (
+                    <Loader2 size={16} className="animate-spin text-accent" />
                   ) : isMuted || !audioReady ? (
                     <VolumeX size={16} />
                   ) : (

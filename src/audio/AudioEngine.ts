@@ -188,14 +188,17 @@ export class AudioEngine {
 
       // ── Finalize ────────────────────────────────────────────
       this._isInitialized = true;
-      this._isMuted = false;
       this._status = 'ready';
 
-      // Fade in master volume
-      this.masterGain.gain.rampTo(
-        tone.dbToGain(MASTER_VOLUME_DB),
-        3 // 3-second fade from silence
-      );
+      // Fade in master volume only if the user hasn't requested mute during load
+      if (this._isMuted) {
+        this.masterGain.gain.setValueAtTime(0, tone.now());
+      } else {
+        this.masterGain.gain.rampTo(
+          tone.dbToGain(MASTER_VOLUME_DB),
+          3 // 3-second fade from silence
+        );
+      }
 
       // Activate the appropriate mode layer
       const layer = this.getLayerForMode(this._currentMode);
@@ -220,7 +223,14 @@ export class AudioEngine {
    * Toggle mute state. If not yet initialized, initializes first.
    */
   async toggleMute(): Promise<void> {
+    if (this._status === 'loading') {
+      this._isMuted = !this._isMuted;
+      this.notifyListeners();
+      return;
+    }
+
     if (!this._isInitialized) {
+      this._isMuted = false;
       await this.initialize();
       return;
     }

@@ -1,8 +1,0 @@
-@@ -682,7 +673,6 @@
-                 <p className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase">
-                   {`Drawing Archive Field ${Math.round(loadProgress * 100)}%`}
-                 </p>
-               </>
--            )}
-           </motion.div>
-         )}
