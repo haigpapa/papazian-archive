@@ -39,9 +39,8 @@ export const SITE_INFO_TABS: SiteInfoTab[] = [
       'For commissions, residencies, collaborations, talks, and research conversations, use the primary email below.',
     ],
     links: [
-      { label: 'Email', href: 'mailto:studio@haigpapazian.com', note: 'studio@haigpapazian.com' },
-      { label: 'Instagram', href: 'https://instagram.com/haigpapazian', note: '@haigpapazian' },
-      { label: 'MEKENA NYC', href: 'https://mekena.nyc/', note: 'space / residency / infrastructure' },
+      { label: 'Email', href: 'mailto:info@papazian.studio', note: 'info@papazian.studio' },
+      { label: 'Instagram', href: 'https://instagram.com/haigpapa', note: '@haigpapa' },
     ],
   },
   {
