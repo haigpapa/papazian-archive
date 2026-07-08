@@ -140,7 +140,7 @@ All committed in `d5ef0d6`.
 
 ### Completed
 - **C6**: Mobile QA — `viewport-fit=cover`, `env(safe-area-inset-*)` for footer/header/UI layer, 48px/44px touch targets. Committed in `579a2e6`.
-- **S9**: First-visit hint overlay — localStorage-persisted navigation guide (Orbit/Works/Index/Map), appears once 2.4s after load. Component: `FirstVisitHint.tsx`. Committed in `579a2e6`.
+- **S9**: First-visit hint overlay — localStorage-persisted navigation guide, updated to display the 5 active Brutalist console modes (Orbit, Works, Index, Map, Essays) with accurate descriptions and Lucide icons. Component: `FirstVisitHint.tsx`. Committed in `579a2e6` and updated in `a321b1c`.
 - **S5**: Map legend — compact world color key with 6 swatches + roman numerals, desktop only, positioned bottom-left in Map mode. Committed in `bc2d4ac`.
 
 ### Remaining (needs Haig)
