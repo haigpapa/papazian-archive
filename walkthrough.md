@@ -166,16 +166,20 @@ All committed in `d5ef0d6`.
 
 ---
 
-## 8. Mobile Map UI Polish & Final Deployments (Latest Session)
+## 8. Mobile Map UI Polish & Post-Deployment QA Fixes (Latest Session)
 
 ### Completed
 - **Map Tools Layout Fix**: Increased the mobile map tools drawer bottom placement to `bottom-[170px]` to sit perfectly above the two-row mobile footer navbar, resolving overlap.
 - **Overlay HUD Overlap Fix**: Configured the main footer HUD to hide on mobile viewports whenever a project node or dossier is focused (`activeDetailNode` is not null), avoiding stacked control sandwiches.
 - **Dossier Entry from Bottom Sheet**: Replaced the empty state (`null`) with a prominent, solid `OPEN DOSSIER →` CTA button inside the mobile bottom sheet when the active project has an available page, letting mobile users easily transition from map nodes into the case studies.
 - **Expanded Mobile Tour Sheet**: Dynamically increased the peek state drawer height to `h-[280px]` when `activeRoute` (curated tour) is active, fully exposing the tour's step controls (`PREV STEP`, `NEXT STEP`, progress, `EXIT TOUR`) on mobile viewports.
-- **Clean Deployments**: Successfully rebuilt, typechecked, and redeployed the spatial archive ecosystem:
-  - **Vercel**: Live alias at [papazian.studio](https://papazian.studio).
-  - **GitHub Pages**: Published to the `gh-pages` branch on remote.
+- **WebGL Context Restore & Audio Resync**: Handled audio engine re-synchronization on WebGL context restoration using a React `activeNodeRef` cache, and added automated stem state cleanup on reset.
+- **Actionable WebGL Error Banner**: Replaced the top-floating passive `loadError` toast with a centered, z-indexed modal dialog offering a "Reload Archive" CTA button in case of fatal WebGL failures.
+- **Audio Initialization Race Mitigation**: Tracked user mute gestures during tone.js context initialization, disabling the UI sound toggle button and rendering a spinning `Loader2` indicator during `'loading'` state.
+- **Mobile Prev/Next Overlay Overlap**: Repositioned `ArtifactInspector.tsx` previous/next navigation buttons from absolute floating chevrons to a fixed bottom flex footer bar on mobile screens.
+- **Dynamic Lightbox Heights**: Replaced standard viewport heights (`h-[85vh]`) with address bar resilient dynamic viewport units (`h-[85svh]` and `max-height: 100svh`) in `VideoLightbox.tsx` and custom modal dialog styles.
+- **Token Unification & Font Preload**: Aligned `--color-border` to `--color-ui-border` under the Tailwind `@theme` block, configured a distinct warm accent color `--color-accent-2` (`#e8d5c4`), pre-connected/preloaded Google Fontshare stylesheets with `display=optional` in `index.html`, and removed CSS `@import` parse chain blockers.
+- **Stale Patches and Conflict Files**: Purged all `.rej`, `.orig`, and `.patch` files from the codebase and updated `.gitignore` rules.
 
 ### State
 - Build: ✅ clean and compiled (zero errors)
