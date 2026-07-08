@@ -144,6 +144,7 @@ export default class NodeManager {
     this.loadingManager.onLoad = () => {
       console.log('Textures loaded successfully');
       this.options.onLoadComplete?.();
+      this.loadUnhydratedBackground();
     };
     this.loadingManager.onError = (url) => {
       console.warn('Texture failed to load:', url);
@@ -2731,6 +2732,112 @@ export default class NodeManager {
         }
       );
     });
+  }
+
+  private handleFallbackErrorTexture(mesh: THREE.Mesh, asset: any, data: any, customAspect: number) {
+    if (mesh && mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
+      const errTex = this.createCardTexture(
+        { ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' },
+        data,
+        'text',
+        customAspect
+      );
+      (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = errTex;
+      mesh.userData.textureLoaded = true;
+      this.scheduleRelayout();
+    }
+  }
+
+  private loadUnhydratedBackground() {
+    if (this.unhydratedMeshes.length === 0) return;
+
+    const queue = [...this.unhydratedMeshes];
+    const loader = new THREE.TextureLoader();
+    loader.setCrossOrigin('anonymous');
+
+    const processQueue = () => {
+      const item = queue.shift();
+      if (!item) return;
+
+      const { mesh, asset, data, primarySrc, customAspect } = item;
+      if (mesh.userData.textureLoaded) {
+        processQueue();
+        return;
+      }
+
+      if (this.failedUrls.has(primarySrc)) {
+        this.handleFallbackErrorTexture(mesh, asset, data, customAspect);
+        processQueue();
+        return;
+      }
+
+      loader.load(
+        primarySrc,
+        (texture) => {
+          texture.colorSpace = THREE.SRGBColorSpace;
+          const image = texture.image;
+
+          if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uMap) {
+            (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = texture;
+            (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value.needsUpdate = true;
+          }
+
+          if (image?.width && image?.height) {
+            mesh.userData.imageAspect = image.width / image.height;
+            if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uAspect) {
+              (mesh.material as THREE.ShaderMaterial).uniforms.uAspect.value = mesh.userData.imageAspect;
+            }
+          }
+          mesh.userData.textureLoaded = true;
+          this.scheduleRelayout();
+          setTimeout(processQueue, 40);
+        },
+        undefined,
+        (error) => {
+          const fallbackSrc = primarySrc.replace(/\.webp$/, '.jpg');
+          if (fallbackSrc !== primarySrc && !this.failedUrls.has(fallbackSrc)) {
+            loader.load(
+              fallbackSrc,
+              (fallbackTex) => {
+                fallbackTex.colorSpace = THREE.SRGBColorSpace;
+                const image = fallbackTex.image;
+                if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uMap) {
+                  (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = fallbackTex;
+                  (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value.needsUpdate = true;
+                }
+                if (image?.width && image?.height) {
+                  mesh.userData.imageAspect = image.width / image.height;
+                  if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uAspect) {
+                    (mesh.material as THREE.ShaderMaterial).uniforms.uAspect.value = mesh.userData.imageAspect;
+                  }
+                }
+                mesh.userData.textureLoaded = true;
+                this.scheduleRelayout();
+                setTimeout(processQueue, 40);
+              },
+              undefined,
+              () => {
+                this.failedUrls.add(primarySrc);
+                this.failedUrls.add(fallbackSrc);
+                this.handleFallbackErrorTexture(mesh, asset, data, customAspect);
+                setTimeout(processQueue, 40);
+              }
+            );
+          } else {
+            this.failedUrls.add(primarySrc);
+            this.handleFallbackErrorTexture(mesh, asset, data, customAspect);
+            setTimeout(processQueue, 40);
+          }
+        }
+      );
+    };
+
+    // Stagger starting the background queues after 1 second so layout finishes cleanly
+    setTimeout(() => {
+      processQueue();
+      processQueue();
+      processQueue();
+    }, 1000);
   }
 
   public dispose() {
