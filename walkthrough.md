@@ -166,8 +166,17 @@ All committed in `d5ef0d6`.
 
 ---
 
-## 8. Tasks Queued for Next Session
-* Haig's decisions on YouTube IDs, World assignments, analytics, CV
-* Vercel deploy + domain binding
-* WebP optimization (if approved)
-* Screenshots + press kit for launch announcement
+## 8. Mobile Map UI Polish & Final Deployments (Latest Session)
+
+### Completed
+- **Map Tools Layout Fix**: Increased the mobile map tools drawer bottom placement to `bottom-[170px]` to sit perfectly above the two-row mobile footer navbar, resolving overlap.
+- **Overlay HUD Overlap Fix**: Configured the main footer HUD to hide on mobile viewports whenever a project node or dossier is focused (`activeDetailNode` is not null), avoiding stacked control sandwiches.
+- **Dossier Entry from Bottom Sheet**: Replaced the empty state (`null`) with a prominent, solid `OPEN DOSSIER →` CTA button inside the mobile bottom sheet when the active project has an available page, letting mobile users easily transition from map nodes into the case studies.
+- **Expanded Mobile Tour Sheet**: Dynamically increased the peek state drawer height to `h-[280px]` when `activeRoute` (curated tour) is active, fully exposing the tour's step controls (`PREV STEP`, `NEXT STEP`, progress, `EXIT TOUR`) on mobile viewports.
+- **Clean Deployments**: Successfully rebuilt, typechecked, and redeployed the spatial archive ecosystem:
+  - **Vercel**: Live alias at [papazian.studio](https://papazian.studio).
+  - **GitHub Pages**: Published to the `gh-pages` branch on remote.
+
+### State
+- Build: ✅ clean and compiled (zero errors)
+- Git: ✅ clean (staged, committed, and pushed to `main` branch)
