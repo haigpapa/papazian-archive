@@ -421,7 +421,7 @@ export default function Overlay({
     .filter((slug: string) => nodeBySlug.has(slug))
     .slice(0, 5);
   const isMobilePeek = isMobileViewport && mobileSheetState === 'peek';
-  const mobileSheetFrameClass = mobileSheetState === 'full' ? 'top-[64px]' : 'h-[132px]';
+  const mobileSheetFrameClass = mobileSheetState === 'full' ? 'top-[64px]' : (activeRoute ? 'h-[280px]' : 'h-[132px]');
   const mobileIntroClass = mobileSheetState === 'full' ? 'block' : 'hidden md:block';
   const mobileTagsClass = mobileSheetState === 'full' ? 'flex' : 'hidden md:flex';
   const mobilePeekTitle = displayRailImage?.label || activeNode?.title;
@@ -1165,7 +1165,12 @@ export default function Overlay({
 
               <div className="mt-auto pt-6">
                 {activeNode.hasProjectPage ? (
-                  null
+                  <button
+                    onClick={() => onOpenProjectRail?.(activeNode)}
+                    className="w-full bg-accent hover:bg-accent/80 text-black font-mono text-[10px] font-bold tracking-[0.2em] py-3.5 border border-accent/20 transition-all cursor-pointer rounded-none flex items-center justify-center gap-2"
+                  >
+                    OPEN DOSSIER →
+                  </button>
                 ) : (
                   <div className="w-full py-4 border border-ui-border text-text-muted font-mono text-[10px] tracking-widest flex items-center justify-center">
                     {activeNode.tier === 'archive' ? 'ARCHIVE NODE' : 'SPATIAL RECORD'}
@@ -1310,7 +1315,7 @@ export default function Overlay({
 
       {/* Mobile Map Tools (Legend & Routes) */}
       <AnimatePresence>
-        {currentMode === 'map' && !activeNode && (
+        {currentMode === 'map' && !activeDetailNode && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1440,7 +1445,7 @@ export default function Overlay({
       />
 
 
-      <footer className={`fixed bottom-5 left-5 right-5 justify-center items-center pointer-events-none z-[130] ${currentMode === 'horizontal' ? 'hidden md:flex' : 'flex'}`}>
+      <footer className={`fixed bottom-5 left-5 right-5 justify-center items-center pointer-events-none z-[130] ${(currentMode === 'horizontal' || activeDetailNode) ? 'hidden md:flex' : 'flex'}`}>
         <div className="w-full pointer-events-auto">
           <div className="relative bg-surface/82 backdrop-blur-xl border border-white/18 shadow-2xl rounded-none w-full">
             <motion.div
