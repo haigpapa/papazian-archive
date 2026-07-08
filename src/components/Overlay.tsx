@@ -363,12 +363,13 @@ export default function Overlay({
 
     return canonical.length ? canonical : nodes;
   }, [nodes]);
+
   const focusIndex = focusNode ? workNodes.findIndex((node) => node.slug === focusNode.slug || node.id === focusNode.id) : -1;
   const publicMode = currentMode === 'horizontal' ? returnMode : currentMode;
   const activeMode = MODE_OPTIONS.find((mode) => mode.id === publicMode) || MODE_OPTIONS[0];
   const focusDomains = focusNode?.domains?.length ? focusNode.domains.join(' + ') : focusNode?.category || 'archive';
-  const imageCount = nodes.reduce((count, node) => count + (node.gallery?.length || 1), 0);
-  const workCount = workNodes.length;
+  let imageCount = nodes.reduce((count, node) => count + (node.gallery?.length || 1), 0);
+  let workCount = workNodes.length;
   const projectRailCount = activeNode?.gallery?.length || 0;
   const chapters = React.useMemo(() => {
     if (!activeNode?.gallery) return [];
@@ -490,6 +491,11 @@ export default function Overlay({
 
   const indexAssetCount = filteredAssets.length;
 
+  if (currentMode === 'grid') {
+    imageCount = filteredAssets.length;
+    workCount = new Set(filteredAssets.map((a) => a.projectId)).size;
+  }
+
   if (currentMode === 'grid' && indexFilters) {
     const worldPart = indexFilters.world === 'all' ? 'ALL' : indexFilters.world.toUpperCase();
     const mediumPart = indexFilters.medium === 'all' ? 'ALL' : indexFilters.medium.toUpperCase();
@@ -560,6 +566,20 @@ export default function Overlay({
       window.removeEventListener('keydown', handleKeyDown, true);
     };
   }, [showAbout]);
+  
+  React.useEffect(() => {
+    if (currentMode !== 'map' || !focusedMapNode) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.stopImmediatePropagation();
+        onCloseNode();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
+  }, [currentMode, focusedMapNode, onCloseNode]);
   
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);

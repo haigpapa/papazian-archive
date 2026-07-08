@@ -120,6 +120,13 @@ export default class NodeManager {
   // Grid slot per visible-mesh index; recomputed once per filter/mode change
   // instead of the previous O(n) walk per mesh per frame.
   private gridSlotCache: number[] | null = null;
+  private lastRenderTime: number = performance.now() / 1000;
+  private failedUrls = new Set<string>();
+  private hasProjectedPositions = false;
+  private lastProjWidth = 0;
+  private lastProjHeight = 0;
+  private lastProjScrollX = 0;
+  private lastProjScrollY = 0;
 
   constructor(scene: THREE.Scene, camera: THREE.PerspectiveCamera, nodesData: any[], options: any) {
     this.scene = scene;
@@ -149,6 +156,7 @@ export default class NodeManager {
     this.createNoDataZones();
     
     window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener('pointerdown', this.onPointerDown);
     window.addEventListener('click', this.onClick);
   }
 
@@ -285,7 +293,7 @@ export default class NodeManager {
           textureLoaded = true;
         } else if (true) {
           const primarySrc = asset.poster || asset.src || data.thumbnail;
-          const isCore = true; // Load all project primary slide textures eagerly
+          const isCore = asset.isPrimary || assetIndex === 0; // Load only the primary cover eagerly
           
           if (isCore) {
             texture = loader.load(
@@ -1210,7 +1218,11 @@ export default class NodeManager {
 
     const targetScale = isVisible ? this.getNodeScale(mesh, 1, mode) : { x: 0.001, y: 0.001, z: 0.001 };
     const material = mesh.material as THREE.ShaderMaterial;
-    const opacity = isVisible ? 1 : 0;
+    mesh.userData.targetMode = mode;
+    mesh.userData.targetPosition = new THREE.Vector3(targetX, targetY, targetZ);
+    mesh.userData.targetRotationY = targetRotY;
+    mesh.userData.targetRotationZ = targetRotZ;
+    mesh.userData.targetScale = new THREE.Vector3(targetScale.x, targetScale.y, targetScale.z);
 
     if (animate) {
       let delayVal = i * 0.006;
@@ -1225,7 +1237,7 @@ export default class NodeManager {
         const dist = Math.sqrt(targetX * targetX + targetY * targetY);
         delayVal = dist * 0.015;
         durationVal = 1.35;
-        easeCurve = 'cubic-bezier(0.16, 1, 0.3, 1)';
+        easeCurve = 'power4.out';
       }
 
       gsap.killTweensOf(mesh.position);
@@ -1242,9 +1254,9 @@ export default class NodeManager {
       } else {
         gsap.to(mesh.scale, { ...targetScale, duration: durationVal, ease: easeCurve, delay: delayVal });
       }
-      let targetOpacity = opacity;
+      let targetOpacity = isVisible ? 1.0 : 0.0;
       let targetHighlight = 1.0;
-      if (mode === 'grid' && opacity === 1) {
+      if (mode === 'grid' && isVisible) {
         if (this.indexFilters.viewMode === 'text') {
           targetOpacity = 0.0;
         } else if (this.indexFilters.viewMode === 'hybrid') {
@@ -1261,9 +1273,9 @@ export default class NodeManager {
       mesh.rotation.z = targetRotZ;
       mesh.scale.set(targetScale.x, targetScale.y, targetScale.z);
       
-      let targetOpacity = opacity;
+      let targetOpacity = isVisible ? 1.0 : 0.0;
       let targetHighlight = 1.0;
-      if (mode === 'grid' && opacity === 1) {
+      if (mode === 'grid' && isVisible) {
         if (this.indexFilters.viewMode === 'text') {
           targetOpacity = 0.0;
         } else if (this.indexFilters.viewMode === 'hybrid') {
@@ -1537,6 +1549,7 @@ export default class NodeManager {
 
   public setLayoutMode(mode: string) {
     this.activeMode = mode;
+    this.hasProjectedPositions = false;
     this.invalidateVisibleMeshCache();
     this.meshes.forEach((mesh) => {
       this.setNodePosition(mesh, this.getModeIndex(mesh, mode), mode);
@@ -1698,7 +1711,15 @@ export default class NodeManager {
       this.camera.position.z += (targetZ - this.camera.position.z) * 0.08;
 
       // Calculate projected 2D screen positions for all visible cards in grid mode
-      if (this.options.onUpdateProjectedPositions) {
+      const hasMoved = Math.abs(scrollX - this.lastProjScrollX) > 0.0005 || Math.abs(scrollY - this.lastProjScrollY) > 0.0005;
+      const needsProject = !this.hasProjectedPositions || hasMoved || this.lastProjWidth !== window.innerWidth || this.lastProjHeight !== window.innerHeight;
+
+      if (this.options.onUpdateProjectedPositions && needsProject) {
+        this.hasProjectedPositions = true;
+        this.lastProjWidth = window.innerWidth;
+        this.lastProjHeight = window.innerHeight;
+        this.lastProjScrollX = scrollX;
+        this.lastProjScrollY = scrollY;
         const positions: Record<string, { x: number, y: number, w: number, h: number }> = {};
         const tl = new THREE.Vector3();
         const br = new THREE.Vector3();
@@ -1777,6 +1798,30 @@ export default class NodeManager {
   }
 
   public renderUpdate(time: number, velocity: number) {
+    const now = performance.now() / 1000;
+    const dt = Math.min(0.1, now - this.lastRenderTime);
+    this.lastRenderTime = now;
+
+    // Enforce idempotency: if active mode is map/cylinder, but meshes are off-target and not currently tweening
+    if (this.activeMode === 'map' || this.activeMode === 'cylinder') {
+      const snapLerp = 1 - Math.exp(-5.0 * dt); // ~0.08 at 60Hz
+      this.meshes.forEach((mesh) => {
+        if (mesh.userData.targetMode === this.activeMode && mesh.userData.targetPosition) {
+          const targetPos = mesh.userData.targetPosition as THREE.Vector3;
+          if (mesh.position.distanceTo(targetPos) > 0.01) {
+            if (!gsap.isTweening(mesh.position)) {
+              mesh.position.lerp(targetPos, snapLerp);
+              mesh.rotation.y += (mesh.userData.targetRotationY - mesh.rotation.y) * snapLerp;
+              mesh.rotation.z += (mesh.userData.targetRotationZ - mesh.rotation.z) * snapLerp;
+              if (mesh.userData.targetScale) {
+                mesh.scale.lerp(mesh.userData.targetScale, snapLerp);
+              }
+            }
+          }
+        }
+      });
+    }
+
     let activeRailIndex = -1;
     if (this.activeMode === 'horizontal') {
       const railMeshes = this.getProjectRailMeshes();
@@ -1841,6 +1886,8 @@ export default class NodeManager {
         }
       });
     }
+    
+    const lerpFactorHover = 1 - Math.exp(-7.6 * dt);
 
     this.meshes.forEach((mesh) => {
       const mat = mesh.material as THREE.ShaderMaterial;
@@ -1859,7 +1906,7 @@ export default class NodeManager {
       }
 
       if (mat.uniforms.uHover) {
-        mat.uniforms.uHover.value += (targetHover - mat.uniforms.uHover.value) * 0.12;
+        mat.uniforms.uHover.value += (targetHover - mat.uniforms.uHover.value) * lerpFactorHover;
       }
 
       if (this.activeMode === 'map') {
@@ -2347,7 +2394,19 @@ export default class NodeManager {
     return best;
   }
 
+  private pointerStart = { x: 0, y: 0 };
+
+  private onPointerDown = (event: PointerEvent) => {
+    this.pointerStart.x = event.clientX;
+    this.pointerStart.y = event.clientY;
+  };
+
   private onClick = (event: MouseEvent) => {
+    const dx = event.clientX - this.pointerStart.x;
+    const dy = event.clientY - this.pointerStart.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist > 6) return;
+
     const target = event.target as HTMLElement | null;
     if (target?.closest('[data-ui-layer="true"]')) return;
     if (this.options.canUseSceneClicks?.() === false) return;
@@ -2415,7 +2474,7 @@ export default class NodeManager {
   };
 
   private handleMapMiss(event: MouseEvent) {
-    const radius = window.matchMedia('(pointer: coarse)').matches ? 44 : 24;
+    const radius = window.matchMedia('(pointer: coarse)').matches ? 44 : 8;
     const nearest = this.findNearestMapNode(event.clientX, event.clientY, radius);
     if (nearest) {
       this.options.onNodeClick(nearest.userData);
@@ -2641,7 +2700,7 @@ export default class NodeManager {
     
     meshesToLoad.forEach((mesh) => {
       const url = mesh.userData.textureUrl;
-      if (!url) return;
+      if (!url || this.failedUrls.has(url)) return;
       
       mesh.userData.textureLoaded = true; // Mark as loading / loaded
       
@@ -2667,6 +2726,7 @@ export default class NodeManager {
         undefined,
         (error) => {
           console.warn('Deferred texture failed to load:', url, error);
+          this.failedUrls.add(url);
           mesh.userData.textureLoaded = false; // Reset so we can retry if needed
         }
       );
@@ -2675,6 +2735,7 @@ export default class NodeManager {
 
   public dispose() {
     window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('pointerdown', this.onPointerDown);
     window.removeEventListener('click', this.onClick);
     document.body.style.cursor = '';
     if (this.relayoutTimer !== null) window.clearTimeout(this.relayoutTimer);

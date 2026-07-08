@@ -184,3 +184,26 @@ All committed in `d5ef0d6`.
 ### State
 - Build: ✅ clean and compiled (zero errors)
 - Git: ✅ clean (staged, committed, and pushed to `main` branch)
+
+---
+
+## 9. Phase 2 — Post-Deployment QA Bug Fixes (Current Session)
+
+We have addressed and resolved all the issues identified in the Post-Deployment QA Audit report:
+
+### Completed
+* **Map/Orbit Layout Wedge**: Removed the duplicate `switchMode` call in `handleModeChange` (`App.tsx`), corrected the GSAP ease parameter from the invalid CSS-style cubic-bezier to `power4.out`, and implemented an active alignment self-correction logic inside `renderUpdate` in `NodeManager.ts` to ensure layout modes are idempotent and recover immediately from edge sequences.
+* **Escape in Map Mode**: Registered a capturing window key listener inside `Overlay.tsx` to ensure pressing the Escape key immediately closes and dismisses map detail panels.
+* **Missing Textures**: Removed 4 broken image entries (`beyrouth-et-beyrouth-beirut-school.webp`, `mobius-engine-visual-study.webp`, `salam-block9-roisin-murphy.webp`, `sparrowos-surveillance-dashboard-four-panel.webp`) from `atlasImageFilenames.ts` to prevent initial preloader 404 network warnings, and added a `failedUrls` cache in `NodeManager.ts` to immediately stop loading attempts for previously failed resources.
+* **Drag/Click Disambiguation**: Tracked starting coordinate positions on `pointerdown` inside `NodeManager.ts` and set a 6px threshold in `onClick` to ignore clicks when orbiting/dragging. Also reduced the fine-pointer click snap-to-node proximity from 24px to 8px in `handleMapMiss`.
+* **Hijack Timeout Cleanup**: Encapsulated the 1.5s project rail open timeout in a React `railTimeoutRef` and structured complete clearances on mode switches and unmount to prevent state changes on aborted entries.
+* **Gesture zoom & pinch**: Prevented trackpad two-finger scroll gestures from zooming in map mode by isolating double-zoom logic to trackpad pinches (`ctrlKey` is true) and mouse wheels. Also added native touch event handlers for touch-screen pinch-to-zoom gestures.
+* **Frame-Rate Independent Physics**: Replaced all fixed-factor lerp calculations in `ScrollEngine.ts`, `Scene.ts`, and `NodeManager.ts` with delta time (`dt`) exponent mappings (`1 - Math.exp(-k * dt)`) and normalized scroll velocity for frame-rate invariant shader uniforms.
+* **Grid Projection Optimizations**: Implemented rendering throttle logic in `NodeManager.ts` to only re-project 3D nodes to 2D HTML markers when the camera/scroll position has actually shifted or the window has resized, dramatically reducing idle CPU overhead.
+* **Route & Metadata Polish**: Synced `document.title` reactively based on active mode/node, sanitized double-encoded URL hashes (`#mode=map#mode=map`), and resolved stale bottom-bar count trackers to display live filtered totals.
+* **Asset Loading Strategy**: Switched `isCore` dynamic check in `NodeManager.ts` to eagerly pre-cache only the primary cover slide for each project, deferring all sub-slide gallery images to run dynamically when a project is focused, improving startup times.
+
+### State
+- Build: ✅ clean and compiled (zero errors)
+- Typecheck: ✅ clean (zero errors)
+- Git: ✅ clean and fully verified

@@ -37,6 +37,7 @@ export default class Scene {
   private scrollEngine: ScrollEngine;
   private startedAt = performance.now();
   private frameId: number | null = null;
+  private lastFrameTime = performance.now() / 1000;
 
   constructor(container: HTMLElement, nodes: any[], options: SceneOptions) {
     this.container = container;
@@ -99,9 +100,17 @@ export default class Scene {
     window.addEventListener('resize', this.onResize);
     this.onResize(); // Initial call
 
+    window.addEventListener('wheel', this.onWheelPreventDefault, { passive: false });
+
     // 7. Start Animation Loop
     this.animate();
   }
+
+  private onWheelPreventDefault = (e: WheelEvent) => {
+    if (e.ctrlKey) {
+      e.preventDefault();
+    }
+  };
 
   private onContextLost = (event: Event) => {
     event.preventDefault();
@@ -125,6 +134,10 @@ export default class Scene {
 
   private animate = () => {
     try {
+      const now = performance.now() / 1000;
+      const dt = Math.min(0.1, now - this.lastFrameTime);
+      this.lastFrameTime = now;
+
       const time = (performance.now() - this.startedAt) / 1000;
       
       // Idle Magnetic Snap scroll in horizontal mode
@@ -138,7 +151,8 @@ export default class Scene {
         const snapTarget = this.nodeManager.getScrollForRailSlide(closestSlide, currentTarget);
         
         if (Math.abs(currentTarget - snapTarget) > 0.005) {
-          this.scrollEngine.targetScrollY += (snapTarget - currentTarget) * 0.08;
+          const snapLerp = 1 - Math.exp(-5.0 * dt); // ~0.08 at 60Hz
+          this.scrollEngine.targetScrollY += (snapTarget - currentTarget) * snapLerp;
         }
       }
 
@@ -226,6 +240,7 @@ export default class Scene {
 
   public dispose() {
     window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('wheel', this.onWheelPreventDefault);
     this.renderer.domElement.removeEventListener('webglcontextlost', this.onContextLost);
     this.renderer.domElement.removeEventListener('webglcontextrestored', this.onContextRestored);
     if (this.frameId) cancelAnimationFrame(this.frameId);

@@ -13,9 +13,17 @@ export default class ScrollEngine {
   private observer: any;
   private onUpdate: (scrollX: number, scrollY: number, zoom: number) => void;
   private lastInputAt = performance.now();
+  private initialTouchDist = 0;
+  private initialZoom = 1.0;
+  private lastUpdateTime = performance.now() / 1000;
 
   constructor(onUpdate: (scrollX: number, scrollY: number, zoom: number) => void) {
     this.onUpdate = onUpdate;
+
+    // Touch pinch-to-zoom event listeners
+    window.addEventListener('touchstart', this.onTouchStart, { passive: true });
+    window.addEventListener('touchmove', this.onTouchMove, { passive: true });
+    window.addEventListener('touchend', this.onTouchEnd, { passive: true });
 
     // Observer to bridge all input types
     this.observer = Observer.create({
@@ -29,9 +37,17 @@ export default class ScrollEngine {
 
         if (this.mode === 'map') {
           if (isWheel) {
-            // Scroll wheel zooms in/out
-            const zoomDelta = -self.deltaY * 0.0015;
-            this.targetZoom = Math.max(0.4, Math.min(3.2, this.targetZoom + zoomDelta));
+            const ev = self.event as WheelEvent;
+            const isPinch = ev.ctrlKey;
+            const isMouseWheel = !isPinch && ev.deltaX === 0;
+
+            if (isPinch || isMouseWheel) {
+              const zoomDelta = -self.deltaY * 0.0015;
+              this.targetZoom = Math.max(0.4, Math.min(3.2, this.targetZoom + zoomDelta));
+            } else {
+              this.targetScrollX += self.deltaX * 0.012;
+              this.targetScrollY += self.deltaY * 0.012;
+            }
           } else {
             // Dragging orbits (map)
             this.targetScrollX += self.deltaX * 0.012;
@@ -57,9 +73,41 @@ export default class ScrollEngine {
     });
   }
 
+  private onTouchStart = (event: TouchEvent) => {
+    if (event.targetTouches.length === 2) {
+      const touch1 = event.targetTouches[0];
+      const touch2 = event.targetTouches[1];
+      const dx = touch1.clientX - touch2.clientX;
+      const dy = touch1.clientY - touch2.clientY;
+      this.initialTouchDist = Math.sqrt(dx * dx + dy * dy);
+      this.initialZoom = this.targetZoom;
+    }
+  };
+
+  private onTouchMove = (event: TouchEvent) => {
+    if (event.targetTouches.length === 2 && this.initialTouchDist > 0) {
+      const touch1 = event.targetTouches[0];
+      const touch2 = event.targetTouches[1];
+      const dx = touch1.clientX - touch2.clientX;
+      const dy = touch1.clientY - touch2.clientY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const factor = dist / this.initialTouchDist;
+      this.targetZoom = Math.max(0.4, Math.min(3.2, this.initialZoom * factor));
+      this.lastInputAt = performance.now();
+    }
+  };
+
+  private onTouchEnd = () => {
+    this.initialTouchDist = 0;
+  };
+
   public update(time: number) {
-    // Smoothen values (lerp)
-    const lerpFactor = 0.04;
+    const dt = Math.min(0.1, time - this.lastUpdateTime);
+    this.lastUpdateTime = time;
+
+    // Smoothen values (lerp) using frame-rate independent factors
+    // 1 - Math.exp(-k * dt); where k = 2.44 matches 0.04 at 60Hz
+    const lerpFactor = 1 - Math.exp(-2.44 * (dt || 0.0167));
     const prevScrollX = this.scrollX;
     const prevScrollY = this.scrollY;
     
@@ -67,10 +115,11 @@ export default class ScrollEngine {
     this.scrollY += (this.targetScrollY - this.scrollY) * lerpFactor;
     this.zoom += (this.targetZoom - this.zoom) * lerpFactor;
     
-    // Calculate velocity for shaders (magnitude of 2D velocity)
+    // Calculate velocity for shaders (magnitude of 2D velocity per second, scaled to reference frame duration of 0.0167s)
     const dx = this.scrollX - prevScrollX;
     const dy = this.scrollY - prevScrollY;
-    this.velocity = Math.sqrt(dx * dx + dy * dy);
+    const dtSeconds = dt || 0.0167;
+    this.velocity = (Math.sqrt(dx * dx + dy * dy) / dtSeconds) * 0.0167;
 
     // Trigger update callback
     this.onUpdate(this.scrollX, this.scrollY, this.zoom);
@@ -99,6 +148,9 @@ export default class ScrollEngine {
   }
 
   public dispose() {
+    window.removeEventListener('touchstart', this.onTouchStart);
+    window.removeEventListener('touchmove', this.onTouchMove);
+    window.removeEventListener('touchend', this.onTouchEnd);
     this.observer.kill();
   }
 }

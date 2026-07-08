@@ -79,6 +79,15 @@ export default function App() {
   const [inspectedRecord, setInspectedRecord] = useState<any>(null);
   const [indexFilters, setIndexFilters] = useState<IndexFilters>(DEFAULT_INDEX_FILTERS);
   const [projectedPositions, setProjectedPositions] = useState<Record<string, { x: number, y: number, w: number, h: number }>>({});
+  const railTimeoutRef = React.useRef<any>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (railTimeoutRef.current) {
+        clearTimeout(railTimeoutRef.current);
+      }
+    };
+  }, []);
 
   React.useEffect(() => {
     if (activeMedia) {
@@ -88,6 +97,22 @@ export default function App() {
       }
     }
   }, [activeMedia]);
+
+  React.useEffect(() => {
+    let title = 'Haig Papazian Archive';
+    if (activeNode) {
+      title = `${activeNode.title} — Haig Papazian Archive`;
+    } else if (currentMode === 'map') {
+      title = 'Constellation Map — Haig Papazian Archive';
+    } else if (currentMode === 'grid') {
+      title = 'Asset Index — Haig Papazian Archive';
+    } else if (currentMode === 'cylinder') {
+      title = 'Orbit — Haig Papazian Archive';
+    } else if (currentMode === 'vertical') {
+      title = 'Works — Haig Papazian Archive';
+    }
+    document.title = title;
+  }, [activeNode, currentMode]);
 
   const getFlatAssets = () => {
     const flat: any[] = [];
@@ -404,7 +429,8 @@ export default function App() {
   // Initial deep link handling
   useEffect(() => {
     const handleHash = () => {
-      const hash = window.location.hash.replace('#', '');
+      const rawHash = window.location.hash;
+      const hash = rawHash.includes('#') ? rawHash.split('#').filter(Boolean).pop() || '' : '';
       const caseStudySlug = window.location.pathname.match(/\/case-studies\/([^/]+)/)?.[1];
       if (!hash && !caseStudySlug) return;
 
@@ -519,8 +545,8 @@ export default function App() {
     
     const newHash = params.toString();
     if (newHash) {
-      window.history.replaceState(null, '', `#${newHash}`);
-    } else if (window.location.hash) {
+      window.history.replaceState(null, '', `${window.location.pathname}#${newHash}`);
+    } else {
       window.history.replaceState(null, '', window.location.pathname);
     }
   }, [activeNode, currentMode, isReady, indexFilters, inspectedRecord, returnMode]);
@@ -623,6 +649,10 @@ export default function App() {
   }, [nodes, sceneKey]);
 
   const handleModeChange = (mode: AppMode, targetNode?: any) => {
+    if (railTimeoutRef.current) {
+      clearTimeout(railTimeoutRef.current);
+      railTimeoutRef.current = null;
+    }
     if (mode === 'horizontal' && !activeNode && !targetNode) return;
     
     const nodeToUse = targetNode || activeNode;
@@ -653,7 +683,6 @@ export default function App() {
     }
     currentModeRef.current = mode;
     setCurrentMode(mode);
-    sceneRef.current?.switchMode(mode === 'essays' ? 'cylinder' : mode);
     audioEngine.setMode(mode);
     if (mode === 'map' && sceneRef.current) {
       audioEngine.setAtlasNodes(sceneRef.current.getAtlasNodesSpatialInfo());
@@ -826,8 +855,10 @@ export default function App() {
             sceneRef.current?.focusNode(node);
             audioEngine.setMode('vertical');
             setFocusedMapNode(null);
-            setTimeout(() => {
+            if (railTimeoutRef.current) clearTimeout(railTimeoutRef.current);
+            railTimeoutRef.current = setTimeout(() => {
               openProjectRail(node, 'vertical');
+              railTimeoutRef.current = null;
             }, 1500);
           } else {
             openProjectRail(node, 'vertical');
