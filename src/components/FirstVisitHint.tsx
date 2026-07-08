@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { X, MousePointer2, ArrowLeftRight, Grid3x3, Globe } from 'lucide-react';
+import { X, Globe, Rows3, LayoutGrid, Map, BookOpen } from 'lucide-react';
 
 const STORAGE_KEY = 'papazian-archive-hint-seen';
 
@@ -54,7 +54,7 @@ export function FirstVisitHint({ isReady }: FirstVisitHintProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[200] pointer-events-auto max-w-[360px] w-[calc(100vw-48px)]"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[200] pointer-events-auto max-w-[400px] w-[calc(100vw-32px)]"
           >
             <div className="bg-surface/95 backdrop-blur-2xl border border-ui-border-hover shadow-2xl">
               {/* Header */}
@@ -72,26 +72,31 @@ export function FirstVisitHint({ isReady }: FirstVisitHintProps) {
               </div>
 
               {/* Content */}
-              <div className="px-5 py-4 space-y-4">
-                <HintRow
-                  icon={<MousePointer2 size={14} />}
-                  label="Orbit"
-                  description="Drag to rotate, scroll to zoom the spatial field"
-                />
-                <HintRow
-                  icon={<ArrowLeftRight size={14} />}
-                  label="Works"
-                  description="Click any card to enter the cinematic rail view"
-                />
-                <HintRow
-                  icon={<Grid3x3 size={14} />}
-                  label="Index"
-                  description="Filter and sort all 120 works by world, medium, or type"
-                />
+              <div className="px-5 py-4 space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
                 <HintRow
                   icon={<Globe size={14} />}
+                  label="Orbit (Home)"
+                  description="A rotating 3D helical cylinder of all projects that serves as the visual landing page. Clicking a node focuses it in the cylinder."
+                />
+                <HintRow
+                  icon={<Rows3 size={14} />}
+                  label="Works"
+                  description="A curated, horizontal-scrolling linear spine of the 20 featured project case studies."
+                />
+                <HintRow
+                  icon={<LayoutGrid size={14} />}
+                  label="Index"
+                  description="A structured 3D cell layout of all project media assets. It supports filtering (by World, Medium, and Type), sorting, and toggling between three display layers (Image Only, Text Only, and Hybrid)."
+                />
+                <HintRow
+                  icon={<Map size={14} />}
                   label="Map"
-                  description="Explore projects as a spatial atlas with connections"
+                  description="A 3D spatial network constellation showing bidirectional relationships between nodes. It features curated Traversal Routes (interactive tours) that guide you step-by-step through specific thematic pathways."
+                />
+                <HintRow
+                  icon={<BookOpen size={14} />}
+                  label="Essays"
+                  description="A clean, split-screen editorial reading panel for case study details and research writings."
                 />
               </div>
 
