@@ -207,3 +207,28 @@ We have addressed and resolved all the issues identified in the Post-Deployment 
 - Build: ✅ clean and compiled (zero errors)
 - Typecheck: ✅ clean (zero errors)
 - Git: ✅ clean and fully verified
+
+## 10. Phase 2 — Project Covers Generation & Optimization (Current Session)
+
+### Completed
+- **Covers Generated**: Generated high-fidelity, concept-accurate cover assets using Gemini Image generation (AspectRatio 4:3) for the following 13 projects:
+  - `cartography-of-absence` (Stark minimalist governmental form / brutalist door)
+  - `hah-was` (Technical wireframe sieve grid with digital blue pixels)
+  - `architecture-in-low-res` (Pixelated low-res brutalist monument against sand horizon)
+  - `space-time-tuning-machine` (Somatic sage green and black microtonal circular dial)
+  - `why-were-like-this` (Modernist profile silhouette head partitioned into geometric chambers)
+  - `localization-gap` (Technical neon blue frequency spectrum graph with central gap)
+  - `the-weather-rehearsal` (Black violin bow intersecting geometric vector outline of a cloud, sand tan background)
+  - `chronocumulator` (Concentric circular steel rings with audio waveform markers, sage green/black)
+  - `storylines` (Clean minimalist network graph with points of light and high-contrast lines, dusty rose/charcoal)
+  - `derive` (Dynamic flow field of vector arrows in a clean spiral, steel blue on dark grey)
+  - `maqamai` (Piano keys vertical layout with microtonal division lines, sage green/black)
+  - `99-nodes` (Grid of ninety-nine vector dots with one dot highlighted, steel blue)
+  - `codeverse-explorer` (Structural dependency tree resembling a galaxy of connected dots, steel blue/white)
+- **WebP Conversion**: Processed all generated images through `cwebp` at `q=80` quality target and placed the final optimized `.webp` files at their designated public resource targets: `public/images/projects/[slug]/cover.webp`.
+
+### State
+- Build: ✅ clean and compiled
+- Typecheck: ✅ clean
+
+
