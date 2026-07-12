@@ -7,6 +7,9 @@ import './index.css';
 // Initialize Vercel Web Analytics (no-cookie, privacy-friendly)
 inject();
 
+// Crawlable text injected by scripts/generate-static-shells.ts; the live app replaces it.
+document.getElementById('static-shell')?.remove();
+
 interface ErrorBoundaryProps {
   children: ReactNode;
 }
