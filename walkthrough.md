@@ -286,11 +286,38 @@ We have successfully implemented accessibility upgrades to the frontend architec
 - Tests: ✅ 15 passing
 - Typecheck: ✅ clean
 - Production build: ✅ verified automatically
-- Bundle: ✅ 19 chunks, 447.1 KB total gzip, 266 KB entry
+- Bundle: ✅ 22 JS chunks, 453.2 KB total gzip
 - Static output: ✅ 25 HTML pages and 25 sitemap URLs
 - Media manifest: ✅ 20 projects and 219 matched assets
+
+---
+
+## 13. Phase 5 — Production Browser QA, Git Commit & Vercel Deployment (Latest)
+
+### Completed
+* **Typecheck & Production Build Verification**:
+  - Ran `npm run lint` (`tsc --noEmit`) to verify zero TypeScript errors.
+  - Executed `npm run build` to confirm Vite production chunks compiled successfully without warnings.
+* **Git Commit & Remote Synchronization**:
+  - Staged all outstanding modified and untracked files from Phase 3 & 4.
+  - Created a detailed git commit: `feat(a11y): accessibility remediation, mobile experience audit, and text-only fallback` (64 files changed).
+  - Pushed commit to origin repository on the `main` branch: `https://github.com/haigpapa/papazian-archive.git`.
+* **Vercel Production Deployment**:
+  - Deployed the latest build using Vercel CLI (`npx vercel --prod --yes`).
+  - Production deployment completed successfully and was assigned to custom domain alias `https://papazian.studio`.
+* **Post-Deployment Browser verification**:
+  - Verified that keyboard skip-links (`a.skip-link`) are now live and functional on `papazian.studio`.
+  - Confirmed contrast tokens are upgraded (`#b0b0b0`, `#b8b8b8`, `rgba(255, 255, 255, 0.36)`) for WCAG AA compliance.
+  - Verified stripped sublabels and bracket removals have reduced mobile footer height to `99px`, removing visual overlap in Map tools.
+  - Verified WebGL-independent text safe mode (`?view=text` / `StaticArchiveFallback`) is fully working on production.
+
+### State
+- Build: ✅ clean and compiled
+- Git: ✅ synchronized and up-to-date with remote
+- Live Site: ✅ production deployed on `https://papazian.studio`
 
 ### Remaining
 - Split the monolithic Overlay further at Map, rail, and Essays mode boundaries.
 - Consolidate project media into one canonical authoring field and reserve intrinsic image geometry during render.
 - Complete distinct project social imagery/alt text, throttled mobile profiling, VoiceOver, and NVDA certification.
+
