@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, X, Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getYouTubeEmbedUrl, getYouTubeWatchUrl } from '../utils/youtube';
 import { ImageWithFallback } from './ImageWithFallback';
+import { MOTION_DURATION, MOTION_EASE } from '../ui/motion';
 
 interface VideoLightboxProps {
   media: any | null;
@@ -108,6 +109,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
   return (
     <dialog
       ref={dialogRef}
+      aria-label="Media viewer"
       onCancel={handleCancel}
       onClick={handleBackdropClick}
       className="lightbox-dialog fixed inset-0 z-[220] pointer-events-auto"
@@ -119,7 +121,7 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
             initial={{ opacity: 0, y: 14, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.985 }}
-            transition={{ duration: 0.24, ease: 'easeOut' }}
+            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE }}
             onClick={(event) => event.stopPropagation()}
           >
             {/* Close Button: Fixed Static Position */}
@@ -208,9 +210,8 @@ export default function VideoLightbox({ media, onClose, onEnterProject, onPrev, 
                     src={media.src}
                     fallbackSrc={media.src?.replace(/\.webp$/, '.jpg')}
                     alt={media.label || 'Archive specimen'}
+                    priority
                     draggable={false}
-                    decoding="async"
-                    fetchpriority="high"
                     containerClassName="w-full h-full"
                   />
                 </div>

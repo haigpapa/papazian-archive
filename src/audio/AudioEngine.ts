@@ -30,6 +30,12 @@ import {
   STEM_VOLUME_DB,
   STEM_DRONE_DUCK_DB,
 } from './audioConstants';
+import { AudioInitializationTimeoutError, withAudioTimeout } from './audioInitialization';
+
+// Leave enough headroom for React to render the retry state before the
+// ten-second UX deadline measured from the user's click.
+const AUDIO_INITIALIZATION_TIMEOUT_MS = 9_000;
+const REVERB_READY_TIMEOUT_MS = 4_000;
 
 // ─── Types ─────────────────────────────────────────────────────────
 
@@ -137,23 +143,32 @@ export class AudioEngine {
    */
   async initialize(): Promise<void> {
     if (this._status === 'loading' || this._status === 'ready' || this._disposed) return;
-    
+
     this._status = 'loading';
     this._error = null;
     this.notifyListeners();
 
+    const deadline = performance.now() + AUDIO_INITIALIZATION_TIMEOUT_MS;
+    const runStage = <T>(promise: PromiseLike<T>, stage: string, capMs = AUDIO_INITIALIZATION_TIMEOUT_MS) => {
+      const remainingMs = Math.max(1, deadline - performance.now());
+      return withAudioTimeout(promise, Math.min(remainingMs, capMs), stage);
+    };
+
     try {
-      const [tone, cylinderModule, atlasModule, interactionModule] = await Promise.all([
-        import('tone'),
-        import('./modes/CylinderAudio'),
-        import('./modes/AtlasAudio'),
-        import('./modes/InteractionAudio'),
-      ]);
+      const [tone, cylinderModule, atlasModule, interactionModule] = await runStage(
+        Promise.all([
+          import('tone'),
+          import('./modes/CylinderAudio'),
+          import('./modes/AtlasAudio'),
+          import('./modes/InteractionAudio'),
+        ]),
+        'module loading',
+      );
       if (this._disposed) return;
       this.tone = tone;
 
       // Start Tone.js context (requires user gesture)
-      await tone.start();
+      await runStage(tone.start(), 'audio context start');
 
       // ── Master Bus ──────────────────────────────────────────
       this.compressor = new tone.Compressor({
@@ -169,10 +184,17 @@ export class AudioEngine {
         preDelay: 0.01,
       }).connect(this.compressor);
 
-      // Generate the reverb impulse response
-      await this.reverb.ready;
+      // Reverb is ambience, not a requirement for usable sound. If impulse
+      // generation fails or stalls, continue through a dry master bus.
+      try {
+        await runStage(this.reverb.ready, 'reverb generation', REVERB_READY_TIMEOUT_MS);
+      } catch (reverbError) {
+        console.warn('Audio reverb unavailable; continuing with a dry signal.', reverbError);
+        this.reverb.dispose();
+        this.reverb = null;
+      }
 
-      this.masterGain = new tone.Gain(0).connect(this.reverb);
+      this.masterGain = new tone.Gain(0).connect(this.reverb ?? this.compressor);
 
       // ── Stem Layer ──────────────────────────────────────────
       this.stemGain = new tone.Gain(0).connect(this.masterGain);
@@ -210,13 +232,46 @@ export class AudioEngine {
       }
     } catch (err) {
       console.error('Audio initialization failed:', err);
+      this.resetAudioGraph();
       this._status = 'error';
-      this._error = 'Sound unavailable';
+      this._error = err instanceof AudioInitializationTimeoutError
+        ? 'Sound timed out - retry'
+        : 'Sound unavailable - retry';
       this._isInitialized = false;
       this._isMuted = true;
     } finally {
       this.notifyListeners();
     }
+  }
+
+  private resetAudioGraph(): void {
+    if (this.visibilityHandler) {
+      document.removeEventListener('visibilitychange', this.visibilityHandler);
+      this.visibilityHandler = null;
+    }
+
+    this.cylinderAudio?.dispose();
+    this.atlasAudio?.dispose();
+    this.interactionAudio?.dispose();
+    this.cylinderAudio = null;
+    this.atlasAudio = null;
+    this.interactionAudio = null;
+
+    if (this.stemPlayer) {
+      this.stemPlayer.stop();
+      this.stemPlayer.dispose();
+      this.stemPlayer = null;
+    }
+    this.activeStemSlug = null;
+
+    this.stemGain?.dispose();
+    this.masterGain?.dispose();
+    this.reverb?.dispose();
+    this.compressor?.dispose();
+    this.stemGain = null;
+    this.masterGain = null;
+    this.reverb = null;
+    this.compressor = null;
   }
 
   /**

@@ -1,13 +1,29 @@
 import * as React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { LayoutGrid, Rows3, Globe, X, ArrowUpRight, Plus, Link, Search, Map, ArrowLeft, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Play, Volume2, VolumeX, BookOpen, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { LayoutGrid, Rows3, Globe, X, ArrowUpRight, Plus, Link, Search, Map, ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Volume2, VolumeX, BookOpen, Loader2 } from 'lucide-react';
 import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
 import { getRelationDetail } from '../data/relations';
 import { SITE_INFO_TABS, type SiteInfoTabId } from '../data/siteInfo';
 import { getYouTubeEmbedUrl } from '../utils/youtube';
-import { WORLDS, getProjectWorld } from '../data/worlds';
+import { getProjectWorld } from '../data/worlds';
 import IndexFilterBar, { type IndexFilters } from './IndexFilterBar';
 import { ImageWithFallback } from './ImageWithFallback';
+import FocusTrap from './FocusTrap';
+import MobileIndexList from './MobileIndexList';
+import AccessibleArchiveIndex from './AccessibleArchiveIndex';
+import type { TraversalRoute } from './MapModeTools';
+import { sortIndexAssets } from '../utils/indexAssets';
+import {
+  ARCHIVE_MODE_LABELS,
+  getMapFilterContext,
+  getModeTransitionDirection,
+  type PublicArchiveMode,
+} from '../core/archiveContext';
+import { MOTION_DURATION, MOTION_EASE } from '../ui/motion';
+
+const EssaysPanel = React.lazy(() => import('./EssaysPanel'));
+const MapModeTools = React.lazy(() => import('./MapModeTools'));
+const ProjectRailDetails = React.lazy(() => import('./ProjectRailDetails'));
 
 const MODE_OPTIONS = [
   {
@@ -55,87 +71,6 @@ const handleSpotlightMove = (e: React.MouseEvent<HTMLDivElement>) => {
   e.currentTarget.style.setProperty('--y', `${y}px`);
 };
 
-const ESSAY_RECORDS = [
-  {
-    slug: 'systems-of-meaning',
-    title: 'Systems of Meaning',
-    eyebrow: 'Statement',
-    date: '2026',
-    readTime: '4 min',
-    dek: 'A short operating statement for the archive: memory, performance, and cultural translation as systems rather than isolated works.',
-    body: [
-      'I build systems for memory, performance, and cultural translation. The work moves across sound, space, code, text, image, and systems because the subject keeps changing scale: a song becomes a public architecture, a building becomes a social protocol, a manuscript becomes a software engine, and a data set becomes a record of cultural pressure.',
-      'Systems Choreography names the method behind that movement. It treats space, time, code, narrative, and performance as related structures that can be rehearsed, tuned, and reassembled. The archive is not a neutral container for finished objects. It is a way of showing how the objects think together.',
-      'The point is not to make technology look magical. It is to make cultural structure visible: who gets translated, what gets flattened, where memory is stored, and how people build forms of belonging under pressure.',
-    ],
-  },
-  {
-    slug: 'localization-gap',
-    title: 'The Localization Gap',
-    eyebrow: 'AI / Music / Cultural Bias',
-    date: '2024',
-    readTime: '6 min',
-    dek: 'A forensic argument about what generative music systems erase when they treat Arabic music as style instead of structure.',
-    body: [
-      'The Localization Gap begins from a simple failure: generative music systems can often imitate the surface of Arabic music while missing the systems that make the music culturally legible. Maqam, dialect, ornamentation, tuning behavior, phrasing, and regional memory are compressed into generic global signals.',
-      'That failure is not only aesthetic. It is infrastructural. A model that cannot hear cultural specificity cannot preserve it, translate it, or build with it responsibly. The audit treats failed outputs as evidence rather than accidents.',
-      'The work compares prompts, outputs, phonetic artifacts, tuning assumptions, and genre defaults to show how computational systems can reproduce colonial listening habits through technical convenience.',
-    ],
-  },
-  {
-    slug: 'cost-of-being-queer-and-arab',
-    title: 'The Cost of Being Queer and Arab',
-    eyebrow: 'Visibility / Risk / Public Culture',
-    date: '2020',
-    readTime: '5 min',
-    dek: 'A public argument about the point where cultural visibility becomes personal, institutional, and physical risk.',
-    body: [
-      'Visibility is often framed as liberation, but visibility also creates coordinates. It tells institutions, publics, borders, and hostile systems where to look. For queer Arab artists, that contradiction is not theoretical. It is lived as pressure on bodies, families, venues, visas, stages, and futures.',
-      'The argument is not against publicness. It is against a simple story of representation that ignores cost. Cultural work can create shelter and danger at the same time. A song can become a home for one person and evidence against another.',
-      'This writing sits close to Mashrou’ Leila, but it also points toward later spatial work: if visibility produces risk, then cultural infrastructure has to design for protection, opacity, gathering, and repair.',
-    ],
-  },
-  {
-    slug: 'cartography-of-absence',
-    title: 'The Cartography of Absence',
-    eyebrow: 'Forms / Exile / Bureaucracy',
-    date: '2024',
-    readTime: '5 min',
-    dek: 'Bureaucratic surrealism as a way to document what ordinary institutional language cannot admit.',
-    body: [
-      'The Cartography of Absence uses administrative language as literary material. Forms, intake sheets, redactions, stamps, and impossible applications become tools for mapping emotional and political conditions that official systems prefer to flatten.',
-      'The project is not parody. It is a recognition that bureaucracy already writes fiction onto displaced bodies. It invents categories, imposes timelines, edits names, and asks people to make their pain legible in fields too small to hold it.',
-      'By exaggerating those forms only slightly, the work shows the violence already present in the original structure. The page becomes a border, a clinic, an archive, and a stage.',
-    ],
-  },
-  {
-    slug: 'architecture-in-low-res',
-    title: 'Architecture in Low Res',
-    eyebrow: 'Architecture / Image / Breakdown',
-    date: '2015',
-    readTime: '5 min',
-    dek: 'A foundational thesis on low resolution, ruin, and systemic breakdown as authentic spatial language.',
-    body: [
-      'Architecture in Low Res argues that the broken image can be more honest than the polished render. For diasporic and post-conflict space, resolution is not just a technical property. It is a political and emotional condition.',
-      'The low-resolution image carries fragmentation, distance, partial memory, and infrastructural failure. It refuses the fantasy that architecture can always be represented as clean, complete, and available.',
-      'Much of the later work inherits this logic: glitch, decay, degraded documents, unstable scans, and fractured interfaces are not decorative effects. They are structural evidence.',
-    ],
-  },
-  {
-    slug: 'why-were-like-this',
-    title: "Why We're Like This",
-    eyebrow: 'Video Essay / Cultural Mood',
-    date: '2026',
-    readTime: '4 min',
-    dek: 'A scripted essay series about synthetic culture, contemporary psychological weather, and the systems that make people feel unreal.',
-    body: [
-      "Why We're Like This treats the video essay as a diagnostic instrument. Voice, image, pacing, and performance become a way to read cultural mood at a moment when attention, identity, intimacy, and belief are increasingly mediated by machines.",
-      'The work sits between documentary, performance text, audiovisual therapy, and cultural criticism. Its subject is not individual dysfunction, but the systems that make dysfunction feel personal.',
-      'In the archive, it becomes one of the clearest bridges between writing, image-making, and interface: an essay that behaves like a sensor.',
-    ],
-  },
-];
-
 // WORLDS and getProjectWorld are now imported from '../data/worlds'
 // Re-exported here for backward compatibility with any external consumers
 export { WORLDS, getProjectWorld } from '../data/worlds';
@@ -145,6 +80,7 @@ interface OverlayProps {
   hasLoadError?: boolean;
   nodes: any[];
   activeNode: any;
+  contextNode?: any;
   centeredNode?: any;
   railState: any;
   currentMode: string;
@@ -156,6 +92,8 @@ interface OverlayProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onModeChange: (mode: string) => void;
+  onReplayGuide?: () => void;
+  onBrowseNode?: (node: any) => void;
   onRailStep: (direction: -1 | 1) => void;
   onSelectSlug: (slug: string) => void;
   onNodeClick: (node: any) => void;
@@ -184,43 +122,12 @@ interface OverlayProps {
   onInspectRecord?: (record: any) => void;
 }
 
-interface TraversalRoute {
-  id: string;
-  name: string;
-  subtitle: string;
-  description: string;
-  nodes: string[];
-}
-
-const TRAVERSAL_ROUTES: TraversalRoute[] = [
-  {
-    id: 'route-01',
-    name: 'ROUTE 01: VISIBILITY BECOMES INFRASTRUCTURE',
-    subtitle: 'The Structural Arc',
-    description: 'Traces the evolution of visibility, vulnerability, and spatial agency from the stadium stages of Mashrou’ Leila into physical blueprints of sanctuary in Queens.',
-    nodes: ['mashrou-leila', 'cost-of-being-queer-and-arab', 'mekena-nyc', 'architectures-of-belonging']
-  },
-  {
-    id: 'route-02',
-    name: 'ROUTE 02: MEMORY DOES NOT RESOLVE',
-    subtitle: 'The Literary Arc',
-    description: 'Tracks the cartography of damaged space, exilic drift, and digital memory decay across Bartlett drawings, hypertext operating systems, and generative neural pipelines.',
-    nodes: ['architecture-in-low-res', 'cartography-of-absence', 'sometimes-i-wake-up-elsewhere', 'sparrowos', 'derive']
-  },
-  {
-    id: 'route-03',
-    name: 'ROUTE 03: RED-TEAMING THE MACHINE',
-    subtitle: 'The Forensic Arc',
-    description: 'Examines the computational and acoustic resistance to Western bias in generative language models, microtonal tuning systems, and human-AI duos.',
-    nodes: ['localization-gap', 'hah-was', 'maqamai', 'tebr']
-  }
-];
-
 export default function Overlay({ 
   inert,
   hasLoadError = false,
   nodes, 
   activeNode, 
+  contextNode,
   centeredNode,
   railState,
   currentMode, 
@@ -232,6 +139,8 @@ export default function Overlay({
   searchQuery,
   onSearchChange,
   onModeChange, 
+  onReplayGuide,
+  onBrowseNode,
   onRailStep,
   onSelectSlug,
   onNodeClick,
@@ -260,6 +169,7 @@ export default function Overlay({
   onInspectRecord,
 }: OverlayProps) {
   const [showAbout, setShowAbout] = React.useState(false);
+  const [showTextArchive, setShowTextArchive] = React.useState(false);
   const [activeInfoTab, setActiveInfoTab] = React.useState<SiteInfoTabId>('about');
   const [copied, setCopied] = React.useState(false);
   const [isSearchActive, setIsSearchActive] = React.useState(false);
@@ -267,7 +177,6 @@ export default function Overlay({
   const [isMobileViewport, setIsMobileViewport] = React.useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
   const [hoveredChapterIndex, setHoveredChapterIndex] = React.useState<number | null>(null);
-  const [showMobileMapTools, setShowMobileMapTools] = React.useState(false);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState(false);
 
   const filteredNodes = nodes.filter((node) => {
@@ -299,9 +208,10 @@ export default function Overlay({
       const gallery = node.gallery?.length ? node.gallery : [
         { id: `${node.slug}-0`, projectId: node.slug, src: node.thumbnail, isPrimary: true, label: node.title }
       ];
-      gallery.forEach((asset: any) => {
+      gallery.forEach((asset: any, assetIndex: number) => {
         list.push({
           ...asset,
+          assetIndex,
           projectId: node.slug,
           projectTitle: node.title,
           accentColor: node.accentColor,
@@ -367,6 +277,34 @@ export default function Overlay({
   const focusIndex = focusNode ? workNodes.findIndex((node) => node.slug === focusNode.slug || node.id === focusNode.id) : -1;
   const publicMode = currentMode === 'horizontal' ? returnMode : currentMode;
   const activeMode = MODE_OPTIONS.find((mode) => mode.id === publicMode) || MODE_OPTIONS[0];
+  const publicArchiveMode = publicMode as PublicArchiveMode;
+  const reduceMotion = useReducedMotion();
+  const previousModeRef = React.useRef<PublicArchiveMode>(publicArchiveMode);
+  const transitionIdRef = React.useRef(0);
+  const [modeTransition, setModeTransition] = React.useState<{
+    id: number;
+    label: string;
+    direction: -1 | 0 | 1;
+  } | null>(null);
+
+  React.useEffect(() => {
+    const previousMode = previousModeRef.current;
+    if (previousMode === publicArchiveMode) return;
+
+    transitionIdRef.current += 1;
+    const transitionId = transitionIdRef.current;
+    setModeTransition({
+      id: transitionId,
+      label: ARCHIVE_MODE_LABELS[publicArchiveMode],
+      direction: getModeTransitionDirection(previousMode, publicArchiveMode),
+    });
+    previousModeRef.current = publicArchiveMode;
+
+    const timer = window.setTimeout(() => {
+      setModeTransition((current) => current?.id === transitionId ? null : current);
+    }, reduceMotion ? 250 : 900);
+    return () => window.clearTimeout(timer);
+  }, [publicArchiveMode, reduceMotion]);
   const focusDomains = focusNode?.domains?.length ? focusNode.domains.join(' + ') : focusNode?.category || 'archive';
   let imageCount = nodes.reduce((count, node) => count + (node.gallery?.length || 1), 0);
   let workCount = workNodes.length;
@@ -389,28 +327,10 @@ export default function Overlay({
   const railImage = currentMode === 'horizontal' ? railState?.image || activeNode?.gallery?.[0] : null;
   const railIndex = railState?.index ?? 0;
   const railTotal = railState?.total || projectRailCount || 0;
-  const railHoverImage = currentMode === 'horizontal' && activeNode && hoveredNode?.projectId === activeNode.slug && hoveredNode?.assetId
-    ? {
-        id: hoveredNode.assetId,
-        type: hoveredNode.assetType || 'image',
-        src: hoveredNode.assetSrc || '',
-        poster: hoveredNode.assetPoster,
-        youtubeId: hoveredNode.assetYoutubeId,
-        embedUrl: hoveredNode.assetEmbedUrl,
-        externalUrl: hoveredNode.assetExternalUrl,
-        label: hoveredNode.assetLabel || hoveredNode.title,
-        caption: hoveredNode.assetCaption || hoveredNode.summary,
-        body: hoveredNode.assetBody,
-        role: hoveredNode.assetRole || 'evidence',
-        layout: hoveredNode.assetLayout || 'wide',
-        emphasis: hoveredNode.assetEmphasis || 'secondary',
-        chapter: hoveredNode.assetChapter || 'Evidence',
-        beat: hoveredNode.assetBeat || hoveredNode.assetCaption || hoveredNode.summary,
-        relatedSlugs: hoveredNode.assetRelatedSlugs || hoveredNode.relatedSlugs || hoveredNode.connections || [],
-      }
-    : null;
-  const displayRailImage = railHoverImage || railImage;
-  const displayRailIndex = railHoverImage ? hoveredNode?.assetIndex ?? railIndex : railIndex;
+  // The settled rail state is authoritative. Hover can affect the 3D card,
+  // but must not override title, chapter, counter, or active-slide semantics.
+  const displayRailImage = railImage;
+  const displayRailIndex = railIndex;
   const railRole = displayRailImage?.role || 'hero';
   const railType = displayRailImage?.type || 'image';
   const railChapter = displayRailImage?.chapter || 'Thesis';
@@ -428,7 +348,7 @@ export default function Overlay({
   const mobilePeekTitle = displayRailImage?.label || activeNode?.title;
   const mobilePeekDescription = railBeat || displayRailImage?.caption || activeNode?.shortDescription;
   const activeDetailNode = activeNode || (currentMode === 'map' ? focusedMapNode : null);
-  const activeFocusNode = activeDetailNode || hoveredNode || (currentMode === 'vertical' ? centeredNode : null);
+  const activeFocusNode = activeDetailNode || hoveredNode || (currentMode === 'vertical' ? centeredNode : null) || contextNode;
   const bottomTitle = currentMode === 'horizontal' && activeNode
     ? displayRailImage?.label || activeNode.title
     : activeFocusNode
@@ -438,7 +358,7 @@ export default function Overlay({
   const projectCode = activeFocusNode?.slug ? activeFocusNode.slug.toUpperCase() : 'SYSTEM';
   const year = activeFocusNode?.year || '2026';
   const currentIndex = currentMode === 'horizontal' && activeNode
-    ? String(railIndex + 1).padStart(3, '0')
+    ? String(displayRailIndex + 1).padStart(3, '0')
     : focusIndex >= 0
     ? String(focusIndex + 1).padStart(3, '0')
     : '000';
@@ -458,7 +378,7 @@ export default function Overlay({
   // so the HUD file count matches what is actually on screen.
   const filteredAssets = React.useMemo(() => {
     if (!indexFilters) return flatAssets;
-    return flatAssets.filter((asset) => {
+    const matchingAssets = flatAssets.filter((asset) => {
       if (indexFilters.world !== 'all') {
         const world = getProjectWorld(asset.projectId);
         if (!world || world.id !== indexFilters.world) return false;
@@ -487,9 +407,22 @@ export default function Overlay({
       }
       return true;
     });
+    return sortIndexAssets(matchingAssets, indexFilters.sort);
   }, [flatAssets, indexFilters, searchQuery]);
 
   const indexAssetCount = filteredAssets.length;
+  const mapFilterContext = indexFilters ? getMapFilterContext(indexFilters) : { world: 'all', domain: 'all', type: 'all' as const };
+  const mapFilteredNodeCount = React.useMemo(() => nodes.filter((node) => {
+    const worldId = node.world?.id || getProjectWorld(node.slug)?.id || '';
+    if (mapFilterContext.world !== 'all' && worldId !== mapFilterContext.world) return false;
+    const domains = node.domains?.length ? node.domains : [node.category];
+    if (mapFilterContext.domain !== 'all' && !domains.includes(mapFilterContext.domain)) return false;
+    if (mapFilterContext.type !== 'all') {
+      const galleryTypes = (node.gallery || []).map((asset: any) => String(asset.type || 'image').toLowerCase());
+      if (!galleryTypes.includes(mapFilterContext.type)) return false;
+    }
+    return true;
+  }).length, [mapFilterContext.domain, mapFilterContext.type, mapFilterContext.world, nodes]);
 
   if (currentMode === 'grid') {
     imageCount = filteredAssets.length;
@@ -596,46 +529,117 @@ export default function Overlay({
     onCloseNode();
   };
   const bottomMeta = currentMode === 'horizontal' && activeNode
-    ? `${railHoverImage ? 'HOVER' : 'ACTIVE'} / ${String(displayRailIndex + 1).padStart(2, '0')} / ${String(Math.max(railTotal, 1)).padStart(2, '0')} / ${String(railChapter).toUpperCase()}`
+    ? `ACTIVE / ${String(displayRailIndex + 1).padStart(2, '0')} / ${String(Math.max(railTotal, 1)).padStart(2, '0')} / ${String(railChapter).toUpperCase()}`
     : searchQuery.trim()
     ? `${filteredNodes.length} matches / ${nodes.length} records`
     : activeFocusNode
     ? `${activeFocusNode.year} / ${activeFocusNode.stack?.join(' · ') || activeFocusNode.domains?.join(' · ') || 'ARCHIVE'} / ${activeFocusNode.evidenceStatus || 'COMPLETE'} — ${activeFocusNode.summary || activeFocusNode.shortDescription || ''}`
     : `${workCount} works / ${imageCount} images`;
 
+  const selectedAnnouncementNode = activeNode || focusedMapNode || contextNode;
+  const liveAnnouncement = [
+    currentMode === 'horizontal'
+      ? `Project case study mode. ${activeNode?.title || 'Project'} selected.`
+      : `${ARCHIVE_MODE_LABELS[publicArchiveMode]} mode.`,
+    currentMode !== 'horizontal' && selectedAnnouncementNode
+      ? `Context: ${selectedAnnouncementNode.title}.`
+      : '',
+    currentMode === 'grid'
+      ? `${filteredAssets.length} results. World ${indexFilters?.world || 'all'}. Medium ${indexFilters?.medium || 'all'}. Type ${indexFilters?.assetType || 'all'}.`
+      : '',
+    currentMode === 'map' && activeRoute
+      ? `${activeRoute.name}. Step ${activeRouteStep + 1} of ${activeRoute.nodes.length}. ${focusedMapNode?.title || ''}`
+      : '',
+    currentMode === 'map'
+      ? `${mapFilteredNodeCount} node${mapFilteredNodeCount === 1 ? '' : 's'} ${mapFilteredNodeCount === 1 ? 'matches' : 'match'} carried filters. World ${mapFilterContext.world}. Medium ${mapFilterContext.domain}. Type ${mapFilterContext.type}.`
+      : '',
+    currentMode === 'horizontal' && railTotal > 0
+      ? `Slide ${displayRailIndex + 1} of ${railTotal}. ${displayRailImage?.label || railChapter}.`
+      : '',
+  ].filter(Boolean).join(' ');
+
   return (
     <div data-ui-layer="true" className="fixed inset-0 pointer-events-none z-10 flex flex-col p-5" inert={inert ? true : undefined}>
+      <a className="skip-link pointer-events-auto" href="#archive-view-controls">
+        Skip to archive navigation
+      </a>
+      <p className="sr-only">
+        An interactive archive documenting architecture, sonic intelligence, software, and public culture.
+      </p>
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {liveAnnouncement}
+      </div>
       
       {/* Top Header - Always visible, minimalist */}
       <header className="fixed top-5 left-5 right-5 flex justify-between items-start pointer-events-none z-[101]">
         <div className="flex pointer-events-auto">
-          <h1 
-            onClick={() => {
-              onCloseNode();
-              onModeChange('cylinder');
-            }}
-            className="font-display text-2xl font-bold tracking-tighter text-white leading-tight cursor-pointer select-none"
-          >
-            PAPAZIAN
+          <h1 className="leading-none">
+            <button
+              type="button"
+              onClick={() => {
+                onCloseNode();
+                onModeChange('cylinder');
+              }}
+              className="min-h-[44px] font-display text-2xl font-bold tracking-tighter text-white leading-tight cursor-pointer select-none"
+              aria-label="Papazian Archive — return to Home"
+            >
+              PAPAZIAN
+            </button>
           </h1>
         </div>
 
         {/* Filter Trigger button (grid/archive grid mode only) */}
         {currentMode === 'grid' && !activeNode && (
-          <div className="pointer-events-auto">
+          <div className="hidden pointer-events-auto md:block">
             <button
               onClick={() => setIsFilterDrawerOpen(true)}
-              className="min-h-[44px] md:min-h-0 font-mono text-[9px] font-bold tracking-[0.16em] uppercase border border-ui-border hover:border-white px-3 py-1.5 transition-all text-white bg-black/40 backdrop-blur-sm cursor-pointer"
+              aria-expanded={isFilterDrawerOpen}
+              aria-controls="archive-index-filters"
+              className="min-h-[44px] font-mono text-[11px] font-bold tracking-[0.14em] uppercase border border-ui-border hover:border-white px-3 py-1.5 transition-all text-white bg-black/60 backdrop-blur-sm cursor-pointer md:min-h-0 md:text-[9px] md:tracking-[0.16em]"
             >
-              ⚡ FILTERS
+              ARCHIVE FILTERS
             </button>
           </div>
         )}
       </header>
 
+      <AnimatePresence>
+        {modeTransition && (
+          <motion.div
+            key={modeTransition.id}
+            initial={{
+              opacity: 0,
+              x: reduceMotion ? '-50%' : `calc(-50% + ${modeTransition.direction * 12}px)`,
+              y: reduceMotion ? 0 : -4,
+            }}
+            animate={{ opacity: 1, x: '-50%', y: 0 }}
+            exit={{
+              opacity: 0,
+              x: reduceMotion ? '-50%' : `calc(-50% - ${modeTransition.direction * 8}px)`,
+            }}
+            transition={{ duration: reduceMotion ? 0 : MOTION_DURATION.base, ease: MOTION_EASE }}
+            className="fixed left-1/2 top-5 z-[102] border border-ui-border bg-black/82 px-3 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-md pointer-events-none"
+            aria-hidden="true"
+          >
+            {modeTransition.label}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {currentMode === 'grid' && !activeNode && indexFilters && (
+        <MobileIndexList
+          assets={filteredAssets}
+          filters={indexFilters}
+          contextProjectSlug={contextNode?.slug}
+          contextProjectTitle={contextNode?.title}
+          onOpenFilters={() => setIsFilterDrawerOpen(true)}
+          onInspectRecord={onInspectRecord}
+        />
+      )}
+
       {/* 2D Fallback Safe Mode Grid (renders when WebGL fails) */}
       {hasLoadError && currentMode === 'grid' && !activeNode && (
-        <div className="fixed inset-0 top-[70px] bottom-[110px] left-4 right-4 overflow-y-auto pointer-events-auto z-[90] custom-scrollbar bg-black/90 p-4 md:p-6 border border-ui-border">
+        <div className="fixed inset-0 top-[70px] bottom-[110px] left-4 right-4 hidden overflow-y-auto pointer-events-auto z-[90] custom-scrollbar bg-black/90 p-4 md:block md:p-6 border border-ui-border">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
             {filteredAssets.map((asset) => {
               const fallbackUrl = asset.src?.replace(/\.webp$/, '.jpg');
@@ -656,7 +660,7 @@ export default function Overlay({
                       <ImageWithFallback
                         src={asset.poster || asset.src || asset.thumbnail}
                         fallbackSrc={fallbackUrl}
-                        alt={asset.label}
+                        alt={`${asset.label || asset.projectTitle} — ${asset.projectTitle}`}
                         containerClassName="w-full h-full"
                         className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
                       />
@@ -694,7 +698,7 @@ export default function Overlay({
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 15 }}
-                transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                transition={{ duration: MOTION_DURATION.slow, ease: MOTION_EASE }}
                 className="fixed top-[24%] left-[6%] pointer-events-none z-10 max-w-[280px] font-mono hidden md:block"
               >
                 <div className="text-[10px] text-accent tracking-[0.3em] uppercase font-bold">
@@ -709,6 +713,26 @@ export default function Overlay({
               </motion.div>
             );
           })()
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence mode="wait">
+        {currentMode === 'vertical' && !activeNode && centeredNode && (
+          <motion.div
+            key={`mobile-work-caption-${centeredNode.slug}`}
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            className="mobile-works-caption pointer-events-none md:hidden"
+            aria-live="polite"
+          >
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent">
+              Works / 20-project spine
+            </p>
+            <p className="mt-1 truncate font-display text-[14px] font-bold uppercase tracking-[0.04em] text-white">
+              {centeredNode.title}
+            </p>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -735,7 +759,7 @@ export default function Overlay({
             }
             exit={isMobileViewport ? { y: '100%', opacity: 0 } : { x: '100%', opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className={`fixed bottom-0 left-0 right-0 z-[140] ${mobileSheetFrameClass} rounded-none border-t border-border bg-[#050505]/96 p-4 pb-4 shadow-2xl backdrop-blur-xl md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[clamp(420px,30vw,480px)] md:border-t-0 md:border-y-0 md:border-r-0 md:border-l md:bg-surface/95 md:p-10 md:pt-20 md:pb-28 flex flex-col pointer-events-auto md:z-[102] ${(!isMobileViewport && isSidebarCollapsed) ? 'pointer-events-none' : ''}`}
+            className={`mobile-project-sheet fixed bottom-0 left-0 right-0 z-[140] ${mobileSheetFrameClass} rounded-none border-t border-border bg-[#050505]/96 p-4 shadow-2xl backdrop-blur-xl md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[clamp(420px,30vw,480px)] md:border-t-0 md:border-y-0 md:border-r-0 md:border-l md:bg-surface/95 md:p-10 md:pt-20 md:pb-28 flex flex-col pointer-events-auto md:z-[102] ${(!isMobileViewport && isSidebarCollapsed) ? 'pointer-events-none' : ''}`}
             aria-hidden={!isMobileViewport && isSidebarCollapsed}
           >
             <div className="mb-3 flex items-center justify-between gap-2 md:hidden">
@@ -992,7 +1016,7 @@ export default function Overlay({
 
               <div className={`${isMobilePeek ? 'mb-0' : 'mb-3 md:mb-8'} flex items-center gap-3`}>
                 <span className="font-mono text-[10px] tracking-[0.2em] uppercase font-bold" style={{ color: activeNode.accentColor || '#d7e7ef' }}>
-                  {isMobilePeek && currentMode === 'horizontal' ? `${String(railIndex + 1).padStart(2, '0')} / ${String(Math.max(railTotal, 1)).padStart(2, '0')}` : activeNode.tier || activeNode.category || 'PROJECT'}
+                  {isMobilePeek && currentMode === 'horizontal' ? `${String(displayRailIndex + 1).padStart(2, '0')} / ${String(Math.max(railTotal, 1)).padStart(2, '0')}` : activeNode.tier || activeNode.category || 'PROJECT'}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-ui-bg-active" />
                 <span className="font-mono text-[10px] text-text-muted tracking-widest">
@@ -1097,90 +1121,25 @@ export default function Overlay({
                 </div>
               )}
 
-              {currentMode === 'horizontal' && activeNode && (mobileSheetState === 'full' || !isMobileViewport) && (
-                <div className="mt-4 border-y border-ui-border py-4 md:mt-10 md:py-5">
-                  <div className="flex items-center justify-between gap-4 font-mono text-[9px] uppercase tracking-[0.18em] text-text-muted">
-                    <span>
-                      {railHoverImage ? 'HOVER' : 'ACTIVE'} / {String(displayRailIndex + 1).padStart(2, '0')} / {String(Math.max(railTotal, 1)).padStart(2, '0')}
-                    </span>
-                    <span className="truncate text-accent">{railChapter} / {railType} / {railRole}</span>
-                  </div>
-                  <p className="mt-3 font-display text-lg uppercase leading-tight text-white md:text-xl">
-                    {displayRailImage?.label || activeNode.title}
-                  </p>
-                  {String(railChapter).toUpperCase() === 'AUTHORSHIP' ? (
-                    <div className="mt-4 space-y-4">
-                      {railBeat && (
-                        <p className="text-xs leading-relaxed text-text-muted">
-                          {railBeat}
-                        </p>
-                      )}
-                      {displayRailImage?.body && (
-                        <div className="mt-4 border-t border-ui-border pt-4">
-                          <p className="mb-2.5 font-mono text-[9px] uppercase tracking-[0.2em] text-accent">Role Deliverables</p>
-                          <div className="grid grid-cols-2 gap-2">
-                            {(Array.isArray(displayRailImage.body) ? displayRailImage.body : [displayRailImage.body]).map((item: string, idx: number) => (
-                              <div key={item} className="flex items-start gap-2 border border-white/5 bg-ui-bg p-2 font-mono text-[9px] uppercase tracking-wider">
-                                <span className="text-accent font-bold">0{idx + 1}</span>
-                                <span className="text-text-muted leading-tight">{item}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <>
-                      {railBeat && (
-                        <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-text-muted md:line-clamp-none">
-                          {railBeat}
-                        </p>
-                      )}
-                    </>
-                  )}
-                  {currentMode === 'horizontal' && (() => {
-                    const titleStr = String(displayRailImage?.label || activeNode?.title || 'NODE').toUpperCase();
-                    const codeStr = String(displayRailImage?.id || activeNode?.slug || '0000').toUpperCase().slice(-9);
-                    const charSum = (str: string) => str.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
-                    const latency = (charSum(codeStr) % 100) * 0.0004 + 0.012;
-                    const entropy = (charSum(titleStr) % 100) * 0.005 + 0.085;
-                    const faultRate = (charSum(titleStr) % 10 === 0) ? '0.04%' : '0.00%';
-                    return (
-                      <div className="mt-4 border-t border-ui-border pt-4 flex items-center justify-between font-mono text-[8px] uppercase tracking-[0.16em] text-text-muted-quiet">
-                        <span>LATENCY: {latency.toFixed(4)} MS</span>
-                        <span>ENTROPY: {entropy.toFixed(3)} BITS</span>
-                        <span>FAULT RATE: {faultRate}</span>
-                      </div>
-                    );
-                  })()}
-                  {(railType === 'video' || railType === 'audio') && (
-                    <button
-                      type="button"
-                      disabled={!railEmbedUrl}
-                      onClick={() => railEmbedUrl && onOpenMedia(displayRailImage)}
-                      className="mt-4 flex w-full items-center justify-center gap-2 border border-accent/40 bg-accent/10 py-3 font-mono text-[9px] uppercase tracking-[0.18em] text-white transition-colors hover:border-accent hover:bg-accent/18 disabled:cursor-not-allowed disabled:border-ui-border disabled:bg-ui-bg disabled:text-white/28"
-                    >
-                      {railType === 'audio' ? <Volume2 size={14} /> : <Play size={14} />}
-                      {railEmbedUrl ? 'Play in Archive' : 'Video unavailable'}
-                    </button>
-                  )}
-                  {relatedSlugs.length > 0 && (
-                    <div className={`${mobileSheetState === 'full' ? 'block' : 'hidden'} mt-5 md:block`}>
-                      <p className="mb-2 font-mono text-[8px] uppercase tracking-[0.2em] text-text-muted">Related</p>
-                      <div className="flex flex-wrap gap-2">
-                        {relatedSlugs.map((slug: string) => (
-                          <button
-                            key={slug}
-                            onClick={() => onSelectSlug(slug)}
-                            className="min-h-[44px] md:min-h-0 border border-ui-border px-2 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted transition-colors hover:border-accent/60 hover:text-white"
-                          >
-                            {slug.replace(/-/g, ' ')}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+              {currentMode === 'horizontal' && activeNode && (
+                <React.Suspense fallback={null}>
+                  <ProjectRailDetails
+                    activeNode={activeNode}
+                    displayRailImage={displayRailImage}
+                    displayRailIndex={displayRailIndex}
+                    railTotal={railTotal}
+                    railChapter={railChapter}
+                    railType={railType}
+                    railRole={railRole}
+                    railBeat={railBeat}
+                    railEmbedUrl={railEmbedUrl}
+                    relatedSlugs={relatedSlugs}
+                    mobileSheetState={mobileSheetState}
+                    isMobileViewport={isMobileViewport}
+                    onOpenMedia={onOpenMedia}
+                    onSelectSlug={onSelectSlug}
+                  />
+                </React.Suspense>
               )}
 
               <div className="mt-auto pt-6">
@@ -1202,7 +1161,7 @@ export default function Overlay({
 
           {/* Hidden container for screen readers (DOM Mirroring for a11y) */}
           {currentMode === 'horizontal' && activeNode && (
-            <div className="sr-only" aria-live="polite" id="accessible-dossier-mirror">
+            <div className="sr-only" id="accessible-dossier-mirror">
               <h3>Active Slide: {displayRailImage?.label || activeNode.title}</h3>
               <p>Chapter: {railChapter}</p>
               <p>Category: {railType} / Role: {railRole}</p>
@@ -1246,150 +1205,44 @@ export default function Overlay({
       </AnimatePresence>
 
       {/* Essays / Writings Reading Panel */}
+      <React.Suspense fallback={null}>
       <AnimatePresence>
         {currentMode === 'essays' && !activeNode && (
           <EssaysPanel isMobileViewport={isMobileViewport} onEssayChange={onEssayChange} />
         )}
       </AnimatePresence>
+      </React.Suspense>
 
 
       {/* Index Filter Panel (grid mode drawer) */}
       {currentMode === 'grid' && !activeNode && indexFilters && onIndexFiltersChange && (
-        <IndexFilterBar
-          isOpen={isFilterDrawerOpen}
-          onClose={() => setIsFilterDrawerOpen(false)}
-          filters={indexFilters}
-          onChange={onIndexFiltersChange}
-          onHoverFilter={onHoverFilter}
-        />
+        <FocusTrap active={isFilterDrawerOpen} onEscape={() => setIsFilterDrawerOpen(false)}>
+          <IndexFilterBar
+            isOpen={isFilterDrawerOpen}
+            onClose={() => setIsFilterDrawerOpen(false)}
+            filters={indexFilters}
+            onChange={onIndexFiltersChange}
+            onHoverFilter={onHoverFilter}
+          />
+        </FocusTrap>
       )}
 
-      {/* Map Traversal Routes launcher — entry point for the curated tours */}
-      <AnimatePresence>
-        {currentMode === 'map' && !activeRoute && !activeNode && (
-          <motion.nav
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -12 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="fixed left-5 top-24 z-[100] hidden w-[290px] flex-col gap-1.5 pointer-events-auto md:flex"
-            aria-label="Curated traversal routes"
-          >
-            <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.28em] text-accent">
-              Traversal Routes
-            </p>
-            {TRAVERSAL_ROUTES.map((route) => (
-              <button
-                key={route.id}
-                type="button"
-                onClick={() => {
-                  setActiveRoute(route);
-                  setActiveRouteStep(0);
-                  const firstNode = nodes.find((node) => node.slug === route.nodes[0]);
-                  if (firstNode) onNodeClick(firstNode);
-                }}
-                className="border border-ui-border bg-black/40 p-3 text-left backdrop-blur-sm transition-colors hover:border-accent/50 hover:bg-ui-bg group"
-              >
-                <span className="block font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-white group-hover:text-accent transition-colors">
-                  {route.name}
-                </span>
-                <span className="mt-1 block font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted">
-                  {route.subtitle} / {route.nodes.length} stops
-                </span>
-              </button>
-            ))}
-          </motion.nav>
-        )}
-      </AnimatePresence>
-
-      {/* Map Legend — world color key */}
-      <AnimatePresence>
-        {currentMode === 'map' && !activeRoute && !activeNode && (
-          <motion.div
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -12 }}
-            transition={{ duration: 0.3, ease: 'easeOut', delay: 0.08 }}
-            className="fixed left-5 bottom-[108px] z-[100] hidden w-[200px] pointer-events-auto md:block"
-            aria-label="Map legend"
-          >
-            <p className="mb-2 font-mono text-[8px] uppercase tracking-[0.28em] text-text-muted">
-              World Legend
-            </p>
-            <div className="space-y-1.5">
-              {WORLDS.map((world) => {
-                const color = ({'foundation-world': '#d5a2a2', 'public-culture-world': '#d7e7ef', 'exile-machines-world': '#9fd6bf', 'memory-interfaces-world': '#c7b28a', 'sonic-intelligence-world': '#7aa6ff', 'spatial-futures-world': '#8fa8c2'} as Record<string, string>)[world.id] || '#d7e7ef';
-                return (
-                  <div key={world.id} className="flex items-center gap-2.5">
-                    <span className="w-2 h-2 shrink-0" style={{ backgroundColor: color }} />
-                    <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-text-muted">
-                      {world.roman} {world.name}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Mobile Map Tools (Legend & Routes) */}
-      <AnimatePresence>
-        {currentMode === 'map' && !activeDetailNode && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-[170px] left-5 right-5 z-[90] flex flex-col md:hidden pointer-events-auto gap-2"
-          >
-            <AnimatePresence>
-              {showMobileMapTools && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="bg-black/80 backdrop-blur-md border border-ui-border p-4 flex flex-col gap-4 overflow-hidden rounded-none"
-                >
-                  <div className="flex flex-col gap-2">
-                    <span className="font-mono text-[8px] uppercase tracking-widest text-text-muted">Routes</span>
-                    {TRAVERSAL_ROUTES.map((route) => (
-                      <button
-                        key={route.id}
-                        onClick={() => {
-                          if (activeRoute?.id === route.id) {
-                            setActiveRoute(null);
-                          } else {
-                            setActiveRoute(route);
-                            setActiveRouteStep(0);
-                            const firstNode = nodes.find((node) => node.slug === route.nodes[0]);
-                            if (firstNode) onNodeClick(firstNode);
-                          }
-                          setShowMobileMapTools(false);
-                        }}
-                        className={`text-left px-3 py-2 font-mono text-[9px] uppercase tracking-wider border transition-colors ${
-                          activeRoute?.id === route.id ? 'border-accent text-accent bg-accent/10' : 'border-ui-border text-white hover:bg-ui-bg'
-                        }`}
-                      >
-                        {route.name}
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            
-            <button 
-              onClick={() => setShowMobileMapTools(!showMobileMapTools)}
-              className="w-full bg-surface/80 backdrop-blur-md border border-ui-border py-2.5 font-mono text-[9px] uppercase tracking-[0.16em] text-white flex justify-center items-center gap-2 shadow-lg"
-            >
-              <Map size={12} /> {showMobileMapTools ? 'CLOSE TOOLS' : 'MAP TOOLS & ROUTES'}
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <React.Suspense fallback={null}>
+        <AnimatePresence>
+          {currentMode === 'map' && !activeRoute && !activeDetailNode && (
+            <MapModeTools
+              nodes={nodes}
+              activeRoute={activeRoute}
+              onRouteChange={setActiveRoute}
+              onRouteStepChange={setActiveRouteStep}
+              onNodeClick={onNodeClick}
+            />
+          )}
+        </AnimatePresence>
+      </React.Suspense>
 
       {/* Floating Hover Tooltip (grid mode only, visual view mode) */}
-      {currentMode === 'grid' && indexFilters && indexFilters.viewMode === 'visual' && hoveredNode && mousePosition && (
+      {currentMode === 'grid' && !isMobileViewport && indexFilters && indexFilters.viewMode === 'visual' && hoveredNode && mousePosition && (
         <div
           className="fixed pointer-events-none z-[250] font-mono text-[9px] text-text-muted flex flex-col gap-1 border-l border-ui-border-hover pl-2.5 bg-black/40 backdrop-blur-sm py-1.5"
           style={{
@@ -1415,7 +1268,7 @@ export default function Overlay({
       )}
 
       {/* 2D HTML Metadata Cards Overlay for Grid mode */}
-      {currentMode === 'grid' && indexFilters && (indexFilters.viewMode === 'text' || indexFilters.viewMode === 'hybrid') && (
+      {currentMode === 'grid' && !isMobileViewport && indexFilters && (indexFilters.viewMode === 'text' || indexFilters.viewMode === 'hybrid') && (
         <div className="absolute inset-0 pointer-events-none z-[80] overflow-hidden">
           {flatAssets.map((asset) => {
             const key = asset.id || asset.projectId;
@@ -1457,15 +1310,33 @@ export default function Overlay({
         </div>
       )}
 
-      <ArchiveInfoConsole
-        open={showAbout}
-        activeTab={activeInfoTab}
-        onTabChange={setActiveInfoTab}
-        ref={infoConsoleRef}
+      <FocusTrap active={showAbout} onEscape={() => setShowAbout(false)}>
+        <ArchiveInfoConsole
+          open={showAbout}
+          activeTab={activeInfoTab}
+          onTabChange={setActiveInfoTab}
+          onOpenTextArchive={() => {
+            setShowAbout(false);
+            setShowTextArchive(true);
+          }}
+          onReplayGuide={() => {
+            setShowAbout(false);
+            onReplayGuide?.();
+          }}
+          ref={infoConsoleRef}
+        />
+      </FocusTrap>
+
+      <AccessibleArchiveIndex
+        open={showTextArchive}
+        nodes={nodes}
+        contextNode={contextNode}
+        onClose={() => setShowTextArchive(false)}
+        onOpenNode={(node) => onBrowseNode?.(node)}
       />
 
 
-      <footer className={`fixed bottom-5 left-5 right-5 justify-center items-center pointer-events-none z-[130] ${(currentMode === 'horizontal' || activeDetailNode) ? 'hidden md:flex' : 'flex'}`}>
+      <footer className={`archive-hud fixed bottom-5 left-5 right-5 justify-center items-center pointer-events-none z-[130] ${(currentMode === 'horizontal' || activeDetailNode) ? 'hidden md:flex' : 'flex'}`}>
         <div className="w-full pointer-events-auto">
           <div className="relative bg-surface/82 backdrop-blur-xl border border-white/18 shadow-2xl rounded-none w-full">
             <motion.div
@@ -1479,9 +1350,11 @@ export default function Overlay({
                 <button 
                   ref={infoButtonRef}
                   onClick={() => setShowAbout(!showAbout)}
-                  className={`min-h-[64px] w-[64px] border-r border-ui-border flex items-center justify-center transition-colors rounded-none shrink-0 ${showAbout ? 'bg-accent text-black' : 'text-text-muted hover:text-white hover:bg-ui-bg'}`}
+                  className={`min-h-[52px] w-[52px] border-r border-ui-border flex items-center justify-center transition-colors rounded-none shrink-0 md:min-h-[64px] md:w-[64px] ${showAbout ? 'bg-accent text-black' : 'text-text-muted hover:text-white hover:bg-ui-bg'}`}
                   title="INFORMATION"
-                  aria-label="Open information"
+                  aria-label={showAbout ? 'Close information' : 'Open information'}
+                  aria-expanded={showAbout}
+                  aria-controls="archive-info-console"
                 >
                   {showAbout ? <X size={20} /> : <Plus size={20} />}
                 </button>
@@ -1489,7 +1362,7 @@ export default function Overlay({
                 {/* Audio Toggle */}
                 <button
                   onClick={onToggleAudio}
-                  className={`min-h-[64px] w-[64px] flex items-center justify-center transition-colors rounded-none shrink-0 ${
+                  className={`min-h-[52px] w-[52px] flex items-center justify-center transition-colors rounded-none shrink-0 md:min-h-[64px] md:w-[64px] ${
                     audioStatus === 'error'
                       ? 'text-red-400 bg-red-500/10'
                       : audioStatus === 'ready' && !isMuted
@@ -1507,7 +1380,7 @@ export default function Overlay({
                   }
                   aria-label={
                     audioStatus === 'error'
-                      ? 'Sound unavailable'
+                      ? 'Retry sound'
                       : audioStatus === 'loading'
                       ? 'Initializing audio'
                       : isMuted
@@ -1516,7 +1389,7 @@ export default function Overlay({
                   }
                 >
                   {audioStatus === 'error' ? (
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-center leading-tight">Audio<br/>Error</span>
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-center leading-tight md:text-[9px]">Retry<br/>Audio</span>
                   ) : audioStatus === 'loading' ? (
                     <Loader2 size={16} className="animate-spin text-accent" />
                   ) : isMuted || !audioReady ? (
@@ -1535,7 +1408,7 @@ export default function Overlay({
                       initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -10 }}
-                      className="flex min-h-[64px] items-center w-full px-8"
+                      className="flex min-h-[52px] items-center w-full px-4 md:min-h-[64px] md:px-8"
                     >
                       <Search size={14} className="text-accent shrink-0" />
                       <input 
@@ -1545,7 +1418,7 @@ export default function Overlay({
                         value={searchQuery}
                         onChange={(e) => onSearchChange(e.target.value)}
                         onBlur={() => !searchQuery && setIsSearchActive(false)}
-                        className="bg-transparent border-none outline-none font-mono text-[10px] text-white placeholder:text-text-muted w-full ml-3"
+                        className="bg-transparent border-none outline-none font-mono text-[12px] text-white placeholder:text-text-muted w-full ml-3 md:text-[10px]"
                         aria-label="Search archive"
                         autoComplete="off"
                         autoCorrect="off"
@@ -1676,17 +1549,17 @@ export default function Overlay({
                       initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
-                      className="flex items-center justify-between w-full h-full min-h-[64px] pr-8"
+                      className="flex items-center justify-between w-full h-full min-h-[52px] pr-2 md:min-h-[64px] md:pr-8"
                     >
                       {/* Mobile version: Compact Chips */}
                       <button 
                         onClick={() => setIsFilterDrawerOpen(true)}
-                        className="md:hidden flex items-center gap-1.5 px-4 overflow-hidden h-full flex-1 w-full flex-wrap content-center py-2"
+                        className="md:hidden flex min-h-[52px] items-center gap-2 px-3 overflow-hidden h-full flex-1 w-full"
                       >
-                        <span className="shrink-0 bg-ui-bg-hover text-white font-mono text-[9px] uppercase tracking-wider px-2 py-1">INDEX</span>
-                        <span className="shrink-0 bg-ui-bg text-text-muted font-mono text-[9px] uppercase tracking-wider px-2 py-1">W: {indexFilters?.world === 'all' ? 'ALL' : indexFilters?.world}</span>
-                        <span className="shrink-0 bg-ui-bg text-text-muted font-mono text-[9px] uppercase tracking-wider px-2 py-1">M: {indexFilters?.medium === 'all' ? 'ALL' : indexFilters?.medium}</span>
-                        <span className="shrink-0 bg-ui-bg text-text-muted font-mono text-[9px] uppercase tracking-wider px-2 py-1">{indexAssetCount} FILES</span>
+                        <span className="shrink-0 bg-ui-bg-hover text-white font-mono text-[11px] uppercase tracking-wider px-2 py-1">INDEX</span>
+                        <span className="min-w-0 truncate font-mono text-[11px] uppercase tracking-wider text-text-muted">
+                          {indexAssetCount} files<span className="hidden min-[360px]:inline"> · {workCount} works</span>
+                        </span>
                       </button>
 
                       {/* Desktop version: Strings */}
@@ -1712,15 +1585,16 @@ export default function Overlay({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
                       onClick={() => setIsSearchActive(true)}
-                      className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-ui-bg transition-colors rounded-none justify-center h-full min-h-[64px] w-full cursor-pointer"
+                      className="flex flex-col gap-0.5 px-4 md:px-8 group text-left overflow-hidden hover:bg-ui-bg transition-colors rounded-none justify-center h-full min-h-[52px] md:min-h-[64px] w-full cursor-pointer"
                     >
-                      <span aria-hidden="true" className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                      <span aria-hidden="true" className="hidden font-mono text-[9px] text-accent/60 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate w-full md:block">
                         {line1Text}
                       </span>
-                      <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
-                        {bottomTitle}
+                      <span className="font-display text-[13px] md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
+                        <span className="md:hidden">{activeMode.label}</span>
+                        <span className="hidden md:inline">{bottomTitle}</span>
                       </span>
-                      <span aria-hidden="true" className="font-mono text-[9px] text-text-muted-quiet group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                      <span aria-hidden="true" className="hidden font-mono text-[9px] text-text-muted group-hover:text-white transition-colors duration-300 tracking-[0.16em] uppercase truncate w-full md:block">
                         {line3Text}
                       </span>
                     </motion.button>
@@ -1728,7 +1602,7 @@ export default function Overlay({
                 </AnimatePresence>
               </div>
 
-              <div className="col-span-2 grid grid-cols-5 border-t border-ui-border lg:col-span-1 lg:flex lg:border-l lg:border-t-0">
+              <nav id="archive-view-controls" tabIndex={-1} aria-label="Archive views" className="col-span-2 grid grid-cols-5 border-t border-ui-border lg:col-span-1 lg:flex lg:border-l lg:border-t-0">
                 {MODE_OPTIONS.map((mode) => (
                   <ModeButton
                     key={mode.id}
@@ -1740,7 +1614,7 @@ export default function Overlay({
                     onClick={() => onModeChange(mode.id)}
                   />
                 ))}
-              </div>
+              </nav>
             </div>
           </div>
         </div>
@@ -1777,7 +1651,7 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
       initial={{ opacity: 0, y: 20, scale: 0.985 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.99 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: MOTION_DURATION.slow, ease: MOTION_EASE }}
       className="pointer-events-auto fixed bottom-[160px] left-0 right-0 top-[84px] z-[140] flex overflow-hidden shadow-2xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] central-panel"
     >
       <div className="flex min-h-0 w-full flex-col">
@@ -1898,177 +1772,6 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
   );
 }
 
-interface EssaysPanelProps {
-  isMobileViewport: boolean;
-  onEssayChange?: (slug: string) => void;
-}
-
-function EssaysPanel({ isMobileViewport, onEssayChange }: EssaysPanelProps) {
-  const [activeEssaySlug, setActiveEssaySlug] = React.useState(ESSAY_RECORDS[0].slug);
-  const [mobileEssayView, setMobileEssayView] = React.useState<'index' | 'reader'>('index');
-  const readerScrollRef = React.useRef<HTMLElement>(null);
-  const activeEssay = ESSAY_RECORDS.find((essay) => essay.slug === activeEssaySlug) || ESSAY_RECORDS[0];
-  const activeIndex = ESSAY_RECORDS.findIndex((essay) => essay.slug === activeEssay.slug);
-  
-  React.useEffect(() => {
-    onEssayChange?.(ESSAY_RECORDS[0].slug);
-  }, []);
-
-  const selectEssay = (slug: string) => {
-    setActiveEssaySlug(slug);
-    if (isMobileViewport) setMobileEssayView('reader');
-    onEssayChange?.(slug);
-  };
-  const stepEssay = (direction: -1 | 1) => {
-    const nextEssay = ESSAY_RECORDS[(activeIndex + direction + ESSAY_RECORDS.length) % ESSAY_RECORDS.length];
-    setActiveEssaySlug(nextEssay.slug);
-    setMobileEssayView('reader');
-    onEssayChange?.(nextEssay.slug);
-  };
-
-  React.useEffect(() => {
-    if (isMobileViewport) {
-      setMobileEssayView('index');
-    }
-  }, [isMobileViewport]);
-
-  React.useEffect(() => {
-    readerScrollRef.current?.scrollTo({ top: 0 });
-  }, [activeEssay.slug, mobileEssayView]);
-
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 20, scale: 0.985 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 16, scale: 0.99 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-auto fixed bottom-[132px] left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-y border-white/16 bg-black/86 shadow-2xl backdrop-blur-xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(900px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] md:border md:border-white/16"
-    >
-      <div className="grid h-full w-full grid-rows-1 md:grid-cols-[240px_1fr]">
-        <aside className={`${isMobileViewport && mobileEssayView === 'reader' ? 'hidden' : 'flex'} min-h-0 flex-col border-ui-border md:flex md:border-r`}>
-          <div className="border-b border-ui-border p-4 md:p-5">
-            <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent">
-              Essays / Writings
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold uppercase leading-[0.9] text-white md:text-4xl">
-              Reading<br />Panel
-            </h2>
-          </div>
-
-          <div className="min-h-0 flex-1 overflow-y-auto p-3 md:block md:p-0">
-            {ESSAY_RECORDS.map((essay, index) => {
-              const active = essay.slug === activeEssay.slug;
-              return (
-                <button
-                  key={essay.slug}
-                  type="button"
-                  onClick={() => selectEssay(essay.slug)}
-                  className={`mb-2 w-full border border-ui-border border-l-2 p-3 text-left transition-all last:mb-0 md:mb-0 md:border-t-0 md:border-r-0 md:border-b md:border-l-2 ${
-                    active
-                      ? 'bg-accent/15 border-accent text-white'
-                      : 'bg-white/[0.025] border-transparent text-white hover:bg-white/8 hover:border-l-white/40'
-                  }`}
-                >
-                  <span className={`font-mono text-[8px] uppercase tracking-[0.18em] ${active ? 'text-accent-2 font-semibold' : 'text-accent/80'}`}>
-                    {String(index + 1).padStart(2, '0')} / {essay.date}
-                  </span>
-                  <span className="mt-2 block font-display text-base font-bold uppercase leading-none">
-                    {essay.title}
-                  </span>
-                  <span className={`mt-2 block truncate font-mono text-[8px] uppercase tracking-[0.14em] ${active ? 'text-white/70' : 'text-text-muted'}`}>
-                    {essay.eyebrow}
-                  </span>
-                  <span className={`mt-3 block text-xs leading-relaxed md:hidden ${active ? 'text-white/60' : 'text-text-muted'}`}>
-                    {essay.dek}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </aside>
-
-        <article
-          ref={readerScrollRef}
-          className={`${isMobileViewport && mobileEssayView === 'index' ? 'hidden' : 'block'} h-full overflow-y-auto custom-scrollbar md:block`}
-        >
-          <div className="sticky top-0 z-10 grid grid-cols-3 border-b border-ui-border bg-black/95 md:hidden">
-            <button
-              type="button"
-              onClick={() => setMobileEssayView('index')}
-              className="border-r border-ui-border px-3 py-3 text-left font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-ui-bg hover:text-white"
-            >
-              Return
-            </button>
-            <button
-              type="button"
-              onClick={() => stepEssay(-1)}
-              className="border-r border-ui-border px-3 py-3 text-center font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-ui-bg hover:text-white"
-            >
-              Previous
-            </button>
-            <button
-              type="button"
-              onClick={() => stepEssay(1)}
-              className="px-3 py-3 text-right font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted transition-colors hover:bg-ui-bg hover:text-white"
-            >
-              Next
-            </button>
-          </div>
-
-          <div className="p-5 md:p-8">
-          <div className="mb-7 border-b border-ui-border pb-7">
-            <p className="font-mono text-[9px] uppercase tracking-[0.26em] text-accent">
-              {activeEssay.eyebrow} / {activeEssay.date} / {activeEssay.readTime}
-            </p>
-            <h3 className="mt-4 font-display text-5xl font-bold uppercase leading-[0.86] tracking-tight text-white md:text-7xl">
-              {activeEssay.title}
-            </h3>
-            <p className="mt-5 max-w-[680px] text-base leading-[1.6] text-white/78 md:text-lg md:leading-[1.6]">
-              {activeEssay.dek}
-            </p>
-          </div>
-
-          <div className="space-y-5">
-            {activeEssay.body.map((paragraph) => (
-              <p key={paragraph} className="max-w-[680px] text-[15px] leading-[1.7] text-[#dddddd] font-body">
-                {paragraph}
-              </p>
-            ))}
-          </div>
-
-          <div className="mt-10 hidden grid-cols-2 border border-ui-border md:grid">
-            <button
-              type="button"
-              onClick={() => stepEssay(-1)}
-              className="border-r border-ui-border px-5 py-4 text-left transition-colors hover:bg-ui-bg group"
-            >
-              <span className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted group-hover:text-white transition-colors">
-                ← PREVIOUS
-              </span>
-              <span className="mt-1.5 block font-display text-xs font-bold uppercase tracking-wide text-white/50 group-hover:text-white transition-colors truncate">
-                {ESSAY_RECORDS[(activeIndex - 1 + ESSAY_RECORDS.length) % ESSAY_RECORDS.length].title}
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => stepEssay(1)}
-              className="px-5 py-4 text-right transition-colors hover:bg-ui-bg group"
-            >
-              <span className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted group-hover:text-white transition-colors">
-                NEXT →
-              </span>
-              <span className="mt-1.5 block font-display text-xs font-bold uppercase tracking-wide text-white/50 group-hover:text-white transition-colors truncate">
-                {ESSAY_RECORDS[(activeIndex + 1) % ESSAY_RECORDS.length].title}
-              </span>
-            </button>
-          </div>
-          </div>
-        </article>
-      </div>
-    </motion.section>
-  );
-}
-
 function ModeButton({ active, disabled, onClick, icon: Icon, label, description }: any) {
   return (
     <button
@@ -2076,8 +1779,9 @@ function ModeButton({ active, disabled, onClick, icon: Icon, label, description 
       disabled={disabled}
       title={`${label}: ${description}`}
       aria-label={`${label}: ${description}`}
+      aria-current={active ? 'page' : undefined}
       className={`
-        group relative h-[64px] w-full lg:w-[64px] flex flex-col items-center justify-center rounded-none
+        group relative h-[48px] w-full md:h-[64px] lg:w-[64px] flex flex-col items-center justify-center rounded-none
         transition-all duration-0
         ${disabled 
           ? 'cursor-not-allowed text-white/18 border-r border-ui-border' 
@@ -2098,8 +1802,10 @@ const ArchiveInfoConsole = React.forwardRef<
     open: boolean;
     activeTab: SiteInfoTabId;
     onTabChange: (tab: SiteInfoTabId) => void;
+    onOpenTextArchive: () => void;
+    onReplayGuide: () => void;
   }
->(function ArchiveInfoConsole({ open, activeTab, onTabChange }, ref) {
+>(function ArchiveInfoConsole({ open, activeTab, onTabChange, onOpenTextArchive, onReplayGuide }, ref) {
   const tab = SITE_INFO_TABS.find((item) => item.id === activeTab) || SITE_INFO_TABS[0];
 
   return (
@@ -2107,11 +1813,12 @@ const ArchiveInfoConsole = React.forwardRef<
       {open && (
         <motion.div
           ref={ref}
+          id="archive-info-console"
           initial={{ opacity: 0, y: 14, scale: 0.985 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.985 }}
-          transition={{ duration: 0.18, ease: 'easeOut' }}
-          className="fixed bottom-[132px] left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-y border-white/16 bg-[#050505]/96 shadow-2xl backdrop-blur-xl pointer-events-auto md:top-auto md:bottom-[118px] md:left-5 md:right-auto md:h-[520px] md:w-[520px] md:bg-surface/92 md:border md:border-white/16 md:z-[125]"
+          transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
+          className="mobile-safe-panel fixed bottom-[112px] left-0 right-0 top-[64px] z-[140] flex overflow-hidden border-y border-white/16 bg-[#050505]/96 shadow-2xl backdrop-blur-xl pointer-events-auto md:top-auto md:bottom-[118px] md:left-5 md:right-auto md:h-[520px] md:w-[520px] md:bg-surface/92 md:border md:border-white/16 md:z-[125]"
           role="dialog"
           aria-label="Archive information console"
         >
@@ -2215,9 +1922,27 @@ const ArchiveInfoConsole = React.forwardRef<
               </div>
             )}
 
-            <div className="mt-7 flex items-center justify-between border-t border-ui-border pt-4 font-mono text-[8px] uppercase tracking-[0.18em] text-white/24">
-              <span>Papazian Archive</span>
-              <span>v1.0.5</span>
+            <div className="mt-7 border-t border-ui-border pt-4">
+              <button
+                type="button"
+                onClick={onOpenTextArchive}
+                className="mb-2 flex min-h-[44px] w-full items-center justify-between border border-accent bg-accent px-3 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-black transition-colors hover:bg-white"
+              >
+                Browse text archive
+                <ArrowRight size={14} aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={onReplayGuide}
+                className="flex min-h-[44px] w-full items-center justify-between border border-ui-border px-3 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:border-white hover:bg-white hover:text-black"
+              >
+                Replay navigation guide
+                <ArrowRight size={14} aria-hidden="true" />
+              </button>
+              <div className="mt-4 flex items-center justify-between font-mono text-[8px] uppercase tracking-[0.18em] text-white/24">
+                <span>Papazian Archive</span>
+                <span>v1.0.5</span>
+              </div>
             </div>
           </div>
           </div>

@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "npm run content:build && vite build && node --import tsx scripts/generate-static-shells.ts",
+    "build": "npm run content:build && npm run assets:manifest && vite build && node --import tsx scripts/generate-static-shells.ts && npm run verify:build",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
     "content:build": "node --import tsx scripts/build-content.ts",
     "content:scaffold": "node --import tsx scripts/scaffold-featured-projects.ts",
     "content:report": "node --import tsx scripts/content-report.ts",
-    "images:prepare": "node --import tsx scripts/prepare-images.ts"
+    "images:prepare": "node --import tsx scripts/prepare-images.ts",
+    "assets:manifest": "node --import tsx scripts/export-gallery.ts && node --import tsx scripts/build-media-manifest.ts",
+    "verify:build": "node --import tsx scripts/validate-build.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",

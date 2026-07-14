@@ -1,134 +1,202 @@
 import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { X, Globe, Rows3, LayoutGrid, Map, BookOpen } from 'lucide-react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { X, Globe, Rows3, LayoutGrid, Map, BookOpen, ArrowRight } from 'lucide-react';
+import { MOTION_DURATION, MOTION_EASE } from '../ui/motion';
 
-const STORAGE_KEY = 'papazian-archive-hint-seen';
+const GUIDE_STORAGE_KEY = 'papazian-archive-guide-v2';
+const CUE_STORAGE_KEY = 'papazian-archive-mode-cues-v1';
 
 interface FirstVisitHintProps {
   isReady: boolean;
+  currentMode: string;
+  replayToken?: number;
+  onExploreWorks?: () => void;
 }
 
-export function FirstVisitHint({ isReady }: FirstVisitHintProps) {
+const modes = [
+  { icon: Globe, label: 'Orbit', description: 'Spatial overview' },
+  { icon: Rows3, label: 'Works', description: '20-project spine' },
+  { icon: LayoutGrid, label: 'Index', description: 'Evidence register' },
+  { icon: Map, label: 'Map', description: 'Relations and routes' },
+  { icon: BookOpen, label: 'Essays', description: 'Editorial reading' },
+];
+
+const spatialCues: Record<string, string> = {
+  cylinder: 'Scroll or drag to orbit through the archive field.',
+  map: 'Drag to pan, scroll or pinch to zoom, and tap a node to trace its relations.',
+};
+
+function readStorage(key: string) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function writeStorage(key: string, value: string) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // The guide remains functional when storage is unavailable.
+  }
+}
+
+export function FirstVisitHint({
+  isReady,
+  currentMode,
+  replayToken = 0,
+  onExploreWorks,
+}: FirstVisitHintProps) {
   const [visible, setVisible] = useState(false);
+  const [step, setStep] = useState<0 | 1>(0);
+  const [cueMode, setCueMode] = useState<string | null>(null);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!isReady) return;
-    let seen: string | null = null;
-    try {
-      seen = localStorage.getItem(STORAGE_KEY);
-    } catch (e) {
-      // localStorage unavailable (e.g. sandbox/headless browser) — fallback to showing the hint
-    }
-    if (!seen) {
-      // Delay hint appearance to let the user absorb the initial view
-      const timer = setTimeout(() => setVisible(true), 2400);
-      return () => clearTimeout(timer);
-    }
+    if (!readStorage(GUIDE_STORAGE_KEY)) setVisible(true);
   }, [isReady]);
+
+  useEffect(() => {
+    if (!isReady || replayToken === 0) return;
+    setStep(0);
+    setCueMode(null);
+    setVisible(true);
+  }, [isReady, replayToken]);
+
+  useEffect(() => {
+    if (!isReady || visible || !spatialCues[currentMode]) return;
+    const seenModes = (readStorage(CUE_STORAGE_KEY) || '').split(',').filter(Boolean);
+    if (seenModes.includes(currentMode)) return;
+    setCueMode(currentMode);
+  }, [currentMode, isReady, visible]);
+
+  useEffect(() => {
+    if (!cueMode) return;
+    const timer = window.setTimeout(() => dismissCue(cueMode), 6500);
+    return () => window.clearTimeout(timer);
+  }, [cueMode]);
 
   const dismiss = () => {
     setVisible(false);
-    try {
-      localStorage.setItem(STORAGE_KEY, '1');
-    } catch {
-      // silent
-    }
+    writeStorage(GUIDE_STORAGE_KEY, '1');
+  };
+
+  const dismissCue = (mode: string) => {
+    const seenModes = new Set((readStorage(CUE_STORAGE_KEY) || '').split(',').filter(Boolean));
+    seenModes.add(mode);
+    writeStorage(CUE_STORAGE_KEY, [...seenModes].join(','));
+    setCueMode((current) => current === mode ? null : current);
   };
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <>
-          {/* Backdrop Dimming Layer */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={dismiss}
-            className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-[199] pointer-events-auto"
-          />
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
+    <>
+      <AnimatePresence>
+        {visible && (
+          <motion.aside
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[200] pointer-events-auto max-w-[400px] w-[calc(100vw-32px)]"
+            exit={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
+            transition={{ duration: reduceMotion ? 0 : MOTION_DURATION.slow, ease: MOTION_EASE }}
+            className="fixed bottom-[116px] left-3 right-3 z-[200] border border-white/22 bg-[#050505]/96 shadow-2xl backdrop-blur-xl pointer-events-auto md:bottom-[118px] md:left-5 md:right-auto md:w-[380px]"
+            aria-label="Archive navigation guide"
           >
-            <div className="bg-surface/95 backdrop-blur-2xl border border-ui-border-hover shadow-2xl">
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-ui-border px-5 py-3">
-                <span className="font-mono text-[8px] uppercase tracking-[0.26em] text-accent">
-                  Navigation Guide
-                </span>
-                <button
-                  onClick={dismiss}
-                  className="text-text-muted hover:text-white transition-colors p-3 -m-2 md:bg-transparent bg-ui-bg rounded-full md:rounded-none"
-                  aria-label="Dismiss hint"
-                >
-                  <X size={14} />
-                </button>
-              </div>
-
-              {/* Content */}
-              <div className="px-5 py-4 space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
-                <HintRow
-                  icon={<Globe size={14} />}
-                  label="Orbit (Home)"
-                  description="A rotating 3D helical cylinder of all projects that serves as the visual landing page. Clicking a node focuses it in the cylinder."
-                />
-                <HintRow
-                  icon={<Rows3 size={14} />}
-                  label="Works"
-                  description="A curated, horizontal-scrolling linear spine of the 20 featured project case studies."
-                />
-                <HintRow
-                  icon={<LayoutGrid size={14} />}
-                  label="Index"
-                  description="A structured 3D cell layout of all project media assets. It supports filtering (by World, Medium, and Type), sorting, and toggling between three display layers (Image Only, Text Only, and Hybrid)."
-                />
-                <HintRow
-                  icon={<Map size={14} />}
-                  label="Map"
-                  description="A 3D spatial network constellation showing bidirectional relationships between nodes. It features curated Traversal Routes (interactive tours) that guide you step-by-step through specific thematic pathways."
-                />
-                <HintRow
-                  icon={<BookOpen size={14} />}
-                  label="Essays"
-                  description="A clean, split-screen editorial reading panel for case study details and research writings."
-                />
-              </div>
-
-              {/* Footer */}
-              <div className="border-t border-ui-border px-5 py-3">
-                <button
-                  onClick={dismiss}
-                  className="w-full min-h-[44px] bg-white hover:bg-white/90 text-black shadow-[0_0_12px_rgba(255,255,255,0.2)] font-mono text-[9px] font-bold tracking-[0.16em] uppercase px-4 py-2.5 transition-all cursor-pointer"
-                >
-                  Begin Exploring
-                </button>
-              </div>
+            <div className="flex min-h-11 items-center justify-between border-b border-ui-border px-4">
+              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
+                Navigation guide · {step + 1}/2
+              </span>
+              <button
+                type="button"
+                onClick={dismiss}
+                className="-mr-2 flex min-h-[44px] min-w-[44px] items-center justify-center text-text-muted transition-colors hover:text-white"
+                aria-label="Close navigation guide"
+              >
+                <X size={15} />
+              </button>
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  );
-}
 
-function HintRow({ icon, label, description }: { icon: React.ReactNode; label: string; description: string }) {
-  return (
-    <div className="flex items-start gap-3">
-      <div className="text-accent mt-0.5 shrink-0">{icon}</div>
-      <div className="min-w-0">
-        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-white block">
-          {label}
-        </span>
-        <span className="font-mono text-[9px] text-text-muted leading-relaxed block mt-0.5">
-          {description}
-        </span>
-      </div>
-    </div>
+            {step === 0 ? (
+              <div className="px-4 py-4">
+                <p className="font-display text-lg font-bold uppercase leading-tight text-white">
+                  One archive, five projections.
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-text-muted">
+                  Scroll or drag to move through Orbit. Your selected work and relevant filters follow when you change views.
+                </p>
+                <div className="mt-4 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    className="flex min-h-[44px] flex-1 items-center justify-between border border-white/24 px-3 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-black"
+                  >
+                    See the modes <ArrowRight size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dismiss();
+                      onExploreWorks?.();
+                    }}
+                    className="min-h-[44px] border border-ui-border px-3 font-mono text-[11px] uppercase tracking-[0.12em] text-text-muted transition-colors hover:border-white hover:text-white"
+                  >
+                    Works
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="px-4 py-3">
+                <div className="grid grid-cols-1 gap-px bg-ui-bg-hover sm:grid-cols-5">
+                  {modes.map(({ icon: Icon, label, description }) => (
+                    <div key={label} className="flex items-center gap-3 bg-[#050505] px-3 py-2.5 sm:block sm:px-2 sm:text-center">
+                      <Icon size={14} className="shrink-0 text-accent sm:mx-auto" aria-hidden="true" />
+                      <span className="font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-white sm:mt-2 sm:block">
+                        {label}
+                      </span>
+                      <span className="ml-auto font-mono text-[11px] text-text-muted sm:ml-0 sm:mt-1 sm:block sm:text-[9px]">
+                        {description}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={dismiss}
+                  className="mt-3 min-h-[44px] w-full bg-white px-4 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-black transition-colors hover:bg-white/88"
+                >
+                  Begin exploring
+                </button>
+              </div>
+            )}
+          </motion.aside>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {!visible && cueMode && spatialCues[cueMode] && (
+          <motion.aside
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : MOTION_DURATION.base, ease: MOTION_EASE }}
+            className="fixed bottom-[116px] left-3 right-3 z-[198] flex min-h-[48px] items-center gap-3 border border-ui-border bg-black/90 px-3 pointer-events-auto md:bottom-[118px] md:left-5 md:right-auto md:w-[360px]"
+            aria-label={`${cueMode === 'map' ? 'Map' : 'Orbit'} interaction hint`}
+          >
+            <Globe size={14} className="shrink-0 text-accent" aria-hidden="true" />
+            <p className="flex-1 font-mono text-[11px] uppercase leading-relaxed tracking-[0.1em] text-white">
+              {spatialCues[cueMode]}
+            </p>
+            <button
+              type="button"
+              onClick={() => dismissCue(cueMode)}
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center text-text-muted hover:text-white"
+              aria-label="Dismiss interaction hint"
+            >
+              <X size={14} />
+            </button>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

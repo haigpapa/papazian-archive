@@ -224,11 +224,73 @@ We have addressed and resolved all the issues identified in the Post-Deployment 
   - `derive` (Dynamic flow field of vector arrows in a clean spiral, steel blue on dark grey)
   - `maqamai` (Piano keys vertical layout with microtonal division lines, sage green/black)
   - `99-nodes` (Grid of ninety-nine vector dots with one dot highlighted, steel blue)
-  - `codeverse-explorer` (Structural dependency tree resembling a galaxy of connected dots, steel blue/white)
-- **WebP Conversion**: Processed all generated images through `cwebp` at `q=80` quality target and placed the final optimized `.webp` files at their designated public resource targets: `public/images/projects/[slug]/cover.webp`.
+  - `codeverse-explorer` (Structural dependency tree resembling a galaxy of connected dots, steel blue/white)- **WebP Conversion**: Processed all generated images through `cwebp` at `q=80` quality target and placed the final optimized `.webp` files at their designated public resource targets: `public/images/projects/[slug]/cover.webp`.
 
 ### State
 - Build: ✅ clean and compiled
 - Typecheck: ✅ clean
 
+---
 
+## 11. Phase 3 — Accessibility Remediation & Usability Optimization (Current Session)
+
+We have successfully implemented accessibility upgrades to the frontend architecture and design systems of papazian.studio while strictly preserving its premium dark operating system aesthetic:
+
+### Completed
+* **Keyboard Access & Equivalent Text Archive**:
+  - Created [FocusTrap.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/FocusTrap.tsx) to contain focus in drawers and the information console, with Escape dismissal and focus restoration.
+  - Removed the invisible spatial proxy dashboard because it placed more than one hundred off-screen controls into the keyboard tab order.
+  - Added [AccessibleArchiveIndex.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/AccessibleArchiveIndex.tsx), a native searchable text dialog with semantic record list, readable project detail, and a direct “Show in Works” action.
+  - Added a visible-on-focus skip link and converted the PAPAZIAN wordmark into a real keyboard control.
+* **Contrast & Typography System**:
+  - Updated color tokens in [index.css](file:///Users/vhnmns/Documents/projects/papazian-archive/src/index.css) (`--color-text-muted-quiet` to `#b0b0b0`, `--color-text-muted` to `#b8b8b8`, and interface borders to `rgba(255, 255, 255, 0.36)`) to strengthen contrast against deep dark canvas backgrounds.
+  - Introduced `--color-accent-blue-contrast` (`#7caeff`) for deep blue contrast corrections.
+  - Configured relative unit font sizes and dynamic sizing selectors (`.hud-panel` utilizing `clamp()`) in [index.css](file:///Users/vhnmns/Documents/projects/papazian-archive/src/index.css) and adjusted [IndexFilterBar.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/IndexFilterBar.tsx) to prevent container overlaps at 200% text zoom.
+* **Screen Reader Semantics**:
+  - Kept a concise hidden archive description while moving project browsing into a visible, operable semantic interface.
+  - Set up `aria-live` announcer regions in [Overlay.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/components/Overlay.tsx) to state changes dynamically for search queries, active filtering, and inspect dossier focuses.
+* **Tone.js Audio Keybinding controls**:
+  - Registered global "M" keyboard listener inside [App.tsx](file:///Users/vhnmns/Documents/projects/papazian-archive/src/App.tsx) to allow keyboard-only users to instantly toggle Tone.js sound mute states.
+  - Wired live announcer alerts (`id="audio-announce-alert"` with `aria-live="assertive"`) to announce audio status updates.
+* **Reduced Motion Camera Transitions**:
+  - Wired `prefers-reduced-motion` media query detection inside [NodeManager.ts](file:///Users/vhnmns/Documents/projects/papazian-archive/src/core/NodeManager.ts).
+  - Configured THREE.js layout repositionings, camera zooms, and orbital resets to teleport instantly when reduced motion is preferred by the OS.
+
+### In Progress
+- Manual VoiceOver, NVDA, physical-device zoom, and OS-level reduced-motion certification.
+
+### Next Session Tasks
+- Manual assistive-technology verification with Haig, followed by the Sprint 4 delivery-hardening work.
+
+### State
+- Tests: ✅ 15 passing
+- Build: ✅ clean and compiled
+- Typecheck: ✅ clean
+- Browser QA: ✅ desktop, 640 px reflow, 390 px, and 320 px with no warnings
+
+---
+
+## 12. Phase 4 — Delivery Hardening & Text-Only Resilience
+
+### Completed
+- **Bundle boundaries:** Lazy-loaded Scene/Three.js, Overlay, onboarding, VideoLightbox, ArtifactInspector, generated archive content, and shared interface libraries. The production entry dropped from 730 KB to 266 KB.
+- **Audio deferral verification:** Preserved the existing user-gesture-only Tone.js import and added a build assertion that fails if Tone.js enters the eager entry graph.
+- **WebGL-independent archive:** Added `?view=text`, a searchable 20-project archive that does not initialize Scene or create a WebGL canvas. Fatal WebGL initialization errors now land on this usable surface instead of a reload-only modal.
+- **No-JavaScript shell:** Static project links remain in the generated HTML when JavaScript never mounts, and the `<noscript>` message now links to the archive routes.
+- **Media manifest:** Generated `public/media-manifest.json` for 20 canonical projects and 219 assets with dimensions, aspect ratio, byte size, status, role, and content digest.
+- **Build enforcement:** Added chunk, gzip, media, static-route, structured-data, Open Graph, sitemap, browser-shim, and Tone.js deferral checks to every production build.
+- **Structured metadata:** Added archive-level `WebSite` and `CollectionPage` graphs while retaining per-project `CreativeWork` data and 25 static sitemap routes.
+- **Browser QA:** Verified normal Home → Works navigation and desktop/mobile text-only search → Retry 3D. No horizontal overflow, undersized mobile controls, framework overlay, console warning, or runtime error was observed.
+
+### State
+- Tests: ✅ 15 passing
+- Typecheck: ✅ clean
+- Production build: ✅ verified automatically
+- Bundle: ✅ 19 chunks, 447.1 KB total gzip, 266 KB entry
+- Static output: ✅ 25 HTML pages and 25 sitemap URLs
+- Media manifest: ✅ 20 projects and 219 matched assets
+
+### Remaining
+- Split the monolithic Overlay further at Map, rail, and Essays mode boundaries.
+- Consolidate project media into one canonical authoring field and reserve intrinsic image geometry during render.
+- Complete distinct project social imagery/alt text, throttled mobile profiling, VoiceOver, and NVDA certification.

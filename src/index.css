@@ -6,25 +6,26 @@
   --font-mono: "JetBrains Mono", monospace;
 
   /* Sprint 3 Tokens */
-  --color-ui-border: rgba(255, 255, 255, 0.12);
-  --color-ui-border-hover: rgba(255, 255, 255, 0.22);
+  --color-ui-border: rgba(255, 255, 255, 0.36);
+  --color-ui-border-hover: rgba(255, 255, 255, 0.56);
   --color-ui-bg: rgba(255, 255, 255, 0.05);
   --color-ui-bg-hover: rgba(255, 255, 255, 0.1);
   --color-ui-bg-active: rgba(255, 255, 255, 0.15);
-  --color-text-muted-quiet: #8f8f8f;
+  --color-text-muted-quiet: #b0b0b0;
 
   /* Unified tokens */
-  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border: rgba(255, 255, 255, 0.36);
   --color-surface: #0d0d0d;
   --color-accent: #d7e7ef;
   --color-accent-2: #e8d5c4; /* Distinct warm tone */
+  --color-accent-blue-contrast: #7caeff; /* Compliant 4.5:1 ratio blue accent */
 }
 
 :root {
   color-scheme: dark;
   --color-bg: #000000;
   --color-text: #ffffff;
-  --color-text-muted: #a3a3a3; /* Improved contrast */
+  --color-text-muted: #b8b8b8;
 }
 
 html, body {
@@ -35,7 +36,7 @@ html, body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  touch-action: none;
+  touch-action: pan-x pan-y pinch-zoom;
   overscroll-behavior: none;
   position: relative;
 }
@@ -65,18 +66,71 @@ body::before {
   background-size: 40px 40px;
 }
 
-/* Hide scrollbars */
-*::-webkit-scrollbar {
-  display: none;
-}
+/* Keep scroll position visible in drawers and editorial panels. */
 * {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ui-border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-ui-border);
 }
 
 #root {
   width: 100%;
   height: 100%;
+}
+
+/* Keep the generated archive shell available when JavaScript never mounts,
+   while hiding it as soon as React owns the page. */
+#root:not(:empty) + #static-shell {
+  display: none;
+}
+
+/* Off-screen archive rows retain stable geometry while skipping layout/paint
+   until they approach the viewport. The first visible rows intentionally do
+   not use containment so LCP and initial keyboard navigation stay direct. */
+.deferred-archive-row {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 112px;
+}
+
+.deferred-index-row {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 78px;
+}
+
+.text-archive-dialog {
+  pointer-events: auto;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: max(12px, env(safe-area-inset-top, 12px)) max(12px, env(safe-area-inset-right, 12px)) max(12px, env(safe-area-inset-bottom, 12px)) max(12px, env(safe-area-inset-left, 12px));
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+}
+
+.text-archive-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(4px);
+}
+
+.text-archive-shell {
+  display: flex;
+  width: min(1100px, 100%);
+  height: 100%;
+  margin-inline: auto;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-ui-border);
+  background: rgba(5, 5, 5, 0.98);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.62);
 }
 
 /* Keep in sync with Tailwind's md breakpoint (768px) and the
@@ -111,21 +165,216 @@ body::before {
     min-height: 48px;
     min-width: 44px;
   }
+
+  .mobile-index-panel {
+    position: fixed;
+    z-index: 96;
+    top: calc(max(14px, env(safe-area-inset-top, 14px)) + 52px);
+    bottom: calc(max(10px, env(safe-area-inset-bottom, 10px)) + 102px);
+    left: max(10px, env(safe-area-inset-left, 10px));
+    right: max(10px, env(safe-area-inset-right, 10px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--color-ui-border);
+    background: rgba(5, 5, 5, 0.96);
+  }
+
+  .mobile-index-panel__header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 88px;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--color-ui-border);
+    background: rgba(5, 5, 5, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .mobile-index-panel__context {
+    grid-column: 1 / -1;
+  }
+
+  .mobile-index-row {
+    content-visibility: auto;
+    contain-intrinsic-size: 78px;
+  }
+
+  .mobile-works-caption {
+    position: fixed;
+    z-index: 95;
+    top: calc(max(14px, env(safe-area-inset-top, 14px)) + 52px);
+    left: max(14px, env(safe-area-inset-left, 14px));
+    right: max(14px, env(safe-area-inset-right, 14px));
+    padding: 10px 12px;
+    border: 1px solid var(--color-ui-border);
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .mobile-map-tools {
+    bottom: calc(max(10px, env(safe-area-inset-bottom, 10px)) + 108px);
+    left: max(10px, env(safe-area-inset-left, 10px));
+    right: max(10px, env(safe-area-inset-right, 10px));
+  }
+
+  .mobile-safe-panel {
+    top: calc(max(14px, env(safe-area-inset-top, 14px)) + 50px);
+    bottom: calc(max(10px, env(safe-area-inset-bottom, 10px)) + 102px);
+  }
+
+  .mobile-project-sheet {
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    padding-left: max(16px, env(safe-area-inset-left, 16px));
+    padding-right: max(16px, env(safe-area-inset-right, 16px));
+  }
+
+  .index-filter-drawer__header {
+    padding-top: max(14px, env(safe-area-inset-top, 14px));
+  }
+
+  .index-filter-drawer__content {
+    padding-bottom: calc(max(20px, env(safe-area-inset-bottom, 20px)) + 20px);
+  }
+
+  .artifact-inspector-shell {
+    padding-top: max(10px, env(safe-area-inset-top, 10px));
+    padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
+    padding-left: max(10px, env(safe-area-inset-left, 10px));
+    padding-right: max(10px, env(safe-area-inset-right, 10px));
+  }
+
+  .artifact-inspector-panel {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+  }
+
+  .artifact-inspector-media {
+    flex: 0 0 min(38svh, 340px);
+    min-height: 180px;
+  }
+
+  .artifact-inspector-image {
+    height: 100%;
+  }
+
+  .artifact-inspector-nav {
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+  }
 }
 
 /* Accessibility: focus-visible ring for keyboard navigation */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
-/* Accessibility: respect reduced-motion preferences */
+/* Essential interface copy: 11px desktop, 12px mobile. This intentionally
+   overrides legacy arbitrary-size utilities without disturbing headings. */
+.archive-readable :where(
+  [class*="text-[6px]"],
+  [class*="text-[7px]"],
+  [class*="text-[8px]"],
+  [class*="text-[9px]"],
+  [class*="text-[10px]"]
+) {
+  font-size: 0.6875rem;
+}
+
+.archive-readable :where(
+  [class*="text-white/10"],
+  [class*="text-white/18"],
+  [class*="text-white/24"],
+  [class*="text-white/28"],
+  [class*="text-white/30"],
+  [class*="text-white/40"],
+  [class*="text-white/44"],
+  [class*="text-accent/40"],
+  [class*="text-text-muted/50"]
+) {
+  color: var(--color-text-muted);
+}
+
+.archive-readable :where(
+  [class*="border-white/16"],
+  [class*="border-white/18"],
+  [class*="border-white/20"]
+) {
+  border-color: var(--color-ui-border);
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 500;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  translate: 0 -200%;
+  min-block-size: 44px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-accent);
+  background: #000;
+  color: #fff;
+  padding-inline: 1rem;
+  font: 700 0.75rem/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: translate 0.16s ease;
+}
+
+.skip-link:focus-visible {
+  translate: 0;
+}
+
+@media (max-width: 767px) {
+  .archive-readable :where(
+    [class*="text-[6px]"],
+    [class*="text-[7px]"],
+    [class*="text-[8px]"],
+    [class*="text-[9px]"],
+    [class*="text-[10px]"],
+    [class*="text-[11px]"]
+  ) {
+    font-size: 0.75rem;
+  }
+}
+
+@media (pointer: coarse) {
+  .archive-readable :where(button, a[href], input:not([type="hidden"]):not([type="range"])) {
+    min-inline-size: 44px;
+    min-block-size: 44px;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+
+  .archive-readable :where(button, a[href], input, [role="dialog"]) {
+    border-color: ButtonText;
+  }
+}
+
+/* MotionConfig handles component animation; CSS transitions are disabled so
+   focus and state changes remain immediate without camera-like travel. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .archive-readable *,
+  .archive-readable *::before,
+  .archive-readable *::after {
+    transition: none !important;
     scroll-behavior: auto !important;
+  }
+
+  .archive-readable :where(.animate-spin, .animate-pulse) {
+    animation: none !important;
   }
 }
 
@@ -267,3 +516,16 @@ dialog.lightbox-dialog::backdrop {
   overscroll-behavior: contain;
 }
 
+/* Flexible scale layouts for HUD elements */
+.hud-panel {
+  width: clamp(280px, 25vw, 420px);
+  min-height: min-content;
+  max-height: 85svh;
+  overflow-y: auto;
+  font-size: 0.75rem; /* rem-based font sizes scale dynamically */
+}
+
+/* Ensure deep blue overlays satisfy contrast AA standards */
+.blue-text-overlay {
+  color: var(--color-accent-blue-contrast) !important;
+}

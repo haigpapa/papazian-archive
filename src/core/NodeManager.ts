@@ -1,9 +1,11 @@
 import * as THREE from 'three';
+import { SPATIAL_DURATION, SPATIAL_EASE } from '../ui/motion';
 import gsap from 'gsap';
 import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
 import { getProjectWorld } from '../data/worlds';
 import { getRelationDetail, RELATION_LINE_STYLES } from '../data/relations';
 import { type IndexFilters, DEFAULT_INDEX_FILTERS } from '../components/IndexFilterBar';
+import { findClosestRailIndex } from './railState';
 
 const VERTEX_SHADER = `
   varying vec2 vUv;
@@ -1170,6 +1172,8 @@ export default class NodeManager {
   }
 
   private setNodePosition(mesh: THREE.Mesh, i: number, mode: string, animate: boolean = true) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shouldAnimate = animate && !prefersReducedMotion;
     const isVisible = this.isMeshVisibleInMode(mesh, mode);
     const RADIUS = 18;
     const visibleMeshes = this.getVisibleMeshes(mode);
@@ -1225,20 +1229,20 @@ export default class NodeManager {
     mesh.userData.targetRotationZ = targetRotZ;
     mesh.userData.targetScale = new THREE.Vector3(targetScale.x, targetScale.y, targetScale.z);
 
-    if (animate) {
+    if (shouldAnimate) {
       let delayVal = i * 0.006;
-      let durationVal = 1.25;
-      let easeCurve = 'expo.inOut';
+      let durationVal: number = SPATIAL_DURATION.layout;
+      let easeCurve: string = SPATIAL_EASE.layout;
 
       if (mode === 'grid') {
         delayVal = 0;
-        durationVal = 0.45;
-        easeCurve = 'power2.out';
+        durationVal = SPATIAL_DURATION.filter;
+        easeCurve = SPATIAL_EASE.response;
       } else if (mode === 'map') {
         const dist = Math.sqrt(targetX * targetX + targetY * targetY);
         delayVal = dist * 0.015;
-        durationVal = 1.35;
-        easeCurve = 'power4.out';
+        durationVal = SPATIAL_DURATION.mapLayout;
+        easeCurve = SPATIAL_EASE.map;
       }
 
       gsap.killTweensOf(mesh.position);
@@ -1266,8 +1270,8 @@ export default class NodeManager {
         }
       }
 
-      gsap.to(material.uniforms.uModeVisibility, { value: targetOpacity, duration: 0.65, ease: 'power2.inOut', delay: delayVal * 0.5 });
-      gsap.to(material.uniforms.uSearchHighlight, { value: targetHighlight, duration: 0.45, ease: 'power2.inOut', delay: delayVal });
+      gsap.to(material.uniforms.uModeVisibility, { value: targetOpacity, duration: SPATIAL_DURATION.visibility, ease: SPATIAL_EASE.settle, delay: delayVal * 0.5 });
+      gsap.to(material.uniforms.uSearchHighlight, { value: targetHighlight, duration: SPATIAL_DURATION.filter, ease: SPATIAL_EASE.settle, delay: delayVal });
     } else {
       mesh.position.set(targetX, targetY, targetZ);
       mesh.rotation.y = targetRotY;
@@ -1549,6 +1553,7 @@ export default class NodeManager {
   }
 
   public setLayoutMode(mode: string) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.activeMode = mode;
     this.hasProjectedPositions = false;
     this.invalidateVisibleMeshCache();
@@ -1570,10 +1575,15 @@ export default class NodeManager {
         const mat = mesh.material as THREE.MeshBasicMaterial;
         const edgeLine = mesh.children[0] as THREE.LineSegments;
         const edgeMat = edgeLine.material as THREE.LineBasicMaterial;
-        mat.opacity = 0;
-        edgeMat.opacity = 0;
-        gsap.to(mat, { opacity: 0.06, duration: 1.0, ease: 'power2.inOut' });
-        gsap.to(edgeMat, { opacity: 0.32, duration: 1.0, ease: 'power2.inOut' });
+        if (prefersReducedMotion) {
+          mat.opacity = 0.06;
+          edgeMat.opacity = 0.32;
+        } else {
+          mat.opacity = 0;
+          edgeMat.opacity = 0;
+          gsap.to(mat, { opacity: 0.06, duration: 1.0, ease: 'power2.inOut' });
+          gsap.to(edgeMat, { opacity: 0.32, duration: 1.0, ease: 'power2.inOut' });
+        }
       }
     });
 
@@ -1586,7 +1596,11 @@ export default class NodeManager {
       this.resetCamera();
     }
     if (mode !== 'map') {
-      gsap.to(this.group.rotation, { x: 0, y: 0, duration: 1.2, ease: 'expo.inOut' });
+      if (prefersReducedMotion) {
+        this.group.rotation.set(0, 0, this.group.rotation.z);
+      } else {
+        gsap.to(this.group.rotation, { x: 0, y: 0, duration: 1.2, ease: 'expo.inOut' });
+      }
     }
   }
 
@@ -1824,8 +1838,8 @@ export default class NodeManager {
     }
 
     let activeRailIndex = -1;
+    const railMeshes = this.activeMode === 'horizontal' ? this.getProjectRailMeshes() : [];
     if (this.activeMode === 'horizontal') {
-      const railMeshes = this.getProjectRailMeshes();
       let activeDistance = Infinity;
       railMeshes.forEach((mesh, index) => {
         const worldX = mesh.position.x + this.group.position.x;
@@ -1897,7 +1911,6 @@ export default class NodeManager {
 
       let targetHover = 0.0;
       if (this.activeMode === 'horizontal') {
-        const railMeshes = this.getProjectRailMeshes();
         const meshIndexInRail = railMeshes.indexOf(mesh);
         const isActive = meshIndexInRail !== -1 && meshIndexInRail === activeRailIndex;
         const isHovered = this.hoveredMesh === mesh;
@@ -1956,8 +1969,8 @@ export default class NodeManager {
         mat.uniforms.uModeVisibility.value += (targetOpacity - mat.uniforms.uModeVisibility.value) * 0.1;
       }
     });
-    this.updateRelationLines();
-    this.updateCylinderGuideLines();
+    // ScrollEngine.update() already refreshes relation geometry and guide lines.
+    // Repeating both here doubled the per-frame geometry and bounds work.
   }
 
   private updateCylinderGuideLines(animate = false) {
@@ -2048,21 +2061,11 @@ export default class NodeManager {
     const railMeshes = this.getProjectRailMeshes();
     if (!railMeshes.length) return 0;
 
-    let activeIndex = 0;
-    let activeDistance = Infinity;
-
-    railMeshes.forEach((mesh, index) => {
+    return findClosestRailIndex(railMeshes, (mesh, index) => {
       const worldX = mesh.position.x + this.group.position.x;
       const perspective = this.getHorizontalPerspective(mesh, index, worldX);
-      const distance = Math.abs(worldX - this.getHorizontalFocusX()) - perspective.progress * 0.9;
-
-      if (distance < activeDistance) {
-        activeDistance = distance;
-        activeIndex = index;
-      }
+      return Math.abs(worldX - this.getHorizontalFocusX()) - perspective.progress * 0.9;
     });
-
-    return activeIndex;
   }
 
   private emitRailState(forcedState?: any) {
@@ -2082,19 +2085,7 @@ export default class NodeManager {
       return;
     }
 
-    let activeIndex = 0;
-    let activeDistance = Infinity;
-
-    railMeshes.forEach((mesh, index) => {
-      const worldX = mesh.position.x + this.group.position.x;
-      const perspective = this.getHorizontalPerspective(mesh, index, worldX);
-      const distance = Math.abs(worldX - this.getHorizontalFocusX()) - perspective.progress * 0.9;
-
-      if (distance < activeDistance) {
-        activeDistance = distance;
-        activeIndex = index;
-      }
-    });
+    const activeIndex = this.getClosestRailSlideIndex();
 
     const mesh = railMeshes[activeIndex];
     const state = {
@@ -2302,25 +2293,7 @@ export default class NodeManager {
 
   public getActiveRailIndex(): number {
     if (this.activeMode !== 'horizontal') return 0;
-
-    const railMeshes = this.getProjectRailMeshes();
-    if (!railMeshes.length) return 0;
-
-    let activeIndex = 0;
-    let activeDistance = Infinity;
-
-    railMeshes.forEach((mesh, index) => {
-      const worldX = mesh.position.x + this.group.position.x;
-      const perspective = this.getHorizontalPerspective(mesh, index, worldX);
-      const distance = Math.abs(worldX - this.getHorizontalFocusX()) - perspective.progress * 0.9;
-
-      if (distance < activeDistance) {
-        activeDistance = distance;
-        activeIndex = index;
-      }
-    });
-
-    return activeIndex;
+    return this.getClosestRailSlideIndex();
   }
 
   public focusNode(node: any) {
@@ -2347,25 +2320,34 @@ export default class NodeManager {
       return;
     }
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const focusScale = this.getNodeScale(mesh, 1.04, this.activeMode);
-    gsap.to(mesh.scale, {
-      x: focusScale.x,
-      y: focusScale.y,
-      z: focusScale.z,
-      duration: 0.6,
-      ease: 'power2.out',
-    });
 
-    gsap.to(this.camera.position, {
-      x: 0,
-      y: 0,
-      z: this.activeMode === 'horizontal' ? 18 : 25,
-      duration: 1.2,
-      ease: 'expo.inOut',
-      onUpdate: () => {
-        this.camera.lookAt(0, 0, 0);
-      }
-    });
+    if (prefersReducedMotion) {
+      mesh.scale.set(focusScale.x, focusScale.y, focusScale.z);
+      this.camera.position.set(0, 0, this.activeMode === 'horizontal' ? 18 : 25);
+      this.camera.lookAt(0, 0, 0);
+    } else {
+      gsap.killTweensOf(this.camera.position);
+      gsap.to(mesh.scale, {
+        x: focusScale.x,
+        y: focusScale.y,
+        z: focusScale.z,
+        duration: SPATIAL_DURATION.visibility,
+        ease: SPATIAL_EASE.response,
+      });
+
+      gsap.to(this.camera.position, {
+        x: 0,
+        y: 0,
+        z: this.activeMode === 'horizontal' ? 18 : 25,
+        duration: SPATIAL_DURATION.camera,
+        ease: SPATIAL_EASE.layout,
+        onUpdate: () => {
+          this.camera.lookAt(0, 0, 0);
+        }
+      });
+    }
   }
 
   public focusNodeBySlug(slug: string) {
@@ -2490,30 +2472,37 @@ export default class NodeManager {
     this.updateNodeHighlights();
   }
 
-  public setFilters(domain: string, type: string) {
+  public setFilters(domain: string, type: string, world = 'all') {
     this.invalidateVisibleMeshCache();
     const activeDomain = domain.toLowerCase().trim();
     const activeType = type.toLowerCase().trim();
+    const activeWorld = world.toLowerCase().trim();
 
     this.meshes.forEach((mesh) => {
       const data = mesh.userData;
       
-      const nodeDomain = (data.domains?.[0] || data.category || '').toLowerCase();
-      const domainMatch = activeDomain === 'all' || nodeDomain === activeDomain;
+      const nodeDomains = (data.domains?.length ? data.domains : [data.category])
+        .filter(Boolean)
+        .map((value: string) => value.toLowerCase());
+      const domainMatch = activeDomain === 'all' || nodeDomains.includes(activeDomain);
+
+      const nodeWorld = (data.world?.id || getProjectWorld(data.slug)?.id || '').toLowerCase();
+      const worldMatch = activeWorld === 'all' || nodeWorld === activeWorld;
 
       const nodeType = (data.assetType || 'image').toLowerCase();
+      const galleryTypes = (data.gallery || []).map((asset: any) => String(asset.type || 'image').toLowerCase());
       let typeMatch = false;
       if (activeType === 'all') {
         typeMatch = true;
       } else if (activeType === 'photo') {
         typeMatch = nodeType === 'image';
       } else if (activeType === 'video') {
-        typeMatch = nodeType === 'video';
+        typeMatch = nodeType === 'video' || galleryTypes.includes('video');
       } else if (activeType === 'audio') {
-        typeMatch = nodeType === 'audio';
+        typeMatch = nodeType === 'audio' || galleryTypes.includes('audio');
       }
 
-      const match = domainMatch && typeMatch;
+      const match = domainMatch && typeMatch && worldMatch;
 
       gsap.to((mesh.material as THREE.ShaderMaterial).uniforms.uSearchHighlight, {
         value: match ? 1.0 : 0.0,
@@ -2658,20 +2647,32 @@ export default class NodeManager {
 
   private resetCamera() {
     const isCylinder = this.activeMode === 'cylinder';
-    gsap.to(this.camera.position, {
-      x: 0,
-      y: 0,
-      z: isCylinder ? 0 : (this.activeMode === 'horizontal' ? 18 : 25),
-      duration: 1.5,
-      ease: 'expo.inOut',
-      onUpdate: () => {
-        if (isCylinder) {
-          this.camera.lookAt(0, 0, -1);
-        } else {
-          this.camera.lookAt(0, 0, 0);
-        }
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      this.camera.position.set(0, 0, isCylinder ? 0 : (this.activeMode === 'horizontal' ? 18 : 25));
+      if (isCylinder) {
+        this.camera.lookAt(0, 0, -1);
+      } else {
+        this.camera.lookAt(0, 0, 0);
       }
-    });
+    } else {
+      gsap.killTweensOf(this.camera.position);
+      gsap.to(this.camera.position, {
+        x: 0,
+        y: 0,
+        z: isCylinder ? 0 : (this.activeMode === 'horizontal' ? 18 : 25),
+        duration: SPATIAL_DURATION.cameraReset,
+        ease: SPATIAL_EASE.layout,
+        onUpdate: () => {
+          if (isCylinder) {
+            this.camera.lookAt(0, 0, -1);
+          } else {
+            this.camera.lookAt(0, 0, 0);
+          }
+        }
+      });
+    }
   }
 
   public getAtlasNodesSpatialInfo() {

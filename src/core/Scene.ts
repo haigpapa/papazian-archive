@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { Observer } from 'gsap/Observer';
 import NodeManager from './NodeManager';
-import ScrollEngine from './ScrollEngine';
+import ScrollEngine, { type ScrollSnapshot } from './ScrollEngine';
 import { type IndexFilters } from '../components/IndexFilterBar';
 
 gsap.registerPlugin(Observer);
@@ -35,14 +35,25 @@ export default class Scene {
   
   private nodeManager: NodeManager;
   private scrollEngine: ScrollEngine;
+  private activeMode: 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map' = 'vertical';
+  private modeScrollPositions: Partial<Record<'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map', ScrollSnapshot>> = {};
   private startedAt = performance.now();
   private frameId: number | null = null;
   private lastFrameTime = performance.now() / 1000;
+  private lastRenderedAt = 0;
+  private readonly minimumFrameInterval: number;
 
   constructor(container: HTMLElement, nodes: any[], options: SceneOptions) {
     this.container = container;
     this.nodes = nodes;
     this.options = options;
+    const device = navigator as Navigator & { deviceMemory?: number };
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    const isConstrainedDevice = (device.hardwareConcurrency || 8) <= 4 || (device.deviceMemory || 8) <= 4;
+    this.minimumFrameInterval = prefersReducedMotion
+      ? 1000 / 24
+      : (isCoarsePointer || isConstrainedDevice ? 1000 / 30 : 0);
 
     // 1. Renderer Setup
     try {
@@ -103,7 +114,7 @@ export default class Scene {
     window.addEventListener('wheel', this.onWheelPreventDefault, { passive: false });
 
     // 7. Start Animation Loop
-    this.animate();
+    this.frameId = requestAnimationFrame(this.animate);
   }
 
   private onWheelPreventDefault = (e: WheelEvent) => {
@@ -132,13 +143,19 @@ export default class Scene {
     this.camera.updateProjectionMatrix();
   };
 
-  private animate = () => {
+  private animate = (timestamp: number) => {
+    if (document.hidden || (this.minimumFrameInterval > 0 && timestamp - this.lastRenderedAt < this.minimumFrameInterval)) {
+      this.frameId = requestAnimationFrame(this.animate);
+      return;
+    }
+
+    this.lastRenderedAt = timestamp;
     try {
-      const now = performance.now() / 1000;
+      const now = timestamp / 1000;
       const dt = Math.min(0.1, now - this.lastFrameTime);
       this.lastFrameTime = now;
 
-      const time = (performance.now() - this.startedAt) / 1000;
+      const time = (timestamp - this.startedAt) / 1000;
       
       // Idle Magnetic Snap scroll in horizontal mode
       if (
@@ -172,10 +189,25 @@ export default class Scene {
     this.frameId = requestAnimationFrame(this.animate);
   };
 
-  public switchMode(mode: 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map') {
+  public switchMode(
+    mode: 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map',
+    options: { restorePosition?: boolean } = {},
+  ) {
+    if (mode === this.activeMode && this.nodeManager.getActiveMode() === mode) return false;
+
+    this.modeScrollPositions[this.activeMode] = this.scrollEngine.snapshot();
     this.scrollEngine.reset();
     this.scrollEngine.mode = mode;
     this.nodeManager.setLayoutMode(mode);
+    this.activeMode = mode;
+
+    const savedPosition = this.modeScrollPositions[mode];
+    if (options.restorePosition && savedPosition) {
+      this.scrollEngine.restore(savedPosition);
+      return true;
+    }
+
+    return false;
   }
 
   public setFocusedNode(index: number | null) {
@@ -210,8 +242,8 @@ export default class Scene {
     this.nodeManager.setSearchQuery(query);
   }
 
-  public setFilters(domain: string, type: string) {
-    this.nodeManager.setFilters(domain, type);
+  public setFilters(domain: string, type: string, world = 'all') {
+    this.nodeManager.setFilters(domain, type, world);
   }
 
   public setIndexFilters(filters: IndexFilters) {

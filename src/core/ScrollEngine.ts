@@ -1,4 +1,14 @@
 import { Observer } from 'gsap/Observer';
+import { normalizeRailInputDelta } from './scrollInput';
+
+export interface ScrollSnapshot {
+  scrollX: number;
+  scrollY: number;
+  targetScrollX: number;
+  targetScrollY: number;
+  zoom: number;
+  targetZoom: number;
+}
 
 // Observer is registered once in Scene.ts, which constructs this engine.
 export default class ScrollEngine {
@@ -34,6 +44,13 @@ export default class ScrollEngine {
       onUp: () => {},
       onChange: (self) => {
         const isWheel = self.event && (self.event.type === 'wheel' || self.event.type === 'mousewheel' || self.event.type === 'DOMMouseScroll');
+        const railDeltaY = this.mode === 'horizontal'
+          ? normalizeRailInputDelta(
+              self.deltaY,
+              isWheel ? self.event as WheelEvent : null,
+              window.innerHeight,
+            )
+          : self.deltaY;
 
         if (this.mode === 'map') {
           if (isWheel) {
@@ -65,7 +82,7 @@ export default class ScrollEngine {
         } else {
           // Standard scroll mapping for list-based modes
           this.targetScrollX += self.deltaX * 0.01;
-          this.targetScrollY += self.deltaY * 0.01;
+          this.targetScrollY += railDeltaY * 0.01;
         }
         this.lastInputAt = performance.now();
       },
@@ -132,6 +149,28 @@ export default class ScrollEngine {
     this.targetScrollY = 0;
     this.zoom = 1.0;
     this.targetZoom = 1.0;
+    this.velocity = 0;
+    this.lastInputAt = performance.now();
+  }
+
+  public snapshot(): ScrollSnapshot {
+    return {
+      scrollX: this.scrollX,
+      scrollY: this.scrollY,
+      targetScrollX: this.targetScrollX,
+      targetScrollY: this.targetScrollY,
+      zoom: this.zoom,
+      targetZoom: this.targetZoom,
+    };
+  }
+
+  public restore(snapshot: ScrollSnapshot) {
+    this.scrollX = snapshot.scrollX;
+    this.scrollY = snapshot.scrollY;
+    this.targetScrollX = snapshot.targetScrollX;
+    this.targetScrollY = snapshot.targetScrollY;
+    this.zoom = snapshot.zoom;
+    this.targetZoom = snapshot.targetZoom;
     this.velocity = 0;
     this.lastInputAt = performance.now();
   }

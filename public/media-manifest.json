@@ -1,0 +1,2516 @@
+{
+  "version": 1,
+  "projectCount": 20,
+  "assetCount": 219,
+  "projects": [
+    {
+      "projectId": "99-nodes",
+      "assets": [
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 45596,
+          "digest": "7fb077a349f5f6c7"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 106952,
+          "digest": "daf02ccd72f037d1"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 36674,
+          "digest": "7c0deec86b0fecaf"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 44320,
+          "digest": "fbd109e2628dc965"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 60214,
+          "digest": "1cdd43be58ef8ce3"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 22262,
+          "digest": "e67e93d854938454"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 69644,
+          "digest": "f202f3ca31391c04"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 75408,
+          "digest": "4abafdaf9f700104"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 20158,
+          "digest": "7f64e4a181fb0476"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 51394,
+          "digest": "634ac2210d63a019"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-10.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 40542,
+          "digest": "ac490034671cf8d5"
+        },
+        {
+          "projectId": "99-nodes",
+          "src": "/images/projects/99-nodes/99-nodes-11.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 36980,
+          "digest": "82a5608d096543a9"
+        }
+      ]
+    },
+    {
+      "projectId": "architecture-in-low-res",
+      "assets": [
+        {
+          "projectId": "architecture-in-low-res",
+          "src": "/images/projects/architecture-in-low-res/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 352486,
+          "digest": "ba95f18d20eff691"
+        },
+        {
+          "projectId": "architecture-in-low-res",
+          "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 93696,
+          "digest": "3ee086ecb59098bd"
+        },
+        {
+          "projectId": "architecture-in-low-res",
+          "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 53810,
+          "digest": "bba15f7e2d10cd09"
+        },
+        {
+          "projectId": "architecture-in-low-res",
+          "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 16842,
+          "digest": "b190187242bba638"
+        },
+        {
+          "projectId": "architecture-in-low-res",
+          "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 84936,
+          "digest": "79c2ec6602e2e47a"
+        },
+        {
+          "projectId": "architecture-in-low-res",
+          "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 83312,
+          "digest": "067162d8501b44dd"
+        },
+        {
+          "projectId": "architecture-in-low-res",
+          "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 51406,
+          "digest": "dba850f31d07abe6"
+        },
+        {
+          "projectId": "architecture-in-low-res",
+          "src": "/images/projects/architecture-in-low-res/architecture-in-low-res-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 75022,
+          "digest": "1c2533cf9272c72e"
+        }
+      ]
+    },
+    {
+      "projectId": "cartography-of-absence",
+      "assets": [
+        {
+          "projectId": "cartography-of-absence",
+          "src": "/images/projects/cartography-of-absence/02_cartography_of_absence.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1920,
+          "height": 1080,
+          "aspectRatio": 1.7778,
+          "bytes": 113426,
+          "digest": "ec09626b6e1529cd"
+        },
+        {
+          "projectId": "cartography-of-absence",
+          "src": "/images/projects/cartography-of-absence/cartography-absence-document-schematic.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 934,
+          "height": 578,
+          "aspectRatio": 1.6159,
+          "bytes": 25202,
+          "digest": "83975ec6425f93ce"
+        },
+        {
+          "projectId": "cartography-of-absence",
+          "src": "/images/projects/cartography-of-absence/cartography-of-absence-manuscript-swirl.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1072,
+          "height": 822,
+          "aspectRatio": 1.3041,
+          "bytes": 50180,
+          "digest": "8688256bb7f1f084"
+        },
+        {
+          "projectId": "cartography-of-absence",
+          "src": "/images/projects/cartography-of-absence/cartography-of-absence-title-card.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 304,
+          "height": 618,
+          "aspectRatio": 0.4919,
+          "bytes": 11208,
+          "digest": "e1a69f2c4c2b9ffb"
+        },
+        {
+          "projectId": "cartography-of-absence",
+          "src": "/images/projects/cartography-of-absence/cartography-of-absence-bureaucratic-form.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 640,
+          "height": 480,
+          "aspectRatio": 1.3333,
+          "bytes": 32966,
+          "digest": "f817934df112932c"
+        },
+        {
+          "projectId": "cartography-of-absence",
+          "src": "/images/projects/cartography-of-absence/cartography-of-absence-data-void-absence-index.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 155994,
+          "digest": "15d7d93ecf50c01f"
+        },
+        {
+          "projectId": "cartography-of-absence",
+          "src": "/images/projects/cartography-of-absence/cartography-of-absence-data-void-trace.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 155994,
+          "digest": "15d7d93ecf50c01f"
+        }
+      ]
+    },
+    {
+      "projectId": "chronocumulator",
+      "assets": [
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 141658,
+          "digest": "612a71c1166f08f6"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 112382,
+          "digest": "b1b6a06aca6eea86"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 92046,
+          "digest": "3c9a793895c7195f"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 105302,
+          "digest": "29902523e1201106"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 50228,
+          "digest": "1ab862b79b19c0de"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 120106,
+          "digest": "9dfd3e696f0d324f"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 38224,
+          "digest": "1ab10d6e2d681456"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 78244,
+          "digest": "7f5e41cacab0330e"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 33846,
+          "digest": "1dbd0114e54cbf30"
+        },
+        {
+          "projectId": "chronocumulator",
+          "src": "/images/projects/chronocumulator/chronocumulator-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 57856,
+          "digest": "5b7ef9b9d7108f93"
+        }
+      ]
+    },
+    {
+      "projectId": "codeverse-explorer",
+      "assets": [
+        {
+          "projectId": "codeverse-explorer",
+          "src": "/images/projects/codeverse-explorer/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 128346,
+          "digest": "108bd02069d34363"
+        },
+        {
+          "projectId": "codeverse-explorer",
+          "src": "/images/projects/codeverse-explorer/codeverse-explorer-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 109730,
+          "digest": "09c1481b2fa9f58e"
+        },
+        {
+          "projectId": "codeverse-explorer",
+          "src": "/images/projects/codeverse-explorer/codeverse-explorer-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 106398,
+          "digest": "c1750be0068e6b22"
+        },
+        {
+          "projectId": "codeverse-explorer",
+          "src": "/images/projects/codeverse-explorer/codeverse-explorer-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 78220,
+          "digest": "eee07ecc78fcca53"
+        },
+        {
+          "projectId": "codeverse-explorer",
+          "src": "/images/projects/codeverse-explorer/codeverse-explorer-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 103140,
+          "digest": "c76005479ece565e"
+        },
+        {
+          "projectId": "codeverse-explorer",
+          "src": "/images/projects/codeverse-explorer/codeverse-explorer-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 85642,
+          "digest": "98a9a6ab6865501a"
+        },
+        {
+          "projectId": "codeverse-explorer",
+          "src": "/images/projects/codeverse-explorer/codeverse-explorer-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 59480,
+          "digest": "7f6133b23ef05854"
+        },
+        {
+          "projectId": "codeverse-explorer",
+          "src": "/images/projects/codeverse-explorer/codeverse-explorer-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 74400,
+          "digest": "e95303045fb1efc7"
+        }
+      ]
+    },
+    {
+      "projectId": "derive",
+      "assets": [
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 229662,
+          "digest": "7de7bbbd4965e9ab"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 61516,
+          "digest": "934aa288bc5bd718"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 53400,
+          "digest": "59f19c9cbcdf06f2"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 65102,
+          "digest": "5ede2408f87df1d6"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 56800,
+          "digest": "29b9ca757b55c120"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 87108,
+          "digest": "1df33756e1c012ca"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 54686,
+          "digest": "b8a6ea769b963240"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 60244,
+          "digest": "fc17cc6e08269572"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 50626,
+          "digest": "4a754fda3c638dc0"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 14102,
+          "digest": "795fc76f342b6284"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-10.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 49442,
+          "digest": "79c9580acea2ecb7"
+        },
+        {
+          "projectId": "derive",
+          "src": "/images/projects/derive/derive-11.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 53786,
+          "digest": "ed6a96d9569cdd63"
+        }
+      ]
+    },
+    {
+      "projectId": "fictive-environments",
+      "assets": [
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 111490,
+          "digest": "827fe89bba0303ec"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 104206,
+          "digest": "205b606daffbe928"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 17608,
+          "digest": "910ca11641ca9fde"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 74294,
+          "digest": "202ff06d8bb1c2b6"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 78608,
+          "digest": "dffb2b73b2351eb2"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 42808,
+          "digest": "3e9f23a70f0b25dc"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 44726,
+          "digest": "08fa19011771d181"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 53632,
+          "digest": "7703dfde1f1f3ee9"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 42510,
+          "digest": "5d8ffc4a1f50e79f"
+        },
+        {
+          "projectId": "fictive-environments",
+          "src": "/images/projects/fictive-environments/fictive-environments-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 27838,
+          "digest": "007d88d175ac2bb3"
+        }
+      ]
+    },
+    {
+      "projectId": "hah-was",
+      "assets": [
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 203426,
+          "digest": "690ed0f0690b685d"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 78502,
+          "digest": "fa6699fc38963333"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 47516,
+          "digest": "6c4fb8910b2d55f0"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 74998,
+          "digest": "d9505ca793825d21"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 50650,
+          "digest": "13dcf45907bc67a7"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 68088,
+          "digest": "2136f7925170c89c"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 72942,
+          "digest": "4bdf2774437c3b83"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 40202,
+          "digest": "c1392e127eb859ad"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 73414,
+          "digest": "1ebb245788b6c520"
+        },
+        {
+          "projectId": "hah-was",
+          "src": "/images/projects/hah-was/hah-was-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 56784,
+          "digest": "8436f475a7537dfa"
+        }
+      ]
+    },
+    {
+      "projectId": "localization-gap",
+      "assets": [
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 44204,
+          "digest": "f1176715308c76f2"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 105418,
+          "digest": "f4856790c68613cc"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 37818,
+          "digest": "bcbeaeccd0f8acf0"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 40426,
+          "digest": "9677961560cb777f"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 45398,
+          "digest": "1d963097173078f7"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 43450,
+          "digest": "c35dab18f94e5cd9"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 50362,
+          "digest": "5bd68218881d9af4"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 54568,
+          "digest": "51ccfc96922486fa"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 64580,
+          "digest": "07f28d0442cdd199"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 58568,
+          "digest": "5f1f04318065975c"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-10.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 98000,
+          "digest": "aa173368fe928ee2"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-11.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 72612,
+          "digest": "5c70b66296f833c1"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-12.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 50520,
+          "digest": "e6ce03aefb12815d"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-13.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 44800,
+          "digest": "e749bcd3c22e5ddd"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-14.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 74202,
+          "digest": "da39f36bfb6268a0"
+        },
+        {
+          "projectId": "localization-gap",
+          "src": "/images/projects/localization-gap/localization-gap-15.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 68382,
+          "digest": "a42290a7721bf675"
+        }
+      ]
+    },
+    {
+      "projectId": "maqamai",
+      "assets": [
+        {
+          "projectId": "maqamai",
+          "src": "/images/projects/maqamai/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 16036,
+          "digest": "13d38d949d395dda"
+        },
+        {
+          "projectId": "maqamai",
+          "src": "/images/projects/maqamai/maqamai-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 49096,
+          "digest": "af4004e44ffb7a1e"
+        },
+        {
+          "projectId": "maqamai",
+          "src": "/images/projects/maqamai/maqamai-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 91088,
+          "digest": "abdd475c19077d98"
+        },
+        {
+          "projectId": "maqamai",
+          "src": "/images/projects/maqamai/maqamai-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 92546,
+          "digest": "aecd4a03f35fa780"
+        },
+        {
+          "projectId": "maqamai",
+          "src": "/images/projects/maqamai/maqamai-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 63716,
+          "digest": "3762689104670451"
+        },
+        {
+          "projectId": "maqamai",
+          "src": "/images/projects/maqamai/maqamai-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 54412,
+          "digest": "269ea541bd812246"
+        },
+        {
+          "projectId": "maqamai",
+          "src": "/images/projects/maqamai/maqamai-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 45008,
+          "digest": "da79856fbec0ae12"
+        },
+        {
+          "projectId": "maqamai",
+          "src": "/images/projects/maqamai/maqamai-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 44408,
+          "digest": "01abc34a29a287bc"
+        }
+      ]
+    },
+    {
+      "projectId": "mashrou-leila",
+      "assets": [
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 640,
+          "height": 426,
+          "aspectRatio": 1.5023,
+          "bytes": 41140,
+          "digest": "22490761f4291f27"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 107080,
+          "digest": "4d9fb4ffd72eded5"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 47746,
+          "digest": "d626b6f7c52bc4a3"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 75264,
+          "digest": "3f666c0c599c0a86"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 58156,
+          "digest": "90325722a660d99e"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 26524,
+          "digest": "05b5137c5cd9e7a1"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 39794,
+          "digest": "407f48a5f06d1b44"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 59606,
+          "digest": "9cbbb29f4186e521"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 139642,
+          "digest": "09170ff4747ea5c7"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 48682,
+          "digest": "b4c35422bd372316"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-10.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 32868,
+          "digest": "d9240704411c737c"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-11.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 37630,
+          "digest": "c3522da92ec8cd84"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-12.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 60322,
+          "digest": "9438420203bd7f1d"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-13.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 31018,
+          "digest": "a5ec26e7a5c990a2"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-14.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 44196,
+          "digest": "e7108cc9af31d031"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/mashrou-leila-15.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 32844,
+          "digest": "0eb03c77d493e3c6"
+        }
+      ]
+    },
+    {
+      "projectId": "meaning-stack",
+      "assets": [
+        {
+          "projectId": "meaning-stack",
+          "src": "/images/projects/meaning-stack/meaning-stack-github-constellation.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 640,
+          "height": 480,
+          "aspectRatio": 1.3333,
+          "bytes": 22388,
+          "digest": "09c9c9b2f89e938a"
+        },
+        {
+          "projectId": "meaning-stack",
+          "src": "/images/projects/meaning-stack/meaning-stack-diagram-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1854,
+          "height": 1294,
+          "aspectRatio": 1.4328,
+          "bytes": 71106,
+          "digest": "b46aa7fc1c2c3805"
+        },
+        {
+          "projectId": "meaning-stack",
+          "src": "/images/projects/meaning-stack/meaning-stack-diagram-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1916,
+          "height": 2124,
+          "aspectRatio": 0.9021,
+          "bytes": 108584,
+          "digest": "d4dac0430ec25d8d"
+        },
+        {
+          "projectId": "meaning-stack",
+          "src": "/images/projects/meaning-stack/meaning-stack-network-nodes.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1110,
+          "height": 620,
+          "aspectRatio": 1.7903,
+          "bytes": 40192,
+          "digest": "144a9723992d7531"
+        },
+        {
+          "projectId": "meaning-stack",
+          "src": "/images/projects/meaning-stack/meaning-stack-processing-cultural-friction.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 2010,
+          "height": 2248,
+          "aspectRatio": 0.8941,
+          "bytes": 56572,
+          "digest": "6f88062355058be6"
+        },
+        {
+          "projectId": "meaning-stack",
+          "src": "/images/projects/meaning-stack/meaning_stack.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 3600,
+          "height": 2400,
+          "aspectRatio": 1.5,
+          "bytes": 81006,
+          "digest": "bda7f3da1a0641d7"
+        }
+      ]
+    },
+    {
+      "projectId": "mekena-nyc",
+      "assets": [
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 139646,
+          "digest": "5fc262a57a13431a"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 70380,
+          "digest": "2b98b6df968dd977"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 74690,
+          "digest": "4eaf3d4480c40598"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 71158,
+          "digest": "f6e4510685a5f018"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 86888,
+          "digest": "01708d0c0573ff09"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 65988,
+          "digest": "eabb0801d7ca0aa2"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 87192,
+          "digest": "eeacd4a581fe97a8"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 102972,
+          "digest": "44a39b1692a01bea"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 67246,
+          "digest": "037f2b51afa236c1"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 40034,
+          "digest": "5cdeccfe6ba9cb00"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-10.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 58568,
+          "digest": "55d2a28f71ee3049"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-11.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 82520,
+          "digest": "375f17f0340b4632"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-12.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 69212,
+          "digest": "5492c51867a4a5fd"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-13.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 67160,
+          "digest": "8fc44bc4636f3d8c"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-14.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 51864,
+          "digest": "ffcff45516bbd42c"
+        },
+        {
+          "projectId": "mekena-nyc",
+          "src": "/images/projects/mekena-nyc/mekena-nyc-15.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 33138,
+          "digest": "d75287fb42a650a0"
+        }
+      ]
+    },
+    {
+      "projectId": "sometimes-i-wake-up-elsewhere",
+      "assets": [
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 254338,
+          "digest": "d71b84a8f564e65e"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 98684,
+          "digest": "1454ab3e074ddfbd"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 47716,
+          "digest": "7a355f8081dc29a7"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 61954,
+          "digest": "7f6418a7f3e3049a"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 82712,
+          "digest": "9e0e6a3de81cf8b0"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 86770,
+          "digest": "5630fc279f205735"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 48778,
+          "digest": "3456bd5734451a31"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 55546,
+          "digest": "d41d0c0b49ba3cbd"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 66324,
+          "digest": "e560e39ba16e55f1"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 26238,
+          "digest": "0e52504b0451d57c"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-10.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 106670,
+          "digest": "2e52a8d651a1d203"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-11.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 61244,
+          "digest": "cd9daffe5ddbe532"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-12.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 49264,
+          "digest": "f757a5f5ab2a86bb"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-13.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 10516,
+          "digest": "eb8ac393751809f8"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-14.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 98798,
+          "digest": "5fa568b081751b8e"
+        },
+        {
+          "projectId": "sometimes-i-wake-up-elsewhere",
+          "src": "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-15.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 81894,
+          "digest": "7dc4c09fad3f2997"
+        }
+      ]
+    },
+    {
+      "projectId": "space-time-tuning-machine",
+      "assets": [
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 73002,
+          "digest": "1338e6200c8cbe39"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 38738,
+          "digest": "732132fd50a1d8b9"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 58632,
+          "digest": "2e226473a952ae63"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 59674,
+          "digest": "6918eceea1895aaf"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 58444,
+          "digest": "d330f9cc831f2f6c"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 48152,
+          "digest": "27d0b8f9642db024"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 79874,
+          "digest": "709147d4a1cf39e8"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 60436,
+          "digest": "624e6091af36c124"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 80402,
+          "digest": "688095844a7daaf3"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 124334,
+          "digest": "319db10996c93a2e"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-10.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 32632,
+          "digest": "98b4c214ea4bf8c7"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-11.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 26286,
+          "digest": "b68a0ffdb0a9374d"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-12.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 29272,
+          "digest": "a257319ad65f32e6"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-13.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 50058,
+          "digest": "e48a50d0c6636c48"
+        },
+        {
+          "projectId": "space-time-tuning-machine",
+          "src": "/images/projects/space-time-tuning-machine/space-time-tuning-machine-14.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 49716,
+          "digest": "c16be091bc218428"
+        }
+      ]
+    },
+    {
+      "projectId": "storylines",
+      "assets": [
+        {
+          "projectId": "storylines",
+          "src": "/images/projects/storylines/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 84380,
+          "digest": "7d46e1661e0b24f3"
+        },
+        {
+          "projectId": "storylines",
+          "src": "/images/projects/storylines/storylines-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 97122,
+          "digest": "23d9416503eeb3ab"
+        },
+        {
+          "projectId": "storylines",
+          "src": "/images/projects/storylines/storylines-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 51110,
+          "digest": "15aabcb42763c42f"
+        },
+        {
+          "projectId": "storylines",
+          "src": "/images/projects/storylines/storylines-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 82226,
+          "digest": "c05fb0cd5e351fc3"
+        },
+        {
+          "projectId": "storylines",
+          "src": "/images/projects/storylines/storylines-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 78982,
+          "digest": "c61d4b82274626ad"
+        },
+        {
+          "projectId": "storylines",
+          "src": "/images/projects/storylines/storylines-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 71042,
+          "digest": "01dd2d2a7df4444e"
+        },
+        {
+          "projectId": "storylines",
+          "src": "/images/projects/storylines/storylines-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 88340,
+          "digest": "1997cf477bfecada"
+        },
+        {
+          "projectId": "storylines",
+          "src": "/images/projects/storylines/storylines-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 47250,
+          "digest": "ac627652f5c96302"
+        }
+      ]
+    },
+    {
+      "projectId": "systems-choreography",
+      "assets": [
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 82236,
+          "digest": "12c3790c2193a6ac"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 77914,
+          "digest": "eca93a83d9d3a8d8"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 36130,
+          "digest": "d0012ade7f880608"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 44666,
+          "digest": "a7c036c829684c4d"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 39588,
+          "digest": "0ec0f3dcdd85d4f7"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 68306,
+          "digest": "64056181e9a6111e"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 93882,
+          "digest": "c44816f56e84caaa"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 43310,
+          "digest": "464e2365addc0900"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 54796,
+          "digest": "4b127b027c1adc36"
+        },
+        {
+          "projectId": "systems-choreography",
+          "src": "/images/projects/systems-choreography/systems-choreography-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 21150,
+          "digest": "6afb505210e6a5c1"
+        }
+      ]
+    },
+    {
+      "projectId": "tebr",
+      "assets": [
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 107080,
+          "digest": "d1f3ed470935838d"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 82504,
+          "digest": "1f859861bfce6a81"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 46262,
+          "digest": "fc3e19e16c4aad54"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 62454,
+          "digest": "1c8f7963633a8482"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 89638,
+          "digest": "9863b9260f73df51"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 32896,
+          "digest": "8b0b9e2f5eb544d5"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 44792,
+          "digest": "e0d5f09cac3ed347"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 37264,
+          "digest": "1579ae3aa007de6c"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-08.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 106998,
+          "digest": "d0e1029784252443"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-09.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 113228,
+          "digest": "2e46853fb86161e8"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-10.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 77636,
+          "digest": "501374813ecdf330"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-11.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 89156,
+          "digest": "bbaf29137f186f56"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-12.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 70004,
+          "digest": "19506411fddf64c5"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-13.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 32602,
+          "digest": "ab3097738f65ad53"
+        },
+        {
+          "projectId": "tebr",
+          "src": "/images/projects/tebr/tebr-14.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 37112,
+          "digest": "062b3c7d349c3ee2"
+        }
+      ]
+    },
+    {
+      "projectId": "the-weather-rehearsal",
+      "assets": [
+        {
+          "projectId": "the-weather-rehearsal",
+          "src": "/images/projects/the-weather-rehearsal/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 286644,
+          "digest": "06ae6a493bd1f9e7"
+        },
+        {
+          "projectId": "the-weather-rehearsal",
+          "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 69338,
+          "digest": "dbef465314ab0ef0"
+        },
+        {
+          "projectId": "the-weather-rehearsal",
+          "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 20512,
+          "digest": "31414fa5188b328d"
+        },
+        {
+          "projectId": "the-weather-rehearsal",
+          "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 51366,
+          "digest": "7a038dc919905b3a"
+        },
+        {
+          "projectId": "the-weather-rehearsal",
+          "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 80030,
+          "digest": "11ffa530f1ab7bc7"
+        },
+        {
+          "projectId": "the-weather-rehearsal",
+          "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 896,
+          "height": 1200,
+          "aspectRatio": 0.7467,
+          "bytes": 81286,
+          "digest": "ba70e81db9192fa3"
+        },
+        {
+          "projectId": "the-weather-rehearsal",
+          "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 59476,
+          "digest": "3c644fd568480b67"
+        },
+        {
+          "projectId": "the-weather-rehearsal",
+          "src": "/images/projects/the-weather-rehearsal/the-weather-rehearsal-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 68564,
+          "digest": "b7eed4f9a69cc47e"
+        }
+      ]
+    },
+    {
+      "projectId": "why-were-like-this",
+      "assets": [
+        {
+          "projectId": "why-were-like-this",
+          "src": "/images/projects/why-were-like-this/cover.webp",
+          "role": "primary",
+          "status": "matched",
+          "width": 1200,
+          "height": 896,
+          "aspectRatio": 1.3393,
+          "bytes": 92400,
+          "digest": "40d6e79a2768cbe1"
+        },
+        {
+          "projectId": "why-were-like-this",
+          "src": "/images/projects/why-were-like-this/why-were-like-this-01.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 13954,
+          "digest": "444dad5a85c41992"
+        },
+        {
+          "projectId": "why-were-like-this",
+          "src": "/images/projects/why-were-like-this/why-were-like-this-02.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 31154,
+          "digest": "060b937f6865ad3b"
+        },
+        {
+          "projectId": "why-were-like-this",
+          "src": "/images/projects/why-were-like-this/why-were-like-this-03.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 38316,
+          "digest": "fdd3c8ec0812f5af"
+        },
+        {
+          "projectId": "why-were-like-this",
+          "src": "/images/projects/why-were-like-this/why-were-like-this-04.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 108432,
+          "digest": "b74897566686c116"
+        },
+        {
+          "projectId": "why-were-like-this",
+          "src": "/images/projects/why-were-like-this/why-were-like-this-05.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 53018,
+          "digest": "3216d88467fcae92"
+        },
+        {
+          "projectId": "why-were-like-this",
+          "src": "/images/projects/why-were-like-this/why-were-like-this-06.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 39418,
+          "digest": "d3cdba774c0eb8fc"
+        },
+        {
+          "projectId": "why-were-like-this",
+          "src": "/images/projects/why-were-like-this/why-were-like-this-07.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 1024,
+          "aspectRatio": 1,
+          "bytes": 128692,
+          "digest": "a55b3ba68ccc5746"
+        }
+      ]
+    }
+  ]
+}

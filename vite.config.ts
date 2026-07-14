@@ -23,10 +23,21 @@ export default defineConfig({
           // it into a lazy chunk outside the critical path.
           // React core — changes rarely
           'vendor-react': ['react', 'react-dom'],
+          // Shared interface dependencies stay cacheable across lazy surfaces.
+          'vendor-motion': ['motion'],
+          'vendor-icons': ['lucide-react'],
+          // Generated project records and gallery definitions change on a
+          // different cadence from the application shell.
+          'archive-content': [
+            './src/data/generated/content.ts',
+            './src/data/projectGalleries.ts',
+            './src/data/projectContent.ts',
+            './src/data/atlasImageFilenames.ts',
+          ],
         },
       },
     },
-    // Raise the warning threshold now that we've split chunks
-    chunkSizeWarningLimit: 700,
+    manifest: true,
+    chunkSizeWarningLimit: 600,
   },
 });

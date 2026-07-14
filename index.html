@@ -7,6 +7,7 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700&f[]=satoshi@400,500,700&f[]=jet-brains-mono@400&display=optional" />
 
     <title>Haig Papazian — Spatial Archive</title>
@@ -64,7 +65,13 @@
   </head>
   <body>
     <div id="root"></div>
-    <noscript>This archive requires JavaScript and WebGL to explore.</noscript>
+    <noscript>
+      <div style="font-family:monospace;background:#000;color:#fff;padding:24px;line-height:1.6">
+        <h1>Haig Papazian — Spatial Archive</h1>
+        <p>The spatial interface requires JavaScript and WebGL. The project archive remains available through the static pages below.</p>
+        <p><a href="/works" style="color:#d7e7ef">Works</a> · <a href="/index" style="color:#d7e7ef">Index</a> · <a href="/essays" style="color:#d7e7ef">Essays</a></p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

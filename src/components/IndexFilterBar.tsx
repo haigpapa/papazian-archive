@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { MOTION_SPRING } from '../ui/motion';
 import { WORLDS, WORLD_COLORS } from '../data/worlds';
 
 export type IndexViewMode = 'visual' | 'hybrid' | 'text';
@@ -92,28 +93,33 @@ export default function IndexFilterBar({
 
           {/* Slide-out Drawer Panel */}
           <motion.div
+            id="archive-index-filters"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 26, stiffness: 170 }}
-            className="fixed top-0 right-0 h-[100dvh] w-[320px] md:w-[380px] bg-surface/98 border-l border-ui-border-hover z-[150] p-6 md:p-8 pb-[calc(env(safe-area-inset-bottom,20px)+32px)] flex flex-col gap-8 overflow-y-auto momentum-scroll pointer-events-auto font-mono text-[10px] text-text-muted"
+            transition={MOTION_SPRING.drawer}
+            className="fixed top-0 right-0 z-[150] flex h-[100dvh] w-full flex-col overflow-hidden border-l border-ui-border-hover bg-surface/98 pointer-events-auto font-mono text-[11px] text-text-muted md:w-[380px] md:text-[10px]"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Archive filters"
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-ui-border pb-4">
-              <span className="text-[10px] text-white tracking-[0.2em] uppercase font-bold">⚡ ARCHIVE FILTERS</span>
+            <div className="index-filter-drawer__header flex shrink-0 items-center justify-between border-b border-ui-border px-4 pb-3 md:px-8 md:pt-8 md:pb-4">
+              <span className="text-[12px] text-white tracking-[0.18em] uppercase font-bold md:text-[10px] md:tracking-[0.2em]">ARCHIVE FILTERS</span>
               <button
                 onClick={onClose}
-                className="min-h-[44px] md:min-h-0 text-text-muted hover:text-white text-[9px] tracking-wider cursor-pointer border border-ui-border hover:border-white px-2.5 py-1.5 transition-colors"
+                className="min-h-[44px] text-text-muted hover:text-white text-[11px] tracking-wider cursor-pointer border border-ui-border hover:border-white px-3 py-1.5 transition-colors md:min-h-0 md:text-[9px] md:px-2.5"
+                aria-label="Close archive filters"
               >
                 CLOSE
               </button>
             </div>
 
             {/* Content Groupings */}
-            <div className="flex flex-col gap-6">
+            <div className="index-filter-drawer__content flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto momentum-scroll px-4 pt-6 md:px-8 md:pt-8">
               {/* WORLD SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[11px] text-text-muted uppercase tracking-[0.18em] font-bold border-b border-white/8 pb-1 md:text-[8px] md:tracking-[0.2em]">
                   WORLD SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -140,7 +146,7 @@ export default function IndexFilterBar({
 
               {/* MEDIUM SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[11px] text-text-muted uppercase tracking-[0.18em] font-bold border-b border-white/8 pb-1 md:text-[8px] md:tracking-[0.2em]">
                   MEDIUM SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -160,7 +166,7 @@ export default function IndexFilterBar({
 
               {/* TYPE SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[11px] text-text-muted uppercase tracking-[0.18em] font-bold border-b border-white/8 pb-1 md:text-[8px] md:tracking-[0.2em]">
                   TYPE SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -179,7 +185,7 @@ export default function IndexFilterBar({
 
               {/* SORT SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[11px] text-text-muted uppercase tracking-[0.18em] font-bold border-b border-white/8 pb-1 md:text-[8px] md:tracking-[0.2em]">
                   SORT SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -196,7 +202,7 @@ export default function IndexFilterBar({
 
               {/* VIEW SELECTOR */}
               <div className="flex flex-col gap-2">
-                <span className="text-[7px] text-text-muted-quiet uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-1">
+                <span className="text-[11px] text-text-muted uppercase tracking-[0.18em] font-bold border-b border-white/8 pb-1 md:text-[8px] md:tracking-[0.2em]">
                   VIEW SELECTOR
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -242,7 +248,7 @@ function FilterChip({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={`
-        min-h-[44px] md:min-h-0 font-mono text-[9px] uppercase tracking-[0.12em] px-2.5 py-1.5 border transition-all duration-150 shrink-0 cursor-pointer
+        min-h-[44px] md:min-h-0 font-mono text-[11px] md:text-[9px] uppercase tracking-[0.12em] px-3 md:px-2.5 py-1.5 border transition-all duration-150 shrink-0 cursor-pointer
         ${active
           ? 'border-white text-white bg-ui-bg'
           : 'border-ui-border text-text-muted-quiet hover:text-white hover:border-ui-border-hover'

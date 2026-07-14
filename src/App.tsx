@@ -4,16 +4,22 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence, useMotionValue } from 'motion/react';
-import Scene from './core/Scene';
-import Overlay from './components/Overlay';
-import VideoLightbox from './components/VideoLightbox';
-import ArtifactInspector from './components/ArtifactInspector';
+import { motion, AnimatePresence, MotionConfig, useMotionValue } from 'motion/react';
+import type Scene from './core/Scene';
 import { AtlasNode, fetchAtlasNodes } from './data/atlas';
 import { useAudioEngine } from './audio/useAudioEngine';
-import { PROJECT_GALLERIES } from './data/projectGalleries';
 import { type IndexFilters, DEFAULT_INDEX_FILTERS } from './components/IndexFilterBar';
-import { FirstVisitHint } from './components/FirstVisitHint';
+import { getAdjacentRailIndex } from './core/railState';
+import { canCarryProjectToMode, getMapFilterContext } from './core/archiveContext';
+import StaticArchiveFallback from './components/StaticArchiveFallback';
+import { MOTION_DURATION, MOTION_EASE, MOTION_SPRING } from './ui/motion';
+
+const Overlay = React.lazy(() => import('./components/Overlay'));
+const VideoLightbox = React.lazy(() => import('./components/VideoLightbox'));
+const ArtifactInspector = React.lazy(() => import('./components/ArtifactInspector'));
+const FirstVisitHint = React.lazy(() => import('./components/FirstVisitHint').then((module) => ({
+  default: module.FirstVisitHint,
+})));
 
 type SceneMode = 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map';
 type AppMode = SceneMode | 'essays';
@@ -23,6 +29,25 @@ type ProjectEntryMode = 'grid' | 'vertical' | 'map';
 const PUBLIC_MODES: PublicMode[] = ['cylinder', 'vertical', 'grid', 'map', 'essays'];
 const PROJECT_ENTRY_MODES: ProjectEntryMode[] = ['vertical', 'grid', 'map'];
 
+const supportsWebGL = () => {
+  try {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('webgl2') || canvas.getContext('webgl');
+    if (!context) return false;
+
+    const debugInfo = context.getExtension('WEBGL_debug_renderer_info');
+    if (debugInfo) {
+      const renderer = String(context.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+      // Software WebGL makes this scene effectively unusable and can lock the
+      // main thread for seconds. Use the complete semantic archive instead.
+      if (/swiftshader|llvmpipe|software renderer/i.test(renderer)) return false;
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
+};
 
 const getModeFromPath = (path: string): AppMode => {
   if (path.startsWith('/works')) return 'vertical';
@@ -43,6 +68,7 @@ const getPathFromMode = (mode: AppMode, node?: any): string => {
 };
 
 export default function App() {
+  const textOnlyRequested = new URLSearchParams(window.location.search).get('view') === 'text';
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<Scene | null>(null);
   const currentModeRef = useRef<AppMode>('cylinder');
@@ -66,7 +92,6 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loadProgress, setLoadProgress] = useState(0);
   const [loadError, setLoadError] = useState('');
-  const [sceneKey, setSceneKey] = useState(0);
   const [hoveredNode, setHoveredNode] = useState<any>(null);
   const [mousePosition, setMousePosition] = useState<{ x: number, y: number } | null>(null);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -78,8 +103,16 @@ export default function App() {
   const [focusedMapNode, setFocusedMapNode] = useState<any>(null);
   const [inspectedRecord, setInspectedRecord] = useState<any>(null);
   const [indexFilters, setIndexFilters] = useState<IndexFilters>(DEFAULT_INDEX_FILTERS);
+  const [contextNodeSlug, setContextNodeSlug] = useState<string | null>(null);
+  const [guideReplayToken, setGuideReplayToken] = useState(0);
   const [projectedPositions, setProjectedPositions] = useState<Record<string, { x: number, y: number, w: number, h: number }>>({});
   const railTimeoutRef = React.useRef<any>(null);
+  const restoreModePositionRef = React.useRef(false);
+
+  const contextNode = React.useMemo(
+    () => nodes.find((node) => node.slug === contextNodeSlug) || null,
+    [contextNodeSlug, nodes],
+  );
 
   React.useEffect(() => {
     return () => {
@@ -117,7 +150,7 @@ export default function App() {
   const getFlatAssets = () => {
     const flat: any[] = [];
     nodes.forEach((node) => {
-      const gallery = PROJECT_GALLERIES[node.slug] || [];
+      const gallery = node.gallery || [];
       if (gallery.length === 0) {
         flat.push({
           type: 'image',
@@ -254,6 +287,7 @@ export default function App() {
   };
 
   const openProjectRail = (node: any, sourceMode = currentModeRef.current) => {
+    setContextNodeSlug(node.slug || node.projectId || null);
     if (sourceMode === 'map') {
       setFocusedMapNode(node);
       sceneRef.current?.focusNode(node);
@@ -276,6 +310,7 @@ export default function App() {
   };
 
   const retargetProjectRail = (node: any) => {
+    setContextNodeSlug(node.slug || node.projectId || null);
     setActiveNode(node);
     setActiveMedia(null);
     setRailState(null);
@@ -328,6 +363,21 @@ export default function App() {
   }, [returnMode]);
 
   useEffect(() => {
+    const slug = activeNode?.slug || activeNode?.projectId;
+    if (slug) setContextNodeSlug(slug);
+  }, [activeNode]);
+
+  useEffect(() => {
+    const slug = focusedMapNode?.slug || focusedMapNode?.projectId;
+    if (slug) setContextNodeSlug(slug);
+  }, [focusedMapNode]);
+
+  useEffect(() => {
+    const slug = inspectedRecord?.projectId || inspectedRecord?.slug;
+    if (slug) setContextNodeSlug(slug);
+  }, [inspectedRecord]);
+
+  useEffect(() => {
     let isMounted = true;
 
     // Register project audio stems
@@ -365,6 +415,17 @@ export default function App() {
         return;
       }
 
+      if (e.key.toLowerCase() === 'm') {
+        toggleAudio();
+        const alertDiv = document.getElementById('audio-announce-alert');
+        if (alertDiv) {
+          // Note: because state hasn't updated yet in the current render tick,
+          // the announced state is the opposite of the current isMuted state.
+          alertDiv.textContent = isMuted ? "Audio playback unmuted." : "Audio playback muted.";
+        }
+        return;
+      }
+
       if (nodes.length === 0) return;
 
       if (activeMedia) {
@@ -377,6 +438,23 @@ export default function App() {
 
       // ArtifactInspector handles its own Escape/arrow keys
       if (inspectedRecord) return;
+
+      if (currentMode === 'horizontal' && railState) {
+        const isForward = e.key === 'ArrowRight' || e.key === 'ArrowDown';
+        const isBackward = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+        if (isForward || isBackward) {
+          e.preventDefault();
+          const direction: -1 | 1 = isForward ? 1 : -1;
+          const nextIndex = getAdjacentRailIndex(railState.index, railState.total, direction);
+          sceneRef.current?.goToRailSlide(nextIndex);
+          audioEngine.onRailStep(direction);
+        }
+        if (e.key === 'Escape') {
+          handleCloseNode();
+          sceneRef.current?.resetScroll();
+        }
+        return;
+      }
 
       if (currentMode === 'map' && focusedMapNode) {
         // Arrow keys walk the relation graph: forward enters the first
@@ -424,7 +502,7 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeMedia, inspectedRecord, focusedIndex, nodes, currentMode, focusedMapNode]);
+  }, [activeMedia, inspectedRecord, focusedIndex, nodes, currentMode, focusedMapNode, railState, audioEngine, toggleAudio, isMuted]);
 
   // Initial deep link handling
   useEffect(() => {
@@ -436,6 +514,7 @@ export default function App() {
 
       const params = new URLSearchParams(hash);
       const nodeId = params.get('node');
+      const contextSlug = params.get('context');
       const requestedMode = params.get('mode') as PublicMode | null;
       const mode = requestedMode && PUBLIC_MODES.includes(requestedMode) ? requestedMode : null;
       const targetNodeId = nodeId || caseStudySlug;
@@ -447,6 +526,10 @@ export default function App() {
       const sort = (params.get('sort') || 'project') as any;
       const view = (params.get('view') || 'hybrid') as any;
       setIndexFilters({ world, medium, assetType: type, sort, viewMode: view });
+
+      if (contextSlug && nodes.some((node) => node.slug === contextSlug)) {
+        setContextNodeSlug(contextSlug);
+      }
 
       // Handle record inspection
       const recordSlug = params.get('record');
@@ -484,10 +567,9 @@ export default function App() {
           returnModeRef.current = sourceMode;
           setReturnMode(sourceMode);
           setActiveNode(node);
+          setContextNodeSlug(node.slug);
           currentModeRef.current = 'horizontal';
           setCurrentMode('horizontal');
-          sceneRef.current?.switchMode('horizontal');
-          sceneRef.current?.focusNode(node);
           audioEngine.setMode('horizontal');
           audioEngine.onProjectEnter(node.slug);
         }
@@ -497,7 +579,6 @@ export default function App() {
       if (mode) {
         currentModeRef.current = mode;
         setCurrentMode(mode);
-        sceneRef.current?.switchMode(mode === 'essays' ? 'cylinder' : mode);
         audioEngine.setMode(mode);
       }
     };
@@ -522,13 +603,17 @@ export default function App() {
     if (activeNode && !isCaseStudyPath) {
       params.set('node', String(activeNode.id));
     }
+
+    if (contextNodeSlug && !activeNode) {
+      params.set('context', contextNodeSlug);
+    }
     
     const publicModeForHash = currentMode === 'horizontal' ? returnMode : getPublicMode(currentMode);
     if (publicModeForHash !== 'cylinder') {
       params.set('mode', publicModeForHash);
     }
 
-    if (currentMode === 'grid' && indexFilters) {
+    if (indexFilters) {
       if (indexFilters.world !== 'all') params.set('world', indexFilters.world);
       if (indexFilters.medium !== 'all') params.set('medium', indexFilters.medium);
       if (indexFilters.assetType !== 'all') params.set('type', indexFilters.assetType);
@@ -544,15 +629,29 @@ export default function App() {
     }
     
     const newHash = params.toString();
+    const baseUrl = `${window.location.pathname}${window.location.search}`;
     if (newHash) {
-      window.history.replaceState(null, '', `${window.location.pathname}#${newHash}`);
+      window.history.replaceState(null, '', `${baseUrl}#${newHash}`);
     } else {
-      window.history.replaceState(null, '', window.location.pathname);
+      window.history.replaceState(null, '', baseUrl);
     }
-  }, [activeNode, currentMode, isReady, indexFilters, inspectedRecord, returnMode]);
+  }, [activeNode, contextNodeSlug, currentMode, isReady, indexFilters, inspectedRecord, returnMode]);
 
   useEffect(() => {
     if (!containerRef.current || nodes.length === 0) return;
+    if (textOnlyRequested) {
+      setIsLoading(false);
+      setIsReady(true);
+      return;
+    }
+    if (!supportsWebGL()) {
+      setLoadError('Unable to initialize the spatial engine. WebGL is unavailable in this browser.');
+      setIsLoading(false);
+      setIsReady(true);
+      currentModeRef.current = 'grid';
+      setCurrentMode('grid');
+      return;
+    }
 
     // Fail-safe: if things are taking too long, force start after 10s
     const timer = setTimeout(() => {
@@ -567,10 +666,20 @@ export default function App() {
     }, 10000);
 
     let scene: Scene | null = null;
-    
+    let cancelled = false;
+
+    const initializeScene = async () => {
     try {
+      // Give the semantic interface two paint opportunities before parsing and
+      // constructing the spatial engine. This keeps the primary controls
+      // responsive on slower devices without delaying the actual archive data.
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+      if (cancelled) return;
+      const { default: SceneClass } = await import('./core/Scene');
+      if (cancelled) return;
       // Initialize the spatial archive field
-      scene = new Scene(containerRef.current, nodes, {
+      scene = new SceneClass(containerRef.current!, nodes, {
         onNodeClick: (node) => {
           openProjectRail(node, currentModeRef.current);
         },
@@ -590,7 +699,17 @@ export default function App() {
         },
         onProgress: (p) => progressValue.set(p),
         onRawScroll: (s) => rawScrollValue.set(s),
-        onRailChange: (state) => setRailState(state),
+        onRailChange: (state) => {
+          setRailState(state);
+          if (state) {
+            setHoveredNode((current: any) => {
+              const isStaleRailHover = current?.projectId === state.projectId
+                && typeof current?.assetIndex === 'number'
+                && current.assetIndex !== state.index;
+              return isStaleRailHover ? null : current;
+            });
+          }
+        },
         onMediaOpen: (media: any) => {
           // In grid mode, open Artifact Inspector instead of VideoLightbox
           if (currentModeRef.current === 'grid') {
@@ -626,8 +745,6 @@ export default function App() {
         },
         onContextRestored: () => {
           setLoadError('');
-          audioEngine.onProjectExit();
-          setSceneKey(k => k + 1); // Remount!
         },
       });
       sceneRef.current = scene;
@@ -641,12 +758,16 @@ export default function App() {
       currentModeRef.current = 'grid';
       setCurrentMode('grid');
     }
+    };
+
+    void initializeScene();
 
     return () => {
+      cancelled = true;
       if (scene) scene.dispose();
       clearTimeout(timer);
     };
-  }, [nodes, sceneKey]);
+  }, [nodes, textOnlyRequested]);
 
   const handleModeChange = (mode: AppMode, targetNode?: any) => {
     if (railTimeoutRef.current) {
@@ -654,6 +775,17 @@ export default function App() {
       railTimeoutRef.current = null;
     }
     if (mode === 'horizontal' && !activeNode && !targetNode) return;
+
+    const sourceMode = currentModeRef.current;
+    const carriedSlug = targetNode?.slug
+      || activeNodeRef.current?.slug
+      || focusedMapNode?.slug
+      || inspectedRecord?.projectId
+      || (sourceMode === 'vertical' ? centeredNode?.slug : null)
+      || contextNodeSlug;
+    if (carriedSlug) setContextNodeSlug(carriedSlug);
+
+    restoreModePositionRef.current = sourceMode === 'horizontal' && mode !== 'horizontal';
     
     const nodeToUse = targetNode || activeNode;
     const newPath = getPathFromMode(mode, nodeToUse);
@@ -662,10 +794,10 @@ export default function App() {
     }
 
     if (mode === 'horizontal') {
-      const sourceMode = getPublicMode(currentMode);
-      if (canOpenProjectFromMode(sourceMode)) {
-        returnModeRef.current = sourceMode;
-        setReturnMode(sourceMode);
+      const publicSourceMode = getPublicMode(sourceMode);
+      if (canOpenProjectFromMode(publicSourceMode)) {
+        returnModeRef.current = publicSourceMode;
+        setReturnMode(publicSourceMode);
       }
     }
     if (mode !== 'horizontal') {
@@ -676,7 +808,7 @@ export default function App() {
       setReturnMode(mode);
       setCenteredNode(null);
 
-      if (currentMode === 'horizontal') {
+      if (sourceMode === 'horizontal') {
         setActiveNode(null);
         sceneRef.current?.resetFocus();
       }
@@ -715,8 +847,9 @@ export default function App() {
 
   const handleRailStep = (direction: -1 | 1) => {
     if (!railState) return;
-    const nextIndex = (railState.index + direction + railState.total) % railState.total;
+    const nextIndex = getAdjacentRailIndex(railState.index, railState.total, direction);
     sceneRef.current?.goToRailSlide(nextIndex);
+    audioEngine.onRailStep(direction);
   };
 
   const handleSelectSlug = (slug: string) => {
@@ -733,32 +866,61 @@ export default function App() {
 
   useEffect(() => {
     if (!isReady || !sceneRef.current) return;
-    sceneRef.current.switchMode(currentMode === 'essays' ? 'cylinder' : currentMode);
-    if (activeNode) {
-      sceneRef.current.focusNode(activeNode);
+    const publicMode = currentMode === 'horizontal' ? returnMode : currentMode;
+    const sceneMode = currentMode === 'essays' ? 'cylinder' : currentMode;
+    const restored = sceneRef.current.switchMode(sceneMode, {
+      restorePosition: restoreModePositionRef.current,
+    });
+    restoreModePositionRef.current = false;
+
+    if (
+      !restored
+      && currentMode !== 'horizontal'
+      && contextNode
+      && canCarryProjectToMode(contextNode.slug, publicMode as PublicMode)
+    ) {
+      sceneRef.current.focusNode(contextNode);
+      const contextIndex = nodes.findIndex((node) => node.slug === contextNode.slug);
+      if (contextIndex >= 0 && currentMode !== 'map') {
+        sceneRef.current.setFocusedNode(contextIndex);
+      }
     }
-  }, [currentMode, activeNode, isReady]);
+  }, [contextNode, currentMode, isReady, nodes, returnMode]);
+
+  useEffect(() => {
+    if (!isReady || currentMode !== 'horizontal' || !activeNode) return;
+    sceneRef.current?.focusNode(activeNode);
+  }, [activeNode, currentMode, isReady]);
 
   useEffect(() => {
     sceneRef.current?.setSearchQuery(searchQuery);
   }, [searchQuery]);
 
   useEffect(() => {
-    sceneRef.current?.setFilters(domainFilter, typeFilter);
-  }, [domainFilter, typeFilter]);
+    if (currentMode === 'map') {
+      const mapFilters = getMapFilterContext(indexFilters);
+      sceneRef.current?.setFilters(mapFilters.domain, mapFilters.type, mapFilters.world);
+      return;
+    }
+    sceneRef.current?.setFilters(domainFilter, typeFilter, 'all');
+  }, [currentMode, domainFilter, indexFilters, typeFilter]);
 
   useEffect(() => {
     sceneRef.current?.setIndexFilters(indexFilters);
   }, [indexFilters]);
 
+  const hasFatalLoadError = loadError.includes('Unable');
+  const showStaticArchive = hasFatalLoadError || textOnlyRequested;
+
   return (
-    <main className="relative w-full h-full overflow-hidden bg-black selection:bg-accent selection:text-white font-body text-text">
+    <MotionConfig reducedMotion="user">
+    <main id="archive-main" className="archive-readable relative w-full h-full overflow-hidden bg-black selection:bg-accent selection:text-white font-body text-text">
       <AnimatePresence>
         {isLoading && (
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1, ease: 'easeInOut' }}
+            transition={{ duration: MOTION_DURATION.slow, ease: MOTION_EASE }}
             className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center pointer-events-none"
             role="progressbar"
             aria-valuenow={Math.round(loadProgress * 100)}
@@ -770,7 +932,7 @@ export default function App() {
               <motion.div
                 className="absolute inset-y-0 left-0 bg-accent"
                 animate={{ width: `${loadProgress * 100}%` }}
-                transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+                transition={MOTION_SPRING.settle}
               />
             </div>
             <p className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase">
@@ -788,16 +950,20 @@ export default function App() {
         </div>
       )}
 
-      {loadError && loadError.includes('Unable') && (
-        <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/90 gap-4 px-8 pointer-events-auto">
-          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-red-400 text-center">{loadError}</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="px-6 py-3 text-[9px] bg-white hover:bg-white/90 text-black font-mono font-bold tracking-[0.16em] uppercase cursor-pointer transition-colors border border-white"
-          >
-            Reload Archive
-          </button>
-        </div>
+      {showStaticArchive && (
+        <StaticArchiveFallback
+          error={hasFatalLoadError ? loadError : 'Text-only archive view requested.'}
+          nodes={nodes}
+          onRetry={() => {
+            if (!textOnlyRequested) {
+              window.location.reload();
+              return;
+            }
+            const url = new URL(window.location.href);
+            url.searchParams.delete('view');
+            window.location.assign(url.toString());
+          }}
+        />
       )}
 
       {/* 3D Canvas Container */}
@@ -809,15 +975,18 @@ export default function App() {
         }`}
         role="application"
         aria-label="3D spatial archive"
-        inert={activeMedia || inspectedRecord ? true : undefined}
+        inert={activeMedia || inspectedRecord || showStaticArchive ? true : undefined}
       />
 
       {/* UI Overlay Layer */}
+      {!showStaticArchive && (
+      <React.Suspense fallback={null}>
       <Overlay 
-        inert={activeMedia || inspectedRecord ? true : undefined}
+        inert={activeMedia || inspectedRecord || showStaticArchive ? true : undefined}
         hasLoadError={!!loadError}
         nodes={nodes}
         activeNode={activeNode}
+        contextNode={contextNode}
         centeredNode={centeredNode}
         railState={railState}
         currentMode={currentMode}
@@ -830,6 +999,11 @@ export default function App() {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onModeChange={handleModeChange}
+        onReplayGuide={() => setGuideReplayToken((token) => token + 1)}
+        onBrowseNode={(node) => {
+          handleModeChange('vertical');
+          setContextNodeSlug(node.slug);
+        }}
         onRailStep={handleRailStep}
         onSelectSlug={handleSelectSlug}
         onNodeClick={(node) => openProjectRail(node, currentModeRef.current)}
@@ -874,6 +1048,7 @@ export default function App() {
           const relatedSlug = getEssayRelatedSlug(slug);
           const nodeIndex = nodes.findIndex(n => n.slug === relatedSlug);
           if (nodeIndex >= 0) {
+            setContextNodeSlug(relatedSlug);
             sceneRef.current?.setFocusedNode(nodeIndex);
           }
         }}
@@ -905,8 +1080,12 @@ export default function App() {
         }}
         projectedPositions={projectedPositions}
       />
+      </React.Suspense>
+      )}
 
-      <VideoLightbox 
+      {activeMedia && (
+      <React.Suspense fallback={null}>
+      <VideoLightbox
         media={activeMedia} 
         onClose={() => setActiveMedia(null)} 
         onPrev={handlePrevMedia}
@@ -918,7 +1097,11 @@ export default function App() {
           }
         }}
       />
+      </React.Suspense>
+      )}
 
+      {inspectedRecord && (
+      <React.Suspense fallback={null}>
       <ArtifactInspector
         record={inspectedRecord}
         parentNode={inspectedRecord ? nodes.find(n => n.slug === (inspectedRecord.projectId || inspectedRecord.slug)) : null}
@@ -932,6 +1115,7 @@ export default function App() {
           setInspectedRecord(null);
           const node = nodes.find(n => n.slug === slug);
           if (node) {
+            setContextNodeSlug(node.slug);
             handleModeChange('map' as AppMode);
             setFocusedMapNode(node);
             sceneRef.current?.focusNode(node);
@@ -968,8 +1152,21 @@ export default function App() {
           setInspectedRecord(flat[nextIdx]);
         }}
       />
+      </React.Suspense>
+      )}
 
-      <FirstVisitHint isReady={isReady} />
+      <div id="audio-announce-alert" className="sr-only" aria-live="assertive" />
+      {isReady && !showStaticArchive && (
+      <React.Suspense fallback={null}>
+      <FirstVisitHint
+        isReady={isReady}
+        currentMode={currentMode}
+        replayToken={guideReplayToken}
+        onExploreWorks={() => handleModeChange('vertical')}
+      />
+      </React.Suspense>
+      )}
     </main>
+    </MotionConfig>
   );
 }

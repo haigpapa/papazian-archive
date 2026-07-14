@@ -10,7 +10,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { fetchAtlasNodes, type AtlasNode } from '../src/data/atlas.ts';
+import { parseAtlasCsv, type AtlasNode } from '../src/data/atlas.ts';
 import { CANONICAL_PROJECT_SET } from '../src/data/canonicalProjects.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -33,6 +33,12 @@ function absolute(url: string): string {
   if (!url) return `${BASE_URL}/og-image.jpg`;
   if (url.startsWith('http')) return url;
   return `${BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
+}
+
+function projectSocialImage(node: AtlasNode): string {
+  const primaryImage = node.gallery.find((asset) => asset.type === 'image' && asset.isPrimary && asset.src)
+    || node.gallery.find((asset) => asset.type === 'image' && asset.src);
+  return absolute(primaryImage?.src || node.thumbnail || node.image);
 }
 
 /** Replace the head's title/description/canonical/OG/Twitter values in place. */
@@ -116,20 +122,41 @@ async function generateShells() {
   }
   const template = fs.readFileSync(indexHtmlPath, 'utf-8');
 
-  const nodes = await fetchAtlasNodes();
+  const atlasCsv = fs.readFileSync(path.resolve(__dirname, '../public/images/atlas/atlas.csv'), 'utf8');
+  const nodes = parseAtlasCsv(atlasCsv);
   const projects = nodes.filter((node) => CANONICAL_PROJECT_SET.has(node.slug));
 
   // ── Root page: ItemList JSON-LD + crawlable works list ──
   let rootHtml = injectJsonLd(template, {
     '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'Works — Haig Papazian',
-    itemListElement: projects.map((p, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: p.title,
-      url: `${BASE_URL}/case-studies/${p.slug}`,
-    })),
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${BASE_URL}/#website`,
+        name: 'Haig Papazian Archive',
+        url: BASE_URL,
+        author: PERSON,
+      },
+      {
+        '@type': 'CollectionPage',
+        '@id': `${BASE_URL}/#archive`,
+        name: 'Works — Haig Papazian',
+        url: BASE_URL,
+        isPartOf: { '@id': `${BASE_URL}/#website` },
+        mainEntity: { '@id': `${BASE_URL}/#works` },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${BASE_URL}/#works`,
+        name: 'Selected Works — Haig Papazian',
+        itemListElement: projects.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: p.title,
+          url: `${BASE_URL}/case-studies/${p.slug}`,
+        })),
+      },
+    ],
   });
   rootHtml = injectShellBody(rootHtml, rootBody(projects));
   fs.writeFileSync(indexHtmlPath, rootHtml);
@@ -164,7 +191,7 @@ async function generateShells() {
       title: `${node.title} — Haig Papazian`,
       desc,
       url,
-      image: absolute(node.thumbnail || node.image),
+      image: projectSocialImage(node),
     });
     html = injectJsonLd(html, {
       '@context': 'https://schema.org',
@@ -174,7 +201,7 @@ async function generateShells() {
       dateCreated: node.year,
       description: desc,
       abstract: node.thesis || undefined,
-      image: absolute(node.thumbnail || node.image),
+      image: projectSocialImage(node),
       keywords: node.domains.join(', '),
       author: PERSON,
     });

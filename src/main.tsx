@@ -4,11 +4,9 @@ import { inject } from '@vercel/analytics';
 import App from './App.tsx';
 import './index.css';
 
-// Initialize Vercel Web Analytics (no-cookie, privacy-friendly)
-inject();
-
-// Crawlable text injected by scripts/generate-static-shells.ts; the live app replaces it.
-document.getElementById('static-shell')?.remove();
+// Initialize analytics only on the deployed origin. Local preview servers do
+// not expose Vercel's script endpoint and should stay console-clean.
+if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) inject();
 
 interface ErrorBoundaryProps {
   children: ReactNode;
