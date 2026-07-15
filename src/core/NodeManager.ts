@@ -5,7 +5,7 @@ import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonica
 import { getProjectWorld } from '../data/worlds';
 import { getRelationDetail, RELATION_LINE_STYLES } from '../data/relations';
 import { type IndexFilters, DEFAULT_INDEX_FILTERS } from '../components/IndexFilterBar';
-import { findClosestRailIndex } from './railState';
+import { findClosestRailIndex, getClosedRailSpan } from './railState';
 
 const VERTEX_SHADER = `
   varying vec2 vUv;
@@ -268,7 +268,7 @@ export default class NodeManager {
         } else if (String(chapter).toLowerCase() === 'authorship' || role === 'role') {
           customAspect = 1.35; // Dossier
         } else if (role === 'thesis' || role === 'coda' || role === 'context') {
-          customAspect = 0.70; // Ledger (Tight)
+          customAspect = 0.78; // Intertitle with enough measure for balanced display type
         } else if (role === 'system' || role === 'process') {
           customAspect = 1.75; // Diagram (Wide)
         } else {
@@ -703,13 +703,15 @@ export default class NodeManager {
     if (!ctx) return new THREE.CanvasTexture(canvas);
 
     const accent = data.accentColor || '#d7e7ef';
-    const body = Array.isArray(asset.body) ? asset.body : [asset.body || asset.caption || data.shortDescription || data.summary].filter(Boolean);
+    // Captions already occupy the card's primary explanatory field. Only render
+    // an additional body when the content source explicitly provides one, so
+    // deterministic text cards do not repeat the same sentence twice.
+    const body = Array.isArray(asset.body) ? asset.body : [asset.body].filter(Boolean);
     const cardStyle = this.getCardStyle(asset, body);
     const title = String(asset.label || data.title || 'Archive Card').toUpperCase();
     const caption = String(asset.caption || data.shortDescription || '');
     const chapter = String(asset.chapter || 'Case Study').toUpperCase();
     const projectTitle = String(data.title || asset.projectTitle || 'Archive').toUpperCase();
-    const nodeCode = String(asset.id || `${data.slug || 'node'}-${asset.assetIndex || 0}`).toUpperCase().slice(-9);
     const dateRange = String(data.year || 'ARCHIVE');
 
     this.paintCardBase(ctx, canvas, cardStyle, accent);
@@ -769,9 +771,9 @@ export default class NodeManager {
     }
 
     ctx.fillStyle = cardStyle === 'system' ? accent : 'rgba(228,232,226,0.84)';
-    ctx.font = '700 25px ui-monospace, SFMono-Regular, Menlo, monospace';
-    ctx.letterSpacing = '4px';
-    ctx.fillText(`${chapter} / ${String(slideType).toUpperCase()}`, 110, 132);
+    ctx.font = '700 22px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.letterSpacing = '2px';
+    ctx.fillText(chapter, 110, 132);
 
     ctx.strokeStyle = cardStyle === 'intertitle' ? 'rgba(255,255,255,0.72)' : accent;
     ctx.lineWidth = 4;
@@ -780,13 +782,32 @@ export default class NodeManager {
     ctx.lineTo(cardStyle === 'system' ? 470 : 250, 190);
     ctx.stroke();
 
+    ctx.letterSpacing = '0px';
     ctx.fillStyle = cardStyle === 'system' ? '#f3a821' : '#f4f1e8';
-    ctx.font = `${cardStyle === 'system' ? '800' : '780'} ${this.getCardTitleSize(title)}px Inter, Helvetica, Arial, sans-serif`;
-    this.drawWrappedText(ctx, title, 110, 328, cardStyle === 'dossier' ? canvas.width - 520 : canvas.width - 220, 124, 3);
+    const titleSize = this.getCardTitleSize(title);
+    const titleLineHeight = Math.round(titleSize * 1.08);
+    ctx.font = `${cardStyle === 'system' ? '800' : '760'} ${titleSize}px Inter, Helvetica, Arial, sans-serif`;
+    const titleBottom = this.drawWrappedText(
+      ctx,
+      title,
+      110,
+      314,
+      cardStyle === 'dossier' ? canvas.width - 520 : canvas.width - 220,
+      titleLineHeight,
+      3
+    );
 
     ctx.fillStyle = cardStyle === 'system' ? 'rgba(246,188,66,0.82)' : 'rgba(242,242,237,0.74)';
-    ctx.font = '500 38px ui-monospace, SFMono-Regular, Menlo, monospace';
-    this.drawWrappedText(ctx, caption, 110, 622, cardStyle === 'dossier' ? canvas.width - 550 : canvas.width - 220, 54, 3);
+    ctx.font = '450 32px Inter, Helvetica, Arial, sans-serif';
+    const captionBottom = this.drawWrappedText(
+      ctx,
+      caption,
+      110,
+      Math.max(cardStyle === 'dossier' ? 610 : 590, titleBottom + 56),
+      cardStyle === 'dossier' ? canvas.width - 550 : canvas.width - 220,
+      46,
+      cardStyle === 'dossier' ? 3 : 5
+    );
 
     if (cardStyle === 'dossier') {
       ctx.font = '700 34px ui-monospace, SFMono-Regular, Menlo, monospace';
@@ -799,16 +820,17 @@ export default class NodeManager {
         this.drawWrappedText(ctx, item, x + 68, y - 2, 380, 42, 2);
       });
     } else {
-      ctx.font = '400 42px ui-monospace, SFMono-Regular, Menlo, monospace';
+      ctx.font = '400 30px Inter, Helvetica, Arial, sans-serif';
       ctx.fillStyle = cardStyle === 'system' ? 'rgba(246,188,66,0.78)' : 'rgba(242,242,237,0.82)';
-      let y = 780;
+      let y = Math.max(800, captionBottom + 48);
       body.slice(0, 3).forEach((paragraph: string) => {
-        y = this.drawWrappedText(ctx, paragraph, 110, y, cardStyle === 'system' ? canvas.width - 260 : canvas.width - 220, 56, 3) + 30;
+        y = this.drawWrappedText(ctx, paragraph, 110, y, cardStyle === 'system' ? canvas.width - 260 : canvas.width - 220, 44, 3) + 26;
       });
     }
 
-    // Draw 1px bordered footer
-    const footerY = 1018;
+    // Keep provenance quiet and factual so it supports the composition instead
+    // of competing with the project statement.
+    const footerY = 1052;
     ctx.strokeStyle = cardStyle === 'system' ? `${accent}28` : 'rgba(255,255,255,0.08)';
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -816,27 +838,18 @@ export default class NodeManager {
     ctx.lineTo(canvas.width - 110, footerY);
     ctx.stroke();
 
-    // Print monospace metrics
-    ctx.font = '500 18px ui-monospace, SFMono-Regular, Menlo, monospace';
-    ctx.fillStyle = cardStyle === 'system' ? 'rgba(246,188,66,0.36)' : 'rgba(242,242,237,0.36)';
-    ctx.letterSpacing = '1px';
-    
-    // Stable metrics generation
-    const charSum = (str: string) => str.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
-    const idSum = charSum(nodeCode);
-    const titleSum = charSum(title);
-    const latency = (idSum % 100) * 0.0004 + 0.012;
-    const entropy = (titleSum % 100) * 0.005 + 0.085;
-    const faultRate = (titleSum % 10 === 0) ? '0.04%' : '0.00%';
-    const telemetry = `LATENCY DECAY: ${latency.toFixed(4)} ms  |  ENTROPY: ${entropy.toFixed(3)} bits  |  FAULT RATE: ${faultRate}`;
-    ctx.fillText(telemetry, 110, footerY + 34);
-
-    ctx.font = '700 22px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.font = '650 18px ui-monospace, SFMono-Regular, Menlo, monospace';
     ctx.fillStyle = cardStyle === 'system' ? accent : 'rgba(242,242,237,0.56)';
-    ctx.fillText(`PAPAZIAN ARCHIVE / ${projectTitle}`, 110, 1115);
+    ctx.letterSpacing = '1px';
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(110, footerY + 22, Math.max(0, canvas.width - 390), 54);
+    ctx.clip();
+    ctx.fillText(projectTitle, 110, footerY + 50);
+    ctx.restore();
     ctx.fillStyle = cardStyle === 'system' ? 'rgba(246,188,66,0.78)' : 'rgba(242,242,237,0.46)';
     ctx.textAlign = 'right';
-    ctx.fillText(`${nodeCode} / ${dateRange}`, canvas.width - 110, 1115);
+    ctx.fillText(dateRange, canvas.width - 110, footerY + 50);
     ctx.textAlign = 'left';
 
     const texture = new THREE.CanvasTexture(canvas);
@@ -862,9 +875,9 @@ export default class NodeManager {
   }
 
   private getCardTitleSize(title: string) {
-    if (title.length > 28) return 102;
-    if (title.length > 18) return 114;
-    return 126;
+    if (title.length > 28) return 84;
+    if (title.length > 18) return 94;
+    return 104;
   }
 
   private paintCardBase(
@@ -1447,6 +1460,13 @@ export default class NodeManager {
     }, 0);
   }
 
+  private getHorizontalLoopSpan(): number {
+    return getClosedRailSpan(
+      this.getLinearSpan('horizontal'),
+      this.getLinearGap('horizontal'),
+    );
+  }
+
   private getAtlasPosition(mesh: THREE.Mesh) {
     const domains = mesh.userData.domains || [];
     const primaryDomain = domains[0] || 'systems';
@@ -1611,7 +1631,7 @@ export default class NodeManager {
   public getLoopPeriod(): number {
     const TOTAL = this.getVisibleMeshes(this.activeMode).length;
     if (this.activeMode === 'horizontal') {
-      return this.getLinearSpan('horizontal') / 8;
+      return this.getHorizontalLoopSpan() / 8;
     } else if (this.activeMode === 'vertical') {
       return this.getLinearSpan('vertical') / 8;
     } else if (this.activeMode === 'grid') {
@@ -1672,7 +1692,7 @@ export default class NodeManager {
       this.group.position.y = 0;
       this.group.position.x = scrollY * -8; // Keep Y scroll mapping for horizontal as primary navigation
       const railMeshes = this.getVisibleMeshes('horizontal');
-      const totalSpan = this.getLinearSpan('horizontal');
+      const totalSpan = this.getHorizontalLoopSpan();
 
       railMeshes.forEach((mesh, index) => {
         const baseX = this.getLinearPosition(index, 'horizontal');
@@ -2274,7 +2294,7 @@ export default class NodeManager {
 
     if (typeof nearScrollY !== 'number') return baseScroll;
 
-    const period = this.getLinearSpan('horizontal') / 8;
+    const period = this.getHorizontalLoopSpan() / 8;
     if (!Number.isFinite(period) || period <= 0) return baseScroll;
 
     const loop = Math.round((nearScrollY - baseScroll) / period);

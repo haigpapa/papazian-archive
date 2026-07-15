@@ -1,17 +1,17 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.png,,Establishing Artifact,hero,Manuscript on Desk,"The system begins as writing, not interface theater.",Grounds the work in literary labor.,primary
-2,image,sometimes-i-wake-up-elsewhere-01.jpeg,,Thesis,thesis,Exile as Interface,The work does not describe exile. It makes exile navigable.,Reframes manuscript as architecture.,secondary
-3,image,sometimes-i-wake-up-elsewhere-02.jpeg,,System,system,Nine Houses,The manuscript is distributed across houses rather than chapters.,Establishes architectural structure.,secondary
-4,image,sometimes-i-wake-up-elsewhere-03.jpeg,,Literary Evidence,evidence,Entry Fragment,The emotional stakes arrive through voice before mechanics.,Lets language carry the argument.,secondary
-5,image,sometimes-i-wake-up-elsewhere-04.jpeg,,Technical Proof,system,Temporal Debt Ledger,Movement through the text has metabolic cost.,Makes reading behavior measurable.,secondary
-6,image,sometimes-i-wake-up-elsewhere-05.jpeg,,Mechanism,system,Möbius Engine,Returning to the same place does not guarantee the same reality.,Shows non-linear narrative logic.,secondary
-7,image,sometimes-i-wake-up-elsewhere-06.png,,Conflict,evidence,Face A / Face B,The stable surface flips into its underside.,Defines the state-change mechanism.,secondary
-8,image,sometimes-i-wake-up-elsewhere-07.jpeg,,Technical Proof,evidence,Typographic Shatter,Accumulated debt physically damages the reading surface.,Shows trauma as interface behavior.,secondary
-9,image,sometimes-i-wake-up-elsewhere-08.jpeg,,Administrative Fiction,evidence,Form 404,The system files what it cannot retrieve.,Connects SIWUE to Cartography.,secondary
-10,image,sometimes-i-wake-up-elsewhere-09.jpeg,,Surveillance,context,SparrowOS Marker,Surveillance enters the narrative as a bureaucratic animal.,Shows mythic operating system layer.,secondary
-11,image,sometimes-i-wake-up-elsewhere-10.jpeg,,Live Proof,evidence,Interface Walkthrough,The literary system runs.,Proves executable architecture.,secondary
-12,image,sometimes-i-wake-up-elsewhere-11.jpeg,,System,process,Reader Journey Map,The reader’s movement becomes part of the manuscript.,Shows participatory structure.,secondary
-13,image,sometimes-i-wake-up-elsewhere-12.jpeg,,Atmospheric Silence,evidence,Ordinary Presence,"Life interrupts the machinery. Thankfully, because otherwise we are just designing trauma spreadsheets.",Preserves tenderness inside the system.,secondary
-14,image,sometimes-i-wake-up-elsewhere-13.jpeg,,Authorship,role,NARRATIVE ARCHITECTURE,"Contribution spans narrative prose, hypertext logic, and interface memory systems.",Manuscript development | Narrative system | Hypertext architecture | Interaction logic,secondary
-15,image,sometimes-i-wake-up-elsewhere-14.jpeg,,Relation,context,Relation to Cartography / DERIVE / MEKENA,"Literary exile becomes administrative fiction, memory retrieval, and physical shelter.",Places the work in the archive’s larger arc.,secondary
-16,image,sometimes-i-wake-up-elsewhere-15.jpeg,,Coda,coda,Animal / Room / Light,"The system stops in ordinary life, not resolution.",Ends with presence.,quiet
+1,image,cover.webp,,Establishing Artifact,hero,Manuscript on Desk,"The work begins with prose: rooms, errands, animals, forms, and recurring physical detail.","",primary
+2,text,"","",Thesis,thesis,Exile as Interface,The work does not describe exile. It makes exile navigable.,"",secondary
+3,image,sometimes-i-wake-up-elsewhere-02.webp,,System,system,Nine Houses,The manuscript is distributed across houses rather than chapters.,"",secondary
+4,image,sometimes-i-wake-up-elsewhere-03.webp,,Literary Evidence,evidence,Entry Fragment,The emotional stakes arrive through voice before mechanics.,"",secondary
+5,image,sometimes-i-wake-up-elsewhere-04.webp,,Technical Proof,system,Temporal Debt Ledger,Movement through the text has metabolic cost.,"",secondary
+6,image,sometimes-i-wake-up-elsewhere-05.webp,,Mechanism,system,Möbius Engine,Returning to the same place does not guarantee the same reality.,"",secondary
+7,image,sometimes-i-wake-up-elsewhere-06.webp,,Conflict,evidence,Face A / Face B,The stable surface flips into its underside.,"",secondary
+8,image,sometimes-i-wake-up-elsewhere-07.webp,,Technical Proof,evidence,Typographic Shatter,Accumulated debt physically damages the reading surface.,"",secondary
+9,image,sometimes-i-wake-up-elsewhere-08.webp,,Administrative Fiction,evidence,Form 404,The system files what it cannot retrieve.,"",secondary
+10,image,sometimes-i-wake-up-elsewhere-09.webp,,Surveillance,context,SparrowOS Marker,Surveillance enters the narrative as a bureaucratic animal.,"",secondary
+11,image,sometimes-i-wake-up-elsewhere-10.webp,,Prototype,evidence,Interface Walkthrough,"The current prototype demonstrates nonlinear entry, return, and state change; a public walkthrough remains in development.","",secondary
+12,image,sometimes-i-wake-up-elsewhere-11.webp,,System,process,Reader Journey Map,The reader’s movement becomes part of the manuscript.,"",secondary
+13,image,sometimes-i-wake-up-elsewhere-12.webp,,Atmospheric Silence,evidence,Ordinary Presence,Domestic detail and dry humor keep the manuscript alive beyond its administrative and computational structures.,"",secondary
+14,text,"","",Authorship,role,HAIG PAPAZIAN / ROLE,"Author and interaction designer working across prose, hypertext structure, interface memory, and state-change logic.",Manuscript | Narrative structure | Hypertext architecture | Interaction logic,secondary
+15,image,sometimes-i-wake-up-elsewhere-14.webp,,Relation,context,Relation to Cartography / DERIVE / MEKENA,"Literary exile becomes administrative fiction, memory retrieval, and physical shelter.","",secondary
+16,text,"","",Coda,coda,Animal / Room / Light,"The system stops in ordinary life, not resolution.","",quiet

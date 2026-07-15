@@ -1,18 +1,19 @@
 # DERIVE
  
 ## Thesis
-Negentropic memory engine modeling trauma retrieval by discarding chronological time for force-directed emotional adjacency.
+Memory can be retrieved through felt proximity without forcing fragments into a clean chronological story.
  
 ## Short Description
-Negentropic memory engine modeling trauma retrieval by discarding chronological time for force-directed emotional adjacency.
+DERIVE is a memory-retrieval and performance system that organizes text and audio fragments by semantic and emotional adjacency.
  
 ## Full Description
-Memory abandons chronology and finds itself through emotional adjacency.
+Source fragments are transcribed, divided into traceable units, embedded, and arranged in a vector field where similarity creates possible paths. Human-authored tuning rules resist automatic smoothing and preserve rupture, uncertainty, and provenance. Retrieved material can remain navigable or drive an external sonic environment through OSC or MIDI. The project does not claim to model trauma clinically; it explores how computational retrieval can preserve discontinuity without converting memory into false coherence.
  
 ## Highlights
 - Cinematic Rail Type: 12-card lead system rail
-- Argument: Memory abandons chronology and finds itself through emotional adjacency.
-- Evidence / Rail Status: Complete audio chunks and ChromaDB vector proximity maps verified.
+- Pipeline: source, transcription, chunking, embedding, retrieval, and performance signal
+- Constraint: provenance and discontinuity remain visible throughout generation
+- Status: audio and vector-processing experiments documented; public demonstration evolving
 
 ## Related Projects
 - sometimes-i-wake-up-elsewhere

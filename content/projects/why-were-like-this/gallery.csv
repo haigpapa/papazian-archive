@@ -1,9 +1,9 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing Mood,hero,Cold Open Still,The series begins with a mood before it becomes an argument.,Establishes emotional climate.,primary
-2,image,why-were-like-this-01.png,,Thesis,thesis,Not Individual Dysfunction,The subject is not personal failure. It is the systems that make dysfunction feel personal.,Reframes neurosis as structural weather.,secondary
-3,image,why-were-like-this-02.png,,Process,process,Script as Instrument,"The essay is built through voice, pacing, image, and diagnostic rhythm.",Shows editorial construction.,secondary
-4,image,why-were-like-this-03.png,,System,system,Cultural Weather Map,Psychological weather forms where social systems meet mediated life.,Turns mood into analyzable structure.,secondary
-5,image,why-were-like-this-04.png,,Evidence,evidence,Edit Timeline,Diagnosis becomes audiovisual sequencing.,"Shows the piece as made, not merely written.",secondary
-6,image,why-were-like-this-05.png,,Evidence,evidence,Data / Image / Voice,The work thinks by cutting between evidence and feeling.,Proves the method in motion.,secondary
-7,image,why-were-like-this-06.png,,Relation,context,Public Bridge,The series is the accessible bridge between dense systems thought and emotional legibility.,Positions it in the archive.,secondary
-8,image,why-were-like-this-07.png,,Coda,coda,The Feeling Remains,Diagnosis clarifies the weather. It does not make the weather disappear.,Ends without therapy-commercial nonsense.,quiet
+1,image,cover.webp,,Establishing Mood,hero,Cold Open Still,The series begins with a mood before it becomes an argument.,"",primary
+2,text,"","",Thesis,thesis,Not Individual Dysfunction,The subject is not personal failure. It is the systems that make dysfunction feel personal.,"",secondary
+3,image,why-were-like-this-02.webp,,Process,process,Script as Instrument,"The essay is built through voice, pacing, image, and diagnostic rhythm.","",secondary
+4,image,why-were-like-this-03.webp,,Research,system,Cultural Weather Map,"Each script traces a feeling through media, technology, labor, social expectation, and the body.","",secondary
+5,image,why-were-like-this-04.webp,,Development,evidence,Episode Structure,The current evidence is the scripted sequence; production timelines remain proposed until an episode enters the edit.,"",secondary
+6,image,why-were-like-this-05.webp,,Method,evidence,Research / Image / Voice,"The planned form cuts between sourced evidence, visual observation, and a personal voice rather than delivering a single diagnosis.","",secondary
+7,image,why-were-like-this-06.webp,,Relation,context,Public Bridge,The series is the accessible bridge between dense systems thought and emotional legibility.,"",secondary
+8,text,"","",Coda,coda,The Feeling Remains,Understanding the conditions around a feeling does not make the feeling disappear.,"",quiet

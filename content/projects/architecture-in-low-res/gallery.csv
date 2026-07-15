@@ -1,9 +1,9 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing Artifact,hero,Broken Render,The damaged image tells the truth that the polished render hides.,Establishes resolution loss as architectural evidence.,primary
-2,image,architecture-in-low-res-01.png,,Thesis,thesis,Low Resolution Is Evidence,Low resolution is not a flaw. It is a condition of mediated memory.,Reframes technical degradation as spatial truth.,secondary
-3,image,architecture-in-low-res-02.png,,Origin,evidence,Thesis Page,The later archive inherits its visual ethics from this early architectural research.,Establishes origin and intellectual provenance.,secondary
-4,image,architecture-in-low-res-03.png,,Evidence,evidence,Digital Proxy,"Digital proxies simplify, corrupt, and distance the built environment.",Shows how mediation changes spatial knowledge.,secondary
-5,image,architecture-in-low-res-04.png,,System,system,Resolution Loss Diagram,Memory and image degrade through the same structural pressures.,Makes the degradation logic inspectable.,secondary
-6,image,architecture-in-low-res-05.png,,Conflict,evidence,Against the Polished Render,Smooth representation can become a lie when the subject is damaged space.,Names visual polish as a form of false certainty.,secondary
-7,image,architecture-in-low-res-06.png,,Relation,context,Seed Crystal,Later projects inherit the logic of degraded evidence.,Places the work as a foundational node.,secondary
-8,image,architecture-in-low-res-07.png,,Coda,coda,Pixel as Ruin,The ruin survives as an image that cannot fully resolve.,"Ends with damaged visibility, not restoration.",quiet
+1,image,cover.webp,,Establishing Artifact,hero,Broken Render,The damaged image tells the truth that the polished render hides.,"",primary
+2,text,"","",Thesis,thesis,Low Resolution Is Evidence,Low resolution is not a flaw. It is a condition of mediated memory.,"",secondary
+3,image,architecture-in-low-res-02.webp,,Origin,evidence,Thesis Page,The later archive inherits its visual ethics from this early architectural research.,"",secondary
+4,image,architecture-in-low-res-03.webp,,Evidence,evidence,Digital Proxy,"Digital proxies simplify, corrupt, and distance the built environment.","",secondary
+5,image,architecture-in-low-res-04.webp,,System,system,Resolution Loss Diagram,Memory and image degrade through the same structural pressures.,"",secondary
+6,image,architecture-in-low-res-05.webp,,Conflict,evidence,Against the Polished Render,Smooth representation can become a lie when the subject is damaged space.,"",secondary
+7,image,architecture-in-low-res-06.webp,,Relation,context,Seed Crystal,Later projects inherit the logic of degraded evidence.,"",secondary
+8,text,"","",Coda,coda,Pixel as Ruin,The ruin survives as an image that cannot fully resolve.,"",quiet

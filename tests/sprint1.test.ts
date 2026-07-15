@@ -9,7 +9,11 @@ import {
   clampRailInputDelta,
   normalizeRailInputDelta,
 } from '../src/core/scrollInput';
-import { findClosestRailIndex, getAdjacentRailIndex } from '../src/core/railState';
+import {
+  findClosestRailIndex,
+  getAdjacentRailIndex,
+  getClosedRailSpan,
+} from '../src/core/railState';
 
 test('audio initialization rejects a never-resolving stage within its deadline', async () => {
   const neverResolves = new Promise<void>(() => {});
@@ -66,4 +70,14 @@ test('keyboard and rail buttons advance one slide with bounded wraparound', () =
   assert.equal(getAdjacentRailIndex(39, 40, 1), 0);
   assert.equal(getAdjacentRailIndex(0, 40, -1), 39);
   assert.equal(getAdjacentRailIndex(12, 0, 1), 0);
+});
+
+test('the looping rail preserves one closing gap between its last and first slides', () => {
+  const gap = 0.92;
+  const cardWidths = [4.5, 7.25, 5.75];
+  const openSpan = cardWidths.reduce((sum, width) => sum + width, 0)
+    + gap * (cardWidths.length - 1);
+
+  assert.equal(getClosedRailSpan(openSpan, gap), openSpan + gap);
+  assert.equal(getClosedRailSpan(0, gap), 0);
 });

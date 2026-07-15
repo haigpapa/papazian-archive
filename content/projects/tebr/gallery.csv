@@ -1,16 +1,16 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing Artifact,hero,Cassette Evidence,The archive begins in physical memory.,Grounds the AI work in material inheritance.,primary
-2,image,tebr-01.jpeg,,Thesis,thesis,Failure as Folklore,Machine failure is not decoration. It is evidence of what the system cannot hear.,Reframes glitch as forensic record.,secondary
-3,image,tebr-02.jpeg,,Origin,evidence,Ancestral Source Tokens,Human memory enters before machine generation.,Defines source material and provenance.,secondary
-4,image,tebr-03.jpeg,,Context,evidence,Maqam Is Structure,The model fails because it treats structure as style.,Explains the cultural-technical failure.,secondary
-5,image,tebr-04.jpeg,,Process,process,Adversarial Prompt Log,The model is pressured until its assumptions become visible.,Shows method.,secondary
-6,image,tebr-05.jpeg,,System,system,Traceability Pipeline,Every output must remain tied to the source it distorted.,Makes the system accountable.,secondary
-7,image,tebr-06.jpeg,,Technical Proof,process,TRUNCATE_BEFORE_RESOLUTION,The system prevents Western harmonic closure from cleaning the wound.,Shows built-in resistance.,secondary
-8,image,tebr-07.png,,Evidence,evidence,Model Output Grid,Repetition turns error into pattern.,Proves the failure is systemic.,secondary
-9,image,tebr-08.jpeg,,Forensic Proof,evidence,Spectrogram Drift,Microtonal collapse becomes visible.,Makes cultural flattening inspectable.,secondary
-10,image,tebr-09.jpeg,,Dossier,system,Failure Taxonomy,Hallucination becomes categorized evidence.,Turns anecdote into research structure.,secondary
-11,image,tebr-10.jpeg,,Audio Proof,evidence,Listening Comparison,The visitor hears what the model erases.,Provides sensory proof.,secondary
-12,image,tebr-11.jpeg,,World-Building,evidence,Future Folklore Artifact,Failure is harvested without pretending it is preservation.,Shows the aesthetic afterlife of evidence.,secondary
-13,image,tebr-12.jpeg,,Authorship,role,SYSTEM AUTHORSHIP,Authorship operates through the system of generative audio constraints.,Sonic universe | Traceability logic | Adversarial method | Taxonomy,secondary
-14,image,tebr-13.png,,Relation,context,Relation to STTM / 427 Archive / Localization Gap,"Body-machine signal, dataset evidence, and forensic audit converge.",Places TEBR in Sonic Intelligence.,secondary
-15,image,tebr-14.png,,Coda,coda,Unresolved Signal,The signal remains broken and therefore truthful.,Ends without repair fantasy.,quiet
+1,image,cover.webp,,Establishing Artifact,hero,Cassette Evidence,The archive begins in physical memory.,"",primary
+2,text,"","",Thesis,thesis,Failure as Folklore,Machine failure is not decoration. It is evidence of what the system cannot hear.,"",secondary
+3,image,tebr-02.webp,,Origin,evidence,Ancestral Source Tokens,Human memory enters before machine generation.,"",secondary
+4,image,tebr-03.webp,,Context,evidence,Maqam Is Structure,"Modal pathways, interval behavior, and melodic expectation cannot be reduced to a regional style label.","",secondary
+5,image,tebr-04.webp,,Process,process,Adversarial Prompt Log,The model is pressured until its assumptions become visible.,"",secondary
+6,image,tebr-05.webp,,System,system,Traceability Pipeline,Every output must remain tied to the source it distorted.,"",secondary
+7,image,tebr-06.webp,,Constraint,process,TRUNCATE_BEFORE_RESOLUTION,A compositional rule interrupts familiar closure before the generated material is allowed to smooth itself out.,"",secondary
+8,image,tebr-07.webp,,Evidence,evidence,Model Output Grid,Repetition turns error into pattern.,"",secondary
+9,image,tebr-08.webp,,Analysis,evidence,Spectrogram Drift,Reference and generated signals are compared to locate where tuning behavior narrows or disappears.,"",secondary
+10,image,tebr-09.webp,,Dossier,system,Failure Taxonomy,Hallucination becomes categorized evidence.,"",secondary
+11,image,tebr-10.webp,,Listening,evidence,Reference / Output,The planned A/B listener pairs a documented source with its generated transformation and retained provenance.,"",secondary
+12,image,tebr-11.webp,,World-Building,evidence,Future Folklore Artifact,Failure is harvested without pretending it is preservation.,"",secondary
+13,text,"","",Authorship,role,HAIG PAPAZIAN / ROLE,"Composition and research operate through source selection, generative constraints, listening, and classification.",Sonic world | Source traceability | Adversarial method | Failure taxonomy,secondary
+14,image,tebr-13.webp,,Relation,context,Relation to STTM / 427 Archive / Localization Gap,"Body-machine signal, dataset evidence, and forensic audit converge.","",secondary
+15,text,"","",Coda,coda,Unresolved Signal,The signal remains broken and therefore truthful.,"",quiet

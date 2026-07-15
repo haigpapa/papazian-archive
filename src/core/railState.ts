@@ -27,3 +27,9 @@ export function getAdjacentRailIndex(
   const safeIndex = Number.isFinite(index) ? Math.trunc(index) : 0;
   return (safeIndex + direction + total) % total;
 }
+
+export function getClosedRailSpan(openSpan: number, gap: number): number {
+  if (!Number.isFinite(openSpan) || openSpan <= 0) return 0;
+  const safeGap = Number.isFinite(gap) ? Math.max(0, gap) : 0;
+  return openSpan + safeGap;
+}

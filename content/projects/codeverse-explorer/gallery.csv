@@ -1,9 +1,9 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing System,hero,Repository Galaxy,The codebase appears as a spatial structure.,Establishes visual premise.,primary
-2,image,codeverse-explorer-01.jpeg,,Thesis,thesis,Software Is Invisible Architecture,Technical debt has spatial weight.,Reframes code as architecture.,secondary
-3,image,codeverse-explorer-02.jpeg,,Technical Proof,evidence,AST Intake,Flat code enters as parseable structure.,Shows source processing.,secondary
-4,image,codeverse-explorer-03.png,,System,system,Dependency Gravity Map,Relationships pull modules into spatial neighborhoods.,Makes system behavior visible.,secondary
-5,image,codeverse-explorer-04.jpeg,,Evidence,evidence,Before / After,The same code becomes readable through space.,Demonstrates value.,secondary
-6,image,codeverse-explorer-05.png,,Process,evidence,Narrative Layer,The system must translate structure into plain-language architectural explanation.,Names the interpretive layer.,secondary
-7,image,codeverse-explorer-06.jpeg,,Relation,context,Relation to STORYLINES / 99 Nodes,Literary graph logic transfers to codebases and the archive itself.,Shows method transfer.,secondary
-8,image,codeverse-explorer-07.png,,Coda,coda,Unopened Module,Every system contains a room no one has inspected yet.,"Ends with technical mystery, but the useful kind, not the “we forgot documentation” kind.",quiet
+1,image,cover.webp,,Establishing System,hero,Repository Galaxy,The codebase appears as a spatial structure.,"",primary
+2,text,"","",Thesis,thesis,Software Is Invisible Architecture,Technical debt has spatial weight.,"",secondary
+3,image,codeverse-explorer-02.webp,,Pipeline,evidence,AST Intake,"Source files are parsed into functions, classes, imports, exports, and directed relationships.","",secondary
+4,image,codeverse-explorer-03.webp,,System,system,Dependency Gravity Map,Relationships pull modules into spatial neighborhoods.,"",secondary
+5,image,codeverse-explorer-04.webp,,Case Study,evidence,Before / After,"A public example should name the repository and the coupling, isolation, or dependency pattern made easier to inspect.","",secondary
+6,image,codeverse-explorer-05.webp,,Development,evidence,Narrative Layer,The next layer will translate selected graph patterns into sourced plain-language architectural explanations.,"",secondary
+7,image,codeverse-explorer-06.webp,,Relation,context,Relation to STORYLINES / 99 Nodes,Literary graph logic transfers to codebases and the archive itself.,"",secondary
+8,text,"","",Coda,coda,Unopened Module,Every system contains a room no one has inspected yet.,"",quiet

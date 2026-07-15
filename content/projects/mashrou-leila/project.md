@@ -1,18 +1,19 @@
 # MASHROU’ LEILA
  
 ## Thesis
-A band became cultural infrastructure, and that infrastructure exposed the fatal gap between visibility and protection.
+A band became a counter-public: music, image, performance, and audience created a space larger than the institutions around it.
  
 ## Short Description
-A band became cultural infrastructure, and that infrastructure exposed the fatal gap between visibility and protection.
+Mashrou’ Leila was a Beirut-founded band and collaborative cultural project active from 2008 to 2022, with Haig Papazian as co-founder, violinist, and creative director.
  
 ## Full Description
-A band became cultural infrastructure, and then revealed that visibility without shelter can become a trap.
+Across recordings, videos, stage environments, visual identity, and direct audience relationships, Mashrou’ Leila built a public language for desire, dissent, and belonging in the Arab world and beyond. Haig’s contribution joined performance with visual and spatial direction, helping the band operate as a coherent world across media and touring contexts. The rail follows that collective history while distinguishing authorship, collaborators, chronology, scale, and the operational pressures that accompanied visibility.
  
 ## Highlights
-- Cinematic Rail Type: 16-card flagship dossier
-- Argument: A band became cultural infrastructure, and then revealed that visibility without shelter can become a trap.
-- Evidence / Rail Status: Complete chronological audio, video, and press archive.
+- Cinematic Rail Type: 20-card curated flagship dossier
+- Role: co-founder, violinist, creative director, and contributor to stage and visual systems
+- Evidence: releases, music videos, live performances, press, and production documentation
+- Period: 2008–2022
 
 ## Related Projects
 - why-were-like-this

@@ -1,13 +1,13 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing System,hero,The Black Field,"The archive appears as a world, not a menu.",Establishes spatial interface as the archive’s native form.,primary
-2,image,99-nodes-01.png,,Thesis,thesis,Editorial Gravity,"Projects do not sit in a list. They exert gravity according to evidence, relation, and consequence.",Defines the logic of the spatial portfolio.,secondary
-3,image,99-nodes-02.png,,System,evidence,The 99-Node Constraint,Constraint prevents the archive from becoming a landfill with better typography.,Shows discipline against taxonomy drift.,secondary
-4,image,99-nodes-03.png,,Evidence,evidence,Input Corpus,"The field is built from authored records, not ornamental thumbnails.",Establishes archive provenance.,secondary
-5,image,99-nodes-04.png,,Navigation,system,Works Spine,"Works provides sequence, hierarchy, and controlled entry.",Shows the main public path.,secondary
-6,image,99-nodes-05.png,,Relation,system,Atlas Relations,Lines must explain relation or disappear. No network spaghetti. Humanity has suffered enough.,Turns the graph from aesthetic into intelligence.,secondary
-7,image,99-nodes-06.png,,Retrieval,evidence,Index Flattening,"The same body of work can become lookup, comparison, and retrieval.",Shows mode transformation.,secondary
-8,image,99-nodes-07.png,,Evidence,process,Project Rail Interior,Entering a project should feel like entering a dossier room.,Connects spatial field to evidence sequence.,secondary
-9,image,99-nodes-08.png,,Hidden Labor,evidence,Public / Private Layers,Not every artifact belongs in the same layer.,Protects hierarchy and privacy.,secondary
-10,image,99-nodes-09.png,,Conflict,evidence,Duplicate Node Warning,"If every concept becomes a node, the map eats itself.",Names taxonomy drift as an operational risk.,secondary
-11,image,99-nodes-10.png,,Public Consequence,evidence,Institutional View,Different visitors need different routes through the same evidence.,Shows archive flexibility without flattening content.,secondary
-12,image,99-nodes-11.png,,Coda,coda,The Field Returns,The archive returns to terrain after the case closes.,Ends by restoring orientation.,quiet
+1,image,cover.webp,,Establishing System,hero,The Black Field,"The archive appears as a world, not a menu.","",primary
+2,text,"","",Thesis,thesis,Editorial Gravity,"Projects do not sit in a list. They exert gravity according to evidence, relation, and consequence.","",secondary
+3,image,99-nodes-02.webp,,System,evidence,The 99-Node Constraint,The larger field remains bounded; fragments support parent projects instead of becoming equal destinations by default.,"",secondary
+4,image,99-nodes-03.webp,,Evidence,evidence,Input Corpus,"The field is built from authored records, not ornamental thumbnails.","",secondary
+5,image,99-nodes-04.webp,,Navigation,system,Works Spine,"Works provides sequence, hierarchy, and controlled entry.","",secondary
+6,image,99-nodes-05.webp,,Relation,system,Atlas Relations,"A visible line must identify a meaningful lineage, shared method, collaboration, or dependency.","",secondary
+7,image,99-nodes-06.webp,,Retrieval,evidence,Index Flattening,"The same body of work can become lookup, comparison, and retrieval.","",secondary
+8,image,99-nodes-07.webp,,Evidence,process,Project Rail Interior,Entering a project should feel like entering a dossier room.,"",secondary
+9,image,99-nodes-08.webp,,Governance,evidence,Public / Private Layers,"Publication status, sensitivity, authorship, and evidence quality determine which layer can expose an artifact.","",secondary
+10,image,99-nodes-09.webp,,Conflict,evidence,Duplicate Node Warning,"If every concept becomes a node, the map eats itself.","",secondary
+11,image,99-nodes-10.webp,,Public Consequence,evidence,Institutional View,Different visitors need different routes through the same evidence.,"",secondary
+12,text,"","",Coda,coda,The Field Returns,The archive returns to terrain after the case closes.,"",quiet

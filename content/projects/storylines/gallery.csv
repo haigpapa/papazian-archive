@@ -1,9 +1,9 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing System,hero,Constellation of Texts,Literature becomes navigable space.,Establishes spatial knowledge.,primary
-2,image,storylines-01.jpeg,,Thesis,thesis,Knowledge Is Topography,"Meaning gathers through gravity, not hierarchy.",Reframes knowledge organization.,secondary
-3,image,storylines-02.png,,Evidence,evidence,Source Corpus,The constellation is built from actual textual relations.,Grounds the graph.,secondary
-4,image,storylines-03.jpeg,,System,system,Force-Directed Simulation,Relationship strength changes spatial position.,Shows the computational mechanism.,secondary
-5,image,storylines-04.jpeg,,Evidence,evidence,Node Inspection,A graph only matters if one relation can be read clearly.,"Prevents network wallpaper. At last, a small mercy.",secondary
-6,image,storylines-05.jpeg,,Conflict,evidence,GPU / Mobile Constraint,Dense knowledge fields need legibility and performance discipline.,Names implementation pressure.,secondary
-7,image,storylines-06.jpeg,,Relation,context,Relation to SIWUE / Codeverse / Atlas,"The same spatial logic can organize text, code, and archive.",Shows method transfer.,secondary
-8,image,storylines-07.png,,Coda,coda,The Unread Path,Knowledge remains navigable but never exhausted.,Ends with open traversal.,quiet
+1,image,cover.webp,,Establishing System,hero,Constellation of Texts,Literature becomes navigable space.,"",primary
+2,text,"","",Thesis,thesis,Knowledge Is Topography,"Meaning gathers through gravity, not hierarchy.","",secondary
+3,image,storylines-02.webp,,Evidence,evidence,Source Corpus,"The case study must name its text set, node count, relation types, and extraction method alongside the graph.","",secondary
+4,image,storylines-03.webp,,System,system,Force-Directed Simulation,Relationship strength changes spatial position.,"",secondary
+5,image,storylines-04.webp,,Evidence,evidence,Node Inspection,"A visitor can isolate one moment, read its source, and follow a specific causal or thematic connection.","",secondary
+6,image,storylines-05.webp,,Conflict,evidence,GPU / Mobile Constraint,Dense knowledge fields need legibility and performance discipline.,"",secondary
+7,image,storylines-06.webp,,Relation,context,Relation to SIWUE / Codeverse / Atlas,"The same spatial logic can organize text, code, and archive.","",secondary
+8,text,"","",Coda,coda,The Unread Path,Knowledge remains navigable but never exhausted.,"",quiet

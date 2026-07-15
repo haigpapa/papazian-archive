@@ -1,17 +1,17 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing Evidence,hero,The Audit Table,The argument begins as a corpus.,Opens with scale and evidence.,primary
-2,image,localization-gap-01.png,,Thesis,thesis,What AI Cannot Hear,The model imitates the surface and erases the structure.,Defines the research claim.,secondary
-3,image,localization-gap-02.png,,Context,evidence,Maqam Reference Card,You cannot audit erasure until you define what is being erased.,Establishes cultural structure.,secondary
-4,image,localization-gap-03.png,,Evidence,evidence,Dataset Card,"The dataset is bounded, documented, and inspectable.",Builds trust.,secondary
-5,image,localization-gap-04.png,,Process,process,Prompt Method,The audit pressures models through repeated structured asks.,Shows methodology.,secondary
-6,image,localization-gap-05.png,,Technical Proof,evidence,Python / Librosa Analysis,The system red-teams audio through measurable signal analysis.,Shows computational method.,secondary
-7,image,localization-gap-06.png,,Forensic Evidence,evidence,Spectrogram I,The reference holds microtonal behavior the generated track flattens.,First visible proof.,secondary
-8,image,localization-gap-07.png,,Forensic Evidence,evidence,Spectrogram II,The collapse repeats across outputs.,Establishes pattern.,secondary
-9,image,localization-gap-08.png,,Dossier,evidence,Model Comparison Matrix,"The failure is systemic, not a single bad track.",Broadens the claim.,secondary
-10,image,localization-gap-09.png,,System,system,Failure Taxonomy,The gap becomes a named structure.,Creates conceptual and research legibility.,secondary
-11,image,localization-gap-10.png,,Audio Proof,evidence,A/B Listening Demo,The visitor hears the gap before reading about it.,Provides sensory verification.,secondary
-12,image,localization-gap-11.png,,Relation,context,HAH-WAS Truth Map,Research becomes a training interface.,Shows downstream use.,secondary
-13,image,localization-gap-12.png,,Relation,evidence,MaqamAI Ear Training,The archive does not only criticize machine listening. It trains human listening.,Shows constructive response.,secondary
-14,image,localization-gap-13.png,,Conflict,evidence,Model Drift Log,"Commercial models change, so evidence must be timestamped and preserved.",Names audit decay.,secondary
-15,image,localization-gap-14.png,,Authorship,role,FORENSIC AUDIT METHODOLOGY,"Contribution establishes the audit framework, dataset compilation, and cultural interpretation.",Research framework | Audit methodology | Dataset taxonomy | Cultural analysis,secondary
-16,image,localization-gap-15.png,,Coda,coda,The Unheard Interval,The system ends at the structure the model still cannot hold.,Ends with the gap itself.,quiet
+1,image,cover.webp,,Establishing Evidence,hero,The Audit Table,The argument begins as a corpus.,"",primary
+2,text,"","",Thesis,thesis,What AI Cannot Hear,The model imitates the surface and erases the structure.,"",secondary
+3,image,localization-gap-02.webp,,Context,evidence,Maqam Reference,The audit begins with documented interval and melodic behavior rather than a generic regional style label.,"",secondary
+4,image,localization-gap-03.webp,,Evidence,evidence,Dataset Card,"The dataset is bounded, documented, and inspectable.","",secondary
+5,image,localization-gap-04.webp,,Process,process,Prompt Method,The audit pressures models through repeated structured asks.,"",secondary
+6,image,localization-gap-05.webp,,Analysis,evidence,Python / Librosa,Signal features support comparison but do not replace culturally informed listening or establish meaning on their own.,"",secondary
+7,image,localization-gap-06.webp,,Forensic Evidence,evidence,Spectrogram I,The reference holds microtonal behavior the generated track flattens.,"",secondary
+8,image,localization-gap-07.webp,,Forensic Evidence,evidence,Spectrogram II,The collapse repeats across outputs.,"",secondary
+9,image,localization-gap-08.webp,,Dossier,evidence,Model Comparison,"Outputs are compared only when model version, prompt, date, source, and evaluation method are retained.","",secondary
+10,image,localization-gap-09.webp,,System,system,Failure Taxonomy,The gap becomes a named structure.,"",secondary
+11,image,localization-gap-10.webp,,Listening,evidence,A/B Listening Study,"A public listener is planned around cited references, generated outputs, and a written account of the comparison limits.","",secondary
+12,image,localization-gap-11.webp,,Relation,context,HAH-WAS Truth Map,Research becomes a training interface.,"",secondary
+13,image,localization-gap-12.webp,,Relation,evidence,MaqamAI Ear Training,The archive does not only criticize machine listening. It trains human listening.,"",secondary
+14,image,localization-gap-13.webp,,Limitations,evidence,Model Drift Log,"Commercial systems change; every result must preserve its test date, version when available, and reproducibility limits.","",secondary
+15,text,"","",Authorship,role,HAIG PAPAZIAN / ROLE,"Research direction joins corpus design, adversarial prompting, signal analysis, culturally informed listening, and failure classification.",Research framework | Audit method | Corpus taxonomy | Cultural interpretation,secondary
+16,text,"","",Coda,coda,The Unheard Interval,The system ends at the structure the model still cannot hold.,"",quiet

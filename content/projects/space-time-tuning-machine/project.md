@@ -1,18 +1,19 @@
 # SPACE TIME TUNING MACHINE
  
 ## Thesis
-A physical somatic hardware instrument built from scrap electronics, tuning the noise of displacement into memory.
+An instrument can begin with noise and let the performer carve toward resonance, melody, and silence.
  
 ## Short Description
-A physical somatic hardware instrument built from scrap electronics, tuning the noise of displacement into memory.
+The Space Time Tuning Machine is a physical performance instrument combining kinetic control, repurposed electronics, and responsive digital sound processing.
  
 ## Full Description
-A hacked physical instrument forces AI to negotiate with body, resonance, noise, and exile.
+Instead of producing sound from silence, the machine begins with an unstable field and removes, filters, and tunes it through bodily action. Physical gestures become parameters inside a responsive digital patch, allowing performer, material resistance, room, and signal to affect one another in real time. Developed as a performance and installation about exile and acoustic memory, the work precedes the software-based memory and listening systems that followed it.
  
 ## Highlights
 - Cinematic Rail Type: 15-card flagship dossier
-- Argument: A hacked physical instrument forces AI to negotiate with body, resonance, noise, and exile.
-- Evidence / Rail Status: Live performance recordings, Max/MSP schematics, and Uncharted Concert Series press release.
+- Method: kinetic input, responsive signal processing, and subtractive composition
+- Evidence: instrument documentation, patch schematics, and live performance material
+- Status: performed and exhibited; consolidated video documentation remains a priority
 
 ## Related Projects
 - tebr

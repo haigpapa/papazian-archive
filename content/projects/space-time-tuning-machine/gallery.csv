@@ -1,16 +1,16 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing Artifact,hero,Machine in Darkness,The instrument appears before it is explained.,Establishes physical reality.,primary
-2,image,space-time-tuning-machine-01.png,,Thesis,thesis,Relic of a Future,This is a future instrument built from the wreckage of failed return.,Frames the instrument as diegetic prototype.,secondary
-3,image,space-time-tuning-machine-02.png,,Origin,evidence,Broken Instrument Myth,Exile appears as a machine that cannot begin from silence.,Grounds the technical system in narrative and displacement.,secondary
-4,image,space-time-tuning-machine-03.png,,Material Proof,process,Anatomy Table,The system is assembled from physical friction.,Shows material bricolage.,secondary
-5,image,space-time-tuning-machine-04.png,,System,system,Physical-to-Digital Translation,Kinetic action becomes computational parameter.,Shows how the body enters the machine.,secondary
-6,image,space-time-tuning-machine-05.png,,Technical Proof,system,Signal Flow,"The instrument listens, processes, and answers.",Makes the pipeline inspectable.,secondary
-7,image,space-time-tuning-machine-06.png,,Live Proof,evidence,How It Is Played,"The performer conducts a live system, not a backing track.",Proves embodied control.,secondary
-8,image,space-time-tuning-machine-07.png,,Technical Proof,evidence,Patch Reactivity,The patch changes because the body changes the signal.,Shows live computational behavior.,secondary
-9,image,space-time-tuning-machine-08.png,,Evidence,evidence,Bricolage as Friction,Scrap electronics resist clean abstraction.,Shows rough material truth.,secondary
-10,image,space-time-tuning-machine-09.png,,Conflict,evidence,What Broke,The instrument’s failures are part of its evidence.,Increases trust through visible constraint.,secondary
-11,image,space-time-tuning-machine-10.png,,Live Proof,evidence,Performance Clip,"Noise, body, room, and machine tune each other in real time.",Shows the full system operating.,secondary
-12,image,space-time-tuning-machine-11.png,,Consequence,evidence,Public / Institutional Proof,The instrument enters public performance contexts.,Grounds the project beyond prototype mythology.,secondary
-13,image,space-time-tuning-machine-12.png,,Relation,context,Predecessor to DERIVE,The physical instrument becomes software memory architecture.,Shows lineage.,secondary
-14,image,space-time-tuning-machine-13.png,,Relation,context,Input Valve to TEBR,Somatic signal becomes material for AI folklore.,Connects performance machine to sonic intelligence.,secondary
-15,image,space-time-tuning-machine-14.png,,Coda,coda,Wire After Sound,The body leaves. The machine keeps the trace.,Ends with residue.,quiet
+1,image,cover.webp,,Establishing Artifact,hero,Machine in Darkness,The instrument appears before it is explained.,"",primary
+2,text,"","",Thesis,thesis,Noise Before Silence,"The instrument begins with an unstable sound field and lets the performer remove, filter, and tune it.","",secondary
+3,image,space-time-tuning-machine-02.webp,,Origin,evidence,Broken Instrument Myth,Exile appears as a machine that cannot begin from silence.,"",secondary
+4,image,space-time-tuning-machine-03.webp,,Material Proof,process,Anatomy Table,The system is assembled from physical friction.,"",secondary
+5,image,space-time-tuning-machine-04.webp,,System,system,Gesture to Parameter,Kinetic controls translate bodily movement into changes inside the responsive digital patch.,"",secondary
+6,image,space-time-tuning-machine-05.webp,,Technical Proof,system,Signal Flow,"The instrument listens, processes, and answers.","",secondary
+7,image,space-time-tuning-machine-06.webp,,Performance,evidence,How It Is Played,The performer shapes an active signal through physical control while the patch responds in real time.,"",secondary
+8,image,space-time-tuning-machine-07.webp,,Technical Proof,evidence,Patch Reactivity,The patch changes because the body changes the signal.,"",secondary
+9,image,space-time-tuning-machine-08.webp,,Evidence,evidence,Bricolage as Friction,Scrap electronics resist clean abstraction.,"",secondary
+10,image,space-time-tuning-machine-09.webp,,Limitations,evidence,What Broke,"Latency, unstable components, and signal noise reveal the practical limits of the prototype without being romanticized.","",secondary
+11,image,space-time-tuning-machine-10.webp,,Live Proof,evidence,Performance Clip,"Noise, body, room, and machine tune each other in real time.","",secondary
+12,image,space-time-tuning-machine-11.webp,,Context,evidence,Public Performance,"Venue, date, program, collaborators, and documentation source should accompany each public presentation.","",secondary
+13,image,space-time-tuning-machine-12.webp,,Relation,context,Predecessor to DERIVE,The physical instrument becomes software memory architecture.,"",secondary
+14,image,space-time-tuning-machine-13.webp,,Relation,context,Input Valve to TEBR,Somatic signal becomes material for AI folklore.,"",secondary
+15,text,"","",Coda,coda,Wire After Sound,The body leaves. The machine keeps the trace.,"",quiet

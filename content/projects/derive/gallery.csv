@@ -1,13 +1,13 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing System,hero,Latent Memory Field,"Memory appears as a navigable field, not a timeline.",Establishes the spatial model.,primary
-2,image,derive-01.jpeg,,Thesis,thesis,Proximity Is Relevance,"Memory is retrieved by emotional adjacency, not chronological order.",Defines the retrieval logic.,secondary
-3,image,derive-02.jpeg,,Origin,evidence,Displaced Source Corpus,The system begins with fragments that resist clean filing.,Grounds the database.,secondary
-4,image,derive-03.jpeg,,Process,process,Whisper Breath Chunks,Audio is divided by embodied rhythm.,Shows body-informed processing.,secondary
-5,image,derive-04.jpeg,,System,system,ChromaDB Vector Map,Felt proximity becomes database structure.,Makes emotional adjacency technical.,secondary
-6,image,derive-05.jpeg,,Mechanism,system,Drift Algorithm,The system wanders without losing relation.,Shows controlled instability.,secondary
-7,image,derive-06.jpeg,,Technical Proof,process,Tuning Rules,The system prevents AI from making the memory too smooth.,Shows ethical constraint.,secondary
-8,image,derive-07.jpeg,,Evidence,evidence,Source to Output,The memory field produces a traceable response.,Proves output provenance.,secondary
-9,image,derive-08.jpeg,,Conflict,evidence,Against Fake Coherence,The enemy is not silence. The enemy is false coherence.,Defines what the system resists.,secondary
-10,image,derive-09.png,,Live Proof,evidence,OSC / MIDI Signal,Memory retrieval can drive sonic space.,Connects memory engine to performance machine.,secondary
-11,image,derive-10.jpeg,,Relation,context,Relation to SIWUE / TEBR / STTM,"DERIVE connects manuscript, sonic folklore, and embodied instrument.",Shows cross-world function.,secondary
-12,image,derive-11.png,,Coda,coda,Unresolved Fragment,The system preserves rupture instead of repairing it.,Ends with jagged memory.,quiet
+1,image,cover.webp,,Establishing System,hero,Latent Memory Field,"Memory appears as a navigable field, not a timeline.","",primary
+2,text,"","",Thesis,thesis,Proximity Is Relevance,"Memory is retrieved by emotional adjacency, not chronological order.","",secondary
+3,image,derive-02.webp,,Origin,evidence,Source Corpus,"Every fragment must retain its source, consent context, timestamp where relevant, and transformation history.","",secondary
+4,image,derive-03.webp,,Process,process,Whisper Breath Chunks,Audio is divided by embodied rhythm.,"",secondary
+5,image,derive-04.webp,,System,system,ChromaDB Vector Map,Felt proximity becomes database structure.,"",secondary
+6,image,derive-05.webp,,Mechanism,system,Drift Algorithm,The system wanders without losing relation.,"",secondary
+7,image,derive-06.webp,,Constraint,process,Tuning Rules,Human-authored rules preserve discontinuity and prevent automatic retrieval from presenting similarity as a finished story.,"",secondary
+8,image,derive-07.webp,,Evidence,evidence,Source to Output,The memory field produces a traceable response.,"",secondary
+9,image,derive-08.webp,,Conflict,evidence,Against Fake Coherence,The enemy is not silence. The enemy is false coherence.,"",secondary
+10,image,derive-09.webp,,Performance Link,evidence,OSC / MIDI Signal,Retrieved fragments can send control data to a sonic environment while their provenance remains available for inspection.,"",secondary
+11,image,derive-10.webp,,Relation,context,Relation to SIWUE / TEBR / STTM,"DERIVE connects manuscript, sonic folklore, and embodied instrument.","",secondary
+12,text,"","",Coda,coda,Unresolved Fragment,The system preserves rupture instead of repairing it.,"",quiet

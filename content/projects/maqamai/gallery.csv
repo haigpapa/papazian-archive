@@ -1,9 +1,9 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Establishing Artifact,hero,Interval Made Visible,The invisible interval becomes inspectable.,Establishes learning surface.,primary
-2,image,maqamai-01.png,,Thesis,thesis,You Cannot Engineer What You Cannot Hear,Technical competence begins with perceptual competence.,Reframes listening as infrastructure.,secondary
-3,image,maqamai-02.png,,System,system,Lesson Flow,MaqamAI teaches the ear before it evaluates the model.,Shows pedagogical sequence.,secondary
-4,image,maqamai-03.png,,Evidence,evidence,Reference / Flattened Output,The ear learns the difference between structure and imitation.,Makes failure audible.,secondary
-5,image,maqamai-04.png,,Technical Proof,system,Microtonal Error Card,Western pitch grids cannot fully contain maqam behavior.,Explains why failure occurs.,secondary
-6,image,maqamai-05.png,,Public Consequence,evidence,Engineer Mode,The tool translates cultural listening into development practice.,Bridges pedagogy and technical standards.,secondary
-7,image,maqamai-06.png,,Relation,context,Relation to Localization Gap / HAH-WAS,The audit identifies the gap; MaqamAI trains the perception needed to close it.,Shows role inside Sonic Intelligence.,secondary
-8,image,maqamai-07.png,,Coda,coda,The Trained Ear,The system ends with a listener still learning.,Ends with human capacity.,quiet
+1,image,cover.webp,,Establishing Artifact,hero,Interval Made Visible,The invisible interval becomes inspectable.,"",primary
+2,text,"","",Thesis,thesis,Learn Before You Evaluate,Technical evaluation begins with guided listening and a clearly bounded musical vocabulary.,"",secondary
+3,image,maqamai-02.webp,,Lesson Design,system,Reference / Phrase / Compare,"A proposed lesson moves from a curated recording to interval recognition, melodic phrase, and guided comparison.","",secondary
+4,image,maqamai-03.webp,,Evidence,evidence,Reference / Flattened Output,The ear learns the difference between structure and imitation.,"",secondary
+5,image,maqamai-04.webp,,Listening Study,system,Interval Error Card,"The card identifies the reference, heard interval, generated comparison, and the limits of equal-tempered notation.","",secondary
+6,image,maqamai-05.webp,,Use Case,evidence,Engineer Mode,A future engineering mode would connect listening judgments to model tests without treating one score as cultural authority.,"",secondary
+7,image,maqamai-06.webp,,Relation,context,Relation to Localization Gap / HAH-WAS,The audit identifies the gap; MaqamAI trains the perception needed to close it.,"",secondary
+8,text,"","",Coda,coda,The Trained Ear,The system ends with a listener still learning.,"",quiet

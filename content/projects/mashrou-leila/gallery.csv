@@ -1,41 +1,21 @@
 order,type,file,youtubeId,chapter,role,title,caption,body,emphasis
-1,image,cover.webp,,Public Emergence,hero,Baalbeck,"The band at architectural scale: ruin, crowd, myth, and political consequence in one image.",Opens with public scale before explanation.,primary
-2,image,mashrou-leila-01.png,,Reframing,thesis,Not a Band,Mashrou’ Leila was a public system disguised as a band.,Reframes music as cultural infrastructure.,secondary
-3,image,mashrou-leila-02.png,,Origin,evidence,Origin Surface,"The origin surface before the project became institution, mythology, and pressure system.",Establishes where the public language began.,secondary
-4,image,mashrou-leila-03.png,,System Design,system,Counter-Public Infrastructure,The visible band sat on top of a larger operating system.,"Shows how music, image, publicness, and risk moved together.",secondary
-5,image,mashrou-leila-04.png,,Evidence,evidence,Direct-to-Fan Public,The audience became infrastructure before institutions knew what to do with the project.,Proves independent public formation.,secondary
-6,image,mashrou-leila-05.png,,Scale,evidence,Scale Ledger,Specificity traveled at institution scale without institutional safety.,"Converts scale into evidence, not bragging.",secondary
-7,image,mashrou-leila-06.png,,Pressure,evidence,The Design Problem,How do you make a fragile public visible without making it easy to destroy?,Names the central design pressure.,secondary
-8,image,mashrou-leila-07.png,,Album World,evidence,Ibn El Leil,"The night becomes architecture: mourning, celebration, surveillance, and public desire.",Shows the band as a world-building system.,secondary
-9,image,mashrou-leila-08.png,,Public Image,evidence,Roman,"The music video becomes a visual argument about gender, power, and representation.",Shows image-making as political structure.,secondary
-10,image,mashrou-leila-09.png,,Live Proof,evidence,Tiny Desk,"The system survives stripped of spectacle: voice, body, arrangement, and room.",Proves the project’s architecture works at intimate scale.,secondary
-11,image,mashrou-leila-10.png,,Live System,evidence,Stage Architecture,"Touring becomes spatial practice: light, bodies, narrative, and recognition moving city to city.",Shows performance as portable architecture.,secondary
-12,image,mashrou-leila-11.png,,Visibility,evidence,Rolling Stone,Visibility becomes a public event and an international image system.,Proves media consequence.,secondary
-13,image,mashrou-leila-12.png,,Hidden Labor,evidence,Crisis Operations,"Safety, censorship, market access, press escalation, and audience trust were part of the instrument.",Reveals operational pressure behind the public image.,secondary
-14,image,mashrou-leila-13.png,,Authorship,role,CREATIVE & VISUAL DIRECTION,"Creative direction covering band visual identity, stage scenography, and public media systems.",Co-founder & creative director | Visual identity | Stage scenography | Brand infrastructure,secondary
-15,image,mashrou-leila-14.png,,Relation,context,Visibility Without Shelter,The stage exposed vulnerability. The later work builds shelter.,Establishes the historical arc from publicness to protection.,secondary
-16,image,mashrou-leila-15.png,,Coda,coda,Empty Stage,"The public gathered. The structure could not fully protect it.","Ends unresolved, as it should. Conclusions are where tension goes to be embalmed.",quiet
-17,video,,Qn3EFPOuEGM,Moving Image,evidence,Lil Watan,"Official Music Video (2013). ruin, crowd, myth, and political consequence in one image.",Lil Watan Music Video,secondary
-18,video,,r6V0BN4aH4E,Moving Image,evidence,Aoede,"Official Music Video (2016). The music video becomes a visual argument about gender and representation.",Aoede Music Video,secondary
-19,video,,BS3gP5BFi6o,Moving Image,evidence,Bahr,"Official Music Video (2014). The night becomes architecture: mourning, celebration, surveillance.",Bahr Music Video,secondary
-20,video,,NF__cpsDmZk,Moving Image,evidence,Roman,"Official Music Video (2017). An architectural space for performance machines.",Roman Music Video,secondary
-21,video,,6HqHdBlQEe8,Moving Image,evidence,Fasateen,"Official Music Video (2009). The initial public language of independent music.",Fasateen Music Video,secondary
-22,video,,f1GOmPx-Ba8,Moving Image,evidence,Shim El Yasmine,"Official Music Video (2011). Intimacy, representation, and memory.",Shim El Yasmine Music Video,secondary
-23,video,,8GdAtxcTuhw,Moving Image,evidence,Cavalry,"Official Music Video (2019). The final public performance system of Mashrou' Leila.",Cavalry Music Video,secondary
-24,video,,5vvr7KXAfck,Moving Image,evidence,Raksit Leila,"Official Music Video. The audience becomes the instrument.",Raksit Leila Music Video,secondary
-25,video,,OpbC_XZQNQ8,Moving Image,evidence,Radio Romance,"Official Music Video. Love as public transmission.",Radio Romance Music Video,secondary
-26,video,,S5Tag1BwhqY,Moving Image,evidence,3 Minutes,"Official Music Video. Time as pressure system.",3 Minutes Music Video,secondary
-27,video,,F5367QROcLo,Moving Image,evidence,Imm El Jacket,"Official Music Video. Identity as costume and armor.",Imm El Jacket Music Video,secondary
-28,video,,_RuKbA_5hk8,Moving Image,evidence,Inni Mneeh,"Official Music Video. Intimacy negotiated in public.",Inni Mneeh Music Video,secondary
-29,video,,T_kl8utnDHw,Moving Image,evidence,Abdo,"Official Music Video. Portrait as social architecture.",Abdo Music Video,secondary
-30,video,,2L_aIOo4G3s,Moving Image,evidence,Cavalry (English),"Official Music Video — English Version (2019). The system translates itself.",Cavalry English Version,secondary
-31,video,,5NbDU57nlTw,Live,evidence,Aoede (Live at AUB Assembly Hall),"Live at AUB Assembly Hall. The system performs at intimate architectural scale.",Aoede Live at AUB,secondary
-32,video,,cE9zOwY-bk4,Live,evidence,Kalaam (Live at AUB Assembly Hall),"Live at AUB Assembly Hall. Language as gendered infrastructure — live.",Kalaam Live at AUB,secondary
-33,video,,77lC79WUDJE,Live,evidence,Marrikh (Live at AUB Assembly Hall),"Live at AUB Assembly Hall. Mars as escape architecture.",Marrikh Live at AUB,secondary
-34,video,,mfHdRfvUlFs,Live,evidence,Maghawir (Live at Byblos),"Live at Byblos International Festival. Spectacle and its cost at ancient scale.",Maghawir Live at Byblos,secondary
-35,video,,r1ANwg7s7z0,Live,evidence,Bint el Khandaq (Live at Uberhaus),"Live at Uberhaus. The club as counter-public space.",Bint el Khandaq Live,secondary
-36,video,,GYaStTK1bQk,Moving Image,evidence,Tayf (Ghost),"Official Music Video. The haunting that doesn't resolve.",Tayf Ghost Music Video,secondary
-37,video,,pfPvgAtgTNM,Live,evidence,NPR Tiny Desk Concert,"The system survives stripped of spectacle: voice body arrangement and room.",Tiny Desk Concert,secondary
-38,video,,NC5LGETssA0,Making Of,evidence,Making of Ibn El Leil — Part 1: La Frette,"Behind the album. The studio as pressure vessel.",Making of IBL Part 1,secondary
-39,video,,bUOvZhzeFu0,Making Of,evidence,Making of Ibn El Leil — Part 2: Orchestra,"Behind the album. Orchestration as cultural architecture.",Making of IBL Part 2,secondary
-40,video,,yWh48Cq21jA,Making Of,evidence,Making of Ibn El Leil — Part 3: LIVE,"Behind the album. The live system at release scale.",Making of IBL Part 3,secondary
+1,image,cover.webp,,Public Emergence,hero,Baalbeck,"The band at architectural scale: performance, ruin, crowd, and collective memory sharing one field.",,primary
+2,text,"","",Reframing,thesis,More Than a Band,"Music became the entry point to a wider public language of desire, dissent, and belonging.",,secondary
+3,image,mashrou-leila-02.webp,,Origin,evidence,Beirut / 2008,"The project began among students in Beirut and developed through collective writing, performance, and self-production.",,secondary
+4,image,mashrou-leila-03.webp,,Public Formation,system,Counter-Public,"Songs, images, concerts, interviews, and audience exchange created a space that existing institutions did not provide.",,secondary
+5,image,mashrou-leila-04.webp,,Audience,evidence,Direct Relation,Independent circulation allowed the audience to participate in the project before conventional gatekeepers recognized it.,,secondary
+6,image,mashrou-leila-05.webp,,Reach,evidence,Public Scale,Regional and international visibility expanded the band’s reach while increasing the demands placed on its members and public.,,secondary
+7,image,mashrou-leila-06.webp,,Pressure,evidence,Visibility / Protection,The rail asks what public visibility can enable—and what it cannot protect on its own.,,secondary
+8,image,mashrou-leila-07.webp,,Album World,evidence,Ibn El Leil,"The 2015 album joined mourning, celebration, surveillance, and nightlife within a single nocturnal world.",,secondary
+9,video,,NF__cpsDmZk,Moving Image,evidence,Roman,"The 2017 film uses choreography, costume, and architecture to examine gendered power and representation.",,secondary
+10,video,,pfPvgAtgTNM,Live,evidence,Tiny Desk,"The intimate performance removes stage spectacle and foregrounds voice, arrangement, body, and room.",,secondary
+11,image,mashrou-leila-10.webp,,Live System,evidence,Stage Architecture,"Lighting, scenography, movement, and recognition turned touring into a portable spatial practice.",,secondary
+12,image,mashrou-leila-11.webp,,Public Image,evidence,Rolling Stone,Editorial portraiture placed the band inside a changing regional and international media imaginary.,,secondary
+13,image,mashrou-leila-12.webp,,Operations,evidence,Behind Visibility,"Touring, censorship, safety, press, market access, and audience trust shaped what could appear onstage.",,secondary
+14,text,"","",Authorship,role,HAIG PAPAZIAN / ROLE,"Co-founder, violinist, and creative director working across performance, visual identity, stage environments, and public media.",Co-founder | Violin | Creative direction | Visual identity | Stage environments,secondary
+15,image,mashrou-leila-14.webp,,Lineage,context,From Stage to Shelter,Later spatial and institutional work carries forward a question sharpened here: how can a public also be supported?,,secondary
+16,video,,Qn3EFPOuEGM,Moving Image,evidence,Lil Watan,The 2013 film places political language inside theatrical performance and a rapidly changing public sphere.,,secondary
+17,video,,6HqHdBlQEe8,Moving Image,evidence,Fasateen,The 2009 video records the handmade visual language of the band’s earliest period.,,secondary
+18,video,,5vvr7KXAfck,Moving Image,evidence,Raksit Leila,"The performance turns repetition, movement, and audience recognition into part of the song’s public life.",,secondary
+19,video,,8GdAtxcTuhw,Moving Image,evidence,Cavalry,"The 2019 film frames confrontation, exhaustion, and endurance near the end of the band’s recording history.",,secondary
+20,text,"","",Coda,coda,Empty Stage,"The collective ended in 2022; its recordings, images, audiences, and unresolved questions remain active.",,quiet

@@ -1,18 +1,19 @@
 # CODEVERSE EXPLORER
  
 ## Thesis
-MRI for codebases utilizing AST parsing to translate flat text files into structurally navigable dependency galaxies.
+A codebase becomes easier to understand when its dependencies can be inspected as architecture rather than inferred from folders alone.
  
 ## Short Description
-MRI for codebases utilizing AST parsing to translate flat text files into structurally navigable dependency galaxies.
+Codeverse Explorer is a 3D repository viewer that transforms parsed files and dependencies into navigable spatial neighborhoods.
  
 ## Full Description
-A codebase becomes architecture when dependency gravity is made visible.
+The system parses source structure, constructs a directed dependency graph, and uses relationship strength to position modules in space. A visitor can move from the repository overview to a file, follow imports, and identify tightly coupled or isolated areas. A narrative layer is intended to translate those patterns into plain-language architectural explanations. The graph and WebGL interaction are active development work; supported languages, repository scale, and interpretive limits should be documented alongside public examples.
  
 ## Highlights
 - Cinematic Rail Type: 8-card secondary technical proof rail
-- Argument: A codebase becomes architecture when dependency gravity is made visible.
-- Evidence / Rail Status: Navigable WebGL script ready; mapped to the studio's own repositories.
+- Pipeline: source parsing, dependency graph, force layout, inspection, and explanation
+- Use case: onboarding and architectural review of unfamiliar repositories
+- Status: navigable WebGL prototype; narrative layer and public case study in development
 
 ## Related Projects
 - storylines

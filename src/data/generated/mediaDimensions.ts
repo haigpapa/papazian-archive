@@ -4,10 +4,6 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1200,
     "height": 896
   },
-  "/images/projects/99-nodes/99-nodes-01.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/99-nodes/99-nodes-02.webp": {
     "width": 1024,
     "height": 1024
@@ -44,17 +40,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/99-nodes/99-nodes-11.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/architecture-in-low-res/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/architecture-in-low-res/architecture-in-low-res-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/architecture-in-low-res/architecture-in-low-res-02.webp": {
     "width": 1024,
@@ -73,10 +61,6 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "height": 1024
   },
   "/images/projects/architecture-in-low-res/architecture-in-low-res-06.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/architecture-in-low-res/architecture-in-low-res-07.webp": {
     "width": 1024,
     "height": 1024
   },
@@ -112,10 +96,6 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1200,
     "height": 896
   },
-  "/images/projects/chronocumulator/chronocumulator-01.webp": {
-    "width": 896,
-    "height": 1200
-  },
   "/images/projects/chronocumulator/chronocumulator-02.webp": {
     "width": 1024,
     "height": 1024
@@ -144,17 +124,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/chronocumulator/chronocumulator-09.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/codeverse-explorer/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/codeverse-explorer/codeverse-explorer-01.webp": {
-    "width": 896,
-    "height": 1200
   },
   "/images/projects/codeverse-explorer/codeverse-explorer-02.webp": {
     "width": 896,
@@ -176,17 +148,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 896,
     "height": 1200
   },
-  "/images/projects/codeverse-explorer/codeverse-explorer-07.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/derive/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/derive/derive-01.webp": {
-    "width": 896,
-    "height": 1200
   },
   "/images/projects/derive/derive-02.webp": {
     "width": 896,
@@ -224,17 +188,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 896,
     "height": 1200
   },
-  "/images/projects/derive/derive-11.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/fictive-environments/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/fictive-environments/fictive-environments-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/fictive-environments/fictive-environments-02.webp": {
     "width": 1024,
@@ -264,17 +220,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/fictive-environments/fictive-environments-09.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/hah-was/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/hah-was/hah-was-01.webp": {
-    "width": 896,
-    "height": 1200
   },
   "/images/projects/hah-was/hah-was-02.webp": {
     "width": 896,
@@ -304,17 +252,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 896,
     "height": 1200
   },
-  "/images/projects/hah-was/hah-was-09.webp": {
-    "width": 896,
-    "height": 1200
-  },
   "/images/projects/localization-gap/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/localization-gap/localization-gap-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/localization-gap/localization-gap-02.webp": {
     "width": 1024,
@@ -364,21 +304,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/localization-gap/localization-gap-14.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/localization-gap/localization-gap-15.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/maqamai/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/maqamai/maqamai-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/maqamai/maqamai-02.webp": {
     "width": 1024,
@@ -400,17 +328,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/maqamai/maqamai-07.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/mashrou-leila/cover.webp": {
     "width": 640,
     "height": 426
-  },
-  "/images/projects/mashrou-leila/mashrou-leila-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/mashrou-leila/mashrou-leila-02.webp": {
     "width": 1024,
@@ -436,14 +356,6 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/mashrou-leila/mashrou-leila-08.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/mashrou-leila/mashrou-leila-09.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/mashrou-leila/mashrou-leila-10.webp": {
     "width": 1024,
     "height": 1024
@@ -456,15 +368,7 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/mashrou-leila/mashrou-leila-13.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/mashrou-leila/mashrou-leila-14.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/mashrou-leila/mashrou-leila-15.webp": {
     "width": 1024,
     "height": 1024
   },
@@ -495,10 +399,6 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
   "/images/projects/mekena-nyc/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/mekena-nyc/mekena-nyc-01.webp": {
-    "width": 896,
-    "height": 1200
   },
   "/images/projects/mekena-nyc/mekena-nyc-02.webp": {
     "width": 896,
@@ -544,25 +444,13 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 896,
     "height": 1200
   },
-  "/images/projects/mekena-nyc/mekena-nyc-13.webp": {
-    "width": 896,
-    "height": 1200
-  },
   "/images/projects/mekena-nyc/mekena-nyc-14.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/mekena-nyc/mekena-nyc-15.webp": {
     "width": 1024,
     "height": 1024
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-01.webp": {
-    "width": 896,
-    "height": 1200
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-02.webp": {
     "width": 896,
@@ -608,25 +496,13 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 896,
     "height": 1200
   },
-  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-13.webp": {
-    "width": 896,
-    "height": 1200
-  },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-14.webp": {
-    "width": 896,
-    "height": 1200
-  },
-  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-15.webp": {
     "width": 896,
     "height": 1200
   },
   "/images/projects/space-time-tuning-machine/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-02.webp": {
     "width": 1024,
@@ -676,17 +552,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-14.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/storylines/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/storylines/storylines-01.webp": {
-    "width": 896,
-    "height": 1200
   },
   "/images/projects/storylines/storylines-02.webp": {
     "width": 1024,
@@ -708,17 +576,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 896,
     "height": 1200
   },
-  "/images/projects/storylines/storylines-07.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/systems-choreography/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/systems-choreography/systems-choreography-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/systems-choreography/systems-choreography-02.webp": {
     "width": 1024,
@@ -748,17 +608,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/systems-choreography/systems-choreography-09.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/tebr/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/tebr/tebr-01.webp": {
-    "width": 896,
-    "height": 1200
   },
   "/images/projects/tebr/tebr-02.webp": {
     "width": 896,
@@ -800,25 +652,13 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 896,
     "height": 1200
   },
-  "/images/projects/tebr/tebr-12.webp": {
-    "width": 896,
-    "height": 1200
-  },
   "/images/projects/tebr/tebr-13.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/tebr/tebr-14.webp": {
     "width": 1024,
     "height": 1024
   },
   "/images/projects/the-weather-rehearsal/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/the-weather-rehearsal/the-weather-rehearsal-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/the-weather-rehearsal/the-weather-rehearsal-02.webp": {
     "width": 1024,
@@ -840,17 +680,9 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1024,
     "height": 1024
   },
-  "/images/projects/the-weather-rehearsal/the-weather-rehearsal-07.webp": {
-    "width": 1024,
-    "height": 1024
-  },
   "/images/projects/why-were-like-this/cover.webp": {
     "width": 1200,
     "height": 896
-  },
-  "/images/projects/why-were-like-this/why-were-like-this-01.webp": {
-    "width": 1024,
-    "height": 1024
   },
   "/images/projects/why-were-like-this/why-were-like-this-02.webp": {
     "width": 1024,
@@ -869,10 +701,6 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "height": 1024
   },
   "/images/projects/why-were-like-this/why-were-like-this-06.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/why-were-like-this/why-were-like-this-07.webp": {
     "width": 1024,
     "height": 1024
   }
