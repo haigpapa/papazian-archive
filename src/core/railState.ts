@@ -33,3 +33,15 @@ export function getClosedRailSpan(openSpan: number, gap: number): number {
   const safeGap = Number.isFinite(gap) ? Math.max(0, gap) : 0;
   return openSpan + safeGap;
 }
+
+export function resolveVisibleIndex<T>(
+  allItems: readonly T[],
+  visibleItems: readonly T[],
+  requestedIndex: number,
+): number {
+  if (!Number.isInteger(requestedIndex) || requestedIndex < 0 || requestedIndex >= allItems.length) {
+    return -1;
+  }
+
+  return visibleItems.indexOf(allItems[requestedIndex]);
+}

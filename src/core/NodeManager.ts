@@ -5,7 +5,7 @@ import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonica
 import { getProjectWorld } from '../data/worlds';
 import { getRelationDetail, RELATION_LINE_STYLES } from '../data/relations';
 import { type IndexFilters, DEFAULT_INDEX_FILTERS } from '../components/IndexFilterBar';
-import { findClosestRailIndex, getClosedRailSpan } from './railState';
+import { findClosestRailIndex, getClosedRailSpan, resolveVisibleIndex } from './railState';
 
 const VERTEX_SHADER = `
   varying vec2 vUv;
@@ -1490,6 +1490,10 @@ export default class NodeManager {
     let cursor = -totalSpan / 2;
     const visibleMeshes = this.getVisibleMeshes(mode);
 
+    if (!Number.isInteger(index) || index < 0 || index >= visibleMeshes.length) {
+      return 0;
+    }
+
     for (let i = 0; i < index; i += 1) {
       const size = this.getNodeSize(visibleMeshes[i], mode);
       cursor += (mode === 'horizontal' ? size.width : size.height) + gap;
@@ -2264,22 +2268,30 @@ export default class NodeManager {
   }
 
   public getScrollForNode(index: number, mode: string): number {
+    const primaryMeshes = this.getPrimaryMeshes();
+    const visibleMeshes = this.getVisibleMeshes(mode);
+    const visibleIndex = resolveVisibleIndex(primaryMeshes, visibleMeshes, index);
+
     if (mode === 'cylinder') {
-      const visible = this.getVisibleMeshes('cylinder');
-      const TOTAL = visible.length || 1;
+      if (visibleIndex < 0) return 0;
+      const TOTAL = visibleMeshes.length || 1;
       const nodesPerRing = 8;
       const REVOLUTIONS = Math.max(1, Math.ceil(TOTAL / nodesPerRing));
-      const y_node = (index / TOTAL) * REVOLUTIONS * -9 + (REVOLUTIONS * 9) / 2;
+      const y_node = (visibleIndex / TOTAL) * REVOLUTIONS * -9 + (REVOLUTIONS * 9) / 2;
       return -y_node / ((9 / (2 * Math.PI)) * 0.6);
     } else if (mode === 'vertical') {
-      return -this.getLinearPosition(index, 'vertical') / 8;
+      if (visibleIndex < 0) return 0;
+      return -this.getLinearPosition(visibleIndex, 'vertical') / 8;
     } else if (mode === 'horizontal') {
-      const node = this.nodesData[index];
-      const railIndex = this.getProjectRailMeshes().findIndex((mesh) => mesh.userData.projectId === node?.slug);
-      return (this.getLinearPosition(Math.max(0, railIndex), 'horizontal') - this.getHorizontalFocusX()) / 8;
+      const targetMesh = primaryMeshes[index];
+      if (!targetMesh) return 0;
+      const railIndex = visibleMeshes.findIndex((mesh) => mesh.userData.projectId === targetMesh.userData.slug);
+      if (railIndex < 0) return 0;
+      return (this.getLinearPosition(railIndex, 'horizontal') - this.getHorizontalFocusX()) / 8;
     } else if (mode === 'grid') {
+      if (visibleIndex < 0) return 0;
       const cols = 9;
-      const row = Math.floor(this.getGridSlot(index) / cols);
+      const row = Math.floor(this.getGridSlot(visibleIndex) / cols);
       const rowOffset = Math.floor(this.getGridRows() / 2);
       return ((row - rowOffset) * 5.9) / 6;
     }

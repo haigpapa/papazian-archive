@@ -13,6 +13,7 @@ import {
   findClosestRailIndex,
   getAdjacentRailIndex,
   getClosedRailSpan,
+  resolveVisibleIndex,
 } from '../src/core/railState';
 
 test('audio initialization rejects a never-resolving stage within its deadline', async () => {
@@ -80,4 +81,13 @@ test('the looping rail preserves one closing gap between its last and first slid
 
   assert.equal(getClosedRailSpan(openSpan, gap), openSpan + gap);
   assert.equal(getClosedRailSpan(0, gap), 0);
+});
+
+test('mode focus resolves through the visible subset instead of reusing the full-data index', () => {
+  const allNodes = ['archive-a', 'canonical-a', 'archive-b', 'canonical-b'];
+  const visibleNodes = ['canonical-a', 'canonical-b'];
+
+  assert.equal(resolveVisibleIndex(allNodes, visibleNodes, 3), 1);
+  assert.equal(resolveVisibleIndex(allNodes, visibleNodes, 2), -1);
+  assert.equal(resolveVisibleIndex(allNodes, visibleNodes, 99), -1);
 });
