@@ -4,704 +4,1408 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 1200,
     "height": 896
   },
+  "/images/projects/99-nodes/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/99-nodes/99-nodes-02.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/99-nodes/99-nodes-02-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/99-nodes/99-nodes-03.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/99-nodes/99-nodes-03-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/99-nodes/99-nodes-04.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/99-nodes/99-nodes-04-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/99-nodes/99-nodes-05.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/99-nodes/99-nodes-05-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/99-nodes/99-nodes-06.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/99-nodes/99-nodes-06-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/99-nodes/99-nodes-07.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/99-nodes/99-nodes-07-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/99-nodes/99-nodes-08.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/99-nodes/99-nodes-08-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/99-nodes/99-nodes-09.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/99-nodes/99-nodes-09-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/99-nodes/99-nodes-10.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/99-nodes/99-nodes-10-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/architecture-in-low-res/cover.webp": {
     "width": 1200,
     "height": 896
   },
+  "/images/projects/architecture-in-low-res/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/architecture-in-low-res/architecture-in-low-res-02.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/architecture-in-low-res/architecture-in-low-res-02-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/architecture-in-low-res/architecture-in-low-res-03.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/architecture-in-low-res/architecture-in-low-res-03-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/architecture-in-low-res/architecture-in-low-res-04.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/architecture-in-low-res/architecture-in-low-res-04-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/architecture-in-low-res/architecture-in-low-res-05.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/architecture-in-low-res/architecture-in-low-res-05-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/architecture-in-low-res/architecture-in-low-res-06.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/architecture-in-low-res/architecture-in-low-res-06-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/cartography-of-absence/02_cartography_of_absence.webp": {
     "width": 1920,
     "height": 1080
   },
+  "/images/projects/cartography-of-absence/02_cartography_of_absence-small.webp": {
+    "width": 600,
+    "height": 338
+  },
   "/images/projects/cartography-of-absence/cartography-absence-document-schematic.webp": {
     "width": 934,
     "height": 578
+  },
+  "/images/projects/cartography-of-absence/cartography-absence-document-schematic-small.webp": {
+    "width": 600,
+    "height": 371
   },
   "/images/projects/cartography-of-absence/cartography-of-absence-manuscript-swirl.webp": {
     "width": 1072,
     "height": 822
   },
+  "/images/projects/cartography-of-absence/cartography-of-absence-manuscript-swirl-small.webp": {
+    "width": 600,
+    "height": 460
+  },
   "/images/projects/cartography-of-absence/cartography-of-absence-title-card.webp": {
     "width": 304,
     "height": 618
+  },
+  "/images/projects/cartography-of-absence/cartography-of-absence-title-card-small.webp": {
+    "width": 295,
+    "height": 600
   },
   "/images/projects/cartography-of-absence/cartography-of-absence-bureaucratic-form.webp": {
     "width": 640,
     "height": 480
   },
+  "/images/projects/cartography-of-absence/cartography-of-absence-bureaucratic-form-small.webp": {
+    "width": 600,
+    "height": 450
+  },
   "/images/projects/cartography-of-absence/cartography-of-absence-data-void-absence-index.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/cartography-of-absence/cartography-of-absence-data-void-absence-index-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/cartography-of-absence/cartography-of-absence-data-void-trace.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/cartography-of-absence/cartography-of-absence-data-void-trace-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/chronocumulator/cover.webp": {
     "width": 1200,
     "height": 896
+  },
+  "/images/projects/chronocumulator/cover-small.webp": {
+    "width": 600,
+    "height": 448
   },
   "/images/projects/chronocumulator/chronocumulator-02.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/chronocumulator/chronocumulator-02-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/chronocumulator/chronocumulator-03.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/chronocumulator/chronocumulator-03-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/chronocumulator/chronocumulator-04.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/chronocumulator/chronocumulator-04-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/chronocumulator/chronocumulator-05.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/chronocumulator/chronocumulator-05-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/chronocumulator/chronocumulator-06.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/chronocumulator/chronocumulator-06-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/chronocumulator/chronocumulator-07.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/chronocumulator/chronocumulator-07-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/chronocumulator/chronocumulator-08.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/chronocumulator/chronocumulator-08-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/codeverse-explorer/cover.webp": {
     "width": 1200,
     "height": 896
+  },
+  "/images/projects/codeverse-explorer/cover-small.webp": {
+    "width": 600,
+    "height": 448
   },
   "/images/projects/codeverse-explorer/codeverse-explorer-02.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/codeverse-explorer/codeverse-explorer-02-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/codeverse-explorer/codeverse-explorer-03.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/codeverse-explorer/codeverse-explorer-03-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/codeverse-explorer/codeverse-explorer-04.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/codeverse-explorer/codeverse-explorer-04-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/codeverse-explorer/codeverse-explorer-05.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/codeverse-explorer/codeverse-explorer-05-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/codeverse-explorer/codeverse-explorer-06.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/codeverse-explorer/codeverse-explorer-06-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/derive/cover.webp": {
     "width": 1200,
     "height": 896
+  },
+  "/images/projects/derive/cover-small.webp": {
+    "width": 600,
+    "height": 448
   },
   "/images/projects/derive/derive-02.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/derive/derive-02-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/derive/derive-03.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/derive/derive-03-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/derive/derive-04.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/derive/derive-04-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/derive/derive-05.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/derive/derive-05-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/derive/derive-06.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/derive/derive-06-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/derive/derive-07.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/derive/derive-07-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/derive/derive-08.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/derive/derive-08-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/derive/derive-09.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/derive/derive-09-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/derive/derive-10.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/derive/derive-10-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/fictive-environments/cover.webp": {
     "width": 1200,
     "height": 896
+  },
+  "/images/projects/fictive-environments/cover-small.webp": {
+    "width": 600,
+    "height": 448
   },
   "/images/projects/fictive-environments/fictive-environments-02.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/fictive-environments/fictive-environments-02-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/fictive-environments/fictive-environments-03.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/fictive-environments/fictive-environments-03-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/fictive-environments/fictive-environments-04.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/fictive-environments/fictive-environments-04-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/fictive-environments/fictive-environments-05.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/fictive-environments/fictive-environments-05-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/fictive-environments/fictive-environments-06.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/fictive-environments/fictive-environments-06-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/fictive-environments/fictive-environments-07.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/fictive-environments/fictive-environments-07-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/fictive-environments/fictive-environments-08.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/fictive-environments/fictive-environments-08-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/hah-was/cover.webp": {
     "width": 1200,
     "height": 896
+  },
+  "/images/projects/hah-was/cover-small.webp": {
+    "width": 600,
+    "height": 448
   },
   "/images/projects/hah-was/hah-was-02.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/hah-was/hah-was-02-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/hah-was/hah-was-03.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/hah-was/hah-was-03-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/hah-was/hah-was-04.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/hah-was/hah-was-04-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/hah-was/hah-was-05.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/hah-was/hah-was-05-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/hah-was/hah-was-06.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/hah-was/hah-was-06-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/hah-was/hah-was-07.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/hah-was/hah-was-07-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/hah-was/hah-was-08.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/hah-was/hah-was-08-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/localization-gap/cover.webp": {
     "width": 1200,
     "height": 896
+  },
+  "/images/projects/localization-gap/cover-small.webp": {
+    "width": 600,
+    "height": 448
   },
   "/images/projects/localization-gap/localization-gap-02.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/localization-gap/localization-gap-02-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/localization-gap/localization-gap-03.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/localization-gap/localization-gap-03-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/localization-gap/localization-gap-04.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/localization-gap/localization-gap-04-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/localization-gap/localization-gap-05.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/localization-gap/localization-gap-05-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/localization-gap/localization-gap-06.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/localization-gap/localization-gap-06-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/localization-gap/localization-gap-07.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/localization-gap/localization-gap-07-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/localization-gap/localization-gap-08.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/localization-gap/localization-gap-08-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/localization-gap/localization-gap-09.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/localization-gap/localization-gap-09-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/localization-gap/localization-gap-10.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/localization-gap/localization-gap-10-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/localization-gap/localization-gap-11.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/localization-gap/localization-gap-11-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/localization-gap/localization-gap-12.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/localization-gap/localization-gap-12-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/localization-gap/localization-gap-13.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/localization-gap/localization-gap-13-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/maqamai/cover.webp": {
     "width": 1200,
     "height": 896
   },
+  "/images/projects/maqamai/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/maqamai/maqamai-02.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/maqamai/maqamai-02-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/maqamai/maqamai-03.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/maqamai/maqamai-03-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/maqamai/maqamai-04.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/maqamai/maqamai-04-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/maqamai/maqamai-05.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/maqamai/maqamai-05-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/maqamai/maqamai-06.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/maqamai/maqamai-06-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/mashrou-leila/cover.webp": {
     "width": 640,
     "height": 426
   },
+  "/images/projects/mashrou-leila/cover-small.webp": {
+    "width": 600,
+    "height": 399
+  },
   "/images/projects/mashrou-leila/mashrou-leila-02.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/mashrou-leila/mashrou-leila-02-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/mashrou-leila/mashrou-leila-03.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/mashrou-leila/mashrou-leila-03-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/mashrou-leila/mashrou-leila-04.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/mashrou-leila/mashrou-leila-04-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/mashrou-leila/mashrou-leila-05.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/mashrou-leila/mashrou-leila-05-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/mashrou-leila/mashrou-leila-06.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/mashrou-leila/mashrou-leila-06-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/mashrou-leila/mashrou-leila-07.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/mashrou-leila/mashrou-leila-07-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/mashrou-leila/mashrou-leila-10.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/mashrou-leila/mashrou-leila-10-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/mashrou-leila/mashrou-leila-11.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/mashrou-leila/mashrou-leila-11-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/mashrou-leila/mashrou-leila-12.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/mashrou-leila/mashrou-leila-12-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/mashrou-leila/mashrou-leila-14.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/mashrou-leila/mashrou-leila-14-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/meaning-stack/meaning-stack-github-constellation.webp": {
     "width": 640,
     "height": 480
+  },
+  "/images/projects/meaning-stack/meaning-stack-github-constellation-small.webp": {
+    "width": 600,
+    "height": 450
   },
   "/images/projects/meaning-stack/meaning-stack-diagram-01.webp": {
     "width": 1854,
     "height": 1294
   },
+  "/images/projects/meaning-stack/meaning-stack-diagram-01-small.webp": {
+    "width": 600,
+    "height": 419
+  },
   "/images/projects/meaning-stack/meaning-stack-diagram-02.webp": {
     "width": 1916,
     "height": 2124
+  },
+  "/images/projects/meaning-stack/meaning-stack-diagram-02-small.webp": {
+    "width": 541,
+    "height": 600
   },
   "/images/projects/meaning-stack/meaning-stack-network-nodes.webp": {
     "width": 1110,
     "height": 620
   },
+  "/images/projects/meaning-stack/meaning-stack-network-nodes-small.webp": {
+    "width": 600,
+    "height": 335
+  },
   "/images/projects/meaning-stack/meaning-stack-processing-cultural-friction.webp": {
     "width": 2010,
     "height": 2248
+  },
+  "/images/projects/meaning-stack/meaning-stack-processing-cultural-friction-small.webp": {
+    "width": 536,
+    "height": 600
   },
   "/images/projects/meaning-stack/meaning_stack.webp": {
     "width": 3600,
     "height": 2400
   },
+  "/images/projects/meaning-stack/meaning_stack-small.webp": {
+    "width": 600,
+    "height": 400
+  },
   "/images/projects/mekena-nyc/cover.webp": {
     "width": 1200,
     "height": 896
+  },
+  "/images/projects/mekena-nyc/cover-small.webp": {
+    "width": 600,
+    "height": 448
   },
   "/images/projects/mekena-nyc/mekena-nyc-02.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/mekena-nyc/mekena-nyc-02-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/mekena-nyc/mekena-nyc-03.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/mekena-nyc/mekena-nyc-03-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/mekena-nyc/mekena-nyc-04.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/mekena-nyc/mekena-nyc-04-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/mekena-nyc/mekena-nyc-05.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/mekena-nyc/mekena-nyc-05-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/mekena-nyc/mekena-nyc-06.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/mekena-nyc/mekena-nyc-06-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/mekena-nyc/mekena-nyc-07.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/mekena-nyc/mekena-nyc-07-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/mekena-nyc/mekena-nyc-08.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/mekena-nyc/mekena-nyc-08-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/mekena-nyc/mekena-nyc-09.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/mekena-nyc/mekena-nyc-09-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/mekena-nyc/mekena-nyc-10.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/mekena-nyc/mekena-nyc-10-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/mekena-nyc/mekena-nyc-11.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/mekena-nyc/mekena-nyc-11-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/mekena-nyc/mekena-nyc-12.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/mekena-nyc/mekena-nyc-12-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/mekena-nyc/mekena-nyc-14.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/mekena-nyc/mekena-nyc-14-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/cover.webp": {
     "width": 1200,
     "height": 896
   },
+  "/images/projects/sometimes-i-wake-up-elsewhere/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-02.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-02-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-03.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-03-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-04.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-04-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-05.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-05-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-06.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-06-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-07.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-07-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-08.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-08-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-09.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-09-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-10.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-10-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-11.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-11-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-12.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-12-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-14.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-14-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/space-time-tuning-machine/cover.webp": {
     "width": 1200,
     "height": 896
+  },
+  "/images/projects/space-time-tuning-machine/cover-small.webp": {
+    "width": 600,
+    "height": 448
   },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-02.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-02-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-03.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-03-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-04.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-04-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-05.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-05-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-06.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-06-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-07.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-07-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-08.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-08-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-09.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-09-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-10.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-10-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-11.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-11-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-12.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-12-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/space-time-tuning-machine/space-time-tuning-machine-13.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/space-time-tuning-machine/space-time-tuning-machine-13-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/storylines/cover.webp": {
     "width": 1200,
     "height": 896
   },
+  "/images/projects/storylines/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/storylines/storylines-02.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/storylines/storylines-02-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/storylines/storylines-03.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/storylines/storylines-03-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/storylines/storylines-04.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/storylines/storylines-04-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/storylines/storylines-05.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/storylines/storylines-05-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/storylines/storylines-06.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/storylines/storylines-06-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/systems-choreography/cover.webp": {
     "width": 1200,
     "height": 896
   },
+  "/images/projects/systems-choreography/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/systems-choreography/systems-choreography-02.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/systems-choreography/systems-choreography-02-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/systems-choreography/systems-choreography-03.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/systems-choreography/systems-choreography-03-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/systems-choreography/systems-choreography-04.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/systems-choreography/systems-choreography-04-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/systems-choreography/systems-choreography-05.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/systems-choreography/systems-choreography-05-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/systems-choreography/systems-choreography-06.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/systems-choreography/systems-choreography-06-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/systems-choreography/systems-choreography-07.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/systems-choreography/systems-choreography-07-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/systems-choreography/systems-choreography-08.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/systems-choreography/systems-choreography-08-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/tebr/cover.webp": {
     "width": 1200,
     "height": 896
   },
+  "/images/projects/tebr/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/tebr/tebr-02.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/tebr/tebr-02-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/tebr/tebr-03.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/tebr/tebr-03-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/tebr/tebr-04.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/tebr/tebr-04-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/tebr/tebr-05.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/tebr/tebr-05-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/tebr/tebr-06.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/tebr/tebr-06-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/tebr/tebr-07.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/tebr/tebr-07-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/tebr/tebr-08.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/tebr/tebr-08-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/tebr/tebr-09.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/tebr/tebr-09-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/tebr/tebr-10.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/tebr/tebr-10-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/tebr/tebr-11.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/tebr/tebr-11-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/tebr/tebr-13.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/tebr/tebr-13-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/the-weather-rehearsal/cover.webp": {
     "width": 1200,
     "height": 896
   },
+  "/images/projects/the-weather-rehearsal/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/the-weather-rehearsal/the-weather-rehearsal-02.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/the-weather-rehearsal/the-weather-rehearsal-02-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/the-weather-rehearsal/the-weather-rehearsal-03.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/the-weather-rehearsal/the-weather-rehearsal-03-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/the-weather-rehearsal/the-weather-rehearsal-04.webp": {
     "width": 896,
     "height": 1200
+  },
+  "/images/projects/the-weather-rehearsal/the-weather-rehearsal-04-small.webp": {
+    "width": 448,
+    "height": 600
   },
   "/images/projects/the-weather-rehearsal/the-weather-rehearsal-05.webp": {
     "width": 896,
     "height": 1200
   },
+  "/images/projects/the-weather-rehearsal/the-weather-rehearsal-05-small.webp": {
+    "width": 448,
+    "height": 600
+  },
   "/images/projects/the-weather-rehearsal/the-weather-rehearsal-06.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/the-weather-rehearsal/the-weather-rehearsal-06-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/why-were-like-this/cover.webp": {
     "width": 1200,
     "height": 896
   },
+  "/images/projects/why-were-like-this/cover-small.webp": {
+    "width": 600,
+    "height": 448
+  },
   "/images/projects/why-were-like-this/why-were-like-this-02.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/why-were-like-this/why-were-like-this-02-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/why-were-like-this/why-were-like-this-03.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/why-were-like-this/why-were-like-this-03-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/why-were-like-this/why-were-like-this-04.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/why-were-like-this/why-were-like-this-04-small.webp": {
+    "width": 600,
+    "height": 600
   },
   "/images/projects/why-were-like-this/why-were-like-this-05.webp": {
     "width": 1024,
     "height": 1024
   },
+  "/images/projects/why-were-like-this/why-were-like-this-05-small.webp": {
+    "width": 600,
+    "height": 600
+  },
   "/images/projects/why-were-like-this/why-were-like-this-06.webp": {
     "width": 1024,
     "height": 1024
+  },
+  "/images/projects/why-were-like-this/why-were-like-this-06-small.webp": {
+    "width": 600,
+    "height": 600
   }
 };

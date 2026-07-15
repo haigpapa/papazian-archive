@@ -32,8 +32,35 @@ export function ImageWithFallback({
   ...props 
 }: Props) {
   const [errorCount, setErrorCount] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const media = window.matchMedia('(max-width: 768px)');
+    setIsMobile(media.matches);
+    const listener = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, []);
+
+  const getSmallSrc = (originalSrc: string): string => {
+    if (
+      !originalSrc ||
+      originalSrc.includes('-small.webp') ||
+      originalSrc.includes('youtube') ||
+      originalSrc.includes('ytimg') ||
+      originalSrc.includes('img.youtube.com')
+    ) {
+      return '';
+    }
+    const lastDot = originalSrc.lastIndexOf('.');
+    if (lastDot === -1) return '';
+    return `${originalSrc.slice(0, lastDot)}-small.webp`;
+  };
+
   const activeSrc = errorCount === 1 && fallbackSrc ? fallbackSrc : src;
-  const intrinsic = activeSrc ? MEDIA_DIMENSIONS[activeSrc] : undefined;
+  const smallSrc = activeSrc ? getSmallSrc(activeSrc) : '';
+  const finalSrc = (isMobile && smallSrc) ? smallSrc : activeSrc;
+  const intrinsic = finalSrc ? MEDIA_DIMENSIONS[finalSrc] : undefined;
 
   // If both src and fallbackSrc fail, we show the placeholder.
   const hasFailed = errorCount > (fallbackSrc ? 1 : 0);
@@ -52,7 +79,7 @@ export function ImageWithFallback({
 
   return (
     <img
-      src={activeSrc}
+      src={finalSrc}
       alt={alt}
       onError={() => setErrorCount(c => c + 1)}
       className={className}

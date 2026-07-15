@@ -146,7 +146,8 @@ export default class NodeManager {
     this.loadingManager.onLoad = () => {
       console.log('Textures loaded successfully');
       this.options.onLoadComplete?.();
-      this.loadUnhydratedBackground();
+      // uloadUnhydratedBackground is disabled to prevent background mobile OOM crashes.
+      // Secondary project textures are hydrated on-demand when the user views the project rail.
     };
     this.loadingManager.onError = (url) => {
       console.warn('Texture failed to load:', url);
@@ -299,105 +300,75 @@ export default class NodeManager {
           const isCore = asset.isPrimary || assetIndex === 0; // Load only the primary cover eagerly
           
           if (isCore) {
-            texture = loader.load(
-            primarySrc,
-            (loadedTexture) => {
-              const image = loadedTexture.image;
-              if (image?.width && image?.height && mesh) {
-                mesh.userData.imageAspect = image.width / image.height;
-                if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
-                  (mesh.material as THREE.ShaderMaterial).uniforms.uAspect.value = mesh.userData.imageAspect;
-                  this.scheduleRelayout();
-                }
-              }
-            },
-            undefined,
-            (err) => {
-              // On error, if it's a .webp, try falling back to .jpg
-              const fallbackSrc = primarySrc.replace(/\.webp$/, '.jpg');
-              if (fallbackSrc !== primarySrc) {
-                loader.load(
-                  fallbackSrc,
-                  (fallbackTexture) => {
-                    const image = fallbackTexture.image;
-                    if (image?.width && image?.height && mesh && mesh.material) {
-                      mesh.userData.imageAspect = image.width / image.height;
-                      const mat = mesh.material as THREE.ShaderMaterial;
-                      if (mat.uniforms) {
-                        mat.uniforms.uMap.value = fallbackTexture;
-                        mat.uniforms.uAspect.value = mesh.userData.imageAspect;
-                        this.scheduleRelayout();
-                      }
+            const isMobile = window.innerWidth <= 768;
+            const hasSmall = primarySrc && !primarySrc.includes('-small.webp') && !primarySrc.includes('youtube') && !primarySrc.includes('ytimg') && !primarySrc.includes('img.youtube.com');
+            const initialSrc = (isMobile && hasSmall)
+              ? primarySrc.slice(0, primarySrc.lastIndexOf('.')) + '-small.webp'
+              : primarySrc;
+
+            const loadTextureWithFallbacks = (currentSrc: string, stage: 'small' | 'original' | 'jpg' | 'youtube' | 'card') => {
+              loader.load(
+                currentSrc,
+                (loadedTexture) => {
+                  loadedTexture.colorSpace = THREE.SRGBColorSpace;
+                  const image = loadedTexture.image;
+                  if (image?.width && image?.height && mesh) {
+                    mesh.userData.imageAspect = image.width / image.height;
+                    const mat = mesh.material as THREE.ShaderMaterial;
+                    if (mat && mat.uniforms) {
+                      mat.uniforms.uMap.value = loadedTexture;
+                      mat.uniforms.uAspect.value = mesh.userData.imageAspect;
+                      this.scheduleRelayout();
                     }
-                  },
-                  undefined,
-                  () => {
-                    // Fall back to error texture if .jpg also fails (or try youtube if available)
-                    const ytId = asset.youtubeId || data.youtubeId;
-                    if (ytId) {
-                      const ytThumb = `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
-                      loader.load(ytThumb, (ytTex) => {
-                        const image = ytTex.image;
-                        if (image?.width && image?.height && mesh && mesh.material) {
-                          mesh.userData.imageAspect = image.width / image.height;
-                          const mat = mesh.material as THREE.ShaderMaterial;
-                          if (mat.uniforms) {
-                            mat.uniforms.uMap.value = ytTex;
-                            mat.uniforms.uAspect.value = mesh.userData.imageAspect;
-                            this.scheduleRelayout();
-                          }
-                        }
-                      }, undefined, () => {
+                  }
+                },
+                undefined,
+                (err) => {
+                  if (stage === 'small') {
+                    loadTextureWithFallbacks(primarySrc, 'original');
+                  } else if (stage === 'original') {
+                    const fallbackSrc = primarySrc.replace(/\.webp$/, '.jpg');
+                    if (fallbackSrc !== primarySrc) {
+                      loadTextureWithFallbacks(fallbackSrc, 'jpg');
+                    } else {
+                      const ytId = asset.youtubeId || data.youtubeId;
+                      if (ytId) {
+                        loadTextureWithFallbacks(`https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`, 'youtube');
+                      } else {
+                        const errTex = this.createCardTexture({ ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' }, data, 'text', customAspect);
                         if (mesh && mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
-                          const errTex = this.createCardTexture({ ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' }, data, 'text', customAspect);
                           (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = errTex;
                           this.scheduleRelayout();
                         }
-                      });
+                      }
+                    }
+                  } else if (stage === 'jpg') {
+                    const ytId = asset.youtubeId || data.youtubeId;
+                    if (ytId) {
+                      loadTextureWithFallbacks(`https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`, 'youtube');
                     } else {
+                      const errTex = this.createCardTexture({ ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' }, data, 'text', customAspect);
                       if (mesh && mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
-                        const errTex = this.createCardTexture({ ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' }, data, 'text', customAspect);
                         (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = errTex;
                         this.scheduleRelayout();
                       }
                     }
-                  }
-                );
-              } else {
-                const ytId = asset.youtubeId || data.youtubeId;
-                if (ytId) {
-                  const ytThumb = `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
-                  loader.load(ytThumb, (ytTex) => {
-                    const image = ytTex.image;
-                    if (image?.width && image?.height && mesh && mesh.material) {
-                      mesh.userData.imageAspect = image.width / image.height;
-                      const mat = mesh.material as THREE.ShaderMaterial;
-                      if (mat.uniforms) {
-                        mat.uniforms.uMap.value = ytTex;
-                        mat.uniforms.uAspect.value = mesh.userData.imageAspect;
-                        this.scheduleRelayout();
-                      }
-                    }
-                  }, undefined, () => {
+                  } else {
+                    const errTex = this.createCardTexture({ ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' }, data, 'text', customAspect);
                     if (mesh && mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
-                      const errTex = this.createCardTexture({ ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' }, data, 'text', customAspect);
                       (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = errTex;
                       this.scheduleRelayout();
                     }
-                  });
-                } else {
-                  // Not a .webp, just fallback to error texture
-                  if (mesh && mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
-                    const errTex = this.createCardTexture({ ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' }, data, 'text', customAspect);
-                    (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = errTex;
-                    this.scheduleRelayout();
                   }
                 }
-              }
-            }
-          );
-          texture.colorSpace = THREE.SRGBColorSpace;
-          textureLoaded = true;
+              );
+            };
+
+            texture = this.placeholderTexture;
+            setTimeout(() => {
+              loadTextureWithFallbacks(initialSrc, (initialSrc !== primarySrc) ? 'small' : 'original');
+            }, 0);
+            textureLoaded = true;
           } else {
             texture = this.placeholderTexture;
             // We will hydrate this later, after the mesh is created
@@ -2739,32 +2710,66 @@ export default class NodeManager {
       
       mesh.userData.textureLoaded = true; // Mark as loading / loaded
       
-      loader.load(
-        url,
-        (loadedTexture) => {
-          loadedTexture.colorSpace = THREE.SRGBColorSpace;
-          const image = loadedTexture.image;
-          
-          if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uMap) {
-            (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = loadedTexture;
-            (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value.needsUpdate = true;
-          }
-          
-          if (image?.width && image?.height) {
-            mesh.userData.imageAspect = image.width / image.height;
-            if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uAspect) {
-              (mesh.material as THREE.ShaderMaterial).uniforms.uAspect.value = mesh.userData.imageAspect;
+      const isMobile = window.innerWidth <= 768;
+      const hasSmall = url && !url.includes('-small.webp') && !url.includes('youtube') && !url.includes('ytimg') && !url.includes('img.youtube.com');
+      const initialSrc = (isMobile && hasSmall)
+        ? url.slice(0, url.lastIndexOf('.')) + '-small.webp'
+        : url;
+
+      const loadWithFallbacks = (src: string, stage: 'small' | 'original' | 'jpg' | 'youtube' | 'card') => {
+        loader.load(
+          src,
+          (loadedTexture) => {
+            loadedTexture.colorSpace = THREE.SRGBColorSpace;
+            const image = loadedTexture.image;
+            
+            if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uMap) {
+              (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = loadedTexture;
+              (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value.needsUpdate = true;
             }
-            this.scheduleRelayout();
+            
+            if (image?.width && image?.height) {
+              mesh.userData.imageAspect = image.width / image.height;
+              if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uAspect) {
+                (mesh.material as THREE.ShaderMaterial).uniforms.uAspect.value = mesh.userData.imageAspect;
+              }
+              this.scheduleRelayout();
+            }
+          },
+          undefined,
+          (error) => {
+            if (stage === 'small') {
+              loadWithFallbacks(url, 'original');
+            } else if (stage === 'original') {
+              const fallbackSrc = url.replace(/\.webp$/, '.jpg');
+              if (fallbackSrc !== url && !this.failedUrls.has(fallbackSrc)) {
+                loadWithFallbacks(fallbackSrc, 'jpg');
+              } else {
+                const ytId = mesh.userData.assetYoutubeId || mesh.userData.youtubeId;
+                if (ytId) {
+                  loadWithFallbacks(`https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`, 'youtube');
+                } else {
+                  this.failedUrls.add(url);
+                  this.handleFallbackErrorTexture(mesh, mesh.userData, mesh.userData, mesh.userData.imageAspect || 1.0);
+                }
+              }
+            } else if (stage === 'jpg') {
+              const ytId = mesh.userData.assetYoutubeId || mesh.userData.youtubeId;
+              if (ytId) {
+                loadWithFallbacks(`https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`, 'youtube');
+              } else {
+                this.failedUrls.add(url);
+                this.handleFallbackErrorTexture(mesh, mesh.userData, mesh.userData, mesh.userData.imageAspect || 1.0);
+              }
+            } else {
+              this.failedUrls.add(url);
+              this.handleFallbackErrorTexture(mesh, mesh.userData, mesh.userData, mesh.userData.imageAspect || 1.0);
+            }
           }
-        },
-        undefined,
-        (error) => {
-          console.warn('Deferred texture failed to load:', url, error);
-          this.failedUrls.add(url);
-          mesh.userData.textureLoaded = false; // Reset so we can retry if needed
-        }
-      );
+        );
+      };
+      
+      loadWithFallbacks(initialSrc, (initialSrc !== url) ? 'small' : 'original');
     });
   }
 
