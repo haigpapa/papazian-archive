@@ -48,6 +48,13 @@ interface AudioNodeInfo {
 
 type AudioStatus = 'idle' | 'loading' | 'ready' | 'error';
 type AudioStateListener = () => void;
+type SpatialAudioNode = { slug: string; x: number; y: number; z: number; domain: string };
+type AudioModules = [
+  typeof import('tone'),
+  typeof import('./modes/CylinderAudio'),
+  typeof import('./modes/AtlasAudio'),
+  typeof import('./modes/InteractionAudio'),
+];
 
 // ─── Singleton ─────────────────────────────────────────────────────
 
@@ -65,6 +72,7 @@ export class AudioEngine {
   // Tone.js is loaded on first initialize() so the audio stack stays
   // out of the critical loading path.
   private tone: typeof Tone | null = null;
+  private audioModulesPromise: Promise<AudioModules> | null = null;
 
   // ─── Master Bus ────────────────────────────────────────────────
   private masterGain: Tone.Gain | null = null;
@@ -85,6 +93,7 @@ export class AudioEngine {
   // so enabling audio inside a project still starts its stem.
   private pendingProjectSlug: string | null = null;
   private projectDomains = new Map<string, string>(); // slug → domain
+  private pendingAtlasNodes: SpatialAudioNode[] = [];
 
   // ─── Visibility ───────────────────────────────────────────────
   private visibilityHandler: (() => void) | null = null;
@@ -134,6 +143,34 @@ export class AudioEngine {
     this.listeners.forEach((fn) => fn());
   }
 
+  private loadAudioModules(): Promise<AudioModules> {
+    if (!this.audioModulesPromise) {
+      this.audioModulesPromise = Promise.all([
+        import('tone'),
+        import('./modes/CylinderAudio'),
+        import('./modes/AtlasAudio'),
+        import('./modes/InteractionAudio'),
+      ]).catch((error) => {
+        this.audioModulesPromise = null;
+        throw error;
+      });
+    }
+
+    return this.audioModulesPromise;
+  }
+
+  /**
+   * Warm the deferred modules after the visual archive is interactive.
+   * No AudioContext is created here; playback still begins only from a
+   * user gesture, while avoiding a gesture-expiring import waterfall.
+   */
+  preload(): void {
+    if (this._disposed || this._isInitialized) return;
+    void this.loadAudioModules().catch(() => {
+      // initialize() exposes a retryable UI error if loading still fails.
+    });
+  }
+
   // ─── Lifecycle ────────────────────────────────────────────────
 
   /**
@@ -156,12 +193,7 @@ export class AudioEngine {
 
     try {
       const [tone, cylinderModule, atlasModule, interactionModule] = await runStage(
-        Promise.all([
-          import('tone'),
-          import('./modes/CylinderAudio'),
-          import('./modes/AtlasAudio'),
-          import('./modes/InteractionAudio'),
-        ]),
+        this.loadAudioModules(),
         'module loading',
       );
       if (this._disposed) return;
@@ -202,6 +234,7 @@ export class AudioEngine {
       // ── Mode Layers ─────────────────────────────────────────
       this.cylinderAudio = new cylinderModule.CylinderAudio(this.masterGain);
       this.atlasAudio = new atlasModule.AtlasAudio(this.masterGain);
+      this.atlasAudio.setNodes(this.pendingAtlasNodes);
       this.interactionAudio = new interactionModule.InteractionAudio(this.masterGain);
 
       // ── Page Visibility ─────────────────────────────────────
@@ -235,7 +268,9 @@ export class AudioEngine {
       this.resetAudioGraph();
       this._status = 'error';
       this._error = err instanceof AudioInitializationTimeoutError
-        ? 'Sound timed out - retry'
+        ? err.stage === 'audio context start'
+          ? 'Browser audio did not start - retry'
+          : `Sound setup timed out (${err.stage}) - retry`
         : 'Sound unavailable - retry';
       this._isInitialized = false;
       this._isMuted = true;
@@ -556,8 +591,9 @@ export class AudioEngine {
    * Register node positions for spatial audio assignment.
    * Called once when atlas data is loaded.
    */
-  setAtlasNodes(nodes: Array<{ slug: string; x: number; y: number; z: number; domain: string }>): void {
-    this.atlasAudio?.setNodes(nodes);
+  setAtlasNodes(nodes: SpatialAudioNode[]): void {
+    this.pendingAtlasNodes = nodes.map((node) => ({ ...node }));
+    this.atlasAudio?.setNodes(this.pendingAtlasNodes);
     nodes.forEach((n) => {
       this.projectDomains.set(n.slug, n.domain);
     });

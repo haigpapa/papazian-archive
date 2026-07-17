@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { SPATIAL_DURATION, SPATIAL_EASE } from '../ui/motion';
 import gsap from 'gsap';
 import { CANONICAL_PROJECT_SLUGS, CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
+import { MEDIA_DIMENSIONS } from '../data/generated/mediaDimensions';
 import { getProjectWorld } from '../data/worlds';
 import { getRelationDetail, RELATION_LINE_STYLES } from '../data/relations';
 import { type IndexFilters, DEFAULT_INDEX_FILTERS } from '../components/IndexFilterBar';
@@ -129,6 +130,10 @@ export default class NodeManager {
   private lastProjHeight = 0;
   private lastProjScrollX = 0;
   private lastProjScrollY = 0;
+  // Cached reduced-motion preference — updated via MediaQueryList listener
+  // instead of synchronous matchMedia calls in hot paths.
+  private _prefersReducedMotion: boolean;
+  private _reducedMotionMql: MediaQueryList;
 
   constructor(scene: THREE.Scene, camera: THREE.PerspectiveCamera, nodesData: any[], options: any) {
     this.scene = scene;
@@ -156,12 +161,29 @@ export default class NodeManager {
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
 
+    // Cache prefers-reduced-motion and listen for changes.
+    this._reducedMotionMql = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this._prefersReducedMotion = this._reducedMotionMql.matches;
+    this._reducedMotionMql.addEventListener('change', this.onReducedMotionChange);
+
     this.createNodes();
     this.createNoDataZones();
     
     window.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('pointerdown', this.onPointerDown);
     window.addEventListener('click', this.onClick);
+  }
+
+  private onReducedMotionChange = (e: MediaQueryListEvent) => {
+    this._prefersReducedMotion = e.matches;
+  };
+
+  /** Dispose the current uMap texture before replacing it, unless it's the shared placeholder. */
+  private disposeOldTexture(mat: THREE.ShaderMaterial): void {
+    const old = mat.uniforms.uMap?.value;
+    if (old && old !== this.placeholderTexture && old.isTexture) {
+      old.dispose();
+    }
   }
 
   private createNoDataZones() {
@@ -248,7 +270,7 @@ export default class NodeManager {
     const planeWidth = 6;
     const planeHeight = 4;
     const planeAspect = planeWidth / planeHeight;
-    const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 32, 32);
+    const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight, 4, 4);
 
     this.nodesData.forEach((data, i) => {
       const gallery = data.gallery?.length
@@ -263,8 +285,14 @@ export default class NodeManager {
         const role = asset.role || '';
         const chapter = asset.chapter || '';
         const layout = asset.layout || '';
+        const localMediaSrc = asset.poster || asset.src || data.thumbnail;
+        const mediaDimensions = localMediaSrc ? MEDIA_DIMENSIONS[localMediaSrc] : null;
         
-        if (layout === 'hero' || role === 'hero' || assetIndex === 0) {
+        if (mediaDimensions?.width && mediaDimensions?.height) {
+          // Begin with the real ratio so late texture hydration cannot reflow
+          // the rail and silently move another slide into the focal position.
+          customAspect = mediaDimensions.width / mediaDimensions.height;
+        } else if (layout === 'hero' || role === 'hero' || assetIndex === 0) {
           customAspect = 1.333; // Widescreen cover
         } else if (String(chapter).toLowerCase() === 'authorship' || role === 'role') {
           customAspect = 1.35; // Dossier
@@ -316,6 +344,7 @@ export default class NodeManager {
                     mesh.userData.imageAspect = image.width / image.height;
                     const mat = mesh.material as THREE.ShaderMaterial;
                     if (mat && mat.uniforms) {
+                      this.disposeOldTexture(mat);
                       mat.uniforms.uMap.value = loadedTexture;
                       mat.uniforms.uAspect.value = mesh.userData.imageAspect;
                       this.scheduleRelayout();
@@ -349,6 +378,7 @@ export default class NodeManager {
                     } else {
                       const errTex = this.createCardTexture({ ...asset, label: 'MEDIA UNAVAILABLE', title: 'MEDIA UNAVAILABLE', cardStyle: 'system' }, data, 'text', customAspect);
                       if (mesh && mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
+                        this.disposeOldTexture(mesh.material as THREE.ShaderMaterial);
                         (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = errTex;
                         this.scheduleRelayout();
                       }
@@ -1156,7 +1186,7 @@ export default class NodeManager {
   }
 
   private setNodePosition(mesh: THREE.Mesh, i: number, mode: string, animate: boolean = true) {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = this._prefersReducedMotion;
     const shouldAnimate = animate && !prefersReducedMotion;
     const isVisible = this.isMeshVisibleInMode(mesh, mode);
     const RADIUS = 18;
@@ -1291,7 +1321,11 @@ export default class NodeManager {
     const imageAspect = mesh.userData?.imageAspect || planeAspect;
 
     if (mode === 'horizontal') {
-      const heightScale = 2.8 * multiplier;
+      const isCompactRail = window.innerWidth <= 768;
+      const responsiveHeight = isCompactRail
+        ? Math.min(2.4, 1.6 / Math.max(imageAspect, 0.65))
+        : 2.8;
+      const heightScale = responsiveHeight * multiplier;
       const widthScale = Math.min(heightScale * (imageAspect / planeAspect), this.getMaxImageWidth(mode) / 6);
 
       return {
@@ -1401,12 +1435,19 @@ export default class NodeManager {
   }
 
   private getHorizontalPerspective(mesh: THREE.Mesh, index: number, worldX: number) {
-    const scale = 1;
-    const targetY = 0;
-    const targetZ = this.getHorizontalBaseZ(mesh, index);
-    const targetRotY = 0;
-    const targetRotZ = 0;
-    const progress = 1 - THREE.MathUtils.clamp(Math.abs(worldX) / 18, 0, 1);
+    const focusX = this.getHorizontalFocusX();
+    const signedDistance = worldX - focusX;
+    const distance = Math.abs(signedDistance);
+    const progress = 1 - THREE.MathUtils.smoothstep(distance, 0, 17);
+    const direction = Math.sign(signedDistance);
+
+    // Editorial focus without a carousel gimmick: the centered frame advances
+    // while neighbouring evidence recedes and turns slightly toward it.
+    const scale = 0.86 + progress * 0.22;
+    const targetY = progress * 0.18;
+    const targetZ = this.getHorizontalBaseZ(mesh, index) - 1.1 + progress * 3.0;
+    const targetRotY = -direction * (1 - progress) * 0.075;
+    const targetRotZ = direction * (1 - progress) * 0.006;
 
     return { scale, targetY, targetZ, targetRotY, targetRotZ, progress };
   }
@@ -1548,7 +1589,7 @@ export default class NodeManager {
   }
 
   public setLayoutMode(mode: string) {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = this._prefersReducedMotion;
     this.activeMode = mode;
     this.hasProjectedPositions = false;
     this.invalidateVisibleMeshCache();
@@ -1619,6 +1660,13 @@ export default class NodeManager {
   }
 
   public update(scrollX: number, scrollY: number, zoom = 1.0) {
+    // Compute dt for frame-rate invariant interpolation inside this method.
+    const now = performance.now() / 1000;
+    const dt = Math.min(0.1, now - this.lastRenderTime);
+    // Note: lastRenderTime is also updated by renderUpdate(), which runs
+    // at a higher frequency. We read but don't write here to avoid
+    // double-advancing the clock.
+
     // Determine the extent of layout to create scroll bounds if desired
     // For now we just endlessly scroll. We'll use a modulo or clamp if needed.
     
@@ -1675,13 +1723,14 @@ export default class NodeManager {
         const perspective = this.getHorizontalPerspective(mesh, index, worldX);
         const baseScale = this.getNodeScale(mesh, 1, 'horizontal');
         mesh.position.x = worldX - this.group.position.x;
-        mesh.rotation.y += (perspective.targetRotY - mesh.rotation.y) * 0.08;
-        mesh.rotation.z += (perspective.targetRotZ - mesh.rotation.z) * 0.08;
-        mesh.position.y += (perspective.targetY - mesh.position.y) * 0.08;
-        mesh.position.z += (perspective.targetZ - mesh.position.z) * 0.08;
-        mesh.scale.x += (baseScale.x * perspective.scale - mesh.scale.x) * 0.08;
-        mesh.scale.y += (baseScale.y * perspective.scale - mesh.scale.y) * 0.08;
-        mesh.scale.z += (baseScale.z * perspective.scale - mesh.scale.z) * 0.08;
+        const railLerp = 1 - Math.exp(-5.0 * dt);
+        mesh.rotation.y += (perspective.targetRotY - mesh.rotation.y) * railLerp;
+        mesh.rotation.z += (perspective.targetRotZ - mesh.rotation.z) * railLerp;
+        mesh.position.y += (perspective.targetY - mesh.position.y) * railLerp;
+        mesh.position.z += (perspective.targetZ - mesh.position.z) * railLerp;
+        mesh.scale.x += (baseScale.x * perspective.scale - mesh.scale.x) * railLerp;
+        mesh.scale.y += (baseScale.y * perspective.scale - mesh.scale.y) * railLerp;
+        mesh.scale.z += (baseScale.z * perspective.scale - mesh.scale.z) * railLerp;
       });
       this.updateRelationLines();
       this.updateCylinderGuideLines();
@@ -1790,14 +1839,16 @@ export default class NodeManager {
           const worldPos = new THREE.Vector3();
           mesh.getWorldPosition(worldPos);
           const targetCamPos = worldPos.clone().add(new THREE.Vector3(0, 0, 5.5));
-          this.camera.position.lerp(targetCamPos, 0.08);
+          const camLerp = 1 - Math.exp(-5.0 * dt);
+          this.camera.position.lerp(targetCamPos, camLerp);
           this.camera.lookAt(worldPos);
         }
       } else {
+        const camLerp = 1 - Math.exp(-5.0 * dt);
         const targetZ = Math.max(10, Math.min(80, 25 * zoom));
-        this.camera.position.z += (targetZ - this.camera.position.z) * 0.08;
-        this.camera.position.x += (0 - this.camera.position.x) * 0.08;
-        this.camera.position.y += (0 - this.camera.position.y) * 0.08;
+        this.camera.position.z += (targetZ - this.camera.position.z) * camLerp;
+        this.camera.position.x += (0 - this.camera.position.x) * camLerp;
+        this.camera.position.y += (0 - this.camera.position.y) * camLerp;
         this.camera.lookAt(0, 0, 0);
       }
 
@@ -1918,7 +1969,16 @@ export default class NodeManager {
         mat.uniforms.uHover.value += (targetHover - mat.uniforms.uHover.value) * lerpFactorHover;
       }
 
-      if (this.activeMode === 'map') {
+      if (this.activeMode === 'horizontal') {
+        const meshIndexInRail = railMeshes.indexOf(mesh);
+        if (meshIndexInRail !== -1) {
+          const worldX = mesh.position.x + this.group.position.x;
+          const { progress } = this.getHorizontalPerspective(mesh, meshIndexInRail, worldX);
+          const targetOpacity = 0.44 + progress * 0.56;
+          const opacityLerp = 1 - Math.exp(-6.0 * dt);
+          mat.uniforms.uModeVisibility.value += (targetOpacity - mat.uniforms.uModeVisibility.value) * opacityLerp;
+        }
+      } else if (this.activeMode === 'map') {
         mesh.quaternion.copy(this.group.quaternion).invert().multiply(this.camera.quaternion);
 
         const slug = mesh.userData.slug;
@@ -1961,7 +2021,8 @@ export default class NodeManager {
         });
         targetOpacity *= (0.05 + 0.95 * decayFactor); // Decay down to 5% opacity
         
-        mat.uniforms.uModeVisibility.value += (targetOpacity - mat.uniforms.uModeVisibility.value) * 0.1;
+        const opacityLerp = 1 - Math.exp(-6.0 * dt);
+        mat.uniforms.uModeVisibility.value += (targetOpacity - mat.uniforms.uModeVisibility.value) * opacityLerp;
       }
     });
     // ScrollEngine.update() already refreshes relation geometry and guide lines.
@@ -2305,6 +2366,7 @@ export default class NodeManager {
     this.focusedNodeId = node.slug || node.projectId || null;
     if (this.focusedNodeId) {
       this.loadProjectTextures(this.focusedNodeId);
+      this.pruneInactiveProjectTextures(this.focusedNodeId);
     }
     this.invalidateVisibleMeshCache();
     this.meshes.forEach((entry) => {
@@ -2323,7 +2385,7 @@ export default class NodeManager {
       return;
     }
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = this._prefersReducedMotion;
     const focusScale = this.getNodeScale(mesh, 1.04, this.activeMode);
 
     if (prefersReducedMotion) {
@@ -2650,7 +2712,7 @@ export default class NodeManager {
 
   private resetCamera() {
     const isCylinder = this.activeMode === 'cylinder';
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = this._prefersReducedMotion;
 
     if (prefersReducedMotion) {
       this.camera.position.set(0, 0, isCylinder ? 0 : (this.activeMode === 'horizontal' ? 18 : 25));
@@ -2773,6 +2835,28 @@ export default class NodeManager {
     });
   }
 
+  private pruneInactiveProjectTextures(activeProjectId: string) {
+    this.meshes.forEach((mesh) => {
+      const data = mesh.userData;
+      if (
+        data.projectId &&
+        data.projectId !== activeProjectId &&
+        !data.isPrimary &&
+        data.assetIndex !== 0 &&
+        data.textureLoaded
+      ) {
+        if (mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms.uMap) {
+          const texture = (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value;
+          if (texture && texture !== this.placeholderTexture) {
+            texture.dispose();
+            (mesh.material as THREE.ShaderMaterial).uniforms.uMap.value = this.placeholderTexture;
+            mesh.userData.textureLoaded = false;
+          }
+        }
+      }
+    });
+  }
+
   private handleFallbackErrorTexture(mesh: THREE.Mesh, asset: any, data: any, customAspect: number) {
     if (mesh && mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
       const errTex = this.createCardTexture(
@@ -2883,6 +2967,7 @@ export default class NodeManager {
     window.removeEventListener('mousemove', this.onMouseMove);
     window.removeEventListener('pointerdown', this.onPointerDown);
     window.removeEventListener('click', this.onClick);
+    this._reducedMotionMql.removeEventListener('change', this.onReducedMotionChange);
     document.body.style.cursor = '';
     if (this.relayoutTimer !== null) window.clearTimeout(this.relayoutTimer);
     const geometries = new Set<THREE.BufferGeometry>();

@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, MotionConfig, useMotionValue } from 'motion/react';
 import type Scene from './core/Scene';
-import { AtlasNode, fetchAtlasNodes } from './data/atlas';
+import { AtlasNode, fetchAtlasNodes, getEmbeddedArchiveNodes } from './data/atlas';
 import { useAudioEngine } from './audio/useAudioEngine';
 import { type IndexFilters, DEFAULT_INDEX_FILTERS } from './components/IndexFilterBar';
 import { getAdjacentRailIndex } from './core/railState';
@@ -25,9 +25,27 @@ type SceneMode = 'cylinder' | 'grid' | 'vertical' | 'horizontal' | 'map';
 type AppMode = SceneMode | 'essays';
 type PublicMode = 'cylinder' | 'grid' | 'vertical' | 'map' | 'essays';
 type ProjectEntryMode = 'grid' | 'vertical' | 'map';
+type FatalLoadError = {
+  source: 'archive-data' | 'spatial-engine';
+  message: string;
+};
 
 const PUBLIC_MODES: PublicMode[] = ['cylinder', 'vertical', 'grid', 'map', 'essays'];
 const PROJECT_ENTRY_MODES: ProjectEntryMode[] = ['vertical', 'grid', 'map'];
+const INTERACTIVE_TARGET_SELECTOR = [
+  'a[href]',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  '[contenteditable="true"]',
+  '[role="dialog"]',
+  '[data-ui-layer="true"]',
+].join(',');
+
+const isInteractiveTarget = (target: EventTarget | null) => (
+  target instanceof Element && Boolean(target.closest(INTERACTIVE_TARGET_SELECTOR))
+);
 
 const supportsWebGL = () => {
   try {
@@ -92,6 +110,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loadProgress, setLoadProgress] = useState(0);
   const [loadError, setLoadError] = useState('');
+  const [fatalLoadError, setFatalLoadError] = useState<FatalLoadError | null>(null);
   const [hoveredNode, setHoveredNode] = useState<any>(null);
   const [mousePosition, setMousePosition] = useState<{ x: number, y: number } | null>(null);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -106,6 +125,8 @@ export default function App() {
   const [contextNodeSlug, setContextNodeSlug] = useState<string | null>(null);
   const [guideReplayToken, setGuideReplayToken] = useState(0);
   const [projectedPositions, setProjectedPositions] = useState<Record<string, { x: number, y: number, w: number, h: number }>>({});
+  const projectedPosRef = React.useRef<Record<string, { x: number, y: number, w: number, h: number }> | null>(null);
+  const projPosRafRef = React.useRef<number>(0);
   const railTimeoutRef = React.useRef<any>(null);
   const restoreModePositionRef = React.useRef(false);
 
@@ -143,6 +164,8 @@ export default function App() {
       title = 'Orbit — Haig Papazian Archive';
     } else if (currentMode === 'vertical') {
       title = 'Works — Haig Papazian Archive';
+    } else if (currentMode === 'essays') {
+      title = 'Essays — Haig Papazian Archive';
     }
     document.title = title;
   }, [activeNode, currentMode]);
@@ -295,7 +318,7 @@ export default function App() {
       return;
     }
     const modeBeforeProject = sourceMode === 'horizontal' ? returnModeRef.current : sourceMode;
-    if (!canOpenProjectFromMode(modeBeforeProject)) return;
+    if (modeBeforeProject !== 'cylinder' && !canOpenProjectFromMode(modeBeforeProject)) return;
 
     returnModeRef.current = modeBeforeProject;
     setReturnMode(modeBeforeProject);
@@ -379,6 +402,8 @@ export default function App() {
 
   useEffect(() => {
     let isMounted = true;
+    let preloadTimer: ReturnType<typeof globalThis.setTimeout> | null = null;
+    let preloadIdleCallback: number | null = null;
 
     // Register project audio stems
     audioEngine.registerProjectStem('tebr', '/audio/stems/tebr.mp3');
@@ -386,43 +411,76 @@ export default function App() {
     audioEngine.registerProjectStem('sometimes-i-wake-up-elsewhere', '/audio/stems/sometimes-i-wake-up-elsewhere.mp3');
     audioEngine.registerProjectStem('fictive-environments', '/audio/stems/fictive-environments.mp3');
 
+    if ('requestIdleCallback' in window) {
+      preloadIdleCallback = window.requestIdleCallback(() => audioEngine.preload(), { timeout: 2_500 });
+    } else {
+      preloadTimer = globalThis.setTimeout(() => audioEngine.preload(), 1_200);
+    }
+
     fetchAtlasNodes()
       .then((atlasNodes) => {
         if (!isMounted) return;
+        setFatalLoadError(null);
         setNodes(atlasNodes);
         setLoadProgress(0.12);
       })
       .catch((error) => {
         if (!isMounted) return;
         console.error(error);
-        setLoadError('Archive data could not be loaded.');
+        setNodes(getEmbeddedArchiveNodes());
+        setFatalLoadError({
+          source: 'archive-data',
+          message: 'Archive data could not be loaded. Showing the embedded project archive instead.',
+        });
         setIsLoading(false);
+        setIsReady(true);
       });
 
     return () => {
       isMounted = false;
+      if (preloadIdleCallback !== null) window.cancelIdleCallback(preloadIdleCallback);
+      if (preloadTimer !== null) globalThis.clearTimeout(preloadTimer);
     };
-  }, []);
+  }, [audioEngine]);
+
+  useEffect(() => {
+    if (audioStatus === 'idle') return;
+
+    const alertDiv = document.getElementById('audio-announce-alert');
+    if (!alertDiv) return;
+
+    if (audioStatus === 'loading') {
+      alertDiv.textContent = 'Initializing audio.';
+    } else if (audioStatus === 'error') {
+      alertDiv.textContent = audioError || 'Sound unavailable. Retry available.';
+    } else {
+      alertDiv.textContent = isMuted ? 'Audio playback muted.' : 'Audio playback unmuted.';
+    }
+  }, [audioError, audioStatus, isMuted]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't navigate if user is typing in search
-      if (document.activeElement?.tagName === 'INPUT') {
-        if (e.key === 'Escape') {
-          (document.activeElement as HTMLElement).blur();
-        }
+      if (
+        e.defaultPrevented
+        || e.altKey
+        || e.ctrlKey
+        || e.metaKey
+        || isInteractiveTarget(e.target)
+        || isInteractiveTarget(document.activeElement)
+      ) {
         return;
       }
 
+      const activeElement = document.activeElement;
+      const sceneOwnsKeyboard = activeElement === document.body
+        || activeElement === containerRef.current
+        || Boolean(activeElement && containerRef.current?.contains(activeElement));
+
+      if (!sceneOwnsKeyboard) return;
+
       if (e.key.toLowerCase() === 'm') {
-        toggleAudio();
-        const alertDiv = document.getElementById('audio-announce-alert');
-        if (alertDiv) {
-          // Note: because state hasn't updated yet in the current render tick,
-          // the announced state is the opposite of the current isMuted state.
-          alertDiv.textContent = isMuted ? "Audio playback unmuted." : "Audio playback muted.";
-        }
+        void toggleAudio();
         return;
       }
 
@@ -502,7 +560,7 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeMedia, inspectedRecord, focusedIndex, nodes, currentMode, focusedMapNode, railState, audioEngine, toggleAudio, isMuted]);
+  }, [activeMedia, inspectedRecord, focusedIndex, nodes, currentMode, focusedMapNode, railState, audioEngine, toggleAudio]);
 
   // Initial deep link handling
   useEffect(() => {
@@ -608,10 +666,8 @@ export default function App() {
       params.set('context', contextNodeSlug);
     }
     
-    const publicModeForHash = currentMode === 'horizontal' ? returnMode : getPublicMode(currentMode);
-    if (publicModeForHash !== 'cylinder') {
-      params.set('mode', publicModeForHash);
-    }
+    // Mode is now authoritative in the pathname — no longer written to hash.
+    // Hash mode param is still read for backward-compatible deep links.
 
     if (indexFilters) {
       if (indexFilters.world !== 'all') params.set('world', indexFilters.world);
@@ -638,14 +694,17 @@ export default function App() {
   }, [activeNode, contextNodeSlug, currentMode, isReady, indexFilters, inspectedRecord, returnMode]);
 
   useEffect(() => {
-    if (!containerRef.current || nodes.length === 0) return;
+    if (!containerRef.current || nodes.length === 0 || fatalLoadError) return;
     if (textOnlyRequested) {
       setIsLoading(false);
       setIsReady(true);
       return;
     }
     if (!supportsWebGL()) {
-      setLoadError('Unable to initialize the spatial engine. WebGL is unavailable in this browser.');
+      setFatalLoadError({
+        source: 'spatial-engine',
+        message: 'Unable to initialize the spatial engine. WebGL is unavailable in this browser.',
+      });
       setIsLoading(false);
       setIsReady(true);
       currentModeRef.current = 'grid';
@@ -738,7 +797,16 @@ export default function App() {
           audioEngine.setCameraPosition(cameraPos.x, cameraPos.y, cameraPos.z);
         },
         onUpdateProjectedPositions: (positions: any) => {
-          setProjectedPositions(positions);
+          // Debounce: batch position updates to at most one React render per frame
+          projectedPosRef.current = positions;
+          if (!projPosRafRef.current) {
+            projPosRafRef.current = requestAnimationFrame(() => {
+              if (projectedPosRef.current) {
+                setProjectedPositions(projectedPosRef.current);
+              }
+              projPosRafRef.current = 0;
+            });
+          }
         },
         onContextLost: () => {
           setLoadError('WebGL Error: Connection lost. Attempting to restore...');
@@ -750,7 +818,10 @@ export default function App() {
       sceneRef.current = scene;
     } catch (e) {
       console.error('Failed to initialize Scene:', e);
-      setLoadError('Unable to initialize the spatial engine. Your browser may not support WebGL.');
+      setFatalLoadError({
+        source: 'spatial-engine',
+        message: 'Unable to initialize the spatial engine. Your browser may not support WebGL.',
+      });
       setIsLoading(false);
       setIsReady(true);
       
@@ -767,7 +838,7 @@ export default function App() {
       if (scene) scene.dispose();
       clearTimeout(timer);
     };
-  }, [nodes, textOnlyRequested]);
+  }, [fatalLoadError, nodes, textOnlyRequested]);
 
   const handleModeChange = (mode: AppMode, targetNode?: any) => {
     if (railTimeoutRef.current) {
@@ -790,7 +861,13 @@ export default function App() {
     const nodeToUse = targetNode || activeNode;
     const newPath = getPathFromMode(mode, nodeToUse);
     if (window.location.pathname !== newPath) {
-      window.history.pushState(null, '', newPath);
+      // Use pushState only for deep-link destinations (case studies);
+      // use replaceState for mode navigation to prevent Back-button spam.
+      if (mode === 'horizontal') {
+        window.history.pushState(null, '', newPath);
+      } else {
+        window.history.replaceState(null, '', newPath);
+      }
     }
 
     if (mode === 'horizontal') {
@@ -909,7 +986,7 @@ export default function App() {
     sceneRef.current?.setIndexFilters(indexFilters);
   }, [indexFilters]);
 
-  const hasFatalLoadError = loadError.includes('Unable');
+  const hasFatalLoadError = fatalLoadError !== null;
   const showStaticArchive = hasFatalLoadError || textOnlyRequested;
 
   return (
@@ -942,7 +1019,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {loadError && !loadError.includes('Unable') && (
+      {loadError && !hasFatalLoadError && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[150] pointer-events-none">
           <div className="bg-red-500/10 backdrop-blur-md border border-red-500/30 px-4 py-2 rounded shadow-2xl flex items-center gap-3">
             <span className="font-mono text-[9px] text-red-400 tracking-wider uppercase">{loadError}</span>
@@ -952,7 +1029,7 @@ export default function App() {
 
       {showStaticArchive && (
         <StaticArchiveFallback
-          error={hasFatalLoadError ? loadError : 'Text-only archive view requested.'}
+          error={fatalLoadError?.message || 'Text-only archive view requested.'}
           nodes={nodes}
           onRetry={() => {
             if (!textOnlyRequested) {
@@ -966,13 +1043,36 @@ export default function App() {
         />
       )}
 
+      {!showStaticArchive && (
+        <a
+          className="skip-link pointer-events-auto"
+          href="#archive-view-controls"
+          onClick={(event) => {
+            event.preventDefault();
+            const target = document.getElementById('archive-view-controls');
+            target?.querySelector<HTMLElement>('button:not([disabled])')?.focus({ preventScroll: true });
+            target?.scrollIntoView({ block: 'nearest' });
+          }}
+        >
+          Skip to archive navigation
+        </a>
+      )}
+
       {/* 3D Canvas Container */}
       <div 
         ref={containerRef} 
         id="canvas-container" 
-        className={`fixed inset-0 w-full h-full touch-none transition-[background] duration-500 ${
+        className={`fixed inset-0 w-full h-full touch-none transition-[background] duration-500 focus-visible:outline focus-visible:outline-1 focus-visible:outline-accent ${
           currentMode === 'map' ? 'map-backdrop-active' : ''
         }`}
+        tabIndex={0}
+        data-scene-surface="true"
+        onPointerDown={(event) => {
+          const target = event.target as HTMLElement;
+          if (target === event.currentTarget || target.tagName === 'CANVAS') {
+            event.currentTarget.focus({ preventScroll: true });
+          }
+        }}
         role="application"
         aria-label="3D spatial archive"
         inert={activeMedia || inspectedRecord || showStaticArchive ? true : undefined}
@@ -1004,6 +1104,7 @@ export default function App() {
           handleModeChange('vertical');
           setContextNodeSlug(node.slug);
         }}
+        onOpenHomeProject={(node) => openProjectRail(node, 'cylinder')}
         onRailStep={handleRailStep}
         onSelectSlug={handleSelectSlug}
         onNodeClick={(node) => openProjectRail(node, currentModeRef.current)}
@@ -1161,6 +1262,7 @@ export default function App() {
       <FirstVisitHint
         isReady={isReady}
         currentMode={currentMode}
+        autoOpen={window.location.pathname === '/' || window.location.pathname === '/orbit'}
         replayToken={guideReplayToken}
         onExploreWorks={() => handleModeChange('vertical')}
       />

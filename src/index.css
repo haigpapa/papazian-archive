@@ -28,6 +28,41 @@
   --color-text-muted: #b8b8b8;
 }
 
+/* Interaction contract: every actionable control advertises clickability. */
+button:not(:disabled),
+a[href],
+[role="button"]:not([aria-disabled="true"]),
+input[type="button"]:not(:disabled),
+input[type="submit"]:not(:disabled),
+input[type="reset"]:not(:disabled),
+input[type="checkbox"]:not(:disabled),
+input[type="radio"]:not(:disabled),
+input[type="range"]:not(:disabled),
+select:not(:disabled),
+summary,
+label[for] {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+input:not([type]),
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+input[type="tel"],
+input[type="password"],
+textarea,
+[contenteditable="true"] {
+  cursor: text;
+}
+
 html, body {
   overflow: hidden;
   height: 100dvh;
@@ -267,6 +302,131 @@ body::before {
 
   .artifact-inspector-nav {
     padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+  }
+}
+
+/* Short, coarse-pointer viewports need the mobile information architecture
+   even when their landscape width crosses Tailwind's desktop breakpoint. */
+@media (max-height: 520px) and (max-width: 960px) {
+  html, body {
+    height: 100svh;
+  }
+
+  [data-compact-viewport="true"] {
+    padding: 8px;
+  }
+
+  [data-compact-viewport="true"] header {
+    top: max(8px, env(safe-area-inset-top, 8px));
+    left: max(8px, env(safe-area-inset-left, 8px));
+    right: max(8px, env(safe-area-inset-right, 8px));
+  }
+
+  [data-compact-viewport="true"] .desktop-index-filter-trigger,
+  [data-compact-viewport="true"] .desktop-map-tools {
+    display: none !important;
+  }
+
+  [data-compact-viewport="true"] .mobile-index-panel {
+    display: block !important;
+    position: fixed;
+    top: 58px;
+    bottom: 60px;
+    left: max(8px, env(safe-area-inset-left, 8px));
+    right: max(8px, env(safe-area-inset-right, 8px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 1px solid var(--color-ui-border);
+    background: rgba(5, 5, 5, 0.97);
+  }
+
+  [data-compact-viewport="true"] .mobile-works-caption {
+    display: block !important;
+    top: 58px;
+    left: max(8px, env(safe-area-inset-left, 8px));
+    right: max(8px, env(safe-area-inset-right, 8px));
+  }
+
+  [data-compact-viewport="true"] .mobile-map-tools {
+    display: flex !important;
+    bottom: 60px;
+    left: max(8px, env(safe-area-inset-left, 8px));
+    right: max(8px, env(safe-area-inset-right, 8px));
+  }
+
+  [data-compact-viewport="true"] .mobile-safe-panel,
+  [data-compact-viewport="true"] .central-panel {
+    top: 58px !important;
+    bottom: 60px !important;
+    left: max(8px, env(safe-area-inset-left, 8px)) !important;
+    right: max(8px, env(safe-area-inset-right, 8px)) !important;
+    width: auto !important;
+    height: auto !important;
+    transform: none !important;
+    translate: none !important;
+  }
+
+  [data-compact-viewport="true"] .archive-hud {
+    left: max(8px, env(safe-area-inset-left, 8px));
+    right: max(8px, env(safe-area-inset-right, 8px));
+    bottom: max(8px, env(safe-area-inset-bottom, 8px));
+  }
+
+  [data-compact-viewport="true"] .archive-hud > div > div > div {
+    grid-template-columns: auto minmax(0, 1fr) auto !important;
+  }
+
+  [data-compact-viewport="true"] .archive-hud__actions button,
+  [data-compact-viewport="true"] .archive-hud__modes button {
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+  }
+
+  [data-compact-viewport="true"] .archive-hud__context > * {
+    min-height: 44px !important;
+  }
+
+  [data-compact-viewport="true"] .archive-hud__context [aria-hidden="true"] {
+    display: none !important;
+  }
+
+  [data-compact-viewport="true"] .archive-hud__modes {
+    display: flex !important;
+    grid-column: auto !important;
+    border-top: 0 !important;
+    border-left: 1px solid var(--color-ui-border);
+  }
+
+  .essays-panel--mobile .essays-panel__layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+  }
+
+  .essays-panel--mobile .essays-panel__index.hidden,
+  .essays-panel--mobile .essays-panel__reader.hidden {
+    display: none !important;
+  }
+
+  .essays-panel--mobile .essays-panel__index.flex {
+    display: flex !important;
+  }
+
+  .essays-panel--mobile .essays-panel__reader.block {
+    display: block !important;
+  }
+
+  .essays-panel--mobile .essays-panel__mobile-nav {
+    display: grid !important;
+  }
+
+  .essays-panel--mobile .essays-panel__body {
+    padding: 16px !important;
+  }
+
+  .essays-panel--mobile .essays-panel__title {
+    font-size: clamp(2.25rem, 8vw, 3.5rem) !important;
   }
 }
 

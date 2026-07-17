@@ -9,6 +9,7 @@ const CUE_STORAGE_KEY = 'papazian-archive-mode-cues-v1';
 interface FirstVisitHintProps {
   isReady: boolean;
   currentMode: string;
+  autoOpen?: boolean;
   replayToken?: number;
   onExploreWorks?: () => void;
 }
@@ -45,6 +46,7 @@ function writeStorage(key: string, value: string) {
 export function FirstVisitHint({
   isReady,
   currentMode,
+  autoOpen = true,
   replayToken = 0,
   onExploreWorks,
 }: FirstVisitHintProps) {
@@ -54,9 +56,9 @@ export function FirstVisitHint({
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!isReady) return;
+    if (!isReady || !autoOpen) return;
     if (!readStorage(GUIDE_STORAGE_KEY)) setVisible(true);
-  }, [isReady]);
+  }, [autoOpen, isReady]);
 
   useEffect(() => {
     if (!isReady || replayToken === 0) return;

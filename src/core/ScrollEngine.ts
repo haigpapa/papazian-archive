@@ -21,23 +21,25 @@ export default class ScrollEngine {
   public mode: string = 'vertical';
   public velocity: number = 0;
   private observer: any;
+  private inputTarget: HTMLElement;
   private onUpdate: (scrollX: number, scrollY: number, zoom: number) => void;
   private lastInputAt = performance.now();
   private initialTouchDist = 0;
   private initialZoom = 1.0;
   private lastUpdateTime = performance.now() / 1000;
 
-  constructor(onUpdate: (scrollX: number, scrollY: number, zoom: number) => void) {
+  constructor(inputTarget: HTMLElement, onUpdate: (scrollX: number, scrollY: number, zoom: number) => void) {
+    this.inputTarget = inputTarget;
     this.onUpdate = onUpdate;
 
     // Touch pinch-to-zoom event listeners
-    window.addEventListener('touchstart', this.onTouchStart, { passive: true });
-    window.addEventListener('touchmove', this.onTouchMove, { passive: true });
-    window.addEventListener('touchend', this.onTouchEnd, { passive: true });
+    this.inputTarget.addEventListener('touchstart', this.onTouchStart, { passive: true });
+    this.inputTarget.addEventListener('touchmove', this.onTouchMove, { passive: true });
+    this.inputTarget.addEventListener('touchend', this.onTouchEnd, { passive: true });
 
     // Observer to bridge all input types
     this.observer = Observer.create({
-      target: window,
+      target: this.inputTarget,
       type: 'wheel,touch,pointer',
       wheelSpeed: -1,
       onDown: () => { /* Handle discrete jumps if needed */ },
@@ -187,9 +189,9 @@ export default class ScrollEngine {
   }
 
   public dispose() {
-    window.removeEventListener('touchstart', this.onTouchStart);
-    window.removeEventListener('touchmove', this.onTouchMove);
-    window.removeEventListener('touchend', this.onTouchEnd);
+    this.inputTarget.removeEventListener('touchstart', this.onTouchStart);
+    this.inputTarget.removeEventListener('touchmove', this.onTouchMove);
+    this.inputTarget.removeEventListener('touchend', this.onTouchEnd);
     this.observer.kill();
   }
 }

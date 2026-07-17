@@ -94,6 +94,7 @@ interface OverlayProps {
   onModeChange: (mode: string) => void;
   onReplayGuide?: () => void;
   onBrowseNode?: (node: any) => void;
+  onOpenHomeProject?: (node: any) => void;
   onRailStep: (direction: -1 | 1) => void;
   onSelectSlug: (slug: string) => void;
   onNodeClick: (node: any) => void;
@@ -141,6 +142,7 @@ export default function Overlay({
   onModeChange, 
   onReplayGuide,
   onBrowseNode,
+  onOpenHomeProject,
   onRailStep,
   onSelectSlug,
   onNodeClick,
@@ -179,7 +181,7 @@ export default function Overlay({
   const [hoveredChapterIndex, setHoveredChapterIndex] = React.useState<number | null>(null);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState(false);
 
-  const filteredNodes = nodes.filter((node) => {
+  const filteredNodes = React.useMemo(() => nodes.filter((node) => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return true;
 
@@ -200,7 +202,7 @@ export default function Overlay({
     ]
       .filter(Boolean)
       .some((value) => String(value).toLowerCase().includes(query));
-  });
+  }), [nodes, searchQuery]);
 
   const flatAssets = React.useMemo(() => {
     const list: any[] = [];
@@ -278,6 +280,10 @@ export default function Overlay({
   const publicMode = currentMode === 'horizontal' ? returnMode : currentMode;
   const activeMode = MODE_OPTIONS.find((mode) => mode.id === publicMode) || MODE_OPTIONS[0];
   const publicArchiveMode = publicMode as PublicArchiveMode;
+  const returnViewLabel = returnMode === 'cylinder'
+    ? 'Home'
+    : ARCHIVE_MODE_LABELS[returnMode as PublicArchiveMode] || 'Previous View';
+  const returnActionLabel = returnMode === 'cylinder' ? 'Back Home' : `Back to ${returnViewLabel}`;
   const reduceMotion = useReducedMotion();
   const previousModeRef = React.useRef<PublicArchiveMode>(publicArchiveMode);
   const transitionIdRef = React.useRef(0);
@@ -342,7 +348,13 @@ export default function Overlay({
     .filter((slug: string) => nodeBySlug.has(slug))
     .slice(0, 5);
   const isMobilePeek = isMobileViewport && mobileSheetState === 'peek';
-  const mobileSheetFrameClass = mobileSheetState === 'full' ? 'top-[64px]' : (activeRoute ? 'h-[280px]' : 'h-[132px]');
+  const mobileSheetFrameClass = mobileSheetState === 'full'
+    ? 'top-[64px]'
+    : activeRoute
+      ? 'h-[280px]'
+      : currentMode === 'horizontal'
+        ? 'h-[204px]'
+        : 'h-[132px]';
   const mobileIntroClass = mobileSheetState === 'full' ? 'block' : 'hidden md:block';
   const mobileTagsClass = mobileSheetState === 'full' ? 'flex' : 'hidden md:flex';
   const mobilePeekTitle = displayRailImage?.label || activeNode?.title;
@@ -458,7 +470,7 @@ export default function Overlay({
   }, [isSearchActive]);
 
   React.useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const mediaQuery = window.matchMedia('(max-width: 767px), (max-height: 520px) and (max-width: 960px)');
     const updateViewport = () => setIsMobileViewport(mediaQuery.matches);
 
     updateViewport();
@@ -559,10 +571,12 @@ export default function Overlay({
   ].filter(Boolean).join(' ');
 
   return (
-    <div data-ui-layer="true" className="fixed inset-0 pointer-events-none z-10 flex flex-col p-5" inert={inert ? true : undefined}>
-      <a className="skip-link pointer-events-auto" href="#archive-view-controls">
-        Skip to archive navigation
-      </a>
+    <div
+      data-ui-layer="true"
+      data-compact-viewport={isMobileViewport ? 'true' : undefined}
+      className="fixed inset-0 pointer-events-none z-10 flex flex-col p-5"
+      inert={inert ? true : undefined}
+    >
       <p className="sr-only">
         An interactive archive documenting architecture, sonic intelligence, software, and public culture.
       </p>
@@ -590,7 +604,7 @@ export default function Overlay({
 
         {/* Filter Trigger button (grid/archive grid mode only) */}
         {currentMode === 'grid' && !activeNode && (
-          <div className="hidden pointer-events-auto md:block">
+          <div className="desktop-index-filter-trigger hidden pointer-events-auto md:block">
             <button
               onClick={() => setIsFilterDrawerOpen(true)}
               aria-expanded={isFilterDrawerOpen}
@@ -754,8 +768,8 @@ export default function Overlay({
             initial={isMobileViewport ? { y: '100%', opacity: 0 } : { x: '100%', opacity: 0 }}
             animate={
               isMobileViewport
-                ? { y: 0, opacity: 1 }
-                : { x: isSidebarCollapsed ? '100%' : 0, opacity: isSidebarCollapsed ? 0 : 1 }
+                ? { x: 0, y: 0, opacity: 1 }
+                : { x: isSidebarCollapsed ? '100%' : 0, y: 0, opacity: isSidebarCollapsed ? 0 : 1 }
             }
             exit={isMobileViewport ? { y: '100%', opacity: 0 } : { x: '100%', opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
@@ -772,8 +786,8 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onCloseNode();
                     }}
-                    className="flex h-11 min-w-[44px] items-center justify-center px-2 text-text-muted transition-colors hover:text-white"
-                    aria-label="Return to previous view"
+                    className="flex h-11 min-w-[44px] cursor-pointer items-center justify-center px-2 text-text-muted transition-colors hover:text-white"
+                    aria-label={returnActionLabel}
                   >
                     <ArrowLeft size={13} />
                   </button>
@@ -855,10 +869,11 @@ export default function Overlay({
                       event.currentTarget.blur();
                       onCloseNode();
                     }}
-                    className="flex h-10 items-center justify-center gap-2 border-r border-ui-border px-3 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted transition-colors hover:text-white"
+                    className="flex h-10 cursor-pointer items-center justify-center gap-2 border-r border-ui-border px-3 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted transition-colors hover:text-white"
+                    aria-label={returnActionLabel}
                   >
                     <ArrowLeft size={13} />
-                    Return
+                    {returnActionLabel}
                   </button>
                   <button
                     type="button"
@@ -994,7 +1009,7 @@ export default function Overlay({
               {isMobilePeek ? (
                 <div className="mb-2 pr-1">
                   <p className="mb-1 font-mono text-[8px] uppercase tracking-[0.22em] text-accent">
-                    Project / Image Rail
+                    {activeNode.title}
                   </p>
                   <p className="line-clamp-3 text-[12px] leading-snug text-text-muted">
                     <span className="font-display text-base font-bold uppercase leading-tight text-white">
@@ -1024,7 +1039,7 @@ export default function Overlay({
                 </span>
               </div>
 
-              {(() => {
+              {!isMobilePeek && (() => {
                 const world = getProjectWorld(activeNode.slug);
                 if (!world) return null;
                 return (
@@ -1173,6 +1188,24 @@ export default function Overlay({
         })()}
       </AnimatePresence>
 
+      {/* Persistent return control while the project information drawer is collapsed */}
+      <AnimatePresence>
+        {currentMode === 'horizontal' && activeNode && isSidebarCollapsed && !isMobileViewport && (
+          <motion.button
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            type="button"
+            onClick={onCloseNode}
+            className="pointer-events-auto fixed right-5 top-5 z-[141] flex h-10 cursor-pointer items-center gap-2 border border-ui-border bg-surface/95 px-3 font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted shadow-xl backdrop-blur-xl transition-colors hover:border-ui-border-hover hover:bg-ui-bg hover:text-white"
+            aria-label={returnActionLabel}
+          >
+            <ArrowLeft size={13} />
+            {returnActionLabel}
+          </motion.button>
+        )}
+      </AnimatePresence>
+
       {/* Floating Expand Sidebar Button when in horizontal mode and collapsed */}
       <AnimatePresence>
         {currentMode === 'horizontal' && activeNode && isSidebarCollapsed && !isMobileViewport && (
@@ -1198,8 +1231,16 @@ export default function Overlay({
       <AnimatePresence>
         {currentMode === 'cylinder' && !activeNode && (
           <HomeOrbitPanel
-            workCount={workCount}
             onExploreWork={() => onModeChange('vertical')}
+            onOpenProject={(slug) => {
+              const node = nodeBySlug.get(slug);
+              if (!node) return;
+              if (onOpenHomeProject) {
+                onOpenHomeProject(node);
+              } else {
+                onOpenProjectRail?.(node);
+              }
+            }}
           />
         )}
       </AnimatePresence>
@@ -1346,7 +1387,7 @@ export default function Overlay({
 
             <div className="grid grid-cols-[auto_1fr] lg:grid-cols-[auto_minmax(0,1fr)_auto]">
               {/* Left Actions Group */}
-              <div className="flex border-r border-ui-border shrink-0">
+              <div className="archive-hud__actions flex border-r border-ui-border shrink-0">
                 <button 
                   ref={infoButtonRef}
                   onClick={() => setShowAbout(!showAbout)}
@@ -1400,7 +1441,7 @@ export default function Overlay({
                 </button>
               </div>
 
-              <div className="min-w-0">
+              <div className="archive-hud__context min-w-0">
                 <AnimatePresence mode="wait">
                   {isSearchActive ? (
                     <motion.div 
@@ -1439,28 +1480,37 @@ export default function Overlay({
                       exit={{ opacity: 0, y: -5 }}
                       className="flex flex-col md:flex-row md:items-center w-full min-h-[64px] py-2.5 md:py-0"
                     >
-                      {/* Left: Clickable Metadata Block (triggers search) */}
-                      <button 
-                        onClick={() => setIsSearchActive(true)}
-                        className="flex flex-col gap-0.5 px-8 group text-left overflow-hidden hover:bg-ui-bg transition-colors rounded-none justify-center h-full min-h-[48px] md:min-h-[64px] shrink-0 w-full md:w-[240px] lg:w-[280px] cursor-pointer"
+                      {/* Left: stable active-frame caption */}
+                      <div
+                        className="flex h-full min-h-[48px] w-full shrink-0 flex-col justify-center gap-0.5 overflow-hidden px-8 text-left md:min-h-[64px] md:w-[300px] lg:w-[360px]"
                       >
-                        <span aria-hidden="true" className="font-mono text-[9px] text-accent/40 group-hover:text-accent transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                        <span aria-hidden="true" className="block w-full truncate font-mono text-[9px] uppercase tracking-[0.16em] text-accent/55">
                           {line1Text}
                         </span>
                         <span className="font-display text-xs md:text-sm font-bold text-white tracking-wider uppercase truncate block w-full">
                           {bottomTitle}
                         </span>
-                        <span aria-hidden="true" className="font-mono text-[9px] text-text-muted-quiet group-hover:text-text-muted transition-colors duration-300 tracking-[0.16em] uppercase truncate block w-full">
+                        <span aria-hidden="true" className="block w-full truncate font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted-quiet">
                           {line3Text}
                         </span>
-                      </button>
+                      </div>
 
                       {/* Vertical divider on desktop */}
                       <div className="hidden md:block w-[1px] h-[36px] bg-ui-bg-hover self-center shrink-0" />
 
                       {/* Right: Chapter Map Scrubber Progress Meter */}
-                      <div className="flex-1 min-w-0 px-8 flex flex-col justify-center gap-1 h-full min-h-[48px] md:min-h-[64px] py-1.5 md:py-0 select-none">
-                        <div className="flex gap-2 w-full">
+                      <div className="flex h-full min-h-[48px] min-w-0 flex-1 items-center select-none md:min-h-[64px]">
+                        <button
+                          type="button"
+                          onClick={() => onRailStep(-1)}
+                          className="flex h-full min-h-[48px] w-11 shrink-0 cursor-pointer items-center justify-center text-text-muted transition-colors hover:bg-ui-bg hover:text-white md:min-h-[64px]"
+                          aria-label="Previous slide"
+                          title="Previous slide"
+                        >
+                          <ChevronLeft size={15} />
+                        </button>
+
+                        <div className="flex min-w-0 flex-1 gap-2 px-3">
                           {chapters.map((chapter, idx) => {
                             const isChapterActive = railIndex >= chapter.startIndex && railIndex < chapter.startIndex + chapter.count;
                             return (
@@ -1499,6 +1549,16 @@ export default function Overlay({
                             );
                           })}
                         </div>
+
+                        <button
+                          type="button"
+                          onClick={() => onRailStep(1)}
+                          className="flex h-full min-h-[48px] w-11 shrink-0 cursor-pointer items-center justify-center text-text-muted transition-colors hover:bg-ui-bg hover:text-white md:min-h-[64px]"
+                          aria-label="Next slide"
+                          title="Next slide"
+                        >
+                          <ChevronRight size={15} />
+                        </button>
                       </div>
                     </motion.div>
                   ) : (currentMode === 'map' || currentMode === 'grid') && activeDetailNode ? (
@@ -1602,7 +1662,7 @@ export default function Overlay({
                 </AnimatePresence>
               </div>
 
-              <nav id="archive-view-controls" tabIndex={-1} aria-label="Archive views" className="col-span-2 grid grid-cols-5 border-t border-ui-border lg:col-span-1 lg:flex lg:border-l lg:border-t-0">
+              <nav id="archive-view-controls" tabIndex={-1} aria-label="Archive views" className="archive-hud__modes col-span-2 grid grid-cols-5 border-t border-ui-border lg:col-span-1 lg:flex lg:border-l lg:border-t-0">
                 {MODE_OPTIONS.map((mode) => (
                   <ModeButton
                     key={mode.id}
@@ -1623,22 +1683,31 @@ export default function Overlay({
   );
 }
 
-function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExploreWork: () => void }) {
+function HomeOrbitPanel({
+  onExploreWork,
+  onOpenProject,
+}: {
+  onExploreWork: () => void;
+  onOpenProject: (slug: string) => void;
+}) {
   const [showBio, setShowBio] = React.useState(false);
   const caseStudies = [
     {
+      slug: 'mashrou-leila',
       label: "Mashrou' Leila",
       meta: 'Cultural architecture / performance system',
       body: 'A counter-public built through sound, image, language, identity, and collective risk.',
       accentColor: '#e85d75',
     },
     {
+      slug: 'mekena-nyc',
       label: 'MEKENA NYC',
       meta: 'Space / residency / radical hospitality',
       body: 'A physical operating system for artists, gathering, adaptive reuse, and diasporic belonging.',
       accentColor: '#5ec4b6',
     },
     {
+      slug: 'space-time-tuning-machine',
       label: 'Space Time Tuning Machine',
       meta: 'AI / sound / live instrument',
       body: 'A speculative performance engine for memory, displacement, and machine listening.',
@@ -1652,7 +1721,7 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.99 }}
       transition={{ duration: MOTION_DURATION.slow, ease: MOTION_EASE }}
-      className="pointer-events-auto fixed bottom-[160px] left-0 right-0 top-[84px] z-[140] flex overflow-hidden shadow-2xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[108px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] central-panel"
+      className="pointer-events-auto fixed bottom-[160px] left-0 right-0 top-[84px] z-[140] flex overflow-hidden shadow-2xl md:left-1/2 md:right-auto md:top-[74px] md:bottom-[118px] md:w-[min(430px,calc(100vw-32px))] md:-translate-x-1/2 md:z-[88] central-panel"
     >
       <div className="flex min-h-0 w-full flex-col">
         <div className="min-h-0 flex-1 overflow-y-auto custom-scrollbar py-4">
@@ -1663,22 +1732,9 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
             <p className="mt-5 max-w-[22rem] text-base leading-snug text-white/82 md:text-lg text-pretty">
               I build systems for memory, performance, and cultural translation.
             </p>
-            <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.22em] text-text-muted">
-              Sound / Space / Code / Text / Image / Systems
+            <p className="mt-5 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.18em] text-text-muted">
+              Sound · Space · Code · Text · Image
             </p>
-          </div>
-
-          <div className="grid grid-cols-2 border-b border-ui-border">
-            <div className="border-r border-ui-border p-4">
-              <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-text-muted">Selected Works</p>
-              <p className="mt-2 font-display text-3xl font-bold text-white">{workCount || 20}</p>
-            </div>
-            <div className="p-4">
-              <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-text-muted">Modes</p>
-              <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/78">
-                Works / Index / Map / Essays
-              </p>
-            </div>
           </div>
 
           {showBio ? (
@@ -1704,30 +1760,39 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
           ) : (
             <>
               <div className="space-y-5 border-b border-ui-border p-5 md:p-7">
-                <div>
-                  <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
-                    Editorial Case Studies
-                  </p>
-                  <div className="space-y-3">
-                    {caseStudies.map((study, index) => (
-                      <article key={study.label} className="border border-ui-border border-l-2 bg-white/[0.025] p-3" style={{ borderLeftColor: study.accentColor }}>
-                        <div className="flex items-start justify-between gap-4">
-                          <p className="font-display text-lg font-bold uppercase leading-none text-white">
-                            {study.label}
-                          </p>
+                <div className="space-y-3">
+                  {caseStudies.map((study, index) => (
+                    <button
+                      key={study.slug}
+                      type="button"
+                      onClick={() => onOpenProject(study.slug)}
+                      aria-label={`Open ${study.label} project`}
+                      className="group w-full cursor-pointer border border-ui-border border-l-2 bg-white/[0.025] p-3 text-left transition-colors hover:border-white/35 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                      style={{ borderLeftColor: study.accentColor }}
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <p className="font-display text-lg font-bold uppercase leading-none text-white">
+                          {study.label}
+                        </p>
+                        <span className="flex shrink-0 items-center gap-2">
                           <span className="font-mono text-[8px] text-text-muted">
                             {String(index + 1).padStart(2, '0')}
                           </span>
-                        </div>
-                        <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.16em] text-accent/80">
-                          {study.meta}
-                        </p>
-                        <p className="mt-2 text-xs leading-relaxed text-text-muted">
-                          {study.body}
-                        </p>
-                      </article>
-                    ))}
-                  </div>
+                          <ArrowUpRight
+                            size={13}
+                            className="text-text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      </div>
+                      <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.16em] text-accent/80">
+                        {study.meta}
+                      </p>
+                      <p className="mt-2 text-xs leading-relaxed text-text-muted">
+                        {study.body}
+                      </p>
+                    </button>
+                  ))}
                 </div>
 
                 <button
@@ -1760,12 +1825,6 @@ function HomeOrbitPanel({ workCount, onExploreWork }: { workCount: number; onExp
             </>
           )}
 
-          <div className="p-5 md:p-7">
-            <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-text-muted">
-              Twenty works orbit a single spine: memory as architecture, performance as
-              infrastructure, translation as a moving system.
-            </p>
-          </div>
         </div>
       </div>
     </motion.section>

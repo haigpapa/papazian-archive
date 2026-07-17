@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ArrowRight, RefreshCw, Search } from 'lucide-react';
 import type { AtlasNode } from '../data/atlas';
-import { CANONICAL_PROJECT_SET } from '../data/canonicalProjects';
+import { CANONICAL_PROJECT_SET, CANONICAL_PROJECT_SLUGS } from '../data/canonicalProjects';
 import { getProjectWorld } from '../data/worlds';
 
 interface StaticArchiveFallbackProps {
@@ -13,7 +13,9 @@ interface StaticArchiveFallbackProps {
 export default function StaticArchiveFallback({ error, nodes, onRetry }: StaticArchiveFallbackProps) {
   const [query, setQuery] = React.useState('');
   const projects = React.useMemo(() => {
-    const canonical = nodes.filter((node) => CANONICAL_PROJECT_SET.has(node.slug));
+    const canonical = nodes
+      .filter((node) => CANONICAL_PROJECT_SET.has(node.slug))
+      .sort((a, b) => CANONICAL_PROJECT_SLUGS.indexOf(a.slug) - CANONICAL_PROJECT_SLUGS.indexOf(b.slug));
     const normalized = query.trim().toLowerCase();
     if (!normalized) return canonical;
     return canonical.filter((node) => [

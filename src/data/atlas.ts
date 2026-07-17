@@ -81,13 +81,62 @@ const GENERATED_PROJECT_BY_SLUG = new Map(
 );
 
 export async function fetchAtlasNodes(): Promise<AtlasNode[]> {
-  const response = await fetch(ATLAS_CSV_URL);
+  const response = await fetch(ATLAS_CSV_URL, { cache: 'no-cache' });
 
   if (!response.ok) {
     throw new Error(`Unable to load atlas data: ${response.status}`);
   }
 
   return parseAtlasCsv(await response.text());
+}
+
+/**
+ * Builds a useful, fully local archive for failure states where the mutable
+ * atlas CSV cannot be fetched. The embedded project records and generated
+ * galleries ship in the application bundle, so this path remains available
+ * offline and during CDN/data incidents.
+ */
+export function getEmbeddedArchiveNodes(): AtlasNode[] {
+  return GENERATED_PROJECT_RECORDS.map((generated, index) => {
+    const content = getProjectContent(generated.slug);
+    const gallery = getProjectGallery(generated.slug, generated.title) || [];
+    const firstImage = gallery.find((asset) => asset.type === 'image' && asset.src)?.src;
+    const domains = generated.domains?.length ? [...generated.domains] : ['systems'];
+    const tier = normalizeTier(generated.tier);
+    const image = firstImage || getSyntheticNodeImage(generated.slug);
+    const relatedSlugs = uniqueList([
+      ...(content?.relatedSlugs || []),
+      ...(generated.connections || []),
+    ]);
+
+    return {
+      id: index + 1,
+      order: index + 1,
+      slug: generated.slug,
+      title: generated.title,
+      year: generated.year,
+      tier,
+      domains,
+      stack: generated.stack?.length ? [...generated.stack] : [],
+      connections: generated.connections?.length ? [...generated.connections] : [],
+      image,
+      thumbnail: image,
+      hasProjectPage: generated.hasProjectPage,
+      hasRail: gallery.length > 0,
+      world: getProjectWorld(generated.slug),
+      summary: content?.thesis || content?.shortDescription || 'Archive project record.',
+      shortDescription: content?.shortDescription || content?.thesis || 'Archive project record.',
+      fullDescription: content?.fullDescription || buildFullDescription(tier, domains, generated.connections || []),
+      thesis: content?.thesis,
+      highlights: content?.highlights || [],
+      relatedSlugs,
+      category: domains[0],
+      tags: uniqueList([tier, ...domains, ...(generated.stack || [])]),
+      accentColor: DOMAIN_ACCENTS[domains[0]] || TIER_ACCENTS[tier],
+      evidenceStatus: generated.evidenceStatus || '',
+      gallery,
+    };
+  });
 }
 
 export function parseAtlasCsv(csv: string): AtlasNode[] {

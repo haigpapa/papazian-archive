@@ -42,6 +42,7 @@ export default class Scene {
   private lastFrameTime = performance.now() / 1000;
   private lastRenderedAt = 0;
   private readonly minimumFrameInterval: number;
+  private contextLost = false;
 
   constructor(container: HTMLElement, nodes: any[], options: SceneOptions) {
     this.container = container;
@@ -98,7 +99,7 @@ export default class Scene {
     this.nodeManager = new NodeManager(this.scene, this.camera, this.nodes, this.options);
 
     // 5. Scroll Engine
-    this.scrollEngine = new ScrollEngine((scrollX, scrollY, zoom) => {
+    this.scrollEngine = new ScrollEngine(this.container, (scrollX, scrollY, zoom) => {
       this.nodeManager.update(scrollX, scrollY, zoom);
       
       const period = this.nodeManager.getLoopPeriod();
@@ -111,7 +112,7 @@ export default class Scene {
     window.addEventListener('resize', this.onResize);
     this.onResize(); // Initial call
 
-    window.addEventListener('wheel', this.onWheelPreventDefault, { passive: false });
+    this.container.addEventListener('wheel', this.onWheelPreventDefault, { passive: false });
 
     // 7. Start Animation Loop
     this.frameId = requestAnimationFrame(this.animate);
@@ -125,26 +126,43 @@ export default class Scene {
 
   private onContextLost = (event: Event) => {
     event.preventDefault();
-    console.warn('WebGL context lost — waiting for restore');
+    this.contextLost = true;
+    console.warn('WebGL context lost — pausing render loop');
     this.options.onContextLost?.();
   };
 
   private onContextRestored = () => {
-    console.info('WebGL context restored');
+    this.contextLost = false;
+    this.lastFrameTime = performance.now() / 1000;
+    console.info('WebGL context restored — resuming render loop');
     this.options.onContextRestored?.();
   };
 
   private onResize = () => {
+    const activeRailIndex = this.nodeManager.getActiveMode() === 'horizontal'
+      ? this.nodeManager.getActiveRailIndex()
+      : null;
     const width = this.container.clientWidth;
     const height = this.container.clientHeight;
 
     this.renderer.setSize(width, height);
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
+
+    // Horizontal cards use viewport-aware sizing. Re-anchor the same narrative
+    // frame after an orientation/viewport change so responsive geometry cannot
+    // advance the story underneath the reader.
+    if (activeRailIndex !== null) {
+      const anchorScroll = this.nodeManager.getScrollForRailSlide(activeRailIndex);
+      this.scrollEngine.scrollY = anchorScroll;
+      this.scrollEngine.targetScrollY = anchorScroll;
+      this.scrollEngine.scrollX = 0;
+      this.scrollEngine.targetScrollX = 0;
+    }
   };
 
   private animate = (timestamp: number) => {
-    if (document.hidden || (this.minimumFrameInterval > 0 && timestamp - this.lastRenderedAt < this.minimumFrameInterval)) {
+    if (this.contextLost || document.hidden || (this.minimumFrameInterval > 0 && timestamp - this.lastRenderedAt < this.minimumFrameInterval)) {
       this.frameId = requestAnimationFrame(this.animate);
       return;
     }
@@ -226,7 +244,13 @@ export default class Scene {
       const nodeIndex = this.nodes.findIndex((entry) => entry.id === node.id || entry.slug === node.slug || entry.slug === node.projectId);
 
       if (nodeIndex >= 0) {
-        this.scrollEngine.targetScrollY = this.nodeManager.getScrollForNode(nodeIndex, 'horizontal');
+        const entryScroll = this.nodeManager.getScrollForNode(nodeIndex, 'horizontal');
+        // Enter a project on its establishing frame. Letting the previous
+        // project's momentum ease across a differently-sized rail allows the
+        // idle snap to capture an arbitrary mid-sequence slide.
+        this.scrollEngine.scrollY = entryScroll;
+        this.scrollEngine.targetScrollY = entryScroll;
+        this.scrollEngine.scrollX = 0;
         this.scrollEngine.targetScrollX = 0;
       }
     }
@@ -272,7 +296,7 @@ export default class Scene {
 
   public dispose() {
     window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('wheel', this.onWheelPreventDefault);
+    this.container.removeEventListener('wheel', this.onWheelPreventDefault);
     this.renderer.domElement.removeEventListener('webglcontextlost', this.onContextLost);
     this.renderer.domElement.removeEventListener('webglcontextrestored', this.onContextRestored);
     if (this.frameId) cancelAnimationFrame(this.frameId);

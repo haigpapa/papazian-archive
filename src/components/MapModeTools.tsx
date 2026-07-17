@@ -76,7 +76,7 @@ export default function MapModeTools({
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -12 }}
         transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE }}
-        className="fixed left-5 top-24 z-[100] hidden w-[290px] flex-col gap-1.5 pointer-events-auto md:flex"
+        className="desktop-map-tools fixed left-5 top-24 z-[100] hidden w-[290px] flex-col gap-1.5 pointer-events-auto md:flex"
         aria-label="Curated traversal routes"
       >
         <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.28em] text-accent">Traversal Routes</p>
@@ -98,7 +98,7 @@ export default function MapModeTools({
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -12 }}
         transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE, delay: 0.08 }}
-        className="fixed left-5 bottom-[108px] z-[100] hidden w-[200px] pointer-events-auto md:block"
+        className="desktop-map-tools fixed left-5 bottom-[108px] z-[100] hidden w-[200px] pointer-events-auto md:block"
         aria-label="Map legend"
       >
         <p className="mb-2 font-mono text-[8px] uppercase tracking-[0.28em] text-text-muted">World Legend</p>

@@ -19,35 +19,6 @@
     "/images/projects/fictive-environments/fictive-environments-07.webp",
     "/images/projects/fictive-environments/fictive-environments-08.webp"
   ],
-  "tebr": [
-    "/images/projects/tebr/cover.webp",
-    "/images/projects/tebr/tebr-02.webp",
-    "/images/projects/tebr/tebr-03.webp",
-    "/images/projects/tebr/tebr-04.webp",
-    "/images/projects/tebr/tebr-05.webp",
-    "/images/projects/tebr/tebr-06.webp",
-    "/images/projects/tebr/tebr-07.webp",
-    "/images/projects/tebr/tebr-08.webp",
-    "/images/projects/tebr/tebr-09.webp",
-    "/images/projects/tebr/tebr-10.webp",
-    "/images/projects/tebr/tebr-11.webp",
-    "/images/projects/tebr/tebr-13.webp"
-  ],
-  "sometimes-i-wake-up-elsewhere": [
-    "/images/projects/sometimes-i-wake-up-elsewhere/cover.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-02.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-03.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-04.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-05.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-06.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-07.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-08.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-09.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-10.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-11.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-12.webp",
-    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-14.webp"
-  ],
   "meaning-stack": [
     "/images/projects/meaning-stack/meaning-stack-github-constellation.webp",
     "/images/projects/meaning-stack/meaning-stack-diagram-01.webp",
@@ -56,20 +27,34 @@
     "/images/projects/meaning-stack/meaning-stack-processing-cultural-friction.webp",
     "/images/projects/meaning-stack/meaning_stack.webp"
   ],
-  "mekena-nyc": [
-    "/images/projects/mekena-nyc/cover.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-02.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-03.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-04.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-05.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-06.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-07.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-08.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-09.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-10.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-11.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-12.webp",
-    "/images/projects/mekena-nyc/mekena-nyc-14.webp"
+  "99-nodes": [
+    "/images/projects/99-nodes/cover.webp",
+    "/images/projects/99-nodes/99-nodes-02.webp",
+    "/images/projects/99-nodes/99-nodes-03.webp",
+    "/images/projects/99-nodes/99-nodes-04.webp",
+    "/images/projects/99-nodes/99-nodes-05.webp",
+    "/images/projects/99-nodes/99-nodes-06.webp",
+    "/images/projects/99-nodes/99-nodes-07.webp",
+    "/images/projects/99-nodes/99-nodes-08.webp",
+    "/images/projects/99-nodes/99-nodes-09.webp",
+    "/images/projects/99-nodes/99-nodes-10.webp"
+  ],
+  "architecture-in-low-res": [
+    "/images/projects/architecture-in-low-res/cover.webp",
+    "/images/projects/architecture-in-low-res/architecture-in-low-res-02.webp",
+    "/images/projects/architecture-in-low-res/architecture-in-low-res-03.webp",
+    "/images/projects/architecture-in-low-res/architecture-in-low-res-04.webp",
+    "/images/projects/architecture-in-low-res/architecture-in-low-res-05.webp",
+    "/images/projects/architecture-in-low-res/architecture-in-low-res-06.webp"
+  ],
+  "cartography-of-absence": [
+    "/images/projects/cartography-of-absence/02_cartography_of_absence.webp",
+    "/images/projects/cartography-of-absence/cartography-absence-document-schematic.webp",
+    "/images/projects/cartography-of-absence/cartography-of-absence-manuscript-swirl.webp",
+    "/images/projects/cartography-of-absence/cartography-of-absence-title-card.webp",
+    "/images/projects/cartography-of-absence/cartography-of-absence-bureaucratic-form.webp",
+    "/images/projects/cartography-of-absence/cartography-of-absence-data-void-absence-index.webp",
+    "/images/projects/cartography-of-absence/cartography-of-absence-data-void-trace.webp"
   ],
   "mashrou-leila": [
     "/images/projects/mashrou-leila/cover.webp",
@@ -84,32 +69,13 @@
     "/images/projects/mashrou-leila/mashrou-leila-12.webp",
     "/images/projects/mashrou-leila/mashrou-leila-14.webp"
   ],
-  "cartography-of-absence": [
-    "/images/projects/cartography-of-absence/02_cartography_of_absence.webp",
-    "/images/projects/cartography-of-absence/cartography-absence-document-schematic.webp",
-    "/images/projects/cartography-of-absence/cartography-of-absence-manuscript-swirl.webp",
-    "/images/projects/cartography-of-absence/cartography-of-absence-title-card.webp",
-    "/images/projects/cartography-of-absence/cartography-of-absence-bureaucratic-form.webp",
-    "/images/projects/cartography-of-absence/cartography-of-absence-data-void-absence-index.webp",
-    "/images/projects/cartography-of-absence/cartography-of-absence-data-void-trace.webp"
-  ],
-  "hah-was": [
-    "/images/projects/hah-was/cover.webp",
-    "/images/projects/hah-was/hah-was-02.webp",
-    "/images/projects/hah-was/hah-was-03.webp",
-    "/images/projects/hah-was/hah-was-04.webp",
-    "/images/projects/hah-was/hah-was-05.webp",
-    "/images/projects/hah-was/hah-was-06.webp",
-    "/images/projects/hah-was/hah-was-07.webp",
-    "/images/projects/hah-was/hah-was-08.webp"
-  ],
-  "architecture-in-low-res": [
-    "/images/projects/architecture-in-low-res/cover.webp",
-    "/images/projects/architecture-in-low-res/architecture-in-low-res-02.webp",
-    "/images/projects/architecture-in-low-res/architecture-in-low-res-03.webp",
-    "/images/projects/architecture-in-low-res/architecture-in-low-res-04.webp",
-    "/images/projects/architecture-in-low-res/architecture-in-low-res-05.webp",
-    "/images/projects/architecture-in-low-res/architecture-in-low-res-06.webp"
+  "why-were-like-this": [
+    "/images/projects/why-were-like-this/cover.webp",
+    "/images/projects/why-were-like-this/why-were-like-this-02.webp",
+    "/images/projects/why-were-like-this/why-were-like-this-03.webp",
+    "/images/projects/why-were-like-this/why-were-like-this-04.webp",
+    "/images/projects/why-were-like-this/why-were-like-this-05.webp",
+    "/images/projects/why-were-like-this/why-were-like-this-06.webp"
   ],
   "space-time-tuning-machine": [
     "/images/projects/space-time-tuning-machine/cover.webp",
@@ -126,13 +92,82 @@
     "/images/projects/space-time-tuning-machine/space-time-tuning-machine-12.webp",
     "/images/projects/space-time-tuning-machine/space-time-tuning-machine-13.webp"
   ],
-  "why-were-like-this": [
-    "/images/projects/why-were-like-this/cover.webp",
-    "/images/projects/why-were-like-this/why-were-like-this-02.webp",
-    "/images/projects/why-were-like-this/why-were-like-this-03.webp",
-    "/images/projects/why-were-like-this/why-were-like-this-04.webp",
-    "/images/projects/why-were-like-this/why-were-like-this-05.webp",
-    "/images/projects/why-were-like-this/why-were-like-this-06.webp"
+  "tebr": [
+    "/images/projects/tebr/cover.webp",
+    "/images/projects/tebr/tebr-02.webp",
+    "/images/projects/tebr/tebr-03.webp",
+    "/images/projects/tebr/tebr-04.webp",
+    "/images/projects/tebr/tebr-05.webp",
+    "/images/projects/tebr/tebr-06.webp",
+    "/images/projects/tebr/tebr-07.webp",
+    "/images/projects/tebr/tebr-08.webp",
+    "/images/projects/tebr/tebr-09.webp",
+    "/images/projects/tebr/tebr-10.webp",
+    "/images/projects/tebr/tebr-11.webp",
+    "/images/projects/tebr/tebr-13.webp"
+  ],
+  "chronocumulator": [
+    "/images/projects/chronocumulator/cover.webp",
+    "/images/projects/chronocumulator/chronocumulator-02.webp",
+    "/images/projects/chronocumulator/chronocumulator-03.webp",
+    "/images/projects/chronocumulator/chronocumulator-04.webp",
+    "/images/projects/chronocumulator/chronocumulator-05.webp",
+    "/images/projects/chronocumulator/chronocumulator-06.webp",
+    "/images/projects/chronocumulator/chronocumulator-07.webp",
+    "/images/projects/chronocumulator/chronocumulator-08.webp"
+  ],
+  "the-weather-rehearsal": [
+    "/images/projects/the-weather-rehearsal/cover.webp",
+    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-02.webp",
+    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-03.webp",
+    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-04.webp",
+    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-05.webp",
+    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-06.webp"
+  ],
+  "sometimes-i-wake-up-elsewhere": [
+    "/images/projects/sometimes-i-wake-up-elsewhere/cover.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-02.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-03.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-04.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-05.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-06.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-07.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-08.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-09.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-10.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-11.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-12.webp",
+    "/images/projects/sometimes-i-wake-up-elsewhere/sometimes-i-wake-up-elsewhere-14.webp"
+  ],
+  "derive": [
+    "/images/projects/derive/cover.webp",
+    "/images/projects/derive/derive-02.webp",
+    "/images/projects/derive/derive-03.webp",
+    "/images/projects/derive/derive-04.webp",
+    "/images/projects/derive/derive-05.webp",
+    "/images/projects/derive/derive-06.webp",
+    "/images/projects/derive/derive-07.webp",
+    "/images/projects/derive/derive-08.webp",
+    "/images/projects/derive/derive-09.webp",
+    "/images/projects/derive/derive-10.webp"
+  ],
+  "storylines": [
+    "/images/projects/storylines/cover.webp",
+    "/images/projects/storylines/storylines-02.webp",
+    "/images/projects/storylines/storylines-03.webp",
+    "/images/projects/storylines/storylines-04.webp",
+    "/images/projects/storylines/storylines-05.webp",
+    "/images/projects/storylines/storylines-06.webp"
+  ],
+  "hah-was": [
+    "/images/projects/hah-was/cover.webp",
+    "/images/projects/hah-was/hah-was-02.webp",
+    "/images/projects/hah-was/hah-was-03.webp",
+    "/images/projects/hah-was/hah-was-04.webp",
+    "/images/projects/hah-was/hah-was-05.webp",
+    "/images/projects/hah-was/hah-was-06.webp",
+    "/images/projects/hah-was/hah-was-07.webp",
+    "/images/projects/hah-was/hah-was-08.webp"
   ],
   "localization-gap": [
     "/images/projects/localization-gap/cover.webp",
@@ -149,44 +184,6 @@
     "/images/projects/localization-gap/localization-gap-12.webp",
     "/images/projects/localization-gap/localization-gap-13.webp"
   ],
-  "the-weather-rehearsal": [
-    "/images/projects/the-weather-rehearsal/cover.webp",
-    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-02.webp",
-    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-03.webp",
-    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-04.webp",
-    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-05.webp",
-    "/images/projects/the-weather-rehearsal/the-weather-rehearsal-06.webp"
-  ],
-  "chronocumulator": [
-    "/images/projects/chronocumulator/cover.webp",
-    "/images/projects/chronocumulator/chronocumulator-02.webp",
-    "/images/projects/chronocumulator/chronocumulator-03.webp",
-    "/images/projects/chronocumulator/chronocumulator-04.webp",
-    "/images/projects/chronocumulator/chronocumulator-05.webp",
-    "/images/projects/chronocumulator/chronocumulator-06.webp",
-    "/images/projects/chronocumulator/chronocumulator-07.webp",
-    "/images/projects/chronocumulator/chronocumulator-08.webp"
-  ],
-  "storylines": [
-    "/images/projects/storylines/cover.webp",
-    "/images/projects/storylines/storylines-02.webp",
-    "/images/projects/storylines/storylines-03.webp",
-    "/images/projects/storylines/storylines-04.webp",
-    "/images/projects/storylines/storylines-05.webp",
-    "/images/projects/storylines/storylines-06.webp"
-  ],
-  "derive": [
-    "/images/projects/derive/cover.webp",
-    "/images/projects/derive/derive-02.webp",
-    "/images/projects/derive/derive-03.webp",
-    "/images/projects/derive/derive-04.webp",
-    "/images/projects/derive/derive-05.webp",
-    "/images/projects/derive/derive-06.webp",
-    "/images/projects/derive/derive-07.webp",
-    "/images/projects/derive/derive-08.webp",
-    "/images/projects/derive/derive-09.webp",
-    "/images/projects/derive/derive-10.webp"
-  ],
   "maqamai": [
     "/images/projects/maqamai/cover.webp",
     "/images/projects/maqamai/maqamai-02.webp",
@@ -195,17 +192,20 @@
     "/images/projects/maqamai/maqamai-05.webp",
     "/images/projects/maqamai/maqamai-06.webp"
   ],
-  "99-nodes": [
-    "/images/projects/99-nodes/cover.webp",
-    "/images/projects/99-nodes/99-nodes-02.webp",
-    "/images/projects/99-nodes/99-nodes-03.webp",
-    "/images/projects/99-nodes/99-nodes-04.webp",
-    "/images/projects/99-nodes/99-nodes-05.webp",
-    "/images/projects/99-nodes/99-nodes-06.webp",
-    "/images/projects/99-nodes/99-nodes-07.webp",
-    "/images/projects/99-nodes/99-nodes-08.webp",
-    "/images/projects/99-nodes/99-nodes-09.webp",
-    "/images/projects/99-nodes/99-nodes-10.webp"
+  "mekena-nyc": [
+    "/images/projects/mekena-nyc/cover.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-02.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-03.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-04.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-05.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-06.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-07.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-08.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-09.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-10.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-11.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-12.webp",
+    "/images/projects/mekena-nyc/mekena-nyc-14.webp"
   ],
   "codeverse-explorer": [
     "/images/projects/codeverse-explorer/cover.webp",

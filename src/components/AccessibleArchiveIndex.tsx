@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { ArrowRight, Search, X } from 'lucide-react';
 import { getProjectWorld } from '../data/worlds';
+import { CANONICAL_PROJECT_SLUGS } from '../data/canonicalProjects';
+
 
 interface AccessibleArchiveIndexProps {
   open: boolean;
@@ -59,7 +61,15 @@ export default function AccessibleArchiveIndex({
   }, [contextNode?.slug]);
 
   const filteredNodes = React.useMemo(() => {
-    return filterArchiveNodes(nodes, query);
+    const list = filterArchiveNodes(nodes, query);
+    return [...list].sort((a, b) => {
+      const aIndex = CANONICAL_PROJECT_SLUGS.indexOf(a.slug);
+      const bIndex = CANONICAL_PROJECT_SLUGS.indexOf(b.slug);
+      if (aIndex === -1 && bIndex === -1) return 0;
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
   }, [nodes, query]);
 
   const selectedNode = resolveArchiveNode(filteredNodes, selectedSlug);
