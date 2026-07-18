@@ -1,21 +1,25 @@
-# MASHROU’ LEILA
- 
+# Mashrou' Leila
+
 ## Thesis
-A band became a counter-public: music, image, performance, and audience created a space larger than the institutions around it.
- 
+A band that became cultural infrastructure: sound, image, stage, audience, and risk moving as one system.
+
 ## Short Description
-Mashrou’ Leila was a Beirut-founded band and collaborative cultural project active from 2008 to 2022, with Haig Papazian as co-founder, violinist, and creative director.
- 
+As co-founder and creative director of Mashrou' Leila, Haig helped shape a Beirut-born project into an international counter-public.
+
 ## Full Description
-Across recordings, videos, stage environments, visual identity, and direct audience relationships, Mashrou’ Leila built a public language for desire, dissent, and belonging in the Arab world and beyond. Haig’s contribution joined performance with visual and spatial direction, helping the band operate as a coherent world across media and touring contexts. The rail follows that collective history while distinguishing authorship, collaborators, chronology, scale, and the operational pressures that accompanied visibility.
- 
+For fourteen years, Mashrou' Leila operated less like a conventional band and more like a public architecture. Songs, album worlds, stage design, press, audience safety, crisis response, and political pressure had to move as one system.
+
+The project made specificity travel: Lebanese, Arabic, queer, architectural, unstable, public. Its visual and operational language became a way for audiences to recognize themselves before institutions knew how to hold them.
+
 ## Highlights
-- Cinematic Rail Type: 20-card curated flagship dossier
-- Role: co-founder, violinist, creative director, and contributor to stage and visual systems
-- Evidence: releases, music videos, live performances, press, and production documentation
-- Period: 2008–2022
+- First Middle Eastern act on the Rolling Stone cover
+- 500M+ cross-platform streams
+- 50+ countries toured
+- 35,000-40,000 capacity venue moments
+- $60K+ direct-to-fan crowdfunding
+- 7+ censorship and crisis events managed
 
 ## Related Projects
-- why-were-like-this
 - space-time-tuning-machine
+- 1000-strings-at-rest
 - tebr

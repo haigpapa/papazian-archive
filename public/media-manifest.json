@@ -1,7 +1,7 @@
 {
   "version": 1,
   "projectCount": 20,
-  "assetCount": 176,
+  "assetCount": 180,
   "projects": [
     {
       "projectId": "99-nodes",
@@ -960,7 +960,7 @@
       "assets": [
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/cover.webp",
+          "src": "/images/projects/mashrou-leila/001-baalbeck-live.webp",
           "role": "primary",
           "status": "matched",
           "width": 640,
@@ -971,113 +971,157 @@
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-02.webp",
+          "src": "/images/projects/mashrou-leila/017-aub-balcony-origin.jpg",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
-          "aspectRatio": 1,
-          "bytes": 47746,
-          "digest": "d626b6f7c52bc4a3"
+          "width": 1575,
+          "height": 1050,
+          "aspectRatio": 1.5,
+          "bytes": 300068,
+          "digest": "fae1be72470670b6"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-03.webp",
+          "src": "/images/projects/mashrou-leila/002-self-titled-ep.webp",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
+          "width": 640,
+          "height": 640,
           "aspectRatio": 1,
-          "bytes": 75264,
-          "digest": "3f666c0c599c0a86"
+          "bytes": 16070,
+          "digest": "36867ea1a167a28e"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-04.webp",
+          "src": "/images/projects/mashrou-leila/018-aub-rehearsal-room.jpg",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
-          "aspectRatio": 1,
-          "bytes": 58156,
-          "digest": "90325722a660d99e"
+          "width": 1296,
+          "height": 864,
+          "aspectRatio": 1.5,
+          "bytes": 160314,
+          "digest": "ba30c1e4240f15bd"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-05.webp",
+          "src": "/images/projects/mashrou-leila/019-beirut-stage-plan.jpg",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
-          "aspectRatio": 1,
-          "bytes": 26524,
-          "digest": "05b5137c5cd9e7a1"
+          "width": 1969,
+          "height": 1476,
+          "aspectRatio": 1.334,
+          "bytes": 1188574,
+          "digest": "00a14c7c1dc2b533"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-06.webp",
+          "src": "/images/projects/mashrou-leila/003-el-hal-romancy.webp",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
+          "width": 640,
+          "height": 640,
           "aspectRatio": 1,
-          "bytes": 39794,
-          "digest": "407f48a5f06d1b44"
+          "bytes": 39154,
+          "digest": "02ad40e58d95ca1b"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-07.webp",
+          "src": "/images/projects/mashrou-leila/004-raasuk.webp",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
+          "width": 640,
+          "height": 640,
           "aspectRatio": 1,
-          "bytes": 59606,
-          "digest": "9cbbb29f4186e521"
+          "bytes": 16744,
+          "digest": "17c46779d5d9bab4"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-10.webp",
+          "src": "/images/projects/mashrou-leila/020-band-portrait-concrete.jpg",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
-          "aspectRatio": 1,
-          "bytes": 32868,
-          "digest": "d9240704411c737c"
+          "width": 1169,
+          "height": 827,
+          "aspectRatio": 1.4135,
+          "bytes": 91020,
+          "digest": "71140023374a88b6"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-11.webp",
+          "src": "/images/projects/mashrou-leila/005-ibn-el-leil.jpg",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
+          "width": 1000,
+          "height": 1000,
           "aspectRatio": 1,
-          "bytes": 37630,
-          "digest": "c3522da92ec8cd84"
+          "bytes": 114421,
+          "digest": "3a786e3d556450f9"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-12.webp",
+          "src": "/images/projects/mashrou-leila/021-production-room.jpg",
           "role": "gallery",
           "status": "matched",
-          "width": 1024,
-          "height": 1024,
-          "aspectRatio": 1,
-          "bytes": 60322,
-          "digest": "9438420203bd7f1d"
+          "width": 1737,
+          "height": 1156,
+          "aspectRatio": 1.5026,
+          "bytes": 190608,
+          "digest": "0f673795fadcc389"
         },
         {
           "projectId": "mashrou-leila",
-          "src": "/images/projects/mashrou-leila/mashrou-leila-14.webp",
+          "src": "/images/projects/mashrou-leila/007-olympia-stage.jpg",
           "role": "gallery",
           "status": "matched",
           "width": 1024,
-          "height": 1024,
-          "aspectRatio": 1,
-          "bytes": 44196,
-          "digest": "e7108cc9af31d031"
+          "height": 682,
+          "aspectRatio": 1.5015,
+          "bytes": 149176,
+          "digest": "613cc087dbf26b7b"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/012-rolling-stone-cover-vertical.webp",
+          "role": "gallery",
+          "status": "matched",
+          "width": 663,
+          "height": 885,
+          "aspectRatio": 0.7492,
+          "bytes": 131222,
+          "digest": "a127ee77acfeb243"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/022-stage-installation-model.jpg",
+          "role": "gallery",
+          "status": "matched",
+          "width": 2048,
+          "height": 1152,
+          "aspectRatio": 1.7778,
+          "bytes": 382727,
+          "digest": "7d49795858ad4dcf"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/015-stage-live.jpg",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 768,
+          "aspectRatio": 1.3333,
+          "bytes": 169334,
+          "digest": "66018ddb63310d0e"
+        },
+        {
+          "projectId": "mashrou-leila",
+          "src": "/images/projects/mashrou-leila/016-stage-coda.jpg",
+          "role": "gallery",
+          "status": "matched",
+          "width": 1024,
+          "height": 576,
+          "aspectRatio": 1.7778,
+          "bytes": 170413,
+          "digest": "faf497d5ae613593"
         }
       ]
     },

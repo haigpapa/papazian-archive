@@ -656,93 +656,125 @@ export const MEDIA_DIMENSIONS: Record<string, { width: number; height: number }>
     "width": 600,
     "height": 600
   },
-  "/images/projects/mashrou-leila/cover.webp": {
+  "/images/projects/mashrou-leila/001-baalbeck-live.webp": {
     "width": 640,
     "height": 426
   },
-  "/images/projects/mashrou-leila/cover-small.webp": {
+  "/images/projects/mashrou-leila/001-baalbeck-live-small.webp": {
     "width": 600,
     "height": 399
   },
-  "/images/projects/mashrou-leila/mashrou-leila-02.webp": {
-    "width": 1024,
-    "height": 1024
+  "/images/projects/mashrou-leila/017-aub-balcony-origin.jpg": {
+    "width": 1575,
+    "height": 1050
   },
-  "/images/projects/mashrou-leila/mashrou-leila-02-small.webp": {
+  "/images/projects/mashrou-leila/017-aub-balcony-origin-small.webp": {
+    "width": 600,
+    "height": 400
+  },
+  "/images/projects/mashrou-leila/002-self-titled-ep.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/projects/mashrou-leila/002-self-titled-ep-small.webp": {
     "width": 600,
     "height": 600
   },
-  "/images/projects/mashrou-leila/mashrou-leila-03.webp": {
-    "width": 1024,
-    "height": 1024
+  "/images/projects/mashrou-leila/018-aub-rehearsal-room.jpg": {
+    "width": 1296,
+    "height": 864
   },
-  "/images/projects/mashrou-leila/mashrou-leila-03-small.webp": {
+  "/images/projects/mashrou-leila/018-aub-rehearsal-room-small.webp": {
+    "width": 600,
+    "height": 400
+  },
+  "/images/projects/mashrou-leila/019-beirut-stage-plan.jpg": {
+    "width": 1969,
+    "height": 1476
+  },
+  "/images/projects/mashrou-leila/019-beirut-stage-plan-small.webp": {
+    "width": 600,
+    "height": 450
+  },
+  "/images/projects/mashrou-leila/003-el-hal-romancy.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/projects/mashrou-leila/003-el-hal-romancy-small.webp": {
     "width": 600,
     "height": 600
   },
-  "/images/projects/mashrou-leila/mashrou-leila-04.webp": {
-    "width": 1024,
-    "height": 1024
+  "/images/projects/mashrou-leila/004-raasuk.webp": {
+    "width": 640,
+    "height": 640
   },
-  "/images/projects/mashrou-leila/mashrou-leila-04-small.webp": {
+  "/images/projects/mashrou-leila/004-raasuk-small.webp": {
     "width": 600,
     "height": 600
   },
-  "/images/projects/mashrou-leila/mashrou-leila-05.webp": {
-    "width": 1024,
-    "height": 1024
+  "/images/projects/mashrou-leila/020-band-portrait-concrete.jpg": {
+    "width": 1169,
+    "height": 827
   },
-  "/images/projects/mashrou-leila/mashrou-leila-05-small.webp": {
+  "/images/projects/mashrou-leila/020-band-portrait-concrete-small.webp": {
+    "width": 600,
+    "height": 424
+  },
+  "/images/projects/mashrou-leila/005-ibn-el-leil.jpg": {
+    "width": 1000,
+    "height": 1000
+  },
+  "/images/projects/mashrou-leila/005-ibn-el-leil-small.webp": {
     "width": 600,
     "height": 600
   },
-  "/images/projects/mashrou-leila/mashrou-leila-06.webp": {
-    "width": 1024,
-    "height": 1024
+  "/images/projects/mashrou-leila/021-production-room.jpg": {
+    "width": 1737,
+    "height": 1156
   },
-  "/images/projects/mashrou-leila/mashrou-leila-06-small.webp": {
+  "/images/projects/mashrou-leila/021-production-room-small.webp": {
     "width": 600,
+    "height": 399
+  },
+  "/images/projects/mashrou-leila/007-olympia-stage.jpg": {
+    "width": 1024,
+    "height": 682
+  },
+  "/images/projects/mashrou-leila/007-olympia-stage-small.webp": {
+    "width": 600,
+    "height": 400
+  },
+  "/images/projects/mashrou-leila/012-rolling-stone-cover-vertical.webp": {
+    "width": 663,
+    "height": 885
+  },
+  "/images/projects/mashrou-leila/012-rolling-stone-cover-vertical-small.webp": {
+    "width": 449,
     "height": 600
   },
-  "/images/projects/mashrou-leila/mashrou-leila-07.webp": {
-    "width": 1024,
-    "height": 1024
+  "/images/projects/mashrou-leila/022-stage-installation-model.jpg": {
+    "width": 2048,
+    "height": 1152
   },
-  "/images/projects/mashrou-leila/mashrou-leila-07-small.webp": {
+  "/images/projects/mashrou-leila/022-stage-installation-model-small.webp": {
     "width": 600,
-    "height": 600
+    "height": 338
   },
-  "/images/projects/mashrou-leila/mashrou-leila-10.webp": {
+  "/images/projects/mashrou-leila/015-stage-live.jpg": {
     "width": 1024,
-    "height": 1024
+    "height": 768
   },
-  "/images/projects/mashrou-leila/mashrou-leila-10-small.webp": {
+  "/images/projects/mashrou-leila/015-stage-live-small.webp": {
     "width": 600,
-    "height": 600
+    "height": 450
   },
-  "/images/projects/mashrou-leila/mashrou-leila-11.webp": {
+  "/images/projects/mashrou-leila/016-stage-coda.jpg": {
     "width": 1024,
-    "height": 1024
+    "height": 576
   },
-  "/images/projects/mashrou-leila/mashrou-leila-11-small.webp": {
+  "/images/projects/mashrou-leila/016-stage-coda-small.webp": {
     "width": 600,
-    "height": 600
-  },
-  "/images/projects/mashrou-leila/mashrou-leila-12.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/mashrou-leila/mashrou-leila-12-small.webp": {
-    "width": 600,
-    "height": 600
-  },
-  "/images/projects/mashrou-leila/mashrou-leila-14.webp": {
-    "width": 1024,
-    "height": 1024
-  },
-  "/images/projects/mashrou-leila/mashrou-leila-14-small.webp": {
-    "width": 600,
-    "height": 600
+    "height": 338
   },
   "/images/projects/meaning-stack/meaning-stack-github-constellation.webp": {
     "width": 640,

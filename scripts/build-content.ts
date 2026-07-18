@@ -192,7 +192,7 @@ function main() {
                 caption: row.caption,
                 body: row.body.includes('|') ? splitPipe(row.body) : row.body || undefined,
                 role: row.role || (index === 0 ? 'hero' : 'evidence'),
-                layout: index === 0 ? 'hero' : 'wide',
+                layout: row.layout || (index === 0 ? 'hero' : 'wide'),
                 chapter: row.chapter,
                 beat: row.caption,
                 emphasis: row.emphasis || (index === 0 ? 'primary' : 'secondary'),

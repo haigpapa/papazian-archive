@@ -47,6 +47,36 @@ test('every canonical rail image has a known aspect ratio before hydration', () 
     });
 });
 
+test('Mashrou Leila uses the curated real-image sequence', () => {
+  const mashrouLeila = getEmbeddedArchiveNodes().find((node) => node.slug === 'mashrou-leila');
+  assert.ok(mashrouLeila);
+  assert.equal(mashrouLeila.gallery.length, 22);
+
+  const imageSources = mashrouLeila.gallery
+    .filter((slide) => slide.src)
+    .map((slide) => slide.src);
+
+  assert.deepEqual(imageSources, [
+    '/images/projects/mashrou-leila/001-baalbeck-live.webp',
+    '/images/projects/mashrou-leila/017-aub-balcony-origin.jpg',
+    '/images/projects/mashrou-leila/002-self-titled-ep.webp',
+    '/images/projects/mashrou-leila/018-aub-rehearsal-room.jpg',
+    '/images/projects/mashrou-leila/019-beirut-stage-plan.jpg',
+    '/images/projects/mashrou-leila/003-el-hal-romancy.webp',
+    '/images/projects/mashrou-leila/004-raasuk.webp',
+    '/images/projects/mashrou-leila/020-band-portrait-concrete.jpg',
+    '/images/projects/mashrou-leila/005-ibn-el-leil.jpg',
+    '/images/projects/mashrou-leila/021-production-room.jpg',
+    '/images/projects/mashrou-leila/009-roman-video-poster.jpg',
+    '/images/projects/mashrou-leila/006-npr-tiny-desk-horizontal.webp',
+    '/images/projects/mashrou-leila/007-olympia-stage.jpg',
+    '/images/projects/mashrou-leila/012-rolling-stone-cover-vertical.webp',
+    '/images/projects/mashrou-leila/022-stage-installation-model.jpg',
+    '/images/projects/mashrou-leila/015-stage-live.jpg',
+    '/images/projects/mashrou-leila/016-stage-coda.jpg',
+  ]);
+});
+
 test('atlas requests require cache revalidation', async () => {
   const originalFetch = globalThis.fetch;
   let requestCache: RequestCache | undefined;
